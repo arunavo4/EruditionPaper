@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view_info"
+    android:layout_width="@dimen/card_info_h_w"
+    android:layout_height="@dimen/card_info_h_w"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="140dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_bg_layer_2"/>
+
+        <TextView
+            android:id="@+id/dialogue_group_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/expandedTitleTextAppearance"
+            android:layout_marginStart="@dimen/spacer_16dp"
+            android:layout_marginBottom="@dimen/spacer_16dp"
+            android:layout_gravity="start|bottom"
+            android:text="Group A"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacer_8dp"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/dialogue_group_desc_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacer_8dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:text="Multiple Choice Type Question:"/>
+
+        <TextView
+            android:id="@+id/dialogue_group_desc_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacer_8dp"
+            android:layout_marginEnd="@dimen/spacer_8dp"
+            android:textSize="16sp"
+            android:text="Choose The Correct Alternatives for the Following."/>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_cont"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/ContinueFlatButton"
+        android:layout_margin="@dimen/spacer_8dp"
+        android:layout_gravity="bottom|end"
+        android:text="@string/continue_btn"/>
+
+</LinearLayout>
+
+

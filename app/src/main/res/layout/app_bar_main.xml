@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_bar_main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    android:clipToPadding="false"
+    tools:context="in.co.erudition.paper.activitiy.MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/my_appbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_layout_height"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:collapsedTitleTextAppearance="@style/collapsedTitleTextAppearance"
+            app:expandedTitleGravity="start|bottom"
+            app:expandedTitleMarginStart="@dimen/expanded_margin_start"
+            app:expandedTitleMarginBottom="@dimen/expanded_margin_bottom"
+            app:expandedTitleTextAppearance="@style/expandedTitleTextAppearance.Transparent"
+            app:contentScrim="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <!--To Scroll off scroll|exitUntilCollapsed-->
+            <!--To fix it enterAlways-->
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imgToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"
+                app:srcCompat="@drawable/ic_bg_layer_2"
+                android:visibility="visible"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="@dimen/linear_layout_start_margin"
+                android:layout_marginTop="@dimen/linear_layout_bottom_margin"
+                android:orientation="horizontal"
+                app:layout_collapseMode="parallax"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/app_name_tv_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/profile_text_margin"
+
+                    android:text="@string/app_name_first"/>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/main_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginTop="@dimen/status_bar_height"
+                android:theme="@style/ToolBarStyle"
+                android:title="@string/app_name"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_main" />
+
+    <include layout="@layout/floating_action_menu_main"/>
+
+    <include layout="@layout/search_view"/>
+
+    <!--SearchView Floating-->
+    <android.support.v7.widget.CardView
+        android:id="@+id/floating_search_view"
+        android:layout_width="@dimen/floating_search_width"
+        android:layout_height="@dimen/floating_search_height"
+        android:padding="@dimen/card_padding"
+        android:background="@color/colorWhite"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="24dp"
+        app:cardUseCompatPadding="false"
+        app:cardElevation="6dp"
+        app:layout_anchor="@id/my_appbar_container"
+        app:layout_anchorGravity="bottom|center_horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableStart="@drawable/ic_search_black_24dp"
+            android:drawableEnd="@drawable/ic_keyboard_voice_black_24dp"
+            android:drawablePadding="6dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textColor="@color/colorBlack38alpha"
+            android:text="@string/search_text"/>
+
+    </android.support.v7.widget.CardView>
+
+</android.support.design.widget.CoordinatorLayout>

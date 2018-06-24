@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    tools:context="in.co.erudition.paper.activitiy.RewardActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height_rewards"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:collapsedTitleTextAppearance="@style/collapsedTitleTextAppearance"
+            app:expandedTitleGravity="center_horizontal|bottom"
+            app:expandedTitleTextAppearance="@style/expandedTitleTextAppearance.Rewards"
+            app:contentScrim="@color/colorPrimary"
+            app:layout_scrollFlags="enterAlways">
+
+            <!--To Scroll off scroll|exitUntilCollapsed-->
+            <!--To fix it enterAlways-->
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imgToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"
+                app:srcCompat="@drawable/ic_bg_rewards" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="56dp"
+                android:orientation="horizontal"
+                app:layout_collapseMode="parallax">
+
+                <TextView
+                    android:id="@+id/app_name_tv_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/profile_text_margin"
+                    style="@style/Toolbar.TitleText"
+                    android:text="@string/rewards"/>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginTop="@dimen/toolbar_offset"
+                android:theme="@style/ToolBarStyle"
+                android:title="@string/app_name"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_reward" />
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="@dimen/spacer_10dp"
+        android:layout_marginBottom="@dimen/nav_bar_height_plus_10dp"
+        fab:srcCompat="@drawable/ic_share"
+        fab:fab_shadowXOffset="2dp"
+        fab:fab_shadowYOffset="6dp"
+        fab:fab_label="@string/recent_papers"
+        fab:fab_colorNormal="#E74C3C"
+        fab:fab_colorPressed="#E75043"
+        fab:fab_colorRipple="#99FFFFFF"
+        fab:fab_shadowColor="#66E74C3C"/>
+
+</android.support.design.widget.CoordinatorLayout>

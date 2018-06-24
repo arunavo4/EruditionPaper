@@ -1,0 +1,327 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--Splash Theme-->
+    <style name="AppTheme.SplashActivity" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowBackground">@drawable/background_splash</item>
+        <item name="android:navigationBarColor">@color/colorTransparent</item>
+        <item name="android:statusBarColor">@color/colorTransparent</item>
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+        <!--<item name="android:windowFullscreen">true</item>-->
+        <!--<item name="android:windowContentOverlay">@null</item>-->
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <!-- ToolBar -->
+    <style name="ToolBarStyle" parent="AppTheme">
+        <!--Text color of the Title-->
+        <item name="android:textColorPrimary">@color/colorWhite</item>
+        <!--The menu icon color-->
+        <item name="android:textColorSecondary">@color/colorWhite</item>
+        <item name="actionMenuTextColor">@color/colorWhite</item>
+        <!--color of the other icons in toolbar-->
+        <item name="android:tint">@color/colorWhite</item>
+    </style>
+
+    <!-- ToolBar Courses & Paper-->
+    <style name="ToolBarStyle.one" parent="AppTheme">
+        <!--Text color of the Title-->
+        <item name="android:textColorPrimary">@color/colorWhite</item>
+        <!--The menu icon color-->
+        <item name="android:textColorSecondary">@color/colorPrimary</item>
+        <item name="actionMenuTextColor">@color/colorWhite</item>
+        <!--color of the other icons in toolbar-->
+        <!--<item name="android:tint">@color/colorWhite</item>-->
+    </style>
+
+    <!--BUTTON-->
+    <style name="AddButton" parent="Theme.AppCompat">
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+    </style>
+
+    <style name="ContinueFlatButton" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimaryLight</item>
+    </style>
+
+    <style name="AddText">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="GroupText">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--Collapsing toolbar-->
+    <style name="collapsedTitleTextAppearance">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
+
+    <style name="expandedTitleTextAppearance" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
+
+    <style name="collapsedTitleTextAppearance.Black">
+        <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
+
+    <style name="expandedTitleTextAppearance.Transparent" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
+        <item name="android:textColor">@color/colorTransparent</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
+
+    <style name="expandedTitleTextAppearance.Rewards" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">50sp</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
+
+    <style name="expandedTitleTextAppearance.RewardsHistory" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
+
+    <!--TabLayout-->
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/colorWhite</item>
+        <item name="tabIndicatorHeight">@dimen/tab_indicator_height</item>
+        <!--<item name="tabGravity">center</item>-->
+        <!--<item name="tabPaddingStart">12dp</item>-->
+        <!--<item name="tabPaddingEnd">12dp</item>-->
+        <!--&lt;!&ndash;<item name="tabBackground">?attr/selectableItemBackground</item>&ndash;&gt;     turn this on for selection highlight-->
+        <item name="tabBackground">@color/colorBlack25alpha</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
+        <item name="tabSelectedTextColor">@color/colorWhite</item>
+    </style>
+
+    <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/tab_text_size</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/colorWhite70alpha</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+
+    <!--Text Styles-->
+    <style name="ProfileTextViewName">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="UniversityTextView">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/greyDark</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="ChooseTextView">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/greyDark</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="ChooseTextViewPaper">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="CodeTextView">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="CodeFullTextView">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="YearTextView">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/greyDark</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="SubjectCodeTextView">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/greyDark</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="AppNameTextViewBold" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppNameTextView" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="NoNotificationTextView">
+        <!--<item name="android:fontFamily">sans-serif-medium</item>-->
+        <item name="android:textColor">@color/greyLight</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TitleTextView">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
+
+    <style name="Toolbar.TitleTextHelp" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
+
+    <style name="Toolbar.TitleTextCourse" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
+
+    <style name="Toolbar.TitleTextPaper" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
+
+    <style name="TopTextView">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="BottomTextView">
+        <item name="android:textColor">@color/colorMaterialBlack</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="ReferalTextView">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="HintTextView">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="OfferTextViewBold">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--Question Header-->
+    <style name="UniversityTextViewBold">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SubjectTextViewBold">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TimeMarksTextView">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="QuestionTextViewNormal">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="CommentHeaderTextView">
+        <!--<item name="android:fontFamily">sans-serif-medium</item>-->
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+</resources>

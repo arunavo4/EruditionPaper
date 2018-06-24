@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/bg_carousel_shadow"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/latest_offers_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        style="@style/ChooseTextView"
+        android:layout_margin="@dimen/text_view_margin"
+        android:padding="@dimen/text_view_margin"
+        android:text="@string/latest_offers"/>
+
+    <in.co.erudition.paper.carousel.CarouselPicker
+        android:id="@+id/carousel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTransparent"
+        app:items_visible="three"/>
+
+    <com.rd.PageIndicatorView
+        android:id="@+id/pageIndicatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/spacer_4dp"
+        android:paddingEnd="@dimen/spacer_12dp"
+        android:paddingStart="@dimen/spacer_12dp"
+        android:background="@drawable/bg_indicator_shadow"
+        android:layout_gravity="center"
+        app:piv_indicatorShape="rectangle"
+        app:piv_rectHeight="@dimen/spacer_4dp"
+        app:piv_rectWidth="@dimen/spacer_32dp"
+        app:piv_selectedColor="@color/colorWhite"
+        app:piv_unselectedColor="@color/colorBlack54alpha"
+        app:piv_cornerRadius="@dimen/spacer_2dp"
+        app:piv_animationType="scale"
+        app:piv_padding="30dp"
+        app:piv_scaleFactor="0.8" />
+
+</LinearLayout>
+
+
+<!--<LinearLayout-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:orientation="horizontal"-->
+<!--android:layout_gravity="center">-->
+
+<!--<android.support.v7.widget.CardView-->
+    <!--android:layout_width="27dp"-->
+    <!--android:layout_height="4dp"-->
+    <!--app:cardCornerRadius="2dp"-->
+    <!--android:background="@drawable/bg_white"-->
+    <!--app:cardElevation="@dimen/spacer_0dp"/>-->
+
+<!--</LinearLayout>-->

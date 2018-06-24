@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:animateLayoutChanges="false"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_bg_color"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="in.co.erudition.paper.activitiy.MainActivity"
+    tools:showIn="@layout/app_bar_main">
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_scroll_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/university_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/spacer_top"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/status_bar_height"/>
+
+            <include layout="@layout/carousel" />
+
+            <TextView
+                android:id="@+id/choose_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|top"
+                style="@style/ChooseTextView"
+                android:layout_margin="@dimen/text_view_margin"
+                android:padding="@dimen/text_view_margin"
+                android:text="@string/choose_university"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_universities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:scrollbars="none"
+                android:padding="@dimen/item_offset" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/nav_bar_height_plus_16dp" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+    <ProgressBar
+        android:id="@+id/progressBar_universities"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/img_404_not_found"
+        android:layout_gravity="center"
+        android:paddingTop="@dimen/spacer_32dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            style="@style/TopTextView"
+            android:text="@string/no_internet_top"/>
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/img_no_net"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/toolbar_offset"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_no_internet" />
+
+        <TextView
+            android:layout_width="@dimen/bottom_tv_width_max"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            style="@style/BottomTextView"
+            android:text="@string/no_internet_bottom"/>
+
+        <Button
+            android:id="@+id/btn_retry"
+            style="@style/AddButton"
+            android:layout_width="@dimen/add_btn_width"
+            android:layout_height="@dimen/add_btn_height"
+            android:background="@drawable/btn_add"
+            android:layout_margin="@dimen/btn_margin"
+            android:layout_gravity="center_horizontal"
+            android:elevation="8dp"
+            android:text="@string/retry"
+            android:textAlignment="center"
+            android:textAppearance="@style/AddText"/>
+
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

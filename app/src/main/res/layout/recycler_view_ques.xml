@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/group_width"
+                android:layout_height="@dimen/group_height"
+                app:srcCompat="@drawable/ic_group_view"/>
+
+            <TextView
+                android:id="@+id/group_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/GroupText"
+                android:layout_gravity="center"
+                android:text="Group-A"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/btn_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacer_4dp"
+            android:layout_marginEnd="@dimen/spacer_12dp"
+            android:layout_weight="0"
+            app:srcCompat="@drawable/ic_info_white_24dp"
+            android:tint="@color/colorWhite"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_questions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:padding="@dimen/item_offset"
+        android:background="@color/colorTransparent"/>
+
+</LinearLayout>

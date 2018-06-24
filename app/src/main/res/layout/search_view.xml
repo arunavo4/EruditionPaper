@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<iammert.com.view.scalinglib.ScalingLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scalingLayout"
+    android:layout_width="@dimen/floating_search_width"
+    android:layout_height="@dimen/floating_search_height"
+    app:radiusFactor="1"
+    android:clickable="true"
+    android:elevation="6dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:background="@color/colorWhite"
+    android:layout_gravity="center_horizontal"
+    android:stateListAnimator="@animator/sl_state_animator"
+    app:layout_behavior="iammert.com.view.scalinglib.ScalingLayoutBehavior">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableStart="@drawable/ic_search_black_24dp"
+        android:drawableEnd="@drawable/ic_keyboard_voice_black_24dp"
+        android:drawablePadding="6dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textColor="@color/colorBlack38alpha"
+        android:text="@string/search_text"/>
+
+</iammert.com.view.scalinglib.ScalingLayout>
+
+
+
+<!--<android.support.v7.widget.CardView-->
+<!--android:id="@+id/floating_search_view"-->
+<!--android:layout_width="@dimen/floating_search_width"-->
+<!--android:layout_height="@dimen/floating_search_height"-->
+<!--android:padding="@dimen/card_padding"-->
+<!--android:background="@color/colorWhite"-->
+<!--android:clickable="true"-->
+<!--android:focusable="true"-->
+<!--app:cardCornerRadius="24dp"-->
+<!--app:cardUseCompatPadding="false"-->
+<!--app:cardElevation="6dp"-->
+<!--app:layout_anchor="@id/my_appbar_container"-->
+<!--app:layout_anchorGravity="bottom|center_horizontal"-->
+<!--android:visibility="visible">-->

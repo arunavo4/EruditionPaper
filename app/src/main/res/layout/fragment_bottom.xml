@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.allattentionhere.fabulousfilter.AAH_FilterView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:background="@color/default_bg_color"
+        android:visibility="invisible"
+        tools:ignore="MissingPrefix"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/header_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/spacer_12dp"
+            android:paddingBottom="@dimen/spacer_12dp"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/spacer_16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/CommentHeaderTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Comments" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/btn_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacer_4dp"
+                android:layout_marginEnd="@dimen/spacer_12dp"
+                android:layout_weight="0"
+                app:srcCompat="@drawable/ic_close_black_24dp"
+                android:tint="@color/colorBlack"
+                android:layout_gravity="center_vertical"/>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacer_1dp"
+            android:padding="@dimen/spacer_2dp"
+            android:layout_alignBottom="@+id/header_comment"
+            android:background="@color/colorBlack25alpha"/>
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_comments"
+            android:layout_centerInParent="true"/>
+
+        <LinearLayout
+            android:id="@+id/ll_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorWhite"
+            android:elevation="@dimen/spacer_8dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/spacer_16dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TimeMarksTextView"
+                    android:text="@string/type_a_comment"/>
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <FrameLayout
+                android:layout_width="@dimen/app_bar_height"
+                android:layout_height="match_parent"
+                android:background="@color/fab_blue"
+                android:elevation="@dimen/spacer_12dp"
+                android:layout_weight="1">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/btn_send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_send_black_24dp"
+                    android:tint="@color/colorWhite"
+                    android:layout_gravity="center"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</com.allattentionhere.fabulousfilter.AAH_FilterView>

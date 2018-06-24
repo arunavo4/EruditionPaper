@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.github.clans.fab.FloatingActionMenu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fab_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom|end"
+    android:layout_marginEnd="@dimen/spacer_0dp"
+    android:layout_marginBottom="@dimen/nav_bar_height"
+    android:elevation="@dimen/spacer_8dp"
+    fab:menu_backgroundColor="@color/colorBlack38alpha"
+    fab:menu_closeOnTouchOutside="true"
+    fab:menu_shadowColor="#66E74C3C"
+    fab:menu_shadowRadius="4dp"
+    fab:menu_shadowXOffset="1dp"
+    fab:menu_shadowYOffset="3dp"
+    fab:menu_colorNormal="#E74C3C"
+    fab:menu_colorPressed="#E75043"
+    fab:menu_colorRipple="#99FFFFFF"
+    fab:menu_icon="@drawable/ic_info"
+    fab:menu_buttonSpacing="0dp"
+    fab:menu_labels_margin="8dp"
+    fab:menu_labels_textColor="@color/greyDark_alpha80"
+    fab:menu_labels_colorNormal="@color/colorWhite"
+    fab:menu_labels_colorPressed="@color/colorWhite70alpha"
+    fab:menu_labels_colorRipple="@color/colorBlack25alpha"
+    fab:menu_labels_shadowColor="@color/colorBlack10alpha"
+    fab:menu_labels_showShadow="true"
+    fab:menu_labels_textSize="14sp">
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fab_recent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:srcCompat="@drawable/ic_access_time_black_20dp"
+        fab:fab_size="mini"
+        fab:fab_shadowYOffset="6dp"
+        fab:fab_label="@string/recent_papers"
+        fab:fab_colorNormal="@color/colorPrimary"
+        fab:fab_colorPressed="@color/colorPrimaryDark"
+        fab:fab_colorRipple="#99FFFFFF"
+        fab:fab_shadowColor="@color/colorPrimaryShadow"/>
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fab_bookmarks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:srcCompat="@drawable/ic_bookmark_20px"
+        fab:fab_size="mini"
+        fab:fab_shadowYOffset="6dp"
+        fab:fab_label="@string/bookmarks"
+        fab:fab_colorNormal="@color/colorPrimary"
+        fab:fab_colorPressed="@color/colorPrimaryDark"
+        fab:fab_colorRipple="#99FFFFFF"
+        fab:fab_shadowColor="@color/colorPrimaryShadow"/>
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fab_offline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:srcCompat="@drawable/ic_offline_20dp"
+        fab:fab_size="mini"
+        fab:fab_shadowYOffset="6dp"
+        fab:fab_label="@string/offline_paper"
+        fab:fab_colorNormal="@color/colorPrimary"
+        fab:fab_colorPressed="@color/colorPrimaryDark"
+        fab:fab_colorRipple="#99FFFFFF"
+        fab:fab_shadowColor="@color/colorPrimaryShadow"/>
+
+</com.github.clans.fab.FloatingActionMenu>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.AppCompatImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/loader_img"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:srcCompat="@drawable/ic_logo_small"
+    android:layout_gravity="center"/>

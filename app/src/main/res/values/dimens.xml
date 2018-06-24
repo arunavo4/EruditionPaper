@@ -1,0 +1,146 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="one_more_fab_elevation">8dp</dimen>
+
+    <dimen name="app_bar_height">56dp</dimen>
+    <dimen name="status_bar_height">24dp</dimen>
+    <dimen name="nav_bar_height">48dp</dimen>
+    <dimen name="nav_bar_height_plus_16dp">64dp</dimen>
+    <dimen name="nav_bar_height_plus_10dp">58dp</dimen>
+    <dimen name="app_bar_plus_status_bar">80dp</dimen>
+
+    <dimen name="icon_24dp">24dp</dimen>
+
+    <!--Spacers-->
+    <dimen name="spacer_32dp">32dp</dimen>
+    <dimen name="spacer_16dp">16dp</dimen>
+    <dimen name="spacer_12dp">12dp</dimen>
+    <dimen name="spacer_10dp">10dp</dimen>
+    <dimen name="spacer_8dp">8dp</dimen>
+    <dimen name="spacer_4dp">4dp</dimen>
+    <dimen name="spacer_2dp">2dp</dimen>
+    <dimen name="spacer_1dp">1dp</dimen>
+    <dimen name="spacer_0dp">0dp</dimen>
+
+    <dimen name="drawable_padding">10dp</dimen>
+
+    <dimen name="btn_margin">14dp</dimen>
+
+    <!--Questions Activity-->
+    <dimen name="group_width">109dp</dimen>
+    <dimen name="group_height">36dp</dimen>
+    <dimen name="info_btn_size">24dp</dimen>
+    <dimen name="card_ques_height">100dp</dimen>
+
+    <dimen name="card_info_h_w">300dp</dimen>
+
+    <!--Paper Activity-->
+    <dimen name="recycler_view_offset">8dp</dimen>
+
+    <!--referal -->
+    <dimen name="edit_text_width">150dp</dimen>
+    <dimen name="add_btn_width">100dp</dimen>
+    <dimen name="add_btn_height">40dp</dimen>
+
+    <!--floating search-->
+    <dimen name="floating_search_width">344dp</dimen>
+    <dimen name="floating_search_height">48dp</dimen>
+
+    <!--TabLayout-->
+    <dimen name="tab_indicator_height">2dp</dimen>
+    <dimen name="tab_text_size">14sp</dimen>
+
+    <!--Profile Activity-->
+    <dimen name="app_bar_height_profile">240dp</dimen>
+
+    <!--Search Activity-->
+    <dimen name="app_bar_height_search">160dp</dimen>
+    <dimen name="min_height_collapsing_tool_bar">110dp</dimen>
+
+    <!--Rewards Activity-->
+    <dimen name="app_bar_height_rewards">185dp</dimen>
+    <dimen name="app_bar_height_rewards_his">137dp</dimen>
+
+    <!--Offer Activity-->
+    <dimen name="app_bar_height_offer">235dp</dimen>
+    <dimen name="card_width_offer">340dp</dimen>
+    <dimen name="margin_card_offer">10dp</dimen>
+    <dimen name="linear_layout_margin">10dp</dimen>
+    <dimen name="offer_des_tv_margin">10dp</dimen>
+    <dimen name="offer_description_text_size">18sp</dimen>
+
+
+    <!--Order Activity-->
+    <dimen name="app_bar_height_order">184dp</dimen>
+    <dimen name="bottom_tv_width_max">240dp</dimen>
+
+    <!--Help And Feedback-->
+    <dimen name="app_bar_height_help">144dp</dimen>
+    <dimen name="app_bar_text_size">25sp</dimen>
+
+    <!--Courses Activity-->
+    <dimen name="app_bar_height_course">174dp</dimen>
+    <dimen name="uni_name_padding">5dp</dimen>
+
+    <!--University Activity-->
+    <dimen name="app_bar_layout_height">180dp</dimen>
+    <dimen name="top_margin_content">24dp</dimen>
+    <dimen name="profile_image_dimen">80dp</dimen>
+    <dimen name="profile_image_margin">5dp</dimen>
+    <dimen name="profile_text_margin">8dp</dimen>
+    <dimen name="linear_layout_bottom_margin">16dp</dimen>
+    <dimen name="linear_layout_start_margin">16dp</dimen>
+
+    <dimen name="expanded_margin_start">24dp</dimen>
+    <dimen name="expanded_margin_bottom">62dp</dimen>
+
+    <dimen name="toolbar_offset">20dp</dimen>
+
+    <dimen name="card_size_width">165dp</dimen>
+    <dimen name="card_size_height">119dp</dimen>
+    <dimen name="card_margin">5dp</dimen>
+    <dimen name="card_padding">2dp</dimen>
+    <dimen name="card_image_view">56dp</dimen>
+    <dimen name="card_image_margin">10dp</dimen>
+    <dimen name="item_offset">4dp</dimen>
+
+    <!--After University Selection-->
+    <dimen name="app_bar2_layout_height">150dp</dimen>
+    <dimen name="text_view_margin">5dp</dimen>
+
+    <dimen name="max_text_lengthSmall">10</dimen>
+    <dimen name="max_text_lengthLarge">50</dimen>
+
+    <dimen name="linear_layout_height">70dp</dimen>
+
+    <dimen name="card_size_2_height">118dp</dimen>
+    <dimen name="card_size_2_width">164dp</dimen>
+
+    <dimen name="full_text_margin">4dp</dimen>
+    <dimen name="code_text_margin">5dp</dimen>
+
+    <dimen name="item_offset2">5dp</dimen>
+
+    <!--After Subject Selection-->
+    <dimen name="card_size_3_height">200dp</dimen>
+    <dimen name="card_size_3_width">168dp</dimen>
+
+    <dimen name="card_paper_height">168dp</dimen>
+    <dimen name="card_paper_width">132dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
+
+
+    <!--Carousel-->
+    <item name="three_items" format="float" type="dimen">1.7</item>
+    <item name="five_items" format="float" type="dimen">1.25</item>
+    <item name="seven_items" format="float" type="dimen">1.16</item>
+
+    <dimen name="carousel_item_width">177dp</dimen>
+    <dimen name="carousel_item_height">100dp</dimen>
+
+</resources>

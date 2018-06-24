@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_bar_main4_layout"
+    android:background="@drawable/bg_gradient"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    tools:context="in.co.erudition.paper.activitiy.QuestionActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/my_appbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="@dimen/spacer_0dp"
+        android:background="@drawable/bg_trasparent"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <!--To Scroll off scroll|exitUntilCollapsed-->
+        <!--To fix it enterAlways-->
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginTop="@dimen/status_bar_height"
+            android:theme="@style/ToolBarStyle.one"
+            app:titleTextColor="@color/colorPrimary"
+            android:title="@string/app_name"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_question_new" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:backgroundTint="@color/fab_blue"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@drawable/ic_chat_black_24dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar_Ques"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+    <!--<include layout="card_info"/>-->
+
+</android.support.design.widget.CoordinatorLayout>

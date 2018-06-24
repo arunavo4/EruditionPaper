@@ -1,0 +1,38 @@
+boolean loadingFinished = true;
+boolean redirect = false;
+
+    mWebView.setWebViewClient(new WebViewClient() {
+
+        @Override
+        public boolean shouldOverrideUrlLoading(
+                WebView view, WebResourceRequest request) {
+            if (!loadingFinished) {
+               redirect = true;
+            }
+
+            loadingFinished = false;
+            webView.loadUrl(request.getUrl().toString());
+            return true;
+        }
+
+        @Override
+        public void onPageStarted(
+                WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+            loadingFinished = false;
+            //SHOW LOADING IF IT ISNT ALREADY VISIBLE
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            if (!redirect) {
+               loadingFinished = true;
+            }
+
+            if (loadingFinished && !redirect) {
+                //HIDE LOADING IT HAS FINISHED
+            } else {
+                redirect = false;
+            }
+        }
+    });

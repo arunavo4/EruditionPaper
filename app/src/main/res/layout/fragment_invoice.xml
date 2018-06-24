@@ -1,0 +1,41 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/default_bg_color"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="in.co.erudition.paper.fragment.InvoicesFragment">
+
+    <LinearLayout
+        android:id="@+id/empty_invoice"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            style="@style/TopTextView"
+            android:text="@string/no_invoice_top"/>
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/img_empty_invoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/toolbar_offset"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_pos" />
+
+        <TextView
+            android:layout_width="@dimen/bottom_tv_width_max"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            style="@style/BottomTextView"
+            android:text="@string/no_invoice_bottom"/>
+
+    </LinearLayout>
+
+</FrameLayout>

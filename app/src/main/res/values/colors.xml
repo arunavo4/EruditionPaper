@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#2C3E50</color>
+    <color name="colorPrimaryLight">#52586C</color>
+    <color name="colorPrimaryDark">#233240</color>
+    <color name="colorAccent">#e74c3c</color>
+    <color name="colorPrimaryShadow">#662C3E50</color>
+
+    <color name="default_bg_color">#F7F7FA</color>
+
+    <!--White-->
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="bg_color">#ecf0f1</color>
+    <color name="colorWhite70alpha">#B3FFFFFF</color>
+    <color name="colorWhite90alpha">#E6FFFFFF</color>
+
+    <!--Black-->
+    <color name="colorBlack">#000000</color>
+    <color name="colorBlack5alpha">#0D000000</color>
+    <color name="colorBlack10alpha">#1A000000</color>
+    <color name="colorBlack15alpha">#26000000</color>
+    <color name="colorBlack20alpha">#33000000</color>
+    <color name="colorBlack25alpha">#40000000</color>
+    <color name="colorBlack34alpha">#57000000</color>
+    <color name="colorBlack38alpha">#61000000</color>
+    <color name="colorBlack50alpha">#80000000</color>
+    <color name="colorBlack54alpha">#8A000000</color>
+    <color name="colorBlack75alpha">#BF000000</color>
+    <color name="colorMaterialBlack">#54212121</color>
+    <color name="colorMaterialBlack_no_alpha">#212121</color>
+
+    <!--Transparent-->
+    <color name="colorTransparent">#00000000</color>
+
+    <!--Shades of Grey -->
+    <color name="greyDark">#212121</color>
+    <color name="greyDark_alpha80">#CC212121</color>
+    <color name="greyMedium">#757575</color>
+    <color name="greyLight">#919191</color>
+    <color name="greyLight2">#9b9b9b</color>
+
+    <!--Shades of Blue-->
+    <color name="darkBlue">#3A6A75</color>
+    <color name="accentBlue">#2196F3</color>
+    <color name="aquaBlue">#00BCD4</color>
+    <color name="fab_blue">#3498DB</color>
+    <color name="lightBlue">#E3F2FD</color>
+    <color name="blue_new">#46aad7</color>
+    <color name="blue_accent">#28C9C9</color>
+    <color name="fab_blue_fb">#0084FF</color>
+
+    <!--Yellow-->
+    <color name="yellow_star">#fdd922</color>
+
+    <!--Red-->
+    <color name="red_fav">#FFE43131</color>
+    <color name="red_fab_help">#E74C3C</color>
+
+    <!--Green-->
+    <color name="green">#25D366</color>
+
+
+    <!--Swipe to refresh-->
+    <color name="color_1">#263238</color>
+    <color name="color_2">#2980ba</color>
+    <color name="color_3">#df2229</color>
+    <color name="color_4">#52ba63</color>
+
+</resources>
