@@ -146,6 +146,7 @@ public class AnswerActivity extends AppCompatActivity {
 
 
         //TODO: Need to fix the inner scroll problem by using the Nested prescroll
+        //Remove this since there is no nested scroll view
         recyclerView.setNestedScrollingEnabled(true);
 
         recyclerView.scrollToPosition(getIntent().getIntExtra("QUESTION_ADAPTER.position",0));

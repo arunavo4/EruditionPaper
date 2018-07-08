@@ -15,6 +15,8 @@ import android.view.View;
 import static android.support.v4.view.ViewCompat.LAYER_TYPE_SOFTWARE;
 /**
  * Created by Arunavo Ray on 16-06-2018.
+ *
+ * A class to add shadow to any view by simply calling it.
  */
 
 public class ViewUtils {

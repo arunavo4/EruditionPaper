@@ -205,6 +205,8 @@ public class QuestionActivity extends AppCompatActivity {
             });
         }
 
+        //TODO: Turn this on for smooth scrolling.
+       // ViewCompat.setNestedScrollingEnabled(recyclerView, false);
         Log.d(TAG,"loading paper groups");
 
         loadPaperGroups();
