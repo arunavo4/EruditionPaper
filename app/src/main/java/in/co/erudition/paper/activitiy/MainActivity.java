@@ -199,6 +199,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 intent.putExtra("Title","Recent Papers");
+                fab.close(true);
                 startActivity(intent);
             }
         });
@@ -206,6 +207,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 intent.putExtra("Title","Offline");
+                fab.close(true);
                 startActivity(intent);
             }
         });
@@ -213,6 +215,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 intent.putExtra("Title","Bookmarks");
+                fab.close(true);
                 startActivity(intent);
             }
         });

@@ -2,13 +2,12 @@ package in.co.erudition.paper.data.remote;
 
 import java.util.List;
 
+import in.co.erudition.paper.data.model.Chapter;
+import in.co.erudition.paper.data.model.JwtToken;
 import in.co.erudition.paper.data.model.Paper;
 import in.co.erudition.paper.data.model.University;
-import in.co.erudition.paper.data.model.UniversityFull;
-import in.co.erudition.paper.data.model.Yang;
+import in.co.erudition.paper.data.model.UniversityCourse;
 import in.co.erudition.paper.data.model.Year;
-import in.co.erudition.paper.data.model.Yin;
-import in.co.erudition.paper.data.model.YinYang;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -22,52 +21,54 @@ import retrofit2.http.Query;
 
 public interface BackendService {
 
-    //yin-yang
-    @POST("/yin-yang")
+    //jwt Token
+    @POST("oauth4")
     @FormUrlEncoded
-    Call<YinYang> getYinYang(@Field("appid") String appid,
-                             @Field("appsecret") String appsecret);
-
-    //yin
-    @POST("/yin")
-    @FormUrlEncoded
-    Call<Yin> getYin(@Field("email") String email,
-                     @Field("password") String password,
-                     @Field("energy") String energy);
-
-    //yang
-    @POST("/yang")
-    @FormUrlEncoded
-    Call<Yang> getYang(@Field("yin") String yin,
-                       @Field("energy") String energy);
+    Call<JwtToken> getToken(@Field("EId") String eid,
+                              @Field("Password") String password);
 
 
     /*
     Backend API Calls
      */
 
-    @GET("/database/university?select=UniversityCode UniversityName UniversityFullName UniversityImageM Status Key") //&Status=Active
+    @POST("board")
     Call<List<University>> getUniversity();
 
-    @GET("/database/university")
-    Call<List<UniversityFull>> getCourses(@Query("Key") String key);
+    @POST("board/course")
+    @FormUrlEncoded
+    Call<UniversityCourse> getCourses(@Field("BoardCode") String boardCode);
 
-    @GET("/database/paper")
-    Call<List<Year>> getPapers(@Query("UniversityKey") String UniversityKey,
-                               @Query("CourseKey") String CourseKey,
-                               @Query("StreamKey") String StreamKey,
-                               @Query("SemesterKey") String SemesterKey,
-                               @Query("SubjectKey") String SubjectKey,
-                               @Query("sort") String ByWhat,
-                               @Query("select") String selection);
+    @POST("board/course/session")
+    @FormUrlEncoded
+    Call<UniversityCourse> getCourses(@Field("BoardCode") String boardCode,
+                                      @Field("CourseCode") String courseCode);
 
-    @GET("/database/paper")
-    Call<List<Paper>> getQuestions(@Query("UniversityKey") String UniversityKey,
-                                    @Query("CourseKey") String CourseKey,
-                                    @Query("StreamKey") String StreamKey,
-                                    @Query("SemesterKey") String SemesterKey,
-                                    @Query("SubjectKey") String SubjectKey,
-                                    @Query("Year") String Year);
+    @POST("board/course/session/subject")
+    @FormUrlEncoded
+    Call<UniversityCourse> getCourses(@Field("BoardCode") String boardCode,
+                                      @Field("CourseCode") String courseCode,
+                                      @Field("SessionCode") String sessionCode);
+
+    @POST("board/course/session/subject/year")
+    @FormUrlEncoded
+    Call<List<Year>> getYear(@Field("BoardCode") String boardCode,
+                                   @Field("CourseCode") String courseCode,
+                                   @Field("SessionCode") String sessionCode,
+                                   @Field("SubjectCode") String subjectCode);
+
+    @POST("board/course/session/subject/chapter")
+    @FormUrlEncoded
+    Call<List<Chapter>> getChapter(@Field("BoardCode") String boardCode,
+                             @Field("CourseCode") String courseCode,
+                             @Field("SessionCode") String sessionCode,
+                             @Field("SubjectCode") String subjectCode);
+
+
+    @GET("paper")
+    Call<Paper> getPaper(@Field("PaperCode") String paperCode);
+
+
 
 //    @GET("/database/university/{id}")
 //    Call<List<UniversityFull>> getCourses(@Path("id") String id);

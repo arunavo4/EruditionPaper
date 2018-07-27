@@ -58,8 +58,8 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Vi
 //        View nav_space = holder.spacer;
 
         try{
-            Log.d("UnivesityImage",mUniversity.getUniversityImageM());
-            Log.d("UnivesityName",mUniversity.getUniversityName());
+            Log.d("UnivesityImage",mUniversity.getLogo());
+            Log.d("UnivesityName",mUniversity.getName());
         }
         catch (Exception e)
         {
@@ -68,15 +68,15 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Vi
 
         // Set item views based on your views and data model
         try {
-            if(!mUniversity.getUniversityImageM().contentEquals("#")) {
+            if(!mUniversity.getLogo().contentEquals("#")) {
                 Glide
                         .with(mContext)
-                        .load(mUniversity.getUniversityImageM())
+                        .load(mUniversity.getLogo())
                         .apply(RequestOptions.placeholderOf(R.drawable.bg_white))
                         .thumbnail(0.1f)
                         .into(mImgView);
             }
-            mUNameTV.setText(mUniversity.getUniversityName());
+            mUNameTV.setText(mUniversity.getName());
 
 //            if (getItemCount()-1 == holder.getAdapterPosition()){
 //                Log.d("Nav Spacer","inflated");
@@ -120,10 +120,10 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Vi
             int position = getAdapterPosition();
             if(position != RecyclerView.NO_POSITION) {
                 Intent intent = new Intent(mContext, CourseActivity.class);
-                intent.putExtra("UniversityActivity.EXTRA_PHOTO_URL", mUniversity.getUniversityImageM());
-                intent.putExtra("UniversityActivity.EXTRA_University_NAME",mUniversity.getUniversityName());
-                intent.putExtra("UniversityActivity.EXTRA_University_FULL_NAME",mUniversity.getUniversityFullName());
-                intent.putExtra("UniversityActivity.EXTRA_University_Key",mUniversity.getKey());
+                intent.putExtra("UniversityActivity.EXTRA_PHOTO_URL", mUniversity.getLogo());
+                intent.putExtra("UniversityActivity.EXTRA_University_NAME",mUniversity.getName());
+                intent.putExtra("UniversityActivity.EXTRA_University_FULL_NAME",mUniversity.getFullName());
+                intent.putExtra("UniversityActivity.EXTRA_BoardCode",mUniversity.getCode());
                 mContext.startActivity(intent);
             }
 

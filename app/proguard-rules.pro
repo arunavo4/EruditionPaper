@@ -20,10 +20,6 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-#Firebase
--keepattributes Signature
--keepattributes *Annotation*
-
 #Retrofit
 -dontwarn retrofit.**
 -keep class retrofit.** { *; }

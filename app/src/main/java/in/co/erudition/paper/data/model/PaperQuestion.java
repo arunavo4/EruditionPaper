@@ -8,43 +8,27 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class PaperQuestion {
-    @SerializedName("QuestionCode")
-    @Expose
-    private String questionCode;
-    @SerializedName("QuestionNo")
-    @Expose
-    private String questionNo;
     @SerializedName("Question")
     @Expose
     private String question;
     @SerializedName("Answer")
     @Expose
     private String answer;
+    @SerializedName("Code")
+    @Expose
+    private String code;
+    @SerializedName("QuestionCode")
+    @Expose
+    private String questionCode;
+    @SerializedName("QuestionNo")
+    @Expose
+    private String questionNo;
     @SerializedName("Marks")
     @Expose
     private String marks;
-    @SerializedName("Repeat")
+    @SerializedName("Status")
     @Expose
-    private String repeat;
-    @SerializedName("_id")
-    @Expose
-    private String id;
-
-    public String getQuestionCode() {
-        return questionCode;
-    }
-
-    public void setQuestionCode(String questionCode) {
-        this.questionCode = questionCode;
-    }
-
-    public String getQuestionNo() {
-        return questionNo;
-    }
-
-    public void setQuestionNo(String questionNo) {
-        this.questionNo = questionNo;
-    }
+    private String status;
 
     public String getQuestion() {
         return question;
@@ -62,6 +46,30 @@ public class PaperQuestion {
         this.answer = answer;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getQuestionCode() {
+        return questionCode;
+    }
+
+    public void setQuestionCode(String questionCode) {
+        this.questionCode = questionCode;
+    }
+
+    public String getQuestionNo() {
+        return questionNo;
+    }
+
+    public void setQuestionNo(String questionNo) {
+        this.questionNo = questionNo;
+    }
+
     public String getMarks() {
         return marks;
     }
@@ -70,19 +78,11 @@ public class PaperQuestion {
         this.marks = marks;
     }
 
-    public String getRepeat() {
-        return repeat;
+    public String getStatus() {
+        return status;
     }
 
-    public void setRepeat(String repeat) {
-        this.repeat = repeat;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

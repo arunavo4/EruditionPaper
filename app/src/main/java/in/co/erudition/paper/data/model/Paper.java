@@ -13,102 +13,105 @@ public class Paper {
     @SerializedName("_id")
     @Expose
     private String id;
-    @SerializedName("PaperCode")
+    @SerializedName("Code")
     @Expose
-    private String paperCode;
-    @SerializedName("PaperName")
+    private String code;
+    @SerializedName("Name")
     @Expose
-    private String paperName;
-    @SerializedName("UniversityCode")
+    private String name;
+    @SerializedName("Description")
     @Expose
-    private String universityCode;
-    @SerializedName("UniversityName")
+    private String description;
+    @SerializedName("Logo")
     @Expose
-    private String universityName;
+    private String logo;
+    @SerializedName("BoardCode")
+    @Expose
+    private String boardCode;
+    @SerializedName("BoardName")
+    @Expose
+    private String boardName;
+    @SerializedName("BoardFullName")
+    @Expose
+    private String boardFullName;
     @SerializedName("CourseCode")
     @Expose
     private String courseCode;
     @SerializedName("CourseName")
     @Expose
     private String courseName;
-    @SerializedName("StreamCode")
+    @SerializedName("CourseFullName")
     @Expose
-    private String streamCode;
-    @SerializedName("StreamName")
+    private String courseFullName;
+    @SerializedName("SessionCode")
     @Expose
-    private String streamName;
-    @SerializedName("SemesterNo")
+    private String sessionCode;
+    @SerializedName("SessionName")
     @Expose
-    private String semesterNo;
-    @SerializedName("SemesterName")
+    private String sessionName;
+    @SerializedName("SessionFullName")
     @Expose
-    private String semesterName;
+    private String sessionFullName;
     @SerializedName("SubjectCode")
     @Expose
     private String subjectCode;
     @SerializedName("SubjectName")
     @Expose
     private String subjectName;
-    @SerializedName("Year")
-    @Expose
-    private String year;
-    @SerializedName("TimeAllotted")
-    @Expose
-    private String timeAllotted;
-    @SerializedName("FullMarks")
-    @Expose
-    private String fullMarks;
-    @SerializedName("Author")
-    @Expose
-    private String author;
-    @SerializedName("CreatedOn")
-    @Expose
-    private String createdOn;
-    @SerializedName("Solved")
-    @Expose
-    private String solved;
-    @SerializedName("Tags")
-    @Expose
-    private String tags;
-    @SerializedName("Status")
-    @Expose
-    private String status;
-    @SerializedName("PaperImageM")
-    @Expose
-    private String paperImageM;
-    @SerializedName("__v")
-    @Expose
-    private Integer v;
-    @SerializedName("View")
-    @Expose
-    private String view;
-    @SerializedName("SemesterCode")
-    @Expose
-    private String semesterCode;
-    @SerializedName("SubjectKey")
-    @Expose
-    private String subjectKey;
-    @SerializedName("SemesterKey")
-    @Expose
-    private String semesterKey;
-    @SerializedName("StreamKey")
-    @Expose
-    private String streamKey;
-    @SerializedName("CourseKey")
-    @Expose
-    private String courseKey;
-    @SerializedName("UniversityKey")
-    @Expose
-    private String universityKey;
     @SerializedName("SubjectFullName")
     @Expose
     private String subjectFullName;
-    @SerializedName("Comment")
+    @SerializedName("ChapterName")
     @Expose
-    private List<Object> comment = null;
-    @SerializedName("PaperImage")
+    private String chapterName;
+    @SerializedName("ChapterFullName")
     @Expose
-    private List<Object> paperImage = null;
+    private String chapterFullName;
+    @SerializedName("Year")
+    @Expose
+    private String year;
+    @SerializedName("Type")
+    @Expose
+    private String type;
+    @SerializedName("PaperTime")
+    @Expose
+    private String paperTime;
+    @SerializedName("PaperMarks")
+    @Expose
+    private String paperMarks;
+    @SerializedName("Price")
+    @Expose
+    private String price;
+    @SerializedName("CreateDate")
+    @Expose
+    private String createDate;
+    @SerializedName("CreateTime")
+    @Expose
+    private String createTime;
+    @SerializedName("UpdateDate")
+    @Expose
+    private String updateDate;
+    @SerializedName("UpdateTime")
+    @Expose
+    private String updateTime;
+    @SerializedName("Solved")
+    @Expose
+    private String solved;
+    @SerializedName("Status")
+    @Expose
+    private String status;
+    @SerializedName("View")
+    @Expose
+    private String view;
+    @SerializedName("AuthorEId")
+    @Expose
+    private String authorEId;
+    @SerializedName("AuthorEmail")
+    @Expose
+    private String authorEmail;
+    @SerializedName("AuthorName")
+    @Expose
+    private String authorName;
     @SerializedName("PaperGroup")
     @Expose
     private List<PaperGroup> paperGroup = null;
@@ -121,36 +124,60 @@ public class Paper {
         this.id = id;
     }
 
-    public String getPaperCode() {
-        return paperCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setPaperCode(String paperCode) {
-        this.paperCode = paperCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getPaperName() {
-        return paperName;
+    public String getName() {
+        return name;
     }
 
-    public void setPaperName(String paperName) {
-        this.paperName = paperName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getUniversityCode() {
-        return universityCode;
+    public String getDescription() {
+        return description;
     }
 
-    public void setUniversityCode(String universityCode) {
-        this.universityCode = universityCode;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getUniversityName() {
-        return universityName;
+    public String getLogo() {
+        return logo;
     }
 
-    public void setUniversityName(String universityName) {
-        this.universityName = universityName;
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public String getBoardCode() {
+        return boardCode;
+    }
+
+    public void setBoardCode(String boardCode) {
+        this.boardCode = boardCode;
+    }
+
+    public String getBoardName() {
+        return boardName;
+    }
+
+    public void setBoardName(String boardName) {
+        this.boardName = boardName;
+    }
+
+    public String getBoardFullName() {
+        return boardFullName;
+    }
+
+    public void setBoardFullName(String boardFullName) {
+        this.boardFullName = boardFullName;
     }
 
     public String getCourseCode() {
@@ -169,36 +196,36 @@ public class Paper {
         this.courseName = courseName;
     }
 
-    public String getStreamCode() {
-        return streamCode;
+    public String getCourseFullName() {
+        return courseFullName;
     }
 
-    public void setStreamCode(String streamCode) {
-        this.streamCode = streamCode;
+    public void setCourseFullName(String courseFullName) {
+        this.courseFullName = courseFullName;
     }
 
-    public String getStreamName() {
-        return streamName;
+    public String getSessionCode() {
+        return sessionCode;
     }
 
-    public void setStreamName(String streamName) {
-        this.streamName = streamName;
+    public void setSessionCode(String sessionCode) {
+        this.sessionCode = sessionCode;
     }
 
-    public String getSemesterNo() {
-        return semesterNo;
+    public String getSessionName() {
+        return sessionName;
     }
 
-    public void setSemesterNo(String semesterNo) {
-        this.semesterNo = semesterNo;
+    public void setSessionName(String sessionName) {
+        this.sessionName = sessionName;
     }
 
-    public String getSemesterName() {
-        return semesterName;
+    public String getSessionFullName() {
+        return sessionFullName;
     }
 
-    public void setSemesterName(String semesterName) {
-        this.semesterName = semesterName;
+    public void setSessionFullName(String sessionFullName) {
+        this.sessionFullName = sessionFullName;
     }
 
     public String getSubjectCode() {
@@ -217,6 +244,30 @@ public class Paper {
         this.subjectName = subjectName;
     }
 
+    public String getSubjectFullName() {
+        return subjectFullName;
+    }
+
+    public void setSubjectFullName(String subjectFullName) {
+        this.subjectFullName = subjectFullName;
+    }
+
+    public String getChapterName() {
+        return chapterName;
+    }
+
+    public void setChapterName(String chapterName) {
+        this.chapterName = chapterName;
+    }
+
+    public String getChapterFullName() {
+        return chapterFullName;
+    }
+
+    public void setChapterFullName(String chapterFullName) {
+        this.chapterFullName = chapterFullName;
+    }
+
     public String getYear() {
         return year;
     }
@@ -225,36 +276,68 @@ public class Paper {
         this.year = year;
     }
 
-    public String getTimeAllotted() {
-        return timeAllotted;
+    public String getType() {
+        return type;
     }
 
-    public void setTimeAllotted(String timeAllotted) {
-        this.timeAllotted = timeAllotted;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getFullMarks() {
-        return fullMarks;
+    public String getPaperTime() {
+        return paperTime;
     }
 
-    public void setFullMarks(String fullMarks) {
-        this.fullMarks = fullMarks;
+    public void setPaperTime(String paperTime) {
+        this.paperTime = paperTime;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getPaperMarks() {
+        return paperMarks;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setPaperMarks(String paperMarks) {
+        this.paperMarks = paperMarks;
     }
 
-    public String getCreatedOn() {
-        return createdOn;
+    public String getPrice() {
+        return price;
     }
 
-    public void setCreatedOn(String createdOn) {
-        this.createdOn = createdOn;
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(String updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 
     public String getSolved() {
@@ -265,36 +348,12 @@ public class Paper {
         this.solved = solved;
     }
 
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getPaperImageM() {
-        return paperImageM;
-    }
-
-    public void setPaperImageM(String paperImageM) {
-        this.paperImageM = paperImageM;
-    }
-
-    public Integer getV() {
-        return v;
-    }
-
-    public void setV(Integer v) {
-        this.v = v;
     }
 
     public String getView() {
@@ -305,76 +364,28 @@ public class Paper {
         this.view = view;
     }
 
-    public String getSemesterCode() {
-        return semesterCode;
+    public String getAuthorEId() {
+        return authorEId;
     }
 
-    public void setSemesterCode(String semesterCode) {
-        this.semesterCode = semesterCode;
+    public void setAuthorEId(String authorEId) {
+        this.authorEId = authorEId;
     }
 
-    public String getSubjectKey() {
-        return subjectKey;
+    public String getAuthorEmail() {
+        return authorEmail;
     }
 
-    public void setSubjectKey(String subjectKey) {
-        this.subjectKey = subjectKey;
+    public void setAuthorEmail(String authorEmail) {
+        this.authorEmail = authorEmail;
     }
 
-    public String getSemesterKey() {
-        return semesterKey;
+    public String getAuthorName() {
+        return authorName;
     }
 
-    public void setSemesterKey(String semesterKey) {
-        this.semesterKey = semesterKey;
-    }
-
-    public String getStreamKey() {
-        return streamKey;
-    }
-
-    public void setStreamKey(String streamKey) {
-        this.streamKey = streamKey;
-    }
-
-    public String getCourseKey() {
-        return courseKey;
-    }
-
-    public void setCourseKey(String courseKey) {
-        this.courseKey = courseKey;
-    }
-
-    public String getUniversityKey() {
-        return universityKey;
-    }
-
-    public void setUniversityKey(String universityKey) {
-        this.universityKey = universityKey;
-    }
-
-    public String getSubjectFullName() {
-        return subjectFullName;
-    }
-
-    public void setSubjectFullName(String subjectFullName) {
-        this.subjectFullName = subjectFullName;
-    }
-
-    public List<Object> getComment() {
-        return comment;
-    }
-
-    public void setComment(List<Object> comment) {
-        this.comment = comment;
-    }
-
-    public List<Object> getPaperImage() {
-        return paperImage;
-    }
-
-    public void setPaperImage(List<Object> paperImage) {
-        this.paperImage = paperImage;
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 
     public List<PaperGroup> getPaperGroup() {
@@ -384,4 +395,5 @@ public class Paper {
     public void setPaperGroup(List<PaperGroup> paperGroup) {
         this.paperGroup = paperGroup;
     }
+
 }

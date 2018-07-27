@@ -143,8 +143,8 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> 
         }
     }
 
-    public void updateGroups(List<Paper> Papers) {
-        paperGroups = Papers.get(0).getPaperGroup();
+    public void updateGroups(Paper papers) {
+        paperGroups = papers.getPaperGroup();
         Log.d("GroupAdapter","No of groups :" + String.valueOf(paperGroups.size()));
         mAdapter = new QuestionAdapter[paperGroups.size()];
         notifyDataSetChanged();

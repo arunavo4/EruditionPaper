@@ -15,15 +15,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.activitiy.PaperActivity;
+import in.co.erudition.paper.data.model.BoardCourse;
+import in.co.erudition.paper.data.model.BoardSession;
+import in.co.erudition.paper.data.model.BoardSubject;
 import in.co.erudition.paper.data.model.UniversityCourse;
-import in.co.erudition.paper.data.model.UniversityFull;
-import in.co.erudition.paper.data.model.UniversitySemester;
-import in.co.erudition.paper.data.model.UniversityStream;
-import in.co.erudition.paper.data.model.UniversitySubject;
 
 /**
  * Created by Arunavo Ray on 01-04-2018.
@@ -31,16 +31,11 @@ import in.co.erudition.paper.data.model.UniversitySubject;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder>{
 
-    private List<UniversityFull> mUniversities;
-    private List<UniversityCourse> mUniversityCourse;
-    private List<UniversityStream> mUniversityStream;
-    private List<UniversitySemester> mUniversitySemester;
-    private List<UniversitySubject> mUniversitySubject;
-
-    private List<UniversityCourse> mUniversityCourseFiltered;
-    private List<UniversityStream> mUniversityStreamFiltered;
-    private List<UniversitySemester> mUniversitySemesterFiltered;
-    private List<UniversitySubject> mUniversitySubjectFiltered;
+    private UniversityCourse universityCourses;
+    private List<BoardCourse> boardCourses;
+    private List<BoardSession> boardSessions;
+    private List<BoardSubject> boardSubjects;
+    private String paramsStore[];
 
     private Context mContext;
     private CourseAdapter.CourseItemListener mItemListener;
@@ -51,23 +46,17 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     private Intent intent;
 
-    public CourseAdapter(Context context, List<UniversityFull> universities, TextView textView, CollapsingToolbarLayout collapsingToolbarLayout, CourseAdapter.CourseItemListener itemListener){
+    public CourseAdapter(Context context, UniversityCourse universityCourseList,String array[], TextView textView, CollapsingToolbarLayout collapsingToolbarLayout, CourseAdapter.CourseItemListener itemListener){
         mContext = context;
-        mUniversities = universities;
+        universityCourses = universityCourseList;
         mItemListener = itemListener;
+        paramsStore = array;
         mChooseTV = textView;
         mTopTV = collapsingToolbarLayout;
-//        mImageViewEmpty = imageView;
 
-        mUniversityCourse = new ArrayList<UniversityCourse>();
-        mUniversityStream = new ArrayList<UniversityStream>();
-        mUniversitySemester = new ArrayList<UniversitySemester>();
-        mUniversitySubject = new ArrayList<UniversitySubject>();
-
-        mUniversityCourseFiltered = new ArrayList<UniversityCourse>();
-        mUniversityStreamFiltered = new ArrayList<UniversityStream>();
-        mUniversitySemesterFiltered = new ArrayList<UniversitySemester>();
-        mUniversitySubjectFiltered = new ArrayList<UniversitySubject>();
+        boardCourses = new ArrayList<BoardCourse>();
+        boardSessions = new ArrayList<BoardSession>();
+        boardSubjects = new ArrayList<BoardSubject>();
 
         NameStr = new String[4];
         selector = 0;
@@ -91,7 +80,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     // Involves populating data into the item through holder
     @Override
     public void onBindViewHolder(CourseAdapter.ViewHolder holder, int position) {
-        UniversityFull mUniversityFull = mUniversities.get(0);
         ImageView mImgView = holder.mImageView;
         TextView mCodeTV = holder.mCodeTV;
         TextView mCodeFullTV = holder.mCodeFullTV;
@@ -103,28 +91,22 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
         try{
             switch (selector){
-                case 0: UniversityCourse universityCourse = mUniversityCourseFiltered.get(holder.getAdapterPosition());
-                        mImgStr = universityCourse.getCourseImageM();
-                        mCodeStr = universityCourse.getCourseName();
-                        mCodeFullStr = universityCourse.getCourseFullName();
+                case 0: BoardCourse course = boardCourses.get(holder.getAdapterPosition());
+                        mImgStr = course.getLogo();
+                        mCodeStr = course.getName();
+                        mCodeFullStr = course.getFullName();
                         break;
 
-                case 1: UniversityStream universityStream = mUniversityStreamFiltered.get(holder.getAdapterPosition());
-                        mImgStr = universityStream.getStreamImageM();
-                        mCodeStr = universityStream.getStreamName();
-                        mCodeFullStr = universityStream.getStreamFullName();
+                case 1: BoardSession session = boardSessions.get(holder.getAdapterPosition());
+                        mImgStr = session.getLogo();
+                        mCodeStr = session.getFullName();
+                        mCodeFullStr = session.getFullName();
                         break;
 
-                case 2: UniversitySemester universitySemester = mUniversitySemesterFiltered.get(holder.getAdapterPosition());
-                        mImgStr = universitySemester.getSemesterImageM();
-                        mCodeStr = universitySemester.getSemesterName();
-                        mCodeFullStr = universitySemester.getSemesterFullName();
-                        break;
-
-                case 3: UniversitySubject universitySubject = mUniversitySubjectFiltered.get(holder.getAdapterPosition());
-                        mImgStr = universitySubject.getSubjectImageM();
-                        mCodeStr = universitySubject.getSubjectName();
-                        mCodeFullStr = universitySubject.getSubjectFullName();
+                case 2: BoardSubject subject = boardSubjects.get(holder.getAdapterPosition());
+                        mImgStr = subject.getLogo();
+                        mCodeStr = subject.getName();
+                        mCodeFullStr = subject.getFullName();
                         break;
                 default: selector=0;
             }
@@ -140,8 +122,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             }
             mCodeTV.setText(mCodeStr);
 
-            if (selector == 2){
-                mCodeFullTV.setText(mUniversityStreamFiltered.get(holder.getAdapterPosition()).getStreamFullName());
+            if (selector == 1){
+                mCodeFullTV.setText(mTopTV.getTitle());
             }else{
                 mCodeFullTV.setText(mCodeFullStr);
             }
@@ -163,58 +145,35 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     public int getItemCount() {
 
         switch (selector){
-            case 0: return mUniversityCourseFiltered.size();
+            case 0: return boardCourses.size();
 
-            case 1: return mUniversityStreamFiltered.size();
+            case 1: return boardSessions.size();
 
-            case 2: return mUniversitySemesterFiltered.size();
-
-            case 3: return mUniversitySubjectFiltered.size();
+            case 2: return boardSubjects.size();
         }
-        return mUniversities.size();
+        return 0;
     }
 
-
-    private void filter(int selector){
-        int len;
-        switch(selector){
-            case 0: len = mUniversityCourse.size();
-                    mUniversityCourseFiltered.clear();
-                    for(int i=0;i<len;i++){
-                        if(mUniversityCourse.get(i).getStatus().contentEquals("Active")){
-                            mUniversityCourseFiltered.add(mUniversityCourse.get(i));
-                        }
-                    }
+    private void setParams(String Code){
+        switch (selector){
+            case 0: paramsStore[1] = Code;
                     break;
-
-            case 1: len = mUniversityStream.size();
-                    mUniversityStreamFiltered.clear();
-                    for(int i=0;i<len;i++){
-                        if(mUniversityStream.get(i).getStatus().contentEquals("Active")){
-                            mUniversityStreamFiltered.add(mUniversityStream.get(i));
-                        }
-                    }
+            case 1: paramsStore[2] = Code;
                     break;
-
-            case 2: len = mUniversitySemester.size();
-                    mUniversitySemesterFiltered.clear();
-                    for(int i=0;i<len;i++){
-                        if(mUniversitySemester.get(i).getStatus().contentEquals("Active")){
-                            mUniversitySemesterFiltered.add(mUniversitySemester.get(i));
-                        }
-                    }
-                    break;
-
-            case 3: len = mUniversitySubject.size();
-                    mUniversitySubjectFiltered.clear();
-                    for(int i=0;i<len;i++){
-                        if(mUniversitySubject.get(i).getStatus().contentEquals("Active")){
-                            mUniversitySubjectFiltered.add(mUniversitySubject.get(i));
-                        }
-                    }
+            case 2: paramsStore[3] = Code;
                     break;
         }
+    }
 
+    private void updateData(){
+        switch (selector){
+            case 0: boardCourses = universityCourses.getBoardCourse();
+                    break;
+            case 1: boardSessions = universityCourses.getBoardCourse().get(0).getBoardSession();
+                    break;
+            case 2: boardSubjects = universityCourses.getBoardCourse().get(0).getBoardSession().get(0).getBoardSubject();
+                    break;
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -246,48 +205,33 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             int position = getAdapterPosition();
             if(position != RecyclerView.NO_POSITION) {
                switch (selector){
-                   case 0:  mUniversityStream = mUniversityCourseFiltered.get(getAdapterPosition()).getUniversityStream();
+                   case 0:  setParams(boardCourses.get(position).getCode());
                             selector+=1;
-                            filter(selector);
-                            NameStr[selector] = mUniversityCourseFiltered.get(position).getCourseFullName();
-                            intent.putExtra("CourseActivity.EXTRA_Course_Key",mUniversityCourseFiltered.get(position).getKey());
-                            notifyDataSetChanged();
+                            NameStr[selector] = boardCourses.get(position).getFullName();
                             break;
 
-                   case 1:  mUniversitySemester = mUniversityStreamFiltered.get(getAdapterPosition()).getUniversitySemester();
+                   case 1:  setParams(boardSessions.get(position).getCode());
                             selector+=1;
-                            filter(selector);
-                            NameStr[selector] = mUniversityStreamFiltered.get(position).getStreamFullName();
-                            intent.putExtra("CourseActivity.EXTRA_Stream_Key",mUniversityStreamFiltered.get(position).getKey());
-                            notifyDataSetChanged();
+                            NameStr[selector] = boardSessions.get(position).getFullName();
                             break;
 
-                   case 2:  mUniversitySubject = mUniversitySemesterFiltered.get(getAdapterPosition()).getUniversitySubject();
-                            selector+=1;
-                            filter(selector);
-                            NameStr[selector] = mUniversitySemesterFiltered.get(position).getSemesterFullName();
-                            intent.putExtra("CourseActivity.EXTRA_Semester_Key",mUniversitySemesterFiltered.get(position).getKey());
-                            notifyDataSetChanged();
-                            break;
-
-                   case 3:
-                            intent.putExtra("CourseActivity.EXTRA_Subject_NAME",mUniversitySubjectFiltered.get(position).getSubjectName());
-                            intent.putExtra("CourseActivity.EXTRA_Subject_FULL_NAME",mUniversitySubjectFiltered.get(position).getSubjectFullName());
-                            intent.putExtra("CourseActivity.EXTRA_University_Key",mUniversities.get(0).getKey());
-                            intent.putExtra("CourseActivity.EXTRA_Subject_Key",mUniversitySubjectFiltered.get(position).getKey());
+                   case 2:  intent.putExtra("CourseActivity.EXTRA_Subject_NAME",boardSubjects.get(position).getName());
+                            intent.putExtra("CourseActivity.EXTRA_Subject_FULL_NAME",boardSubjects.get(position).getFullName());
+                            setParams(boardSubjects.get(position).getCode());
+                            intent.putExtra("CourseActivity.EXTRA_params",paramsStore);
                             intent.putExtra("FROM","Course");
                             mContext.startActivity(intent);
                }
                setTextView(selector);
+               mItemListener.onUniversityClick("0");
             }
         }
     }
 
-    public void updateUniversitiesFull(List<UniversityFull> Universities) {
-        mUniversities = Universities;
-        mUniversityCourse = mUniversities.get(0).getUniversityCourse();
-        filter(selector);
-        NameStr[0] = mUniversities.get(0).getUniversityFullName();
+    public void updateUniversitiesFull(UniversityCourse universityCourseList) {
+        universityCourses = universityCourseList;
+        updateData();
+        NameStr[0] = universityCourses.getFullName();
         notifyDataSetChanged();
     }
 
@@ -303,31 +247,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     private void setTextView(int selector){
         String StaticStr = "Choose your ";
-        String Choice[] = {"Course","Stream","Semester","Subject"};
+        String Choice[] = {"Course","Semester","Subject"};
         String Str = StaticStr + Choice[selector];
         mChooseTV.setText(Str);
         mTopTV.setTitle(NameStr[selector]);
-    }
-
-    //TODO: Before using these methods change to Filtered
-    private UniversityFull getUniversityFull(int adapterPosition) {
-        return mUniversities.get(adapterPosition);
-    }
-
-    private UniversityCourse getUniversityCourse(int adapterPosition){
-        return mUniversityCourse.get(adapterPosition);
-    }
-
-    private UniversityStream getUniversityStream(int adapterPosition){
-        return mUniversityStream.get(adapterPosition);
-    }
-
-    private UniversitySemester getUniversitySemester(int adapterPosition){
-        return mUniversitySemester.get(adapterPosition);
-    }
-
-    private UniversitySubject getUniversitySubject(int adapterPosition){
-        return mUniversitySubject.get(adapterPosition);
     }
 
     public interface CourseItemListener {

@@ -12,24 +12,18 @@ public class University {
     @SerializedName("_id")
     @Expose
     private String id;
-    @SerializedName("UniversityCode")
+    @SerializedName("Code")
     @Expose
-    private String universityCode;
-    @SerializedName("UniversityName")
+    private String code;
+    @SerializedName("Name")
     @Expose
-    private String universityName;
-    @SerializedName("UniversityFullName")
+    private String name;
+    @SerializedName("FullName")
     @Expose
-    private String universityFullName;
-    @SerializedName("UniversityImageM")
+    private String fullName;
+    @SerializedName("Logo")
     @Expose
-    private String universityImageM;
-    @SerializedName("Status")
-    @Expose
-    private String status;
-    @SerializedName("Key")
-    @Expose
-    private String key;
+    private String logo;
 
     public String getId() {
         return id;
@@ -39,51 +33,36 @@ public class University {
         this.id = id;
     }
 
-    public String getUniversityCode() {
-        return universityCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setUniversityCode(String universityCode) {
-        this.universityCode = universityCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getUniversityName() {
-        return universityName;
+    public String getName() {
+        return name;
     }
 
-    public void setUniversityName(String universityName) {
-        this.universityName = universityName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getUniversityFullName() {
-        return universityFullName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setUniversityFullName(String universityFullName) {
-        this.universityFullName = universityFullName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public String getUniversityImageM() {
-        return universityImageM;
+    public String getLogo() {
+        return logo;
     }
 
-    public void setUniversityImageM(String universityImageM) {
-        this.universityImageM = universityImageM;
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
 }

@@ -28,9 +28,6 @@ public class PaperGroup {
     @SerializedName("GroupMarksDesc")
     @Expose
     private String groupMarksDesc;
-    @SerializedName("_id")
-    @Expose
-    private String id;
     @SerializedName("PaperQuestion")
     @Expose
     private List<PaperQuestion> paperQuestion = null;
@@ -81,14 +78,6 @@ public class PaperGroup {
 
     public void setGroupMarksDesc(String groupMarksDesc) {
         this.groupMarksDesc = groupMarksDesc;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public List<PaperQuestion> getPaperQuestion() {

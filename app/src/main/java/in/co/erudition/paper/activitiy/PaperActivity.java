@@ -129,6 +129,7 @@ public class PaperActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 intent.putExtra("Title","Recent Papers");
+                fab.close(true);
                 startActivity(intent);
                 finish();
             }
@@ -137,6 +138,7 @@ public class PaperActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 intent.putExtra("Title","Offline");
+                fab.close(true);
                 startActivity(intent);
                 finish();
             }
@@ -145,6 +147,7 @@ public class PaperActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 intent.putExtra("Title","Bookmarks");
+                fab.close(true);
                 startActivity(intent);
                 finish();
             }
@@ -306,11 +309,10 @@ public class PaperActivity extends AppCompatActivity{
         String ByWhat = "-Year";
         String selection = "SubjectFullName Year UniversityName PaperImageM TimeAllotted FullMarks Status SubjectName";
 
-        call = mService.getPapers(getIntent().getStringExtra("CourseActivity.EXTRA_University_Key"),
+        call = mService.getYear(getIntent().getStringExtra("CourseActivity.EXTRA_University_Key"),
                 getIntent().getStringExtra("CourseActivity.EXTRA_Course_Key"),
-                getIntent().getStringExtra("CourseActivity.EXTRA_Stream_Key"),
                 getIntent().getStringExtra("CourseActivity.EXTRA_Semester_Key"),
-                getIntent().getStringExtra("CourseActivity.EXTRA_Subject_Key"),ByWhat,selection);
+                getIntent().getStringExtra("CourseActivity.EXTRA_Subject_Key"));
         call.enqueue(new Callback<List<Year>>() {
 
             @Override

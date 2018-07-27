@@ -59,7 +59,7 @@ public class QuestionActivity extends AppCompatActivity {
     private GroupAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private BackendService mService;
-    private Call<List<Paper>> call;
+    private Call<Paper> call;
     private NetworkUtils mNetworkUtils = new NetworkUtils();
     private FloatingActionButton fab;
     private ProgressBar mProgressBar;
@@ -205,8 +205,6 @@ public class QuestionActivity extends AppCompatActivity {
             });
         }
 
-        //TODO: Turn this on for smooth scrolling.
-       // ViewCompat.setNestedScrollingEnabled(recyclerView, false);
         Log.d(TAG,"loading paper groups");
 
         loadPaperGroups();
@@ -218,17 +216,12 @@ public class QuestionActivity extends AppCompatActivity {
 
         Log.d(TAG, "loadPaperGroupsMethod");
 
-        call = mService.getQuestions(getIntent().getStringExtra("CourseActivity.EXTRA_University_Key"),
-                getIntent().getStringExtra("CourseActivity.EXTRA_Course_Key"),
-                getIntent().getStringExtra("CourseActivity.EXTRA_Stream_Key"),
-                getIntent().getStringExtra("CourseActivity.EXTRA_Semester_Key"),
-                getIntent().getStringExtra("CourseActivity.EXTRA_Subject_Key"),
-                getIntent().getStringExtra("PaperActivity.EXTRA_Year"));
+        call = mService.getPaper(getIntent().getStringExtra("CourseActivity.EXTRA_University_Key"));
 
-        call.enqueue(new Callback<List<Paper>>() {
+        call.enqueue(new Callback<Paper>() {
 
             @Override
-            public void onResponse(Call<List<Paper>> call, Response<List<Paper>> response) {
+            public void onResponse(Call<Paper> call, Response<Paper> response) {
                 Log.d("Call",call.request().toString());
                 if(response.isSuccessful()) {
                     Log.d(TAG,"issuccess");
@@ -260,7 +253,7 @@ public class QuestionActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Paper>> call, Throwable t) {
+            public void onFailure(Call<Paper> call, Throwable t) {
                 if(call.isCanceled()){
                     Log.d(TAG, "call is cancelled");
 

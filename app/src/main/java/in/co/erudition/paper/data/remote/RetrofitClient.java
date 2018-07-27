@@ -5,8 +5,7 @@ import android.util.Log;
 
 import java.io.IOException;
 
-import in.co.erudition.paper.data.model.Yin;
-import in.co.erudition.paper.data.model.YinYang;
+import in.co.erudition.paper.data.model.JwtToken;
 import in.co.erudition.paper.util.ApiUtils;
 import okhttp3.Dispatcher;
 import okhttp3.Interceptor;
@@ -31,17 +30,12 @@ public class RetrofitClient {
     private static SharedPreferences mPrefs;
     private static SharedPreferences.Editor mPrefsEdit;
 
-    //Encrypt these
-    private static final String appid = "WebServer";
-    private static final String appsecret = "319f4d26e3c536b5dd871bb2c52e3178";
-    private static final String energy1 = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
-
     //TODO: delete these after making the login
     /*
     DOnt encrypt just temporary
      */
-    private static final String email = "admin@erudition.co.in";
-    private static final String password = "5f4dcc3b5aa765d61d8327deb882cf99";
+    private static final String eid = "Android";
+    private static final String password = "Password";
 
     private RetrofitClient(){
         // this default constructor is private and you can't call it like :
@@ -64,13 +58,13 @@ public class RetrofitClient {
                             Request request = chain.request();
                             Request.Builder newRequest = request.newBuilder();
                             if (hasToken()) {
-                                newRequest.header("Authorization", "Bearer " + getToken());
+                                newRequest.header("Authorization", getToken());
                                 Log.d("Interceptor->", "hasToken");
                             }
                             else{
                                 //probably the first time
                                 Log.d("Interceptor->", "NoToken");
-                                newRequest.header("Authorization", "Bearer " + generateToken());
+                                newRequest.header("Authorization", generateToken());
                             }
                             okhttp3.Response response = chain.proceed(newRequest.build());
 
@@ -79,7 +73,7 @@ public class RetrofitClient {
                                 Log.d("Interceptor->", "Unauthorized");
                                 clearToken();
                                 //String newToken = mTokenManager.refreshToken();
-                                newRequest.header("Authorization", "Bearer " + refreshToken());
+                                newRequest.header("Authorization", refreshToken());
                                 return chain.proceed(newRequest.build());
                             }
                             return response;
@@ -124,31 +118,19 @@ public class RetrofitClient {
 
 
     private static String generateToken() {
-        String energy = null;
-
         Log.d("Interceptor","generating Token");
 
         //make synchronous calls;
         try{
-            Log.d("Interceptor","Synchronous Call to YinYang");
+            Call<JwtToken> jwtTokenCall = mService.getToken(eid,password);
+            Response<JwtToken> jwtTokenResponse = jwtTokenCall.execute();
+            JwtToken jwtToken = jwtTokenResponse.body();
+            Log.d("jwtCall", jwtTokenResponse.raw().toString());
 
-            Call<YinYang> yinYangCall = mService.getYinYang(appid,appsecret);
-            Response<YinYang> yinYangResponse = yinYangCall.execute();
-            YinYang mYinYang = yinYangResponse.body();
-            Log.d("YIN YANG ",String.valueOf(yinYangResponse.body()));
-            energy = energy1 + "." + mYinYang.getYin() + "." + mYinYang.getYang();
-            Log.d("energy ",String.valueOf(energy));
+            Log.d("Jwt Token ",String.valueOf(jwtTokenResponse.body()));
 
-
-            Log.d("Interceptor","Synchronous Call to Yin");
-
-            Call<Yin> yinCall = mService.getYin(email,password,energy);
-            Response<Yin> yinResponse = yinCall.execute();
-            Yin mYin = yinResponse.body();
-            AccessToken = mYin.getAccesstoken();
+            AccessToken = jwtToken.getAccessToken();
             Log.d("Access Token->",String.valueOf(AccessToken));
-
-
         }
         catch (IOException e) {
             e.printStackTrace();

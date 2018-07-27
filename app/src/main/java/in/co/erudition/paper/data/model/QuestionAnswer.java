@@ -17,7 +17,6 @@ public class QuestionAnswer implements Parcelable{
     private String question;
     private String answer;
     private String marks;
-    private String repeat;
 
     public QuestionAnswer(PaperGroup paperGroup,PaperQuestion paperQuestion){
         groupName = paperGroup.getGroupName();
@@ -28,7 +27,6 @@ public class QuestionAnswer implements Parcelable{
         question = paperQuestion.getQuestion();
         answer = paperQuestion.getAnswer();
         marks = paperQuestion.getMarks();
-        repeat = paperQuestion.getRepeat();
     }
 
     protected QuestionAnswer(Parcel in) {
@@ -40,7 +38,6 @@ public class QuestionAnswer implements Parcelable{
         question = in.readString();
         answer = in.readString();
         marks = in.readString();
-        repeat = in.readString();
     }
 
     public static final Creator<QuestionAnswer> CREATOR = new Creator<QuestionAnswer>() {
@@ -119,14 +116,6 @@ public class QuestionAnswer implements Parcelable{
         this.marks = marks;
     }
 
-    public String getRepeat() {
-        return repeat;
-    }
-
-    public void setRepeat(String repeat) {
-        this.repeat = repeat;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -142,6 +131,5 @@ public class QuestionAnswer implements Parcelable{
         dest.writeString(question);
         dest.writeString(answer);
         dest.writeString(marks);
-        dest.writeString(repeat);
     }
 }

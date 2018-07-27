@@ -25,6 +25,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -43,7 +44,7 @@ import java.util.List;
 
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.adapter.CourseAdapter;
-import in.co.erudition.paper.data.model.UniversityFull;
+import in.co.erudition.paper.data.model.UniversityCourse;
 import in.co.erudition.paper.data.remote.BackendService;
 import in.co.erudition.paper.misc.ItemOffsetDecoration;
 import in.co.erudition.paper.network.NetworkUtils;
@@ -57,19 +58,18 @@ public class CourseActivity extends AppCompatActivity{
     private CourseAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private BackendService mService;
-    private Call<List<UniversityFull>> call;
+    private Call<UniversityCourse> call;
     private NetworkUtils mNetworkUtils = new NetworkUtils();
 
     private ProgressBar mProgressBar;
     private LinearLayout mimageView;
     private LinearLayout mCourseList;
-    private TextView mChooseTV;
     private FloatingActionMenu fab;
     private Intent intent;
+    private String params[];
 
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +77,13 @@ public class CourseActivity extends AppCompatActivity{
         setContentView(R.layout.activity_course);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+        //Init section codes
+        params = new String[]{"0","0","0","0"};
+        params[0] = getIntent().getStringExtra("UniversityActivity.EXTRA_BoardCode");
+
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar_course);
         mimageView = (LinearLayout) findViewById(R.id.img2_404_not_found);
-        mChooseTV = (TextView) findViewById(R.id.choose_tv);
+        TextView mChooseTV = (TextView) findViewById(R.id.choose_tv);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeToRefresh2);
         mCourseList = (LinearLayout) findViewById(R.id.course_list);
 
@@ -135,6 +139,7 @@ public class CourseActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 intent.putExtra("Title","Recent Papers");
+                fab.close(true);
                 startActivity(intent);
             }
         });
@@ -142,6 +147,7 @@ public class CourseActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 intent.putExtra("Title","Offline");
+                fab.close(true);
                 startActivity(intent);
             }
         });
@@ -149,6 +155,7 @@ public class CourseActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 intent.putExtra("Title","Bookmarks");
+                fab.close(true);
                 startActivity(intent);
             }
         });
@@ -202,10 +209,10 @@ public class CourseActivity extends AppCompatActivity{
 
         mService = ApiUtils.getBackendService();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_university_selected);
-        mAdapter = new CourseAdapter(this, new ArrayList<UniversityFull>(), mChooseTV, collapsingToolbarLayout , new CourseAdapter.CourseItemListener() {
+        mAdapter = new CourseAdapter(this, new UniversityCourse(), params, mChooseTV, collapsingToolbarLayout , new CourseAdapter.CourseItemListener() {
             @Override
             public void onUniversityClick(String id) {
-                Toast.makeText(CourseActivity.this, "Post id is" + id, Toast.LENGTH_SHORT).show();
+               loadCourses();
             }
         });
 
@@ -233,8 +240,6 @@ public class CourseActivity extends AppCompatActivity{
         });
 
         Log.d("CourseActivity","loading Courses");
-
-        id = getIntent().getStringExtra("UniversityActivity.EXTRA_University_Key");
         loadCourses();
     }
 
@@ -243,13 +248,20 @@ public class CourseActivity extends AppCompatActivity{
         final long start = System.currentTimeMillis();
 
         Log.d("CourseActivity", "loadCoursesMethod");
-        Log.d("Key", String.valueOf(id));
-        call = mService.getCourses(id);
+
+        switch (mAdapter.getSelector()){
+            case 0: call = mService.getCourses(params[0]);
+                    break;
+            case 1: call = mService.getCourses(params[0],params[1]);
+                    break;
+            case 2: call = mService.getCourses(params[0],params[1],params[2]);
+                    break;
+        }
         Log.d("Call",call.request().toString());
-        call.enqueue(new Callback<List<UniversityFull>>() {
+        call.enqueue(new Callback<UniversityCourse>() {
 
             @Override
-            public void onResponse(Call<List<UniversityFull>> call, Response<List<UniversityFull>> response) {
+            public void onResponse(Call<UniversityCourse> call, Response<UniversityCourse> response) {
                 Log.d("Call",call.request().toString());
                 if(response.isSuccessful()) {
                     Log.d("CourseActivity","issuccess");
@@ -283,7 +295,7 @@ public class CourseActivity extends AppCompatActivity{
             }
 
             @Override
-            public void onFailure(Call<List<UniversityFull>> call, Throwable t) {
+            public void onFailure(Call<UniversityCourse> call, Throwable t) {
                 if(call.isCanceled()){
                     Log.d("CourseActivity", "call is cancelled");
 

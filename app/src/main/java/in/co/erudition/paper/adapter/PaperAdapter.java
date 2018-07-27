@@ -103,7 +103,7 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
             Log.d("Adapter Position:", String.valueOf(getAdapterPosition()));
             Year year = getPaper(getAdapterPosition());
             Log.d("YearId:", String.valueOf(year.getId()));
-            Log.d("PaperStatus:", year.getStatus());
+//            Log.d("PaperStatus:", year.getStatus());
 
             int position = getAdapterPosition();
             if(position != RecyclerView.NO_POSITION) {
@@ -111,10 +111,10 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
                 intent_ques.putExtras(mIntent);
                 intent_ques.putExtra("PaperActivity.EXTRA_Year",year.getYear());
                 intent_ques.putExtra("PaperActivity.EXTRA_Subject_Full",year.getSubjectFullName());
-                intent_ques.putExtra("PaperActivity.EXTRA_University_Full",year.getUniversityName());
-                intent_ques.putExtra("PaperActivity.EXTRA_Time",year.getTimeAllotted());
-                intent_ques.putExtra("PaperActivity.EXTRA_Marks",year.getFullMarks());
-                intent_ques.putExtra("PaperActivity.EXTRA_Img",year.getPaperImageM());
+//                intent_ques.putExtra("PaperActivity.EXTRA_University_Full",year.getUniversityName());
+//                intent_ques.putExtra("PaperActivity.EXTRA_Time",year.getTimeAllotted());
+//                intent_ques.putExtra("PaperActivity.EXTRA_Marks",year.getFullMarks());
+//                intent_ques.putExtra("PaperActivity.EXTRA_Img",year.getPaperImageM());
                 intent_ques.putExtra("PaperActivity.EXTRA_Subject_Name",year.getSubjectName());
                 mContext.startActivity(intent_ques);
             }
