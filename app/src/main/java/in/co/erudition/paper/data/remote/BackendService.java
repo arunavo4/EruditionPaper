@@ -65,7 +65,8 @@ public interface BackendService {
                              @Field("SubjectCode") String subjectCode);
 
 
-    @GET("paper")
+    @POST("paper")
+    @FormUrlEncoded
     Call<Paper> getPaper(@Field("PaperCode") String paperCode);
 
 

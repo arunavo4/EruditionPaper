@@ -208,11 +208,13 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                    case 0:  setParams(boardCourses.get(position).getCode());
                             selector+=1;
                             NameStr[selector] = boardCourses.get(position).getFullName();
+                            mItemListener.onUniversityClick("0");
                             break;
 
                    case 1:  setParams(boardSessions.get(position).getCode());
                             selector+=1;
                             NameStr[selector] = boardSessions.get(position).getFullName();
+                            mItemListener.onUniversityClick("0");
                             break;
 
                    case 2:  intent.putExtra("CourseActivity.EXTRA_Subject_NAME",boardSubjects.get(position).getName());
@@ -223,7 +225,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                             mContext.startActivity(intent);
                }
                setTextView(selector);
-               mItemListener.onUniversityClick("0");
             }
         }
     }

@@ -192,6 +192,13 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <style name="YearTextViewBold">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/greyDark</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="SubjectCodeTextView">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@color/greyDark</item>

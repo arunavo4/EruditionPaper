@@ -4,12 +4,14 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -17,6 +19,7 @@ import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -43,6 +46,7 @@ import java.util.List;
 
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.adapter.PaperAdapter;
+import in.co.erudition.paper.data.model.Chapter;
 import in.co.erudition.paper.data.model.Paper;
 import in.co.erudition.paper.data.model.Year;
 import in.co.erudition.paper.data.remote.BackendService;
@@ -58,11 +62,11 @@ public class PaperActivity extends AppCompatActivity{
     private PaperAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private BackendService mService;
-    private Call<List<Year>> call;
+    private Call<List<Year>> yearCall;
+    private Call<List<Chapter>> chapCall;
     private NetworkUtils mNetworkUtils = new NetworkUtils();
 
     private ProgressBar mProgressBar;
-    private LinearLayout mimageView;
     private LinearLayout mPaperList;
     private LinearLayout mNoPaper;
 
@@ -74,6 +78,7 @@ public class PaperActivity extends AppCompatActivity{
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private boolean papers = true;
+    private int select = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +87,12 @@ public class PaperActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         Toolbar toolbar_textView = (Toolbar) findViewById(R.id.toolbar2);
 
+        //Selection Buttons
+        ConstraintLayout yearBtn = (ConstraintLayout) findViewById(R.id.year_btn);
+        ConstraintLayout chapBtn = (ConstraintLayout) findViewById(R.id.chapter_btn);
+        final LinearLayout selection = (LinearLayout) findViewById(R.id.selection_chap_or_year);
+
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar_paper);
-        mimageView = (LinearLayout) findViewById(R.id.img3_404_not_found);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeToRefresh3);
         mPaperList = (LinearLayout) findViewById(R.id.paper_list);
         mNoPaper = (LinearLayout) findViewById(R.id.no_paper_found);
@@ -94,21 +103,13 @@ public class PaperActivity extends AppCompatActivity{
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(mimageView.getVisibility()==View.VISIBLE){
-                    mimageView.setVisibility(View.GONE);
-                }
 //                mProgressBar.setVisibility(View.VISIBLE);
-                loadPapers();
+                if (select==0){
+                    loadChaps();
+                }else if (select==1){
+                    loadYears();
+                }
 //                mSwipeRefreshLayout.setRefreshing(false);
-            }
-        });
-
-        Button btn_retry = (Button) findViewById(R.id.btn_retry);
-
-        btn_retry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onRetryLoadPapers();
             }
         });
 
@@ -220,6 +221,7 @@ public class PaperActivity extends AppCompatActivity{
 
                 papers = false;
             }
+            //For normal selection flow.
             else if(from.contentEquals("Course")){
                 toolbar.setNavigationIcon(bg);
                 toolbar.setTitle(getIntent().getStringExtra("UniversityActivity.EXTRA_Subject_NAME"));
@@ -238,7 +240,9 @@ public class PaperActivity extends AppCompatActivity{
                         toolbar_textView.setVisibility(View.GONE);
                     }
                 }
-                collapsingToolbarLayout.setTitle(getIntent().getStringExtra("CourseActivity.EXTRA_Subject_FULL_NAME"));
+                collapsingToolbarLayout.setTitle(getIntent().getStringExtra("CourseActivity.EXTRA_Subject_NAME"));
+                // Show the Selection Chapter or Year.
+                selection.setVisibility(View.VISIBLE);
             }
         }
         catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
@@ -246,12 +250,9 @@ public class PaperActivity extends AppCompatActivity{
         }
 
         //Loading Starts
-        mProgressBar.setVisibility(View.VISIBLE);
-
-
         mService = ApiUtils.getBackendService();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_paper);
-        mAdapter = new PaperAdapter(this, new ArrayList<Year>(), getIntent(), new PaperAdapter.PaperItemListener() {
+        mAdapter = new PaperAdapter(this, new ArrayList<Year>(), new ArrayList<Chapter>(), select, getIntent(), new PaperAdapter.PaperItemListener() {
             @Override
             public void onPaperClick(String id) {
                 Toast.makeText(PaperActivity.this, "Post id is" + id, Toast.LENGTH_SHORT).show();
@@ -284,7 +285,25 @@ public class PaperActivity extends AppCompatActivity{
         Log.d("PaperActivity","loading papers");
 
         if (papers){
-            loadPapers();
+            chapBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mProgressBar.setVisibility(View.VISIBLE);
+                    select = 0;
+                    loadChaps();
+                    selection.setVisibility(View.INVISIBLE);
+                }
+            });
+
+            yearBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mProgressBar.setVisibility(View.VISIBLE);
+                    select = 1;
+                    loadYears();
+                    selection.setVisibility(View.INVISIBLE);
+                }
+            });
         }
         else {
             loadNoPapers();
@@ -301,19 +320,80 @@ public class PaperActivity extends AppCompatActivity{
         mNoPaper.setVisibility(View.VISIBLE);
     }
 
-    private void loadPapers() {
+    private void loadChaps() {
 
         final long start = System.currentTimeMillis();
 
-        Log.d("PaperActivity", "loadPapersMethod");
-        String ByWhat = "-Year";
-        String selection = "SubjectFullName Year UniversityName PaperImageM TimeAllotted FullMarks Status SubjectName";
+        Log.d("PaperActivity", "loadChaptersMethod");
+        String params[] = getIntent().getStringArrayExtra("CourseActivity.EXTRA_params");
 
-        call = mService.getYear(getIntent().getStringExtra("CourseActivity.EXTRA_University_Key"),
-                getIntent().getStringExtra("CourseActivity.EXTRA_Course_Key"),
-                getIntent().getStringExtra("CourseActivity.EXTRA_Semester_Key"),
-                getIntent().getStringExtra("CourseActivity.EXTRA_Subject_Key"));
-        call.enqueue(new Callback<List<Year>>() {
+        Log.d("Params",params.toString());
+        chapCall = mService.getChapter(params[0],params[1],params[2],params[3]);
+        chapCall.enqueue(new Callback<List<Chapter>>() {
+            @Override
+            public void onResponse(Call<List<Chapter>> call, Response<List<Chapter>> response) {
+                Log.d("Call",call.request().toString());
+                if(response.isSuccessful()) {
+                    Log.d("PaperActivity","issuccess");
+
+                    // starting time
+                    final long end = System.currentTimeMillis();
+                    String time = String.valueOf(end-start);
+                    String str = "S:" + response.message() + "  T: " + time + "ms  S: " + response.headers().get("Content-Length") + "B";
+
+                    Toast.makeText(PaperActivity.this,str,Toast.LENGTH_LONG).show();
+
+                    mProgressBar.setVisibility(View.GONE);
+                    mSwipeRefreshLayout.setRefreshing(false);
+
+                    Log.d("Response Body",response.body().toString());
+                    mAdapter.updateChapters(response.body(),select);
+                    Log.d("PaperActivity", "API success");
+                }else {
+                    int statusCode  = response.code();
+                    if(statusCode==401){
+                        Log.d("StatusCode","Unauthorized");
+                    }
+                    if (statusCode==200){
+                        Log.d("StatusCode","OK");
+                    }
+                    else {
+                        Log.d("StatusCode", String.valueOf(statusCode));
+                    }
+                    // handle request errors depending on status code
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Chapter>> call, Throwable t) {
+                if(call.isCanceled()){
+                    Log.d("PaperActivity", "call is cancelled");
+
+                }
+                else if(mNetworkUtils.isOnline(PaperActivity.this)){
+                    Log.d("MainActivity", "error loading from API");
+                    showDialogError();
+                }else{
+                    Log.d("MainActivity", "Check your network connection");
+                    showDialogNoNet();
+                }
+
+                mProgressBar.setVisibility(View.GONE);
+                mSwipeRefreshLayout.setRefreshing(false);
+                mPaperList.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void loadYears() {
+
+        final long start = System.currentTimeMillis();
+
+        Log.d("PaperActivity", "loadYearsMethod");
+        String params[] = getIntent().getStringArrayExtra("CourseActivity.EXTRA_params");
+
+        yearCall = mService.getYear(params[0],params[1],params[2],params[3]);
+        yearCall.enqueue(new Callback<List<Year>>() {
 
             @Override
             public void onResponse(Call<List<Year>> call, Response<List<Year>> response) {
@@ -332,7 +412,7 @@ public class PaperActivity extends AppCompatActivity{
                     mSwipeRefreshLayout.setRefreshing(false);
 
                     Log.d("Response Body",response.body().toString());
-                    mAdapter.updatePapers(response.body());
+                    mAdapter.updateYears(response.body(),select);
                     Log.d("PaperActivity", "API success");
                 }else {
                     int statusCode  = response.code();
@@ -355,49 +435,99 @@ public class PaperActivity extends AppCompatActivity{
                     Log.d("PaperActivity", "call is cancelled");
 
                 }
-                else {
-                    Log.d("PaperActivity", "error loading from API");
+                else if(mNetworkUtils.isOnline(PaperActivity.this)){
+                    Log.d("MainActivity", "error loading from API");
+                    showDialogError();
+                }else{
+                    Log.d("MainActivity", "Check your network connection");
+                    showDialogNoNet();
                 }
-                String str;
-                if(mNetworkUtils.isOnline(PaperActivity.this)){
-                    str ="Error loading from Api";
-                }
-                else
-                    str ="Check your network connection";
 
                 mProgressBar.setVisibility(View.GONE);
                 mSwipeRefreshLayout.setRefreshing(false);
-
-                mimageView.setVisibility(View.VISIBLE);
                 mPaperList.setVisibility(View.GONE);
-//                Snackbar.make((CoordinatorLayout)findViewById(R.id.app_bar_main3_layout),str, Snackbar.LENGTH_SHORT)
-//                        .setAction("Retry", new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                onRetryLoadPapers();
-//                            }
-//                        }).show();
             }
         });
     }
 
     private void onRetryLoadPapers() {
         //call load Papers
-        mimageView.setVisibility(View.GONE);
         mProgressBar.setVisibility(View.VISIBLE);
         mPaperList.setVisibility(View.VISIBLE);
         Log.d("PaperActivity","retrying loading Papers");
-        loadPapers();
+        if (select==0){
+            loadChaps();
+        }else if (select==1){
+            loadYears();
+        }else {
+            loadNoPapers();
+        }
     }
 
     @Override
     public void onBackPressed() {
-        if (call!=null) {
-            if (!call.isExecuted()){
-                call.cancel();
+        if (select==0){
+            if (chapCall!=null) {
+                if (!chapCall.isExecuted()){
+                    chapCall.cancel();
+                }
+            }
+        }else if (select==1){
+            if (yearCall!=null) {
+                if (!yearCall.isExecuted()){
+                    yearCall.cancel();
+                }
             }
         }
+
         super.onBackPressed();
+    }
+
+    /**
+     * Method to inflate the dialog and show it.
+     */
+    private void showDialogNoNet() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_no_internet,null);
+
+        Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
+
+        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
+
+        btn_retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //retry and close dialogue
+                if (dialog.isShowing()){
+                    dialog.cancel();
+                    onRetryLoadPapers();
+                }
+            }
+        });
+    }
+
+    private void showDialogError() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_error,null);
+
+        Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
+
+        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
+
+        btn_go_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //retry and close dialogue
+                if (dialog.isShowing()){
+                    dialog.cancel();
+                    onBackPressed();
+                }
+            }
+        });
     }
 
     @Override

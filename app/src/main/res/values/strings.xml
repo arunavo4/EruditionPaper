@@ -4,6 +4,8 @@
     <string name="coming_soon">Coming Soon</string>
     <string name="add">ADD</string>
     <string name="continue_btn">CONTINUE</string>
+    <string name="time">Time:</string>
+    <string name="marks">Marks:</string>
     <string name="retry">Retry</string>
     <string name="go_back">Go Back</string>
     <string name="referal_sample">ER007R</string>
@@ -43,6 +45,8 @@
     <!--No Internet and error-->
     <string name="no_internet_top">No Internet</string>
     <string name="no_internet_bottom">Your internet connection was interrupted,  Please retry.</string>
+    <string name="error_top">Some Error Occurred</string>
+    <string name="error_bottom">The page you are looking for does not exist</string>
     <string name="no_papers">No Papers Found</string>
 
     <!--Fab Action Menu-->
@@ -83,6 +87,10 @@
     <string name="choose_course">Choose Your Course</string>
     <string name="university_name">University Name</string>
 
+
+    <!--Chapter / Year-->
+    <string name="chapter_wise">Chapter\nWise</string>
+    <string name="year_wise">Year\nWise</string>
 
     <!--Symbols-->
     <!--Rupee Symbol-->

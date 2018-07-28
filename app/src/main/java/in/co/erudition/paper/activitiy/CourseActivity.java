@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -17,6 +18,7 @@ import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -62,7 +64,6 @@ public class CourseActivity extends AppCompatActivity{
     private NetworkUtils mNetworkUtils = new NetworkUtils();
 
     private ProgressBar mProgressBar;
-    private LinearLayout mimageView;
     private LinearLayout mCourseList;
     private FloatingActionMenu fab;
     private Intent intent;
@@ -82,29 +83,16 @@ public class CourseActivity extends AppCompatActivity{
         params[0] = getIntent().getStringExtra("UniversityActivity.EXTRA_BoardCode");
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar_course);
-        mimageView = (LinearLayout) findViewById(R.id.img2_404_not_found);
         TextView mChooseTV = (TextView) findViewById(R.id.choose_tv);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeToRefresh2);
         mCourseList = (LinearLayout) findViewById(R.id.course_list);
 
         mSwipeRefreshLayout.setColorSchemeResources(R.color.color_1,R.color.color_2,R.color.color_3,R.color.color_4);
 
-        Button btn_retry = (Button) findViewById(R.id.btn_retry);
-
-        btn_retry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onRetryLoadCourses();
-            }
-        });
-
         //Swipe to Refresh
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(mimageView.getVisibility()==View.VISIBLE){
-                    mimageView.setVisibility(View.GONE);
-                }
 //                mProgressBar.setVisibility(View.VISIBLE);
                 loadCourses();
 //                mSwipeRefreshLayout.setRefreshing(false);
@@ -163,7 +151,6 @@ public class CourseActivity extends AppCompatActivity{
         setUpCustomFabMenuAnimation();
 
 
-
         Drawable bg;
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             bg = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_black_24dp);
@@ -212,7 +199,12 @@ public class CourseActivity extends AppCompatActivity{
         mAdapter = new CourseAdapter(this, new UniversityCourse(), params, mChooseTV, collapsingToolbarLayout , new CourseAdapter.CourseItemListener() {
             @Override
             public void onUniversityClick(String id) {
+               mProgressBar.setVisibility(View.VISIBLE);
+               mCourseList.setVisibility(View.INVISIBLE);
                loadCourses();
+               if (fab.isMenuButtonHidden()){
+                   fab.showMenuButton(true);
+               }
             }
         });
 
@@ -274,6 +266,7 @@ public class CourseActivity extends AppCompatActivity{
                     Toast.makeText(CourseActivity.this,str,Toast.LENGTH_LONG).show();
 
                     mProgressBar.setVisibility(View.GONE);
+                    mCourseList.setVisibility(View.VISIBLE);
                     mSwipeRefreshLayout.setRefreshing(false);
 
                     Log.d("Response Body",response.body().toString());
@@ -300,28 +293,17 @@ public class CourseActivity extends AppCompatActivity{
                     Log.d("CourseActivity", "call is cancelled");
 
                 }
-                else {
-                    Log.d("CourseActivity", "error loading from API");
+                else if(mNetworkUtils.isOnline(CourseActivity.this)){
+                    Log.d("MainActivity", "error loading from API");
+                    showDialogError();
+                }else{
+                    Log.d("MainActivity", "Check your network connection");
+                    showDialogNoNet();
                 }
-                String str;
-                if(mNetworkUtils.isOnline(CourseActivity.this)){
-                    str ="Error loading from Api";
-                }
-                else
-                    str ="Check your network connection";
 
                 mProgressBar.setVisibility(View.GONE);
                 mSwipeRefreshLayout.setRefreshing(false);
-
-                mimageView.setVisibility(View.VISIBLE);
                 mCourseList.setVisibility(View.GONE);
-//                Snackbar.make((CoordinatorLayout)findViewById(R.id.app_bar_main2_layout),str, Snackbar.LENGTH_SHORT)
-//                        .setAction("Retry", new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                onRetryLoadCourses();
-//                            }
-//                        }).show();
             }
         });
 
@@ -341,13 +323,61 @@ public class CourseActivity extends AppCompatActivity{
     }
 
     private void onRetryLoadCourses() {
-        //call load Universities
-        mimageView.setVisibility(View.GONE);
+        //call load Courses
         mProgressBar.setVisibility(View.VISIBLE);
         mCourseList.setVisibility(View.VISIBLE);
         Log.d("CourseActivity","retrying loading Courses");
         loadCourses();
     }
+
+
+    /**
+     * Method to inflate the dialog and show it.
+     */
+    private void showDialogNoNet() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_no_internet,null);
+
+        Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
+
+        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
+
+        btn_retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //retry and close dialogue
+                if (dialog.isShowing()){
+                    dialog.cancel();
+                    onRetryLoadCourses();
+                }
+            }
+        });
+    }
+
+    private void showDialogError() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_error,null);
+
+        Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
+
+        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
+
+        btn_go_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //retry and close dialogue
+                if (dialog.isShowing()){
+                    dialog.cancel();
+                    onBackPressed();
+                }
+            }
+        });
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

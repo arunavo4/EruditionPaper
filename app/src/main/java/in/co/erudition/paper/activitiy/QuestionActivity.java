@@ -1,5 +1,6 @@
 package in.co.erudition.paper.activitiy;
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -15,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -118,29 +120,13 @@ public class QuestionActivity extends AppCompatActivity {
         });
 
         //Set the Question header;
-        ImageView img = (ImageView) findViewById(R.id.university_img);
-        TextView uni_name = (TextView) findViewById(R.id.university_tv);
         TextView year_tv = (TextView) findViewById(R.id.year_tv);
         TextView sub_name_tv = (TextView) findViewById(R.id.subject_name_tv);
-        TextView time_tv = (TextView) findViewById(R.id.time_tv);
-        TextView marks_tv = (TextView) findViewById(R.id.marks_tv);
 
         // Set item views based on your views and data model
         try {
-            if(!getIntent().getStringExtra("PaperActivity.EXTRA_Img").contentEquals("#")) {
-                Glide
-                        .with(this)
-                        .load(getIntent().getStringExtra("PaperActivity.EXTRA_Img"))
-                        .apply(RequestOptions.placeholderOf(R.drawable.bg_white))
-                        .thumbnail(0.1f)
-                        .into(img);
-            }
-            uni_name.setText(getIntent().getStringExtra("PaperActivity.EXTRA_University_Full"));
             year_tv.setText(getIntent().getStringExtra("PaperActivity.EXTRA_Year"));
-            sub_name_tv.setText(getIntent().getStringExtra("PaperActivity.EXTRA_Subject_Full"));
-            String time = getIntent().getStringExtra("PaperActivity.EXTRA_Time") + " Min";
-            time_tv.setText(time);
-            marks_tv.setText(getIntent().getStringExtra("PaperActivity.EXTRA_Marks"));
+            sub_name_tv.setText(getIntent().getStringExtra("PaperActivity.EXTRA_Full_Name"));
         }
         catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e)
         {   Log.e("Exception",e.toString()); }
@@ -216,8 +202,8 @@ public class QuestionActivity extends AppCompatActivity {
 
         Log.d(TAG, "loadPaperGroupsMethod");
 
-        call = mService.getPaper(getIntent().getStringExtra("CourseActivity.EXTRA_University_Key"));
-
+        call = mService.getPaper(getIntent().getStringExtra("PaperActivity.EXTRA_Paper_Code"));
+//        call = mService.getPaper("214");
         call.enqueue(new Callback<Paper>() {
 
             @Override
@@ -236,6 +222,7 @@ public class QuestionActivity extends AppCompatActivity {
                     mProgressBar.setVisibility(View.GONE);
                     Log.d("Response Body",response.body().toString());
                     mAdapter.updateGroups(response.body());
+                    updatePaperCard(response.body());
                     Log.d(TAG, "API success");
                 }else {
                     int statusCode  = response.code();
@@ -254,19 +241,20 @@ public class QuestionActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Paper> call, Throwable t) {
+                String str = "Failed";
                 if(call.isCanceled()){
                     Log.d(TAG, "call is cancelled");
 
                 }
-                else {
-                    Log.d(TAG, "error loading from API");
+                else if(mNetworkUtils.isOnline(QuestionActivity.this)){
+                    Log.d("MainActivity", "error loading from API");
+                    str = "error loading from API";
+                    showDialogError();
+                }else{
+                    Log.d("MainActivity", "Check your network connection");
+                    str = "Check your network connection";
+                    showDialogNoNet();
                 }
-                String str;
-                if(mNetworkUtils.isOnline(QuestionActivity.this)){
-                    str ="Error loading from Api";
-                }
-                else
-                    str ="Check your network connection";
 
                 mProgressBar.setVisibility(View.GONE);
                 Snackbar.make((CoordinatorLayout)findViewById(R.id.app_bar_main4_layout),str, Snackbar.LENGTH_INDEFINITE)
@@ -278,6 +266,36 @@ public class QuestionActivity extends AppCompatActivity {
                         }).show();
             }
         });
+    }
+
+    private void updatePaperCard(Paper body) {
+        //Set the Question header;
+        ImageView img = (ImageView) findViewById(R.id.university_img);
+        TextView uni_name = (TextView) findViewById(R.id.university_tv);
+        TextView year_tv = (TextView) findViewById(R.id.year_tv);
+        TextView sub_name_tv = (TextView) findViewById(R.id.subject_name_tv);
+        TextView time_tv = (TextView) findViewById(R.id.time_tv);
+        TextView marks_tv = (TextView) findViewById(R.id.marks_tv);
+
+        // Set item views based on your views and data model
+        try {
+            if(!body.getLogo().contentEquals("#")) {
+                Glide
+                        .with(this)
+                        .load(body.getLogo())
+                        .apply(RequestOptions.placeholderOf(R.drawable.bg_white))
+                        .thumbnail(0.1f)
+                        .into(img);
+            }
+            uni_name.setText(body.getBoardFullName());
+            year_tv.setText(body.getYear());
+            sub_name_tv.setText(body.getSubjectFullName());
+            String time = body.getPaperTime() + " Min";
+            time_tv.setText(time);
+            marks_tv.setText(body.getPaperMarks());
+        }
+        catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e)
+        {   Log.e("Exception",e.toString()); }
     }
 
     private void onRetryLoadPaperGroups() {
@@ -295,6 +313,52 @@ public class QuestionActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    /**
+     * Method to inflate the dialog and show it.
+     */
+    private void showDialogNoNet() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_no_internet,null);
+
+        Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
+
+        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
+
+        btn_retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //retry and close dialogue
+                if (dialog.isShowing()){
+                    dialog.cancel();
+                    onRetryLoadPaperGroups();
+                }
+            }
+        });
+    }
+
+    private void showDialogError() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_error,null);
+
+        Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
+
+        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
+
+        btn_go_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //retry and close dialogue
+                if (dialog.isShowing()){
+                    dialog.cancel();
+                    onBackPressed();
+                }
+            }
+        });
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

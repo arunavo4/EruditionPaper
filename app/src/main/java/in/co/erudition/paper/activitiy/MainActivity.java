@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -16,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -35,6 +37,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.accessibility.AccessibilityManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -76,40 +80,23 @@ public class MainActivity extends AppCompatActivity
     private NetworkUtils mNetworkUtils = new NetworkUtils();
 
     private ProgressBar mProgressBar;
-    private LinearLayout mimageView;
     private LinearLayout mUniversityList;
     private FloatingActionMenu fab;
-    private Toolbar toolbar;
     private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
 
         TextView tv = (TextView) findViewById(R.id.app_name_tv_1);
         setUpCustomText(getResources().getString(R.string.app_name),tv);
         toolbar.setTitle("Erudition Paper");
         setSupportActionBar(toolbar);
 
-
-
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar_universities);
-        mimageView = (LinearLayout) findViewById(R.id.img_404_not_found);
         mUniversityList = (LinearLayout) findViewById(R.id.university_list);
-
-
-        //Retry button
-        Button btn_retry = (Button) findViewById(R.id.btn_retry);
-
-        btn_retry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onRetryLoadUniversities();
-            }
-        });
-
 
         final View space = (View) findViewById(R.id.spacer_top);
         //Search view
@@ -281,7 +268,11 @@ public class MainActivity extends AppCompatActivity
         });
 
         Log.d("MainActivity","loading Universities");
-        loadUniversities();
+        if(mNetworkUtils.isOnline(MainActivity.this)){
+            loadUniversities();
+        }else {
+            showDialogNoNet();
+        }
     }
 
     private void setUpCustomText(String text, TextView textView) {
@@ -366,20 +357,14 @@ public class MainActivity extends AppCompatActivity
                     Log.d("MainActivity", "call is cancelled");
 
                 }
-                else {
+                else if(mNetworkUtils.isOnline(MainActivity.this)){
                     Log.d("MainActivity", "error loading from API");
+                    showDialogError();
+                }else{
+                    Log.d("MainActivity", "Check your network connection");
+                    showDialogNoNet();
                 }
-                String str;
-                if(mNetworkUtils.isOnline(MainActivity.this)){
-                    str ="Error loading from Api";
-                    //Display the error image
-                }
-                else
-                    str ="Check your network connection";
-
                 mProgressBar.setVisibility(View.GONE);
-
-                mimageView.setVisibility(View.VISIBLE);
                 mUniversityList.setVisibility(View.GONE);
             }
         });
@@ -388,11 +373,14 @@ public class MainActivity extends AppCompatActivity
 
     private void onRetryLoadUniversities() {
         //call load Universities
-        mimageView.setVisibility(View.GONE);
         mProgressBar.setVisibility(View.VISIBLE);
         mUniversityList.setVisibility(View.VISIBLE);
         Log.d("MainActivity","retrying loading universities");
-        loadUniversities();
+        if(mNetworkUtils.isOnline(MainActivity.this)){
+            loadUniversities();
+        }else {
+            showDialogNoNet();
+        }
     }
 
     @Override
@@ -471,6 +459,53 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /**
+     * Method to inflate the dialog and show it.
+     */
+    private void showDialogNoNet() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_no_internet,null);
+
+        Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
+
+        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
+
+        btn_retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //retry and close dialogue
+                if (dialog.isShowing()){
+                    dialog.cancel();
+                    onRetryLoadUniversities();
+                }
+            }
+        });
+    }
+
+    private void showDialogError() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_error,null);
+
+        Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
+
+        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
+
+        btn_go_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //retry and close dialogue
+                if (dialog.isShowing()){
+                    dialog.cancel();
+                    onBackPressed();
+                }
+            }
+        });
     }
 
     /**

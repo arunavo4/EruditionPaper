@@ -45,7 +45,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="2016"
         android:layout_gravity="center_horizontal" />
 
     <TextView
@@ -56,7 +55,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Object-oriented Programming With C++"
         android:layout_gravity="center_horizontal"/>
 
     <LinearLayout
@@ -78,14 +76,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
-                android:text="Time:" />
+                android:text="@string/time" />
 
             <TextView
                 android:id="@+id/time_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
-                android:text="108 Min"
                 android:textSize="12sp"
                 android:textColor="@color/greyMedium"/>
 
@@ -103,14 +100,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
-                android:text="Marks:" />
+                android:text="@string/marks" />
 
             <TextView
                 android:id="@+id/marks_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
-                android:text="80"
                 android:textSize="12sp"
                 android:textColor="@color/greyMedium"/>
 

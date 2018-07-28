@@ -164,7 +164,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> 
     private void showDialogInfo(PaperGroup group) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        View view = LayoutInflater.from(mContext).inflate(R.layout.card_info,null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_info,null);
 
         Animation view_anim = AnimationUtils.loadAnimation(mContext,R.anim.zoom_in);
         view.startAnimation(view_anim);

@@ -1,5 +1,6 @@
 package in.co.erudition.paper.activitiy;
 
+import android.app.Dialog;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -199,19 +200,20 @@ public class AnswerActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Paper> call, Throwable t) {
+                String str = "Failed";
                 if(call.isCanceled()){
                     Log.d(TAG, "call is cancelled");
 
                 }
-                else {
-                    Log.d(TAG, "error loading from API");
+                else if(mNetworkUtils.isOnline(AnswerActivity.this)){
+                    Log.d("MainActivity", "error loading from API");
+                    str = "error loading from API";
+                    showDialogError();
+                }else{
+                    Log.d("MainActivity", "Check your network connection");
+                    str = "Check your network connection";
+                    showDialogNoNet();
                 }
-                String str;
-                if(mNetworkUtils.isOnline(AnswerActivity.this)){
-                    str ="Error loading from Api";
-                }
-                else
-                    str ="Check your network connection";
 
 //                mProgressBar.setVisibility(View.GONE);
                 Snackbar.make((CoordinatorLayout)findViewById(R.id.app_bar_main4_layout),str, Snackbar.LENGTH_INDEFINITE)
@@ -274,7 +276,7 @@ public class AnswerActivity extends AppCompatActivity {
     private void showDialogInfo() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(AnswerActivity.this);
-        View view = getLayoutInflater().inflate(R.layout.card_info,null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_info,null);
 
         Animation view_anim = AnimationUtils.loadAnimation(AnswerActivity.this,R.anim.zoom_in);
         view.startAnimation(view_anim);
@@ -308,6 +310,50 @@ public class AnswerActivity extends AppCompatActivity {
                 //cancel the dialogue
                 if (alertDialog.isShowing()){
                     alertDialog.cancel();
+                }
+            }
+        });
+    }
+
+    private void showDialogNoNet() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_no_internet,null);
+
+        Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
+
+        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
+
+        btn_retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //retry and close dialogue
+                if (dialog.isShowing()){
+                    dialog.cancel();
+                    onRetryLoadPaperGroups();
+                }
+            }
+        });
+    }
+
+    private void showDialogError() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_error,null);
+
+        Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
+
+        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
+
+        btn_go_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //retry and close dialogue
+                if (dialog.isShowing()){
+                    dialog.cancel();
+                    onBackPressed();
                 }
             }
         });

@@ -14,6 +14,7 @@ import java.util.List;
 
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.activitiy.QuestionActivity;
+import in.co.erudition.paper.data.model.Chapter;
 import in.co.erudition.paper.data.model.Paper;
 import in.co.erudition.paper.data.model.University;
 import in.co.erudition.paper.data.model.Year;
@@ -24,14 +25,18 @@ import in.co.erudition.paper.data.model.Year;
 
 public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> {
 
-    private List<Year> mPapers;
+    private List<Chapter> mChapters;
+    private List<Year> mYears;
+    private int select;
     private Context mContext;
     private Intent mIntent;
     private PaperAdapter.PaperItemListener mItemListener;
 
-    public PaperAdapter(Context context, List<Year> papers, Intent intent, PaperAdapter.PaperItemListener itemListener){
+    public PaperAdapter(Context context, List<Year> papers, List<Chapter> chapters, int s, Intent intent, PaperAdapter.PaperItemListener itemListener){
         mContext = context;
-        mPapers = papers;
+        mChapters = chapters;
+        select = s;
+        mYears = papers;
         mIntent = intent;
         mItemListener = itemListener;
     }
@@ -51,15 +56,22 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Year paper = mPapers.get(holder.getAdapterPosition());
         TextView mSNameTV = holder.mSubjectNameTV;
         TextView mSYearTV = holder.mSubjectYearTV;
         View nav_space = holder.spacer;
 
         // Set item views based on your views and data model
         try {
-            mSNameTV.setText(paper.getSubjectFullName());
-            mSYearTV.setText(paper.getYear());
+            if (select==0){
+                Chapter paper = mChapters.get(holder.getAdapterPosition());
+                mSNameTV.setText(paper.getChapterFullName());
+                mSYearTV.setText(paper.getChapterName());
+
+            }else if (select==1){
+                Year paper = mYears.get(holder.getAdapterPosition());
+                mSNameTV.setText(paper.getSubjectFullName());
+                mSYearTV.setText(paper.getYear());
+            }
 
             if (nav_space.getVisibility() == View.VISIBLE){
                 nav_space.setVisibility(View.GONE);
@@ -76,7 +88,12 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return mPapers.size();
+        if (select==0){
+            return mChapters.size();
+        }else if (select==1){
+            return mYears.size();
+        }
+        return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -101,33 +118,49 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
         @Override
         public void onClick(View v) {
             Log.d("Adapter Position:", String.valueOf(getAdapterPosition()));
-            Year year = getPaper(getAdapterPosition());
-            Log.d("YearId:", String.valueOf(year.getId()));
-//            Log.d("PaperStatus:", year.getStatus());
 
             int position = getAdapterPosition();
             if(position != RecyclerView.NO_POSITION) {
                 Intent intent_ques = new Intent(mContext, QuestionActivity.class);
                 intent_ques.putExtras(mIntent);
-                intent_ques.putExtra("PaperActivity.EXTRA_Year",year.getYear());
-                intent_ques.putExtra("PaperActivity.EXTRA_Subject_Full",year.getSubjectFullName());
-//                intent_ques.putExtra("PaperActivity.EXTRA_University_Full",year.getUniversityName());
-//                intent_ques.putExtra("PaperActivity.EXTRA_Time",year.getTimeAllotted());
-//                intent_ques.putExtra("PaperActivity.EXTRA_Marks",year.getFullMarks());
-//                intent_ques.putExtra("PaperActivity.EXTRA_Img",year.getPaperImageM());
-                intent_ques.putExtra("PaperActivity.EXTRA_Subject_Name",year.getSubjectName());
+
+                if (select==0){
+                    Chapter chap = getChapter(getAdapterPosition());
+                    intent_ques.putExtra("PaperActivity.EXTRA_Year",chap.getYear());
+                    intent_ques.putExtra("PaperActivity.EXTRA_Full_Name",chap.getChapterFullName());
+                    intent_ques.putExtra("PaperActivity.EXTRA_Name",chap.getChapterName());
+                    intent_ques.putExtra("PaperActivity.EXTRA_Paper_Code",chap.getCode());
+                }
+                else if (select==1){
+                    Year year = getYear(getAdapterPosition());
+                    intent_ques.putExtra("PaperActivity.EXTRA_Year",year.getYear());
+                    intent_ques.putExtra("PaperActivity.EXTRA_Full_Name",year.getSubjectFullName());
+                    intent_ques.putExtra("PaperActivity.EXTRA_Name",year.getSubjectName());
+                    intent_ques.putExtra("PaperActivity.EXTRA_Paper_Code",year.getCode());
+                }
                 mContext.startActivity(intent_ques);
             }
         }
     }
 
-    public void updatePapers(List<Year> Papers) {
-        mPapers = Papers;
+    public void updateYears(List<Year> years,int s) {
+        mYears = years;
+        select = s;
         notifyDataSetChanged();
     }
 
-    private Year getPaper(int adapterPosition) {
-        return mPapers.get(adapterPosition);
+    public void updateChapters(List<Chapter> chapters,int s){
+        mChapters = chapters;
+        select = s;
+        notifyDataSetChanged();
+    }
+
+    private Year getYear(int adapterPosition) {
+        return mYears.get(adapterPosition);
+    }
+
+    private Chapter getChapter(int adapterPosition) {
+        return mChapters.get(adapterPosition);
     }
 
     public interface PaperItemListener {
