@@ -198,8 +198,6 @@ public class QuestionActivity extends AppCompatActivity {
 
     private void loadPaperGroups() {
 
-        final long start = System.currentTimeMillis();
-
         Log.d(TAG, "loadPaperGroupsMethod");
 
         call = mService.getPaper(getIntent().getStringExtra("PaperActivity.EXTRA_Paper_Code"));
@@ -211,13 +209,6 @@ public class QuestionActivity extends AppCompatActivity {
                 Log.d("Call",call.request().toString());
                 if(response.isSuccessful()) {
                     Log.d(TAG,"issuccess");
-
-                    // starting time
-                    final long end = System.currentTimeMillis();
-                    String time = String.valueOf(end-start);
-                    String str = "S:" + response.message() + "  T: " + time + "ms  S: " + response.headers().get("Content-Length") + "B";
-
-                    Toast.makeText(QuestionActivity.this,str,Toast.LENGTH_LONG).show();
 
                     mProgressBar.setVisibility(View.GONE);
                     Log.d("Response Body",response.body().toString());

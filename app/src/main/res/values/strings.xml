@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Erudition Paper</string>
     <string name="blank"> </string>
-    <string name="coming_soon">Coming Soon</string>
+    
     <string name="add">ADD</string>
     <string name="continue_btn">CONTINUE</string>
     <string name="time">Time:</string>
@@ -25,7 +25,11 @@
 
     <string name="answers">Answer:</string>
     <string name="type_a_comment">Type a comment</string>
-
+    
+    <!--Books-->
+    <string name="coming_soon_top">Coming Soon</string>
+    <string name="coming_soon_bottom">Paperback Editions of Erudition Paper will be Available really soon.</string>
+    
     <!--Offer-->
     <string name="offer_description">Offer Description</string>
     <string name="offer_dummy_text">Additional 5% Discount a minimum transaction of Rs.2000 using Axis Bank Credit &amp; Debit Cards Maximum discount per transaction is Rs.200 Offer Period: 4th April 2018 – 27th March 2019 (Wednesdays only) Offer is applicable on a maximum of 2 transactions per card per Wednesday Steps to avail offer: Select items to purchase for minimum of Rs.2000 Make payment using Axis Bank Credit &amp; Debit card Available On: Axis Bank Retail Credit Cards Axis Bank Retail Debit Card. LIC Credit Cards. Offer valid up to March 27,2019 </string>

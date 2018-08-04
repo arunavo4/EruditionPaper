@@ -322,8 +322,6 @@ public class PaperActivity extends AppCompatActivity{
 
     private void loadChaps() {
 
-        final long start = System.currentTimeMillis();
-
         Log.d("PaperActivity", "loadChaptersMethod");
         String params[] = getIntent().getStringArrayExtra("CourseActivity.EXTRA_params");
 
@@ -335,13 +333,6 @@ public class PaperActivity extends AppCompatActivity{
                 Log.d("Call",call.request().toString());
                 if(response.isSuccessful()) {
                     Log.d("PaperActivity","issuccess");
-
-                    // starting time
-                    final long end = System.currentTimeMillis();
-                    String time = String.valueOf(end-start);
-                    String str = "S:" + response.message() + "  T: " + time + "ms  S: " + response.headers().get("Content-Length") + "B";
-
-                    Toast.makeText(PaperActivity.this,str,Toast.LENGTH_LONG).show();
 
                     mProgressBar.setVisibility(View.GONE);
                     mSwipeRefreshLayout.setRefreshing(false);
@@ -387,8 +378,6 @@ public class PaperActivity extends AppCompatActivity{
 
     private void loadYears() {
 
-        final long start = System.currentTimeMillis();
-
         Log.d("PaperActivity", "loadYearsMethod");
         String params[] = getIntent().getStringArrayExtra("CourseActivity.EXTRA_params");
 
@@ -400,13 +389,6 @@ public class PaperActivity extends AppCompatActivity{
                 Log.d("Call",call.request().toString());
                 if(response.isSuccessful()) {
                     Log.d("PaperActivity","issuccess");
-
-                    // starting time
-                    final long end = System.currentTimeMillis();
-                    String time = String.valueOf(end-start);
-                    String str = "S:" + response.message() + "  T: " + time + "ms  S: " + response.headers().get("Content-Length") + "B";
-
-                    Toast.makeText(PaperActivity.this,str,Toast.LENGTH_LONG).show();
 
                     mProgressBar.setVisibility(View.GONE);
                     mSwipeRefreshLayout.setRefreshing(false);

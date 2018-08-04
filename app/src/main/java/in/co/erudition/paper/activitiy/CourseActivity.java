@@ -237,8 +237,6 @@ public class CourseActivity extends AppCompatActivity{
 
     private void loadCourses() {
 
-        final long start = System.currentTimeMillis();
-
         Log.d("CourseActivity", "loadCoursesMethod");
 
         switch (mAdapter.getSelector()){
@@ -257,13 +255,6 @@ public class CourseActivity extends AppCompatActivity{
                 Log.d("Call",call.request().toString());
                 if(response.isSuccessful()) {
                     Log.d("CourseActivity","issuccess");
-
-                    // starting time
-                    final long end = System.currentTimeMillis();
-                    String time = String.valueOf(end-start);
-                    String str = "S:" + response.message() + "  T: " + time + "ms  S: " + response.headers().get("Content-Length") + "B";
-
-                    Toast.makeText(CourseActivity.this,str,Toast.LENGTH_LONG).show();
 
                     mProgressBar.setVisibility(View.GONE);
                     mCourseList.setVisibility(View.VISIBLE);

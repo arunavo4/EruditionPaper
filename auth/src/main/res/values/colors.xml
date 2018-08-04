@@ -14,4 +14,10 @@
     <color name="fui_bgGoogle">#ffffff</color>
     <color name="fui_bgPhone">#43C5A5</color>
     <color name="fui_bgTwitter">#FF5BAAF4</color>
+
+    <color name="fui_bg_color">#F7F7FA</color>
+    <color name="fui_colorMaterialBlack">#54212121</color>
+    <color name="fui_colorBlack">#000000</color>
+    <color name="fui_colorWhite">#FFFFFF</color>
+    <color name="fui_colorBlack34alpha">#57000000</color>
 </resources>

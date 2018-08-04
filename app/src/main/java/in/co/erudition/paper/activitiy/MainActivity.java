@@ -312,8 +312,6 @@ public class MainActivity extends AppCompatActivity
     private void loadUniversities() {
 
         Log.d("MainActivity", "loadUniversitiesMethod");
-        // starting time
-        final long start = System.currentTimeMillis();
 
         call = mService.getUniversity();
         call.enqueue(new Callback<List<University>>() {
@@ -323,13 +321,6 @@ public class MainActivity extends AppCompatActivity
                 Log.d("Call",call.request().toString());
                 if(response.isSuccessful()) {
                     Log.d("MainActivity","issuccess");
-
-                    // starting time
-                    final long end = System.currentTimeMillis();
-                    String time = String.valueOf(end-start);
-                    String str = "S:" + response.message() + "  T: " + time + "ms  S: " + response.headers().get("Content-Length") + "B";
-
-                    Toast.makeText(MainActivity.this,str,Toast.LENGTH_LONG).show();
 
                     mProgressBar.setVisibility(View.GONE);
 

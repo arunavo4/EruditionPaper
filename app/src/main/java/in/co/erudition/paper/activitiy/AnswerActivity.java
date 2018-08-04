@@ -158,8 +158,6 @@ public class AnswerActivity extends AppCompatActivity {
      */
     private void loadPaperAnswers() {
 
-        final long start = System.currentTimeMillis();
-
         Log.d(TAG, "loadPaperAnswersMethod");
 
         call = mService.getPaper(getIntent().getStringExtra("CourseActivity.EXTRA_University_Key"));
@@ -171,13 +169,6 @@ public class AnswerActivity extends AppCompatActivity {
                 Log.d("Call",call.request().toString());
                 if(response.isSuccessful()) {
                     Log.d(TAG,"issuccess");
-
-                    // starting time
-                    final long end = System.currentTimeMillis();
-                    String time = String.valueOf(end-start);
-                    String str = "S:" + response.message() + "  T: " + time + "ms  S: " + response.headers().get("Content-Length") + "B";
-
-                    Toast.makeText(AnswerActivity.this,str,Toast.LENGTH_LONG).show();
 
 //                    mProgressBar.setVisibility(View.GONE);
                     Log.d("Response Body",response.body().toString());

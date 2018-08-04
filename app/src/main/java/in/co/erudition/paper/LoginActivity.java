@@ -75,10 +75,8 @@ public class LoginActivity extends AppCompatActivity {
                                             new AuthUI.IdpConfig.EmailBuilder().build()))
                             .setTheme(R.style.AuthUI_Theme)
                             .setIsSmartLockEnabled(!BuildConfig.DEBUG, true)
-                            .setLogo(R.drawable.ic_logo_small)
                             .build(),
                     RC_SIGN_IN);
-
             // Can also add the Privacy Policy and Terms of Service
 //                    .setTosAndPrivacyPolicyUrls("https://superapp.example.com/terms-of-service.html",
 //                                    "https://superapp.example.com/privacy-policy.html")

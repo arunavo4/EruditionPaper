@@ -14,10 +14,10 @@
     <string name="fui_idp_name_twitter">Twitter</string>
 
     <!-- Auth method picker -->
-    <string name="fui_sign_in_with_google" translation_description="Sign in button text">Sign in with Google</string>
-    <string name="fui_sign_in_with_facebook" translation_description="Sign in button text">Sign in with Facebook</string>
+    <string name="fui_sign_in_with_google" translation_description="Sign in button text">Google</string>
+    <string name="fui_sign_in_with_facebook" translation_description="Sign in button text">Facebook</string>
     <string name="fui_sign_in_with_twitter" translation_description="Sign in button text">Sign in with Twitter</string>
-    <string name="fui_sign_in_with_email" translation_description="Sign in button text">Sign in with email</string>
+    <string name="fui_sign_in_with_email" translation_description="Sign in button text">Continue Using Email</string>
     <string name="fui_sign_in_with_phone" translation_description="Sign in button text">Sign in with phone</string>
 
     <!-- Email common-->
@@ -100,4 +100,13 @@
     <string name="fui_continue_phone_login" translation_description="Button text to submit phone number and send sms">Continue</string>
     <string name="fui_sms_terms_of_service" translation_description="Fine print warning displayed below Verify Phone Number button">By tapping “%1$s”, an SMS may be sent. Message &amp; data rates may apply.</string>
     <string name="fui_sms_terms_of_service_and_privacy_policy_extended" translation_description="Fine print warning displayed below Verify Phone Number button">By tapping “%1$s”, you are indicating that you accept our <xliff:g example="https://google.com/terms" id="tos" translation_description="">%2$s</xliff:g> and <xliff:g example="https://google.com/privacy" id="pp" translation_description="">%3$s</xliff:g>. An SMS may be sent. Message &amp; data rates may apply.</string>
+
+
+    <!--Intro Texts-->
+    <string name="fui_page_one_title">Solved Question Papers</string>
+    <string name="fui_page_one_desc">Get Previous 3 to 10 Years Solved Question Papers Of Various Universities Across Country</string>
+    <string name="fui_page_two_title">Answered by Top Teachers</string>
+    <string name="fui_page_two_desc">All the questions are solved &amp;  maintained by Top Professors  and IIT Scholars</string>
+    <string name="fui_page_three_title">Everything at Your Fingertips</string>
+    <string name="fui_page_three_desc">Explore all of these resources &amp; also review the solutions available right at your fingertips</string>
 </resources>

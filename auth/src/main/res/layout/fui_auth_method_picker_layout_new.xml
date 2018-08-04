@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+        android:id="@+id/top_progress_bar"
+        style="@style/FirebaseUI.TopProgressBar"
+        tools:visibility="visible" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/intro_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/fui_bg_color" />
+
+    <com.rd.PageIndicatorView
+        android:id="@+id/pageIndicatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/button_area"
+        app:layout_anchorGravity="center_horizontal|top"
+        android:background="@drawable/fui_bg_indicator_shadow"
+        app:piv_animationType="worm"
+        app:piv_dynamicCount="true"
+        app:piv_interactiveAnimation="true"
+        app:piv_viewPager="@id/intro_pager"
+        app:piv_padding="12dp"
+        app:piv_radius="6dp"
+        app:piv_strokeWidth="2dp"
+        app:piv_selectedColor="@color/fui_colorWhite"
+        app:piv_unselectedColor="@color/fui_colorBlack34alpha"/>
+
+    <ImageView
+        android:id="@+id/logo"
+        style="@style/FirebaseUI.AuthMethodPicker.Logo"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="center_horizontal|top"
+        android:src="@drawable/fui_logo_full"
+        tools:ignore="ContentDescription" />
+
+    <FrameLayout
+        android:id="@+id/button_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/fui_btn_holder_area_padding_top"
+        android:paddingBottom="@dimen/fui_btn_holder_area_padding_bottom"
+        android:layout_gravity="bottom">
+
+        <LinearLayout
+            android:id="@+id/btn_holder_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/btn_holder"
+                style="@style/FirebaseUI.AuthMethodPicker.ButtonHolder" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/main_tos_and_pp"
+        style="@style/FirebaseUI.Text.BodyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fui_field_padding_vert"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:textColor="?android:textColorTertiary"
+        android:textIsSelectable="true"/>
+
+</android.support.design.widget.CoordinatorLayout>
