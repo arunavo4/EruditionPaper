@@ -39,7 +39,7 @@
         android:id="@+id/selection_chap_or_year"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_marginStart="@dimen/recycler_view_offset"
         android:gravity="center_horizontal"
         android:visibility="gone">

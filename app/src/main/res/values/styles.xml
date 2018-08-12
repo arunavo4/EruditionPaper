@@ -83,58 +83,56 @@
     </style>
 
     <style name="AddText">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_bold</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="GroupText">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_bold</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <!--Collapsing toolbar-->
     <style name="collapsedTitleTextAppearance">
         <item name="android:textColor">@color/colorWhite</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAlignment">textStart</item>
     </style>
 
     <style name="expandedTitleTextAppearance" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
         <item name="android:textColor">@color/colorWhite</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textSize">24sp</item>
         <item name="android:textAlignment">textStart</item>
     </style>
 
     <style name="collapsedTitleTextAppearance.Black">
         <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAlignment">textStart</item>
     </style>
 
     <style name="expandedTitleTextAppearance.Transparent" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
         <item name="android:textColor">@color/colorTransparent</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textSize">24sp</item>
         <item name="android:textAlignment">textStart</item>
     </style>
 
     <style name="expandedTitleTextAppearance.Rewards" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
         <item name="android:textColor">@color/colorWhite</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textSize">50sp</item>
         <item name="android:textAlignment">textStart</item>
     </style>
 
     <style name="expandedTitleTextAppearance.RewardsHistory" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
         <item name="android:textColor">@color/colorWhite</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textSize">30sp</item>
         <item name="android:textAlignment">textStart</item>
     </style>
@@ -163,56 +161,56 @@
 
     <!--Text Styles-->
     <style name="ProfileTextViewName">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">normal</item>
     </style>
 
     <style name="UniversityTextView">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/greyDark</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">normal</item>
     </style>
 
     <style name="ChooseTextView">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/greyDark</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">normal</item>
     </style>
 
     <style name="ChooseTextViewPaper">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">normal</item>
     </style>
 
     <style name="CodeTextView">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">normal</item>
     </style>
 
     <style name="CodeFullTextView">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">normal</item>
     </style>
 
     <style name="YearTextView">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/greyDark</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">normal</item>
     </style>
 
     <style name="YearTextViewBold">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_bold</item>
         <item name="android:textColor">@color/greyDark</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
@@ -226,14 +224,14 @@
     </style>
 
     <style name="AppNameTextViewBold" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_bold</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">30sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="AppNameTextView" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">30sp</item>
         <item name="android:textStyle">normal</item>
@@ -257,36 +255,39 @@
     </style>
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textSize">30sp</item>
         <item name="android:textAlignment">textStart</item>
     </style>
 
     <style name="Toolbar.TitleTextHelp" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textSize">25sp</item>
         <item name="android:textAlignment">textStart</item>
     </style>
 
     <style name="Toolbar.TitleTextCourse" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textAlignment">textStart</item>
     </style>
 
     <style name="Toolbar.TitleTextPaper" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textSize">25sp</item>
         <item name="android:textAlignment">textStart</item>
     </style>
 
     <style name="TopTextView">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_bold</item>
         <item name="android:textColor">@color/colorBlack</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">26sp</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="BottomTextView">
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
         <item name="android:textColor">@color/colorMaterialBlack</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">15sp</item>
@@ -307,7 +308,7 @@
     </style>
 
     <style name="OfferTextViewBold">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
@@ -315,35 +316,35 @@
 
     <!--Question Header-->
     <style name="UniversityTextViewBold">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_bold</item>
         <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">bold</item>
+        <!--<item name="android:textStyle">bold</item>-->
     </style>
 
     <style name="SubjectTextViewBold">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
     </style>
 
     <style name="TimeMarksTextView">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">normal</item>
     </style>
 
     <style name="QuestionTextViewNormal">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
         <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">normal</item>
     </style>
 
     <style name="CommentHeaderTextView">
-        <!--<item name="android:fontFamily">sans-serif-medium</item>-->
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textAlignment">center</item>

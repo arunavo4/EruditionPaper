@@ -28,6 +28,11 @@
             android:text="@string/choose_course"
             android:visibility="gone"/>
 
+        <View
+            android:id="@+id/spacer_top"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/spacer_4dp"/>
+
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeToRefresh2"
             android:layout_width="match_parent"

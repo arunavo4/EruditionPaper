@@ -10,13 +10,11 @@
     app:cardUseCompatPadding="false"
     app:cardElevation="4dp">
 
-
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/course_thumbnail_img_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
-        app:srcCompat="@drawable/ic_background"
         android:background="@drawable/bg_white"
         android:foreground="@drawable/ic_foreground"
         android:scaleType="centerCrop"/>
@@ -25,14 +23,14 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/linear_layout_height"
             android:orientation="vertical"
-            android:layout_gravity="start|bottom">
+            android:layout_gravity="center_vertical">
 
             <TextView
                 android:id="@+id/tv_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:layout_gravity="start"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginStart="@dimen/code_text_margin"
                 android:layout_marginEnd="@dimen/code_text_margin"
                 android:layout_marginTop="@dimen/code_text_margin"
@@ -40,7 +38,6 @@
                 android:paddingEnd="@dimen/full_text_margin"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:text="Code 001"
                 style="@style/CodeTextView"/>
 
             <FrameLayout
@@ -53,13 +50,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:layout_gravity="start"
-                android:layout_marginStart="5dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:padding="@dimen/full_text_margin"
+                android:textAlignment="center"
                 android:maxLines="2"
                 android:ellipsize="end"
-                android:text="Object Oriented Programming with C++"
                 style="@style/CodeFullTextView"/>
 
         </LinearLayout>

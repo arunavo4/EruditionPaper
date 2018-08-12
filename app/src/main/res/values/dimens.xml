@@ -42,6 +42,12 @@
     <!--Paper Activity-->
     <dimen name="recycler_view_offset">8dp</dimen>
 
+    <!--Select chap or year-->
+    <dimen name="card_height_chap_year">106dp</dimen>
+    <dimen name="card_margin_left_right">16dp</dimen>
+    <dimen name="card_margin_top_bottom">8dp</dimen>
+    <dimen name="card_padding_all">4dp</dimen>
+
     <!--referal -->
     <dimen name="edit_text_width">150dp</dimen>
     <dimen name="add_btn_width">100dp</dimen>

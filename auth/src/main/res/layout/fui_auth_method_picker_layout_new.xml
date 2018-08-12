@@ -23,7 +23,6 @@
         android:layout_height="wrap_content"
         app:layout_anchor="@id/button_area"
         app:layout_anchorGravity="center_horizontal|top"
-        android:background="@drawable/fui_bg_indicator_shadow"
         app:piv_animationType="worm"
         app:piv_dynamicCount="true"
         app:piv_interactiveAnimation="true"
@@ -31,7 +30,7 @@
         app:piv_padding="12dp"
         app:piv_radius="6dp"
         app:piv_strokeWidth="2dp"
-        app:piv_selectedColor="@color/fui_colorWhite"
+        app:piv_selectedColor="@color/fui_colorMaterialBlack"
         app:piv_unselectedColor="@color/fui_colorBlack34alpha"/>
 
     <ImageView

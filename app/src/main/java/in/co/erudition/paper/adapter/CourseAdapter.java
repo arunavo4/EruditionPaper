@@ -115,7 +115,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                 Glide
                         .with(mContext)
                         .load(mImgStr)
-                        .apply(RequestOptions.placeholderOf(R.drawable.ic_bg_layer))
+                        .apply(RequestOptions.placeholderOf(R.drawable.ic_foreground))
                         .thumbnail(0.1f)
                         .into(mImgView);
 //                mImgView.setForeground(ContextCompat.getDrawable(mContext,R.drawable.ic_foreground));

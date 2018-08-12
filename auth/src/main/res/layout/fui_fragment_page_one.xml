@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="45dp"
             android:layout_gravity="center"
             android:scaleType="fitCenter"
             android:src="@drawable/fui_page_one"
@@ -29,11 +29,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            style="@style/TopTextView"
+            style="@style/TopTextViewNew"
             android:text="@string/fui_page_one_title"/>
 
         <TextView
-            android:layout_width="214dp"
+            android:layout_width="215dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             style="@style/BottomTextView"

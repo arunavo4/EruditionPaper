@@ -3,7 +3,7 @@
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="3dp" />
-            <solid android:color="@color/fui_buttonShadow" />
+            <solid android:color="@color/fui_btnShadowFb" />
         </shape>
     </item>
     <item

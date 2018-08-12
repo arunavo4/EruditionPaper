@@ -1,0 +1,39 @@
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/card_height_chap_year"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:layout_marginLeft="@dimen/card_margin_left_right"
+    android:layout_marginRight="@dimen/card_margin_left_right"
+    android:layout_marginBottom="@dimen/card_margin_top_bottom"
+    android:layout_marginTop="@dimen/card_margin_top_bottom"
+    android:padding="@dimen/card_padding_all"
+    app:cardCornerRadius="5dp"
+    app:cardUseCompatPadding="false"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/icon_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:tint="@color/colorWhite"
+            android:layout_gravity="center_horizontal"
+            app:srcCompat="@drawable/ic_book" />
+
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
