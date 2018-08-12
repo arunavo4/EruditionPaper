@@ -36,23 +36,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/selection_chap_or_year"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="@dimen/recycler_view_offset"
-        android:gravity="center_horizontal"
-        android:visibility="gone">
-
-        <include android:id="@+id/chapter_btn"
-            layout="@layout/paper_btn_chap"/>
-
-        <include android:id="@+id/year_btn"
-            layout="@layout/paper_btn_year"/>
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/no_paper_found"
         android:paddingTop="@dimen/spacer_32dp"
         android:layout_gravity="center"

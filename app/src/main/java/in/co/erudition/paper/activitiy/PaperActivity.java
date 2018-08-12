@@ -21,8 +21,10 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -42,6 +44,7 @@ import com.github.clans.fab.FloatingActionMenu;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import in.co.erudition.paper.R;
@@ -87,11 +90,6 @@ public class PaperActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         Toolbar toolbar_textView = (Toolbar) findViewById(R.id.toolbar2);
 
-        //Selection Buttons
-        ConstraintLayout yearBtn = (ConstraintLayout) findViewById(R.id.year_btn);
-        ConstraintLayout chapBtn = (ConstraintLayout) findViewById(R.id.chapter_btn);
-        final LinearLayout selection = (LinearLayout) findViewById(R.id.selection_chap_or_year);
-
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar_paper);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeToRefresh3);
         mPaperList = (LinearLayout) findViewById(R.id.paper_list);
@@ -112,6 +110,8 @@ public class PaperActivity extends AppCompatActivity{
 //                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
+
+        select = getIntent().getIntExtra("Selection Activity: Selection",-1);
 
         /**
          * instantiate the floating action buttons
@@ -240,9 +240,16 @@ public class PaperActivity extends AppCompatActivity{
                         toolbar_textView.setVisibility(View.GONE);
                     }
                 }
-                collapsingToolbarLayout.setTitle(getIntent().getStringExtra("CourseActivity.EXTRA_Subject_NAME"));
-                // Show the Selection Chapter or Year.
-                selection.setVisibility(View.VISIBLE);
+//                collapsingToolbarLayout.setTitle(getIntent().getStringExtra("CourseActivity.EXTRA_Subject_NAME"));
+                String title;
+                switch (select){
+                    case 0: title = "Chapters";
+                            break;
+                    case 1: title = "Year";
+                            break;
+                    default:title = getIntent().getStringExtra("CourseActivity.EXTRA_Subject_NAME");
+                }
+                collapsingToolbarLayout.setTitle(title);
             }
         }
         catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
@@ -260,13 +267,18 @@ public class PaperActivity extends AppCompatActivity{
         });
 
         int span = getResources().getInteger(R.integer.grid_span_count);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this,span);
+        RecyclerView.LayoutManager layoutManager;
+        if (select==0){
+            layoutManager = new LinearLayoutManager(this);
+        }else {
+            layoutManager = new GridLayoutManager(this,span);
+            ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset);
+            mRecyclerView.addItemDecoration(itemDecoration);
+        }
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
         //mRecyclerView.setHasFixedSize(true);
-        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset);
-        mRecyclerView.addItemDecoration(itemDecoration);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         Log.d("PaperActivity","done adapter");
 
@@ -283,27 +295,15 @@ public class PaperActivity extends AppCompatActivity{
         });
 
         Log.d("PaperActivity","loading papers");
-
         if (papers){
-            chapBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mProgressBar.setVisibility(View.VISIBLE);
-                    select = 0;
-                    loadChaps();
-                    selection.setVisibility(View.INVISIBLE);
-                }
-            });
-
-            yearBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mProgressBar.setVisibility(View.VISIBLE);
-                    select = 1;
-                    loadYears();
-                    selection.setVisibility(View.INVISIBLE);
-                }
-            });
+            if (select==0) {
+                mProgressBar.setVisibility(View.VISIBLE);
+                loadChaps();
+            }
+            else if (select==1){
+                mProgressBar.setVisibility(View.VISIBLE);
+                loadYears();
+            }
         }
         else {
             loadNoPapers();
@@ -325,7 +325,7 @@ public class PaperActivity extends AppCompatActivity{
         Log.d("PaperActivity", "loadChaptersMethod");
         String params[] = getIntent().getStringArrayExtra("CourseActivity.EXTRA_params");
 
-        Log.d("Params",params.toString());
+        Log.d("Params", Arrays.toString(params));
         chapCall = mService.getChapter(params[0],params[1],params[2],params[3]);
         chapCall.enqueue(new Callback<List<Chapter>>() {
             @Override
@@ -380,6 +380,7 @@ public class PaperActivity extends AppCompatActivity{
 
         Log.d("PaperActivity", "loadYearsMethod");
         String params[] = getIntent().getStringArrayExtra("CourseActivity.EXTRA_params");
+        Log.d("Params", Arrays.toString(params));
 
         yearCall = mService.getYear(params[0],params[1],params[2],params[3]);
         yearCall.enqueue(new Callback<List<Year>>() {

@@ -24,9 +24,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -85,6 +87,15 @@ public class QuestionActivity extends AppCompatActivity {
         appBarLayout =  (AppBarLayout) findViewById(R.id.my_appbar_container); //Changed
         appBarLayout.bringToFront();
 
+        ViewGroup linearLayout = (ViewGroup) findViewById(R.id.ques_linear_layout);
+        int select = getIntent().getIntExtra("PaperActivity.EXTRA_Select",-1);
+        if (select==0){
+            View header = LayoutInflater.from(this).inflate(R.layout.question_header_chap, linearLayout, false);
+            linearLayout.addView(header,0);
+        }else if (select==1){
+            View header = LayoutInflater.from(this).inflate(R.layout.question_header_new, linearLayout, false);
+            linearLayout.addView(header,0);
+        }
         // To set the background of the activity go below the StatusBar
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
@@ -119,14 +130,21 @@ public class QuestionActivity extends AppCompatActivity {
             }
         });
 
-        //Set the Question header;
-        TextView year_tv = (TextView) findViewById(R.id.year_tv);
-        TextView sub_name_tv = (TextView) findViewById(R.id.subject_name_tv);
-
-        // Set item views based on your views and data model
         try {
-            year_tv.setText(getIntent().getStringExtra("PaperActivity.EXTRA_Year"));
-            sub_name_tv.setText(getIntent().getStringExtra("PaperActivity.EXTRA_Full_Name"));
+            if (select==0){
+                TextView chap_name_tv = (TextView) findViewById(R.id.chap_name_tv);
+                TextView chap_num_tv = (TextView) findViewById(R.id.chap_num_tv);
+
+                chap_name_tv.setText(getIntent().getStringExtra("PaperActivity.EXTRA_Full_Name"));
+                String str = "Chapter " + getIntent().getStringExtra("PaperActivity.EXTRA_Name");
+                chap_num_tv.setText(str);
+            }else if (select==1){
+                TextView year_tv = (TextView) findViewById(R.id.year_tv);
+                TextView sub_name_tv = (TextView) findViewById(R.id.subject_name_tv);
+
+                year_tv.setText(getIntent().getStringExtra("PaperActivity.EXTRA_Year"));
+                sub_name_tv.setText(getIntent().getStringExtra("PaperActivity.EXTRA_Full_Name"));
+            }
         }
         catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e)
         {   Log.e("Exception",e.toString()); }
@@ -210,10 +228,15 @@ public class QuestionActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     Log.d(TAG,"issuccess");
 
+                    int select = getIntent().getIntExtra("PaperActivity.EXTRA_Select",-1);
                     mProgressBar.setVisibility(View.GONE);
                     Log.d("Response Body",response.body().toString());
                     mAdapter.updateGroups(response.body());
-                    updatePaperCard(response.body());
+                    if (select==0){
+                        updatePaperCardChap(response.body());
+                    }else if (select==1){
+                        updatePaperCard(response.body());
+                    }
                     Log.d(TAG, "API success");
                 }else {
                     int statusCode  = response.code();
@@ -284,6 +307,24 @@ public class QuestionActivity extends AppCompatActivity {
             String time = body.getPaperTime() + " Min";
             time_tv.setText(time);
             marks_tv.setText(body.getPaperMarks());
+        }
+        catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e)
+        {   Log.e("Exception",e.toString()); }
+    }
+
+    private void updatePaperCardChap(Paper body){
+        TextView sub_name_tv = (TextView) findViewById(R.id.subject_name_tv);
+        TextView chap_name_tv = (TextView) findViewById(R.id.chap_name_tv);
+        TextView chap_num_tv = (TextView) findViewById(R.id.chap_num_tv);
+        TextView counter_tv = (TextView) findViewById(R.id.counter_tv);
+
+        // Set item views based on your views and data model
+        try {
+            chap_name_tv.setText(body.getChapterFullName());
+            sub_name_tv.setText(body.getSubjectFullName());
+            String str = "Chapter " + body.getChapterName();
+            chap_num_tv.setText(str);
+            counter_tv.setText("999");
         }
         catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e)
         {   Log.e("Exception",e.toString()); }

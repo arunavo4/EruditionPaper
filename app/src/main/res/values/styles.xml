@@ -164,77 +164,84 @@
         <item name="android:fontFamily">@font/source_sans_pro_regular</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="UniversityTextView">
         <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/greyDark</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="ChooseTextView">
         <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/greyDark</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="ChooseTextViewPaper">
         <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="CodeTextView">
         <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="CodeFullTextView">
         <item name="android:fontFamily">@font/source_sans_pro_regular</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="YearTextView">
         <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/greyDark</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="YearTextViewBold">
         <item name="android:fontFamily">@font/source_sans_pro_bold</item>
         <item name="android:textColor">@color/greyDark</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ChapYearTextViewBold">
+        <item name="android:fontFamily">@font/source_sans_pro_bold</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="ChapNameTextView">
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="ChapNumTextViewBold">
+        <item name="android:fontFamily">@font/source_sans_pro_bold</item>
+        <item name="android:textColor">@color/colorPrimary54alpha</item>
+        <item name="android:textSize">24sp</item>
     </style>
 
     <style name="SubjectCodeTextView">
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textColor">@color/greyDark</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="AppNameTextViewBold" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
         <item name="android:fontFamily">@font/source_sans_pro_bold</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">30sp</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="AppNameTextView" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
         <item name="android:fontFamily">@font/source_sans_pro_regular</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">30sp</item>
-        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="NoNotificationTextView">
@@ -242,7 +249,6 @@
         <item name="android:textColor">@color/greyLight</item>
         <item name="android:textSize">18sp</item>
         <item name="android:layout_marginTop">5dp</item>
-        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="TitleTextView">
@@ -251,7 +257,6 @@
         <item name="android:textSize">20sp</item>
         <item name="android:layout_marginTop">16dp</item>
         <item name="android:layout_marginStart">16dp</item>
-        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
@@ -283,7 +288,6 @@
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textSize">26sp</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="BottomTextView">
@@ -291,7 +295,6 @@
         <item name="android:textColor">@color/colorMaterialBlack</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">15sp</item>
-        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="ReferalTextView">
@@ -304,14 +307,12 @@
     <style name="HintTextView">
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="OfferTextViewBold">
         <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <!--Question Header-->
@@ -319,28 +320,44 @@
         <item name="android:fontFamily">@font/source_sans_pro_bold</item>
         <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
         <item name="android:textSize">14sp</item>
-        <!--<item name="android:textStyle">bold</item>-->
     </style>
 
     <style name="SubjectTextViewBold">
         <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="TimeMarksTextView">
         <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:textStyle">normal</item>
     </style>
+
+    <!--Chapter Header-->
+    <style name="ChapterNumTextView">
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
+        <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="ChapterNameTextView">
+        <item name="android:fontFamily">@font/source_sans_pro_bold</item>
+        <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="ChapterViewCounterTextView">
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
+        <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 
     <style name="QuestionTextViewNormal">
         <item name="android:fontFamily">@font/source_sans_pro_regular</item>
         <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="CommentHeaderTextView">
@@ -348,7 +365,6 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textStyle">normal</item>
     </style>
 
 </resources>

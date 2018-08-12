@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import in.co.erudition.paper.R;
-import in.co.erudition.paper.activitiy.PaperActivity;
+import in.co.erudition.paper.activitiy.SelectionActivity;
 import in.co.erudition.paper.data.model.BoardCourse;
 import in.co.erudition.paper.data.model.BoardSession;
 import in.co.erudition.paper.data.model.BoardSubject;
@@ -60,7 +60,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
         NameStr = new String[4];
         selector = 0;
-        intent = new Intent(mContext, PaperActivity.class);
+        intent = new Intent(mContext, SelectionActivity.class);
     }
 
     // Involves inflating a layout from XML and returning the holder

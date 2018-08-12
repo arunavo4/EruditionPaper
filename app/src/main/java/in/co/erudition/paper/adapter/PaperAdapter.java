@@ -44,33 +44,39 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
+        PaperAdapter.ViewHolder viewHolder = null;
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View mCardView = inflater.inflate(R.layout.paper_card, parent, false);
-
-        // Return a new holder instance
-        PaperAdapter.ViewHolder viewHolder = new PaperAdapter.ViewHolder(mCardView);
+        switch (select) {
+            case 0:
+                View mCardView1 = inflater.inflate(R.layout.paper_card_new_chap, parent, false);
+                viewHolder = new PaperAdapter.ViewHolder(mCardView1);
+                break;
+            default:
+                View mCardView2 = inflater.inflate(R.layout.paper_card, parent, false);
+                viewHolder = new PaperAdapter.ViewHolder(mCardView2);
+        }
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        TextView mSNameTV = holder.mSubjectNameTV;
-        TextView mSYearTV = holder.mSubjectYearTV;
+        TextView mPNameTV = holder.mNameTV;
+        TextView mPNumTV = holder.mNumTV;
         View nav_space = holder.spacer;
 
         // Set item views based on your views and data model
         try {
             if (select==0){
                 Chapter paper = mChapters.get(holder.getAdapterPosition());
-                mSNameTV.setText(paper.getChapterFullName());
-                mSYearTV.setText(paper.getChapterName());
+                mPNameTV.setText(paper.getChapterFullName());
+                mPNumTV.setText(paper.getChapterName());
 
             }else if (select==1){
                 Year paper = mYears.get(holder.getAdapterPosition());
-                mSNameTV.setText(paper.getSubjectFullName());
-                mSYearTV.setText(paper.getYear());
+                mPNameTV.setText(paper.getSubjectFullName());
+                mPNumTV.setText(paper.getYear());
             }
 
             if (nav_space.getVisibility() == View.VISIBLE){
@@ -97,14 +103,14 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView mSubjectNameTV;
-        public TextView mSubjectYearTV;
+        public TextView mNameTV;
+        public TextView mNumTV;
         public View spacer;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            mSubjectNameTV = (TextView) itemView.findViewById(R.id.tv_subject_name);
-            mSubjectYearTV = (TextView) itemView.findViewById(R.id.tv_year);
+            mNameTV = (TextView) itemView.findViewById(R.id.tv_name);
+            mNumTV = (TextView) itemView.findViewById(R.id.tv_num);
             spacer = (View) itemView.findViewById(R.id.nav_spacer);
 
             itemView.setOnClickListener(this);
@@ -138,6 +144,7 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
                     intent_ques.putExtra("PaperActivity.EXTRA_Name",year.getSubjectName());
                     intent_ques.putExtra("PaperActivity.EXTRA_Paper_Code",year.getCode());
                 }
+                intent_ques.putExtra("PaperActivity.EXTRA_Select",select);
                 mContext.startActivity(intent_ques);
             }
         }

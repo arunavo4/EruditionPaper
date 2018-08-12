@@ -41,10 +41,13 @@
 
     <!--Paper Activity-->
     <dimen name="recycler_view_offset">8dp</dimen>
+    <dimen name="card_height_chapter">96dp</dimen>
+    <dimen name="card_margin_chap_left_right">12dp</dimen>
+    <dimen name="card_margin_chap_top_bottom">6dp</dimen>
 
     <!--Select chap or year-->
     <dimen name="card_height_chap_year">106dp</dimen>
-    <dimen name="card_margin_left_right">16dp</dimen>
+    <dimen name="card_margin_left_right">12dp</dimen>
     <dimen name="card_margin_top_bottom">8dp</dimen>
     <dimen name="card_padding_all">4dp</dimen>
 

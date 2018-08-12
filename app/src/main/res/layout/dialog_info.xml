@@ -9,14 +9,14 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.AppCompatImageView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="140dp"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/ic_bg_layer_2"/>
+            android:src="@drawable/group_work"/>
 
         <TextView
             android:id="@+id/dialogue_group_tv"

@@ -6,6 +6,7 @@
     <color name="colorPrimaryDark">#233240</color>
     <color name="colorAccent">#e74c3c</color>
     <color name="colorPrimaryShadow">#662C3E50</color>
+    <color name="colorPrimary54alpha">#8A212121</color>
 
     <color name="default_bg_color">#F7F7FA</color>
 

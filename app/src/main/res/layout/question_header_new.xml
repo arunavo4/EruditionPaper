@@ -34,7 +34,6 @@
         android:paddingEnd="16dp"
         android:paddingStart="16dp"
         android:textAlignment="center"
-        android:text="Maulana Abul Kalam Azad University of Technology"
         android:layout_gravity="center_horizontal" />
 
     <TextView

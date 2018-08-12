@@ -14,11 +14,12 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/ques_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/question_header_new" />
+            <!--<include layout="@layout/question_header_new" />-->
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view_questions_group"
