@@ -1,9 +1,9 @@
 # EruditionPaper                                    
 Android App for [Erudition](https://www.erudition.co.in/)
 
-An initiative *Paper*, containing the past 10 years <\b>
+An initiative *Paper*, containing the past 10 years
 *Question papers* of all Universities across India.
-<img align="right" src="https://github.com/arunavo4/EruditionPaper2/blob/master/Phone.jpg">
+<img align="right" width="200" height="400"  src="https://github.com/arunavo4/EruditionPaper2/blob/master/Phone.jpg">
 
 ## Universities:
 1. Maulana Abdul Kalam Azad(W.B.U.T).
