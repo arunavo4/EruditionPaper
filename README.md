@@ -24,6 +24,8 @@ An initiative *Paper*, containing the past 10 years
 <img align="right" src="https://github.com/arunavo4/EruditionPaper2/blob/master/logo.png">
 
 ### About
-![EruditionPaper](https://github.com/arunavo4/EruditionPaper2/blob/master/Erudition%20Paper.png)
+  ![EruditionPaper](https://github.com/arunavo4/EruditionPaper2/blob/master/Erudition%20Paper.png)
   
   [Erudition Paper](https://www.erudition.co.in/paper)
+  
+Made with Love :heart:
