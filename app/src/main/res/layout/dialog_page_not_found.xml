@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/img_404_not_found"
+    android:layout_gravity="center"
+    android:background="@color/colorMaterialBlack_no_alpha"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacer_20dp"
+            android:layout_gravity="start"
+            style="@style/TopTextView_404"
+            android:text="@string/page_not_found_top"/>
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/img_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/toolbar_offset"
+            android:layout_marginBottom="@dimen/toolbar_offset"
+            android:layout_marginStart="@dimen/spacer_16dp"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:src="@drawable/page_not_found" />
+
+        <TextView
+            android:layout_width="@dimen/bottom_tv_width_max"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            style="@style/BottomTextView_404"
+            android:text="@string/page_not_found_bottom"/>
+
+        <Button
+            android:id="@+id/btn_go_back"
+            style="@style/AddButton"
+            android:layout_width="@dimen/add_btn_width"
+            android:layout_height="@dimen/add_btn_height"
+            android:background="@drawable/btn_add_white"
+            android:layout_margin="@dimen/btn_margin"
+            android:layout_gravity="center_horizontal"
+            android:elevation="8dp"
+            android:text="@string/go_back"
+            android:textAlignment="center"
+            android:textAppearance="@style/AddText_dark"/>
+
+    </LinearLayout>
+
+</FrameLayout>

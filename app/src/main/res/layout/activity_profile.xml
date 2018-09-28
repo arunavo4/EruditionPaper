@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    tools:context="in.co.erudition.paper.activitiy.ProfileActivity">
+    tools:context="in.co.erudition.paper.activity.ProfileActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/my_appbar_container"

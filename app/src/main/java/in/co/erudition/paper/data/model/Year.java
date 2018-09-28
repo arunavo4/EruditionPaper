@@ -20,6 +20,12 @@ public class Year {
     @SerializedName("Year")
     @Expose
     private String year;
+    @SerializedName("Solved")
+    @Expose
+    private String solved;
+    @SerializedName("View")
+    @Expose
+    private String view;
 
     public String getId() {
         return id;
@@ -59,5 +65,21 @@ public class Year {
 
     public void setYear(String year) {
         this.year = year;
+    }
+
+    public String getSolved() {
+        return solved;
+    }
+
+    public void setSolved(String solved) {
+        this.solved = solved;
+    }
+
+    public String getView() {
+        return view;
+    }
+
+    public void setView(String view) {
+        this.view = view;
     }
 }

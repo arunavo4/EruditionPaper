@@ -15,11 +15,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import in.co.erudition.paper.R;
-import in.co.erudition.paper.activitiy.SelectionActivity;
+import in.co.erudition.paper.activity.SelectionActivity;
 import in.co.erudition.paper.data.model.BoardCourse;
 import in.co.erudition.paper.data.model.BoardSession;
 import in.co.erudition.paper.data.model.BoardSubject;

@@ -6,6 +6,7 @@
     <string name="continue_btn">CONTINUE</string>
     <string name="time">Time:</string>
     <string name="marks">Marks:</string>
+    <string name="repeated">Repeated:</string>
     <string name="retry">Retry</string>
     <string name="go_back">Go Back</string>
     <string name="referal_sample">ER007R</string>
@@ -46,12 +47,27 @@
     <string name="no_rewards_top">No Previous Rewards</string>
     <string name="no_rewards_bottom">Start Sharing with Your Friends &amp; After they Join Your Rewards will start appear here</string>
 
-    <!--No Internet and error-->
+    <!--No Internet and error and maintenance-->
     <string name="no_internet_top">No Internet</string>
     <string name="no_internet_bottom">Your internet connection was interrupted,  Please retry.</string>
     <string name="error_top">Some Error Occurred</string>
     <string name="error_bottom">The page you are looking for does not exist</string>
+    <string name="maintenance_top">Maintenance Break</string>
+    <string name="maintenance_bottom">Sorry, the servers are under maintenance. Please try again in about 30 minutes.</string>
+    <string name="page_not_found_top">Page Not Found</string>
+    <string name="page_not_found_bottom">The Page You are Looking for is not available</string>
+
+
     <string name="no_papers">No Papers Found</string>
+
+
+    <!--Help and Feedback-->
+    <string name="like_erudition">Like Erudition Paper?</string>
+    <string name="faq">F.A.Q.</string>
+    <string name="submit_a_prob">Submit a Problem</string>
+    <string name="subject_help">Subject</string>
+    <string name="issues_faced">Issue Faced</string>
+    <string name="state_issues">State your Issue Here...</string>
 
     <!--Fab Action Menu-->
     <string name="offline_paper">Offline Papers</string>
@@ -61,6 +77,20 @@
     <string name="fb_messenger">Facebook Messenger</string>
     <string name="whatsapp">WhatsApp</string>
 
+    <!--Profile-->
+    <string name="mobile">Mobile</string>
+    <string name="email">E-Mail</string>
+    <string name="university_p">University</string>
+    <string name="college">College</string>
+    <string name="department">Department</string>
+    <string name="semester_p">Semester</string>
+    <string name="academic_details">Academic Details</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="gender">Gender</string>
+    <string name="dob">Date of Birth</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+
     <!--Navigation Drawer-->
     <string name="profile">Profile</string>
     <string name="order_history">Order History</string>
@@ -69,6 +99,9 @@
     <string name="books">Books</string>
     <string name="help">Help &amp; Feedback</string>
     <string name="setting">Settings</string>
+    <string name="privacy_p">Privacy Policy</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="about">About Erudition Paper</string>
 
     <!--Navigation Right-->
     <string name="no_notification">No New Notifications</string>
@@ -83,6 +116,7 @@
     <string name="action_offline_2">Remove Offline</string>
     <string name="action_bookmark">Bookmark</string>
     <string name="action_info">info</string>
+    <string name="action_photo">photo</string>
 
 
     <!--Choose-->
@@ -126,6 +160,7 @@
     <string name="title_activity_question">QuestionActivity</string>
     <string name="title_activity_answer">AnswerActivity</string>
     <string name="title_activity_selection">SelectionActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
 
 
 </resources>

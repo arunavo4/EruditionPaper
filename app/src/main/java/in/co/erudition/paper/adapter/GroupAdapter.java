@@ -2,11 +2,6 @@ package in.co.erudition.paper.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.os.Parcel;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,17 +17,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import in.co.erudition.paper.R;
-import in.co.erudition.paper.activitiy.QuestionActivity;
 import in.co.erudition.paper.data.model.Paper;
 import in.co.erudition.paper.data.model.PaperGroup;
-import in.co.erudition.paper.data.model.PaperQuestion;
-import in.co.erudition.paper.data.model.QuestionAnswer;
-import in.co.erudition.paper.data.model.Year;
-import in.co.erudition.paper.misc.CompareDrawables;
 
 /**
  * Created by Arunavo Ray on 09-06-2018.
@@ -175,10 +164,22 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> 
         TextView g_desc_tv_2 = (TextView) view.findViewById(R.id.dialogue_group_desc_2);
         Button btn_contd = (Button) view.findViewById(R.id.btn_cont);
 
-        //Set the views
-        g_tv.setText(group.getGroupName());
-        g_desc_tv_1.setText(group.getGroupDesc1());
-        g_desc_tv_2.setText(group.getGroupDesc2());
+        //Set the views and make them visible if its not
+        if (!group.getGroupName().contentEquals(" ")){
+            if (g_tv.getVisibility()==View.GONE)
+                g_tv.setVisibility(View.VISIBLE);
+            g_tv.setText(group.getGroupName());
+        }
+        if (!group.getGroupDesc1().contentEquals(" ")){
+            if (g_desc_tv_1.getVisibility()==View.GONE)
+                g_desc_tv_1.setVisibility(View.VISIBLE);
+            g_desc_tv_1.setText(group.getGroupDesc1());
+        }
+        if (!group.getGroupDesc2().contentEquals(" ")){
+            if (g_desc_tv_2.getVisibility()==View.GONE)
+                g_desc_tv_2.setVisibility(View.VISIBLE);
+            g_desc_tv_2.setText(group.getGroupDesc2());
+        }
 
         builder.setView(view);
         final AlertDialog alertDialog = builder.create();

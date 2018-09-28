@@ -33,7 +33,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.9"
-        app:srcCompat="@drawable/ic_offline" />
+        app:srcCompat="@drawable/ic_offline"
+        android:visibility="gone"/>
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/bookmark_img"
@@ -50,45 +51,79 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.04000002"
-        app:srcCompat="@drawable/ic_bookmark_black_24dp" />
+        app:srcCompat="@drawable/ic_bookmark_black_24dp"
+        android:visibility="gone"/>
 
     <TextView
-        android:id="@+id/tv_name"
-        style="@style/UniversityTextView"
+        android:id="@+id/tv_num"
+        style="@style/YearTextViewBigBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:maxWidth="100dp"
         android:ellipsize="end"
         android:maxLines="3"
+        android:maxWidth="100dp"
         android:paddingEnd="4dp"
         android:paddingStart="4dp"
-        android:text="Subject Name"
+        android:text="2013"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@+id/paper_stack_bg"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.43"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/paper_stack_bg"
         app:layout_constraintVertical_bias="0.18" />
 
     <TextView
-        android:id="@+id/tv_num"
-        style="@style/YearTextView"
+        android:id="@+id/tv_name"
+        style="@style/SolvedTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:text="Solved"
+        app:layout_constraintEnd_toEndOf="@+id/paper_stack_bg"
+        app:layout_constraintHorizontal_bias="0.43"
+        app:layout_constraintStart_toStartOf="@+id/paper_stack_bg"
+        app:layout_constraintTop_toBottomOf="@+id/tv_num" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/appCompatImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Year"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintEnd_toStartOf="@+id/counter_tv"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_name"
+        app:layout_constraintVertical_bias="0.050000012"
+        app:srcCompat="@drawable/ic_book_reader_solid" />
+
+    <TextView
+        android:id="@+id/counter_tv"
+        style="@style/ChapterViewCounterTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:text="999"
+        app:layout_constraintBottom_toBottomOf="@+id/paper_stack_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name"
+        app:layout_constraintVertical_bias="0.120000005" />
+
 
 </android.support.constraint.ConstraintLayout>

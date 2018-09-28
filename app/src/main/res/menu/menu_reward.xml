@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="in.co.erudition.paper.activitiy.OrderActivity">
+    tools:context="in.co.erudition.paper.activity.OrderActivity">
     <item
         android:id="@+id/action_history"
         android:orderInCategory="1"

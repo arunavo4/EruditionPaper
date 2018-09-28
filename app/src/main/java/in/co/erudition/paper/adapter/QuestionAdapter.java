@@ -3,7 +3,6 @@ package in.co.erudition.paper.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,19 +10,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import in.co.erudition.paper.R;
-import in.co.erudition.paper.activitiy.AnswerActivity;
-import in.co.erudition.paper.data.model.Paper;
+import in.co.erudition.paper.activity.AnswerActivity;
 import in.co.erudition.paper.data.model.PaperGroup;
 import in.co.erudition.paper.data.model.PaperQuestion;
 import in.co.erudition.paper.data.model.QuestionAnswer;
@@ -85,6 +79,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         final WebView q_tv = holder.ques_tv;
         TextView m_tv = holder.marks_tv;
         TextView q_no_tv = holder.ques_no_tv;
+        TextView r_tv = holder.repeated_tv;
 
         // Set item views based on your views and data model
         try {
@@ -92,6 +87,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
             q_tv.loadDataWithBaseURL("file:///android_asset/",getHtmlData(ques.getQuestion()), "text/html", "UTF-8", null);
             m_tv.setText(ques.getMarks());
             q_no_tv.setText(ques.getQuestionNo() + ".");
+            r_tv.setText(ques.getRepeat());
 
         }
         catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e)
@@ -111,6 +107,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public WebView ques_tv;
         public TextView marks_tv;
+        public TextView repeated_tv;
         public TextView ques_no_tv;
 
         public ViewHolder(final View itemView) {
@@ -119,7 +116,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
             ques_tv = (WebView) itemView.findViewById(R.id.question_tv);
             marks_tv = (TextView) itemView.findViewById(R.id.marks_tv);
             ques_no_tv = (TextView) itemView.findViewById(R.id.ques_num);
-
+            repeated_tv = (TextView) itemView.findViewById(R.id.ques_repeat);
 
             ques_tv.getSettings().setJavaScriptEnabled(true);
 
@@ -184,7 +181,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                 Intent intent = new Intent(mContext, AnswerActivity.class);
                 intent.putExtra("QUESTION_ADAPTER.parcelData",data);
                 intent.putExtras(mIntent);
-                int pos = Integer.parseInt(paperQuestion.getQuestionCode()) - 1;
+                int pos = Integer.parseInt(paperQuestion.getCode()) - 1;
                 intent.putExtra("QUESTION_ADAPTER.position",pos);
                 mContext.startActivity(intent);
             }

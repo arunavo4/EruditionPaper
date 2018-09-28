@@ -88,9 +88,16 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="AddText_dark">
+        <item name="android:fontFamily">@font/source_sans_pro_bold</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="GroupText">
         <item name="android:fontFamily">@font/source_sans_pro_bold</item>
         <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textAlignment">center</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -190,6 +197,18 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="RepeatedTextView">
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
+        <item name="android:textColor">@color/greyMedium</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="RepeatedTextViewBold">
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
+        <item name="android:textColor">@color/greyDark_alpha80</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="CodeFullTextView">
         <item name="android:fontFamily">@font/source_sans_pro_regular</item>
         <item name="android:textColor">@color/colorWhite</item>
@@ -202,10 +221,22 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="SolvedTextView">
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
+        <item name="android:textColor">@color/green</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="YearTextViewBold">
         <item name="android:fontFamily">@font/source_sans_pro_bold</item>
         <item name="android:textColor">@color/greyDark</item>
         <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="YearTextViewBigBold">
+        <item name="android:fontFamily">@font/source_sans_pro_bold</item>
+        <item name="android:textColor">@color/greyDark</item>
+        <item name="android:textSize">26sp</item>
     </style>
 
     <style name="ChapYearTextViewBold">
@@ -233,9 +264,10 @@
     </style>
 
     <style name="AppNameTextViewBold" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
-        <item name="android:fontFamily">@font/source_sans_pro_bold</item>
+        <item name="android:fontFamily">@font/source_sans_bold</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="AppNameTextView" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
@@ -295,6 +327,20 @@
         <item name="android:textColor">@color/colorMaterialBlack</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TopTextView_404">
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="BottomTextView_404">
+        <item name="android:fontFamily">@font/source_sans_pro_bold</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="ReferalTextView">
@@ -367,4 +413,33 @@
         <item name="android:textAlignment">center</item>
     </style>
 
+    <!--Profile-->
+
+    <style name="ProfileCardTextViewBold">
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="ProfileCardTextView">
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
+        <item name="android:textColor">@color/colorBlack54alpha</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="HintTextViewProfile">
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
+        <item name="android:textColor">@color/colorMaterialBlack</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!--Help and Feedback-->
+
+    <style name="HeadingH1TextView">
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
+        <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
 </resources>
+

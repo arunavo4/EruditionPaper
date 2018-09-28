@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    tools:context="in.co.erudition.paper.activitiy.AnswerActivity">
+    tools:context="in.co.erudition.paper.activity.AnswerActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/my_appbar_container"
@@ -24,7 +24,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="@dimen/app_bar_height"
             android:layout_marginTop="@dimen/status_bar_height"
             android:theme="@style/ToolBarStyle.one"
             app:titleTextColor="@color/colorPrimary"

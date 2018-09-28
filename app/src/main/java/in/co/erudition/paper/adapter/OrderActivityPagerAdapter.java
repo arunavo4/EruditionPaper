@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import in.co.erudition.paper.activitiy.OrderActivity;
 import in.co.erudition.paper.fragment.InvoicesFragment;
 import in.co.erudition.paper.fragment.SubscriptionsFragment;
 

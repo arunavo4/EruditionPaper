@@ -18,6 +18,7 @@
 
     <!--Spacers-->
     <dimen name="spacer_32dp">32dp</dimen>
+    <dimen name="spacer_20dp">20dp</dimen>
     <dimen name="spacer_16dp">16dp</dimen>
     <dimen name="spacer_12dp">12dp</dimen>
     <dimen name="spacer_10dp">10dp</dimen>
@@ -66,6 +67,7 @@
 
     <!--Profile Activity-->
     <dimen name="app_bar_height_profile">240dp</dimen>
+    <dimen name="edit_text_width_profile">250dp</dimen>
 
     <!--Search Activity-->
     <dimen name="app_bar_height_search">160dp</dimen>

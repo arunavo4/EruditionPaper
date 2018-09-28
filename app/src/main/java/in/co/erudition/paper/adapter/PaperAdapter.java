@@ -8,15 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import in.co.erudition.paper.R;
-import in.co.erudition.paper.activitiy.QuestionActivity;
+import in.co.erudition.paper.activity.QuestionActivity;
 import in.co.erudition.paper.data.model.Chapter;
-import in.co.erudition.paper.data.model.Paper;
-import in.co.erudition.paper.data.model.University;
 import in.co.erudition.paper.data.model.Year;
 
 /**
@@ -63,7 +60,7 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         TextView mPNameTV = holder.mNameTV;
-        TextView mPNumTV = holder.mNumTV;
+        TextView mPNumTV = holder.mYearTV;
         View nav_space = holder.spacer;
 
         // Set item views based on your views and data model
@@ -75,8 +72,14 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
 
             }else if (select==1){
                 Year paper = mYears.get(holder.getAdapterPosition());
-                mPNameTV.setText(paper.getSubjectFullName());
+                String str;
+                if (paper.getSolved().contentEquals("Active"))
+                    str = "Solved";
+                else
+                    str = "Un-Solved";
+                mPNameTV.setText(str);
                 mPNumTV.setText(paper.getYear());
+                holder.mCountTv.setText(paper.getView());
             }
 
             if (nav_space.getVisibility() == View.VISIBLE){
@@ -104,14 +107,18 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView mNameTV;
-        public TextView mNumTV;
+        public TextView mYearTV;
+        public TextView mCountTv;
         public View spacer;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mNameTV = (TextView) itemView.findViewById(R.id.tv_name);
-            mNumTV = (TextView) itemView.findViewById(R.id.tv_num);
+            mYearTV = (TextView) itemView.findViewById(R.id.tv_num);
             spacer = (View) itemView.findViewById(R.id.nav_spacer);
+
+            if (select==1)
+                mCountTv = (TextView) itemView.findViewById(R.id.counter_tv);
 
             itemView.setOnClickListener(this);
         }

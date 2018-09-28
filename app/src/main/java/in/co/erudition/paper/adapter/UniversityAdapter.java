@@ -15,7 +15,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
-import in.co.erudition.paper.activitiy.CourseActivity;
+import in.co.erudition.paper.activity.CourseActivity;
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.data.model.University;
 

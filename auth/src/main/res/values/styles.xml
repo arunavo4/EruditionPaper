@@ -30,7 +30,7 @@
 
     <!--Custom Intro Style-->
     <style name="TopTextViewNew">
-        <item name="android:textColor">@color/fui_colorBlack</item>
+        <item name="android:textColor">@color/fui_colorMaterialBlack</item>
         <item name="android:layout_marginBottom">5dp</item>
         <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/fui_source_sans_pro_semibold</item>
@@ -233,7 +233,7 @@
         <item name="android:textSize">16sp</item>
         <item name="android:background">@drawable/fui_email_bg</item>
         <item name="android:textColor">#000000</item>
-        <item name="android:foreground">@drawable/fui_selectable_item_background</item>
+        <!--<item name="android:foreground">@drawable/fui_selectable_item_background</item>-->
     </style>
 
     <style name="FirebaseUI.Button.AccountChooser.PhoneButton">
