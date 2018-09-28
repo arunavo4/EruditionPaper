@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    tools:context="in.co.erudition.paper.activity.BookActivity">
+    tools:context=".activity.WebviewActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -23,6 +23,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_book" />
+    <!--WebView-->
 
 </android.support.design.widget.CoordinatorLayout>

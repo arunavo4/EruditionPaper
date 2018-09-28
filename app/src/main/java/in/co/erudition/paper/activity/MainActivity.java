@@ -440,13 +440,17 @@ public class MainActivity extends AppCompatActivity
         ///The dialogs and webView Activities
         else if (id==R.id.nav_pp)
         {
-//            Intent intent = new Intent(this, HelpActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(MainActivity.this,WebviewActivity.class);
+                intent.putExtra("Webview.Title", getString(R.string.privacy_p));
+                intent.putExtra("Webview.Address","");
+                startActivity(intent);
         }
         else if (id==R.id.nav_tos)
         {
-//            Intent intent = new Intent(this, HelpActivity.class);
-//            startActivity(intent);
+            Intent intent = new Intent(MainActivity.this,WebviewActivity.class);
+                intent.putExtra("Webview.Title", getString(R.string.terms_of_service));
+                intent.putExtra("Webview.Address","");
+                startActivity(intent);
         }
         else if (id==R.id.nav_about)
         {
@@ -467,7 +471,7 @@ public class MainActivity extends AppCompatActivity
 
         Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
 
-        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar);
+        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -489,7 +493,7 @@ public class MainActivity extends AppCompatActivity
 
         Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
 
-        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar);
+        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();

@@ -3,29 +3,23 @@ package in.co.erudition.paper.activity;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import in.co.erudition.paper.R;
 
-public class SettingsActivity extends AppCompatActivity {
+public class WebviewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_webview);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        CardView clear_cache_btn = (CardView) findViewById(R.id.clear_cache_btn);
 
         // To set the background of the activity go below the StatusBar
         getWindow().getDecorView().setSystemUiVisibility(
@@ -33,9 +27,9 @@ public class SettingsActivity extends AppCompatActivity {
                         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         if (Build.VERSION.SDK_INT >= 21) {
-//            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorBlack25alpha));
-//            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorBlack75alpha));
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorBlack75alpha));
         }
 
         Drawable bg;
@@ -50,7 +44,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         toolbar.setNavigationIcon(bg);
-//        toolbar.setTitle("Order History");
+        toolbar.setTitle(getIntent().getStringExtra("Webview.Title"));
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -59,22 +53,5 @@ public class SettingsActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-        clear_cache_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //show the snackBar
-                final Snackbar snackBar = Snackbar.make((CoordinatorLayout)findViewById(R.id.settings_main),getString(R.string.snackBar_clear_cache), Snackbar.LENGTH_LONG);
-
-                        snackBar.setAction(getString(R.string.dismiss), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                snackBar.dismiss();
-                            }
-                        }).show();
-            }
-        });
-
     }
-
 }

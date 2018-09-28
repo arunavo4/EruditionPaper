@@ -4,6 +4,8 @@
 
     <string name="add">ADD</string>
     <string name="continue_btn">CONTINUE</string>
+    <string name="play_btn">GOOGLE PLAY</string>
+    <string name="later_btn">LATER</string>
     <string name="time">Time:</string>
     <string name="marks">Marks:</string>
     <string name="repeated">Repeated:</string>
@@ -59,7 +61,8 @@
 
 
     <string name="no_papers">No Papers Found</string>
-
+    <string name="dialog_google_play">Glad to see you Like Erudition Paper!\n If you\'re up for it, we would really appreciate you reviewing us.</string>
+    <string name="awesome">Awesome!</string>
 
     <!--Help and Feedback-->
     <string name="like_erudition">Like Erudition Paper?</string>
@@ -67,7 +70,7 @@
     <string name="submit_a_prob">Submit a Problem</string>
     <string name="subject_help">Subject</string>
     <string name="issues_faced">Issue Faced</string>
-    <string name="state_issues">State your Issue Here...</string>
+    <string name="state_issues">State your Issue Here…</string>
 
     <!--Fab Action Menu-->
     <string name="offline_paper">Offline Papers</string>
@@ -106,6 +109,10 @@
     <!--Navigation Right-->
     <string name="no_notification">No New Notifications</string>
 
+    <!--Settings-->
+    <string name="clear_cache">Clear Cache</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="snackBar_clear_cache">App Cache Cleared!</string>
 
     <!--Menu Actions-->
     <string name="action_logout">Sign Out</string>

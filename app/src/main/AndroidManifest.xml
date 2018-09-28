@@ -102,6 +102,10 @@
         <activity
             android:name=".activity.SettingsActivity"
             android:label="@string/blank"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.WebviewActivity"
+            android:label="@string/blank"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

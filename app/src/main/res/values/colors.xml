@@ -61,6 +61,8 @@
     <!--Green-->
     <color name="green">#25D366</color>
 
+    <!--Purple-->
+    <color name="purple">#673AB7</color>
 
     <!--Swipe to refresh-->
     <color name="color_1">#263238</color>

@@ -34,7 +34,7 @@
             android:src="@drawable/page_not_found" />
 
         <TextView
-            android:layout_width="@dimen/bottom_tv_width_max"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             style="@style/BottomTextView_404"

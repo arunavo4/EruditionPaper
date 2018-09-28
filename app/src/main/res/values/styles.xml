@@ -82,6 +82,11 @@
         <item name="colorAccent">@color/colorPrimaryLight</item>
     </style>
 
+    <style name="FlatButton_purple" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="colorControlHighlight">@color/purple</item>
+        <item name="colorAccent">@color/colorPrimaryLight</item>
+    </style>
+
     <style name="AddText">
         <item name="android:fontFamily">@font/source_sans_pro_bold</item>
         <item name="android:textColor">@color/colorWhite</item>
@@ -340,7 +345,7 @@
         <item name="android:fontFamily">@font/source_sans_pro_bold</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="ReferalTextView">
