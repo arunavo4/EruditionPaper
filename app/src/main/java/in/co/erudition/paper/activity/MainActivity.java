@@ -260,6 +260,11 @@ public class MainActivity extends AppCompatActivity
                 search_viewLayoutParams.setBehavior(new ScalingLayoutBehavior(search_view.getContext(),null, toolbarHeight));
                 search_view.requestLayout();
 
+                params = (ViewGroup.MarginLayoutParams) fab.getLayoutParams();
+                params.bottomMargin = insets.getSystemWindowInsetBottom();
+                fab.invalidate();
+                fab.requestLayout();
+
                 Log.d("Status Bar height i:",String.valueOf(ConverterUtils.convertPxToDp(this,insets.getSystemWindowInsetTop())));
                 return insets.consumeSystemWindowInsets();
             });
@@ -394,12 +399,11 @@ public class MainActivity extends AppCompatActivity
             showDialogNoNet();
         }
 
-
-        //Status Bar height
-//        Log.d("Status Bar height :",String.valueOf(convertPixelsToDp(getStatusBarHeight(),this)));
-
     }
 
+    /*
+        Deprecated way to getStatusBAr Height
+     */
     public float getStatusBarHeight() {
         float result = 0;
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");

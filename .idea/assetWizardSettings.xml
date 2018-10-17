@@ -52,7 +52,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_delete_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_save_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -62,9 +62,10 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_delete_black_24dp" />
-                            <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="G:\Programming\E-commerce\erudition\outline-announcement-24px.svg" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_outline_save_24px" />
+                            <entry key="sourceFile" value="G:\Programming\E-commerce\erudition\outline-save-24px.svg" />
                           </map>
                         </option>
                       </PersistentState>

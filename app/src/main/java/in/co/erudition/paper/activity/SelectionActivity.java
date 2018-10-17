@@ -71,6 +71,11 @@ public class SelectionActivity extends AppCompatActivity {
                 v.invalidate();
                 v.requestLayout();
 
+                params = (ViewGroup.MarginLayoutParams) fab.getLayoutParams();
+                params.bottomMargin = insets.getSystemWindowInsetBottom();
+                fab.invalidate();
+                fab.requestLayout();
+
                 return insets.consumeSystemWindowInsets();
             });
         }

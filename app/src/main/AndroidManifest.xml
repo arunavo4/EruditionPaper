@@ -106,7 +106,11 @@
         <activity
             android:name=".activity.WebviewActivity"
             android:label="@string/blank"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ProfileEditActivity"
+            android:label="@string/title_activity_profile_edit"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

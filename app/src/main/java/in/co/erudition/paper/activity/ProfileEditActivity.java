@@ -1,11 +1,13 @@
 package in.co.erudition.paper.activity;
 
-import android.content.Intent;
+import android.app.DatePickerDialog;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -14,22 +16,24 @@ import android.support.v4.view.WindowInsetsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.LinearLayout;
 
 import com.github.clans.fab.FloatingActionButton;
+
+import java.util.Calendar;
 
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.util.ConverterUtils;
 
-public class RewardActivity extends AppCompatActivity {
+public class ProfileEditActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reward);
+        setContentView(R.layout.activity_profile_edit);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         // To set the background of the activity go below the StatusBar
@@ -51,9 +55,6 @@ public class RewardActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= 20){
             ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) ->{
-                v.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
-                v.getLayoutParams().height += insets.getSystemWindowInsetTop();
-
                 ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
                 params.topMargin = insets.getSystemWindowInsetTop();
                 v.invalidate();
@@ -81,8 +82,7 @@ public class RewardActivity extends AppCompatActivity {
         }
 
         toolbar.setNavigationIcon(bg);
-        String str = this.getResources().getString(R.string.Rs) + " 50.00";
-        toolbar.setTitle(str);
+        toolbar.setTitle(getResources().getString(R.string.edit_profile));
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -92,30 +92,40 @@ public class RewardActivity extends AppCompatActivity {
             }
         });
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+
+        //Date picker
+        final TextInputEditText inputLayout = (TextInputEditText) findViewById(R.id.date_of_birth_tv);
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.date_of_birth);
+
+        inputLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ProfileEditActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+
+                                inputLayout.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                            }
+                        }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_reward, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_history) {
-            Intent intent = new Intent(this, RewardHistoryActivity.class);
-            startActivity(intent);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 
 }

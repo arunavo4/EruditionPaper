@@ -12,10 +12,14 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.WindowInsetsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.clans.fab.FloatingActionButton;
+
 import in.co.erudition.paper.R;
+import in.co.erudition.paper.util.ConverterUtils;
 
 public class RewardHistoryActivity extends AppCompatActivity {
 
@@ -40,6 +44,7 @@ public class RewardHistoryActivity extends AppCompatActivity {
             Adjusting the Status bar margin for Different notches
          */
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         if (Build.VERSION.SDK_INT >= 20){
             ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) ->{
@@ -50,6 +55,12 @@ public class RewardHistoryActivity extends AppCompatActivity {
                 params.topMargin = insets.getSystemWindowInsetTop();
                 v.invalidate();
                 v.requestLayout();
+
+                params = (ViewGroup.MarginLayoutParams) fab.getLayoutParams();
+                params.bottomMargin = insets.getSystemWindowInsetBottom();
+                params.bottomMargin += getResources().getDimensionPixelSize(R.dimen.spacer_10dp);
+                fab.invalidate();
+                fab.requestLayout();
 
                 return insets.consumeSystemWindowInsets();
             });

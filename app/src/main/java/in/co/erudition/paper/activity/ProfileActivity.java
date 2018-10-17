@@ -133,6 +133,8 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //fab on click
+                Intent intent = new Intent(ProfileActivity.this, ProfileEditActivity.class);
+                startActivity(intent);
             }
         });
 

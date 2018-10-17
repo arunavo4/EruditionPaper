@@ -11,6 +11,7 @@
     <string name="repeated">Repeated:</string>
     <string name="retry">Retry</string>
     <string name="go_back">Go Back</string>
+    <string name="notify_me">NOTIFY ME</string>
     <string name="referal_sample">ER007R</string>
     <string name="referal_code">Referral Code</string>
     <string name="title_activity_main">MainActivity</string>
@@ -29,9 +30,11 @@
     <string name="answers">Answer:</string>
     <string name="type_a_comment">Type a comment</string>
 
+    <string name="edit_profile">Edit Details</string>
+
     <!--Books-->
-    <string name="coming_soon_top">Coming Soon</string>
-    <string name="coming_soon_bottom">Paperback Editions of Erudition Paper will be Available really soon.</string>
+    <string name="book_top">Coming Soon</string>
+    <string name="book_bottom">Paperback Editions of Erudition Paper will be Available really soon.</string>
 
     <!--Offer-->
     <string name="offer_description">Offer Description</string>
@@ -58,7 +61,8 @@
     <string name="maintenance_bottom">Sorry, the servers are under maintenance. Please try again in about 30 minutes.</string>
     <string name="page_not_found_top">Page Not Found</string>
     <string name="page_not_found_bottom">The Page You are Looking for is not available</string>
-
+    <string name="coming_soon_top">Coming Soon</string>
+    <string name="coming_soon_bottom">We are about to add these Papers really soon So Click Notify Me so we can Inform You on your Registered Email Id when it became Live</string>
 
     <string name="no_papers">No Papers Found</string>
     <string name="dialog_google_play">Glad to see you Like Erudition Paper!\n If you\'re up for it, we would really appreciate you reviewing us.</string>
@@ -168,6 +172,7 @@
     <string name="title_activity_answer">AnswerActivity</string>
     <string name="title_activity_selection">SelectionActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_profile_edit">ProfileEditActivity</string>
 
 
 </resources>

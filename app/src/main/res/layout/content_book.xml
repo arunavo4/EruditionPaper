@@ -32,14 +32,14 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="5dp"
             style="@style/TopTextView"
-            android:text="@string/coming_soon_top"/>
+            android:text="@string/book_top"/>
 
         <TextView
             android:layout_width="236dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             style="@style/BottomTextView"
-            android:text="@string/coming_soon_bottom"/>
+            android:text="@string/book_bottom"/>
 
     </LinearLayout>
 

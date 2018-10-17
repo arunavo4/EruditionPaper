@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="bottom|end"
     android:layout_marginEnd="@dimen/spacer_0dp"
-    android:paddingBottom="@dimen/nav_bar_height"
+    android:layout_marginBottom="@dimen/spacer_0dp"
     android:elevation="@dimen/spacer_8dp"
     fab:menu_backgroundColor="@color/colorBlack38alpha"
     fab:menu_closeOnTouchOutside="true"

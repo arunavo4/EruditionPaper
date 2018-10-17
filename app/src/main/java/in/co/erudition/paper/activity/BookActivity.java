@@ -67,7 +67,7 @@ public class BookActivity extends AppCompatActivity {
         }
 
         toolbar.setNavigationIcon(bg);
-        toolbar.setTitle("Books");
+        toolbar.setTitle(getResources().getString(R.string.books));
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

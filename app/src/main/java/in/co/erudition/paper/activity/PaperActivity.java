@@ -192,10 +192,13 @@ public class PaperActivity extends AppCompatActivity{
                     params = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
                 }
                 params.topMargin = insets.getSystemWindowInsetTop();
-
-
                 v.invalidate();
                 v.requestLayout();
+
+                params = (ViewGroup.MarginLayoutParams) fab.getLayoutParams();
+                params.bottomMargin = insets.getSystemWindowInsetBottom();
+                fab.invalidate();
+                fab.requestLayout();
 
                 return insets.consumeSystemWindowInsets();
             });
