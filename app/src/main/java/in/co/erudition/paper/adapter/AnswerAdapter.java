@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -62,6 +63,12 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
 
         // Inflate the custom layout
         View mCardView = inflater.inflate(R.layout.answer_rv, parent, false);
+
+        //TODO:Correct the Answer Activity for notches
+        //Dynamically adjusting for notches
+//        LinearLayout ansHeader = (LinearLayout) mCardView.findViewById(R.id.answer_header);
+//        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) ansHeader.getLayoutParams();
+//        params.topMargin = ;
 
         // Return a new holder instance
         AnswerAdapter.ViewHolder viewHolder = new AnswerAdapter.ViewHolder(mCardView);

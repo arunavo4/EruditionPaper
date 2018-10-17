@@ -4,14 +4,22 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.WindowInsetsCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -29,6 +37,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.view.WindowInsets;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -43,7 +53,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import iammert.com.view.scalinglib.ScalingLayout;
+import iammert.com.view.scalinglib.ScalingLayoutBehavior;
 import iammert.com.view.scalinglib.ScalingLayoutListener;
+import in.co.erudition.avatar.AvatarPlaceholder;
+import in.co.erudition.avatar.AvatarView;
+import in.co.erudition.paper.Erudition;
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.adapter.UniversityAdapter;
 import in.co.erudition.paper.carousel.CarouselPicker;
@@ -52,6 +66,8 @@ import in.co.erudition.paper.data.remote.BackendService;
 import in.co.erudition.paper.misc.ItemOffsetDecoration;
 import in.co.erudition.paper.network.NetworkUtils;
 import in.co.erudition.paper.util.ApiUtils;
+import in.co.erudition.paper.util.AvatarGlideLoader;
+import in.co.erudition.paper.util.ConverterUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -69,6 +85,10 @@ public class MainActivity extends AppCompatActivity
     private LinearLayout mUniversityList;
     private FloatingActionMenu fab;
     private Intent intent;
+    private boolean nav_set[] = new boolean[2];
+    private int insetTop = 0;
+    private static SharedPreferences mPrefs;
+    private static SharedPreferences.Editor mPrefsEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +100,10 @@ public class MainActivity extends AppCompatActivity
         setUpCustomText(getResources().getString(R.string.app_name),tv);
         toolbar.setTitle("Erudition Paper");
         setSupportActionBar(toolbar);
+
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+        mPrefsEdit = mPrefs.edit();
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar_universities);
         mUniversityList = (LinearLayout) findViewById(R.id.university_list);
@@ -207,11 +231,121 @@ public class MainActivity extends AppCompatActivity
             getWindow().setNavigationBarColor(getResources().getColor(R.color.colorBlack75alpha));
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        /*
+            If there is a notch then adjust the size of status bar
+            and the corresponding views -> nav_right ,nav_main ,app_bar_main
+            The nav_headers are being set in the onDrawerOpened method
+            Even the SearchView position has been adjusted
+         */
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.my_appbar_container);
+
+        if (Build.VERSION.SDK_INT >= 20) {
+            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) -> {
+                v.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
+                v.getLayoutParams().height += insets.getSystemWindowInsetTop();
+                insetTop = insets.getSystemWindowInsetTop();
+
+                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
+                Log.d("toolbar top Margin: b",String.valueOf(params.topMargin));
+                params.topMargin = insets.getSystemWindowInsetTop();
+                Log.d("toolbar top Margin: a",String.valueOf(params.topMargin));
+                v.invalidate();
+                v.requestLayout();
+
+                float toolbarHeight = getResources().getDimensionPixelSize(R.dimen.app_bar_height);
+                toolbarHeight += insets.getSystemWindowInsetTop();
+
+                CoordinatorLayout.LayoutParams search_viewLayoutParams =
+                        (CoordinatorLayout.LayoutParams) search_view.getLayoutParams();
+                search_viewLayoutParams.setBehavior(new ScalingLayoutBehavior(search_view.getContext(),null, toolbarHeight));
+                search_view.requestLayout();
+
+                Log.d("Status Bar height i:",String.valueOf(ConverterUtils.convertPxToDp(this,insets.getSystemWindowInsetTop())));
+                return insets.consumeSystemWindowInsets();
+            });
+
+        }
+
+
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        nav_set[0] = nav_set[1] = false;
+
+        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+                TextView name_tv = (TextView) drawerView.findViewById(R.id.nav_user_name);
+                TextView email_tv = (TextView) drawerView.findViewById(R.id.nav_user_email);
+                AvatarView avatar = (AvatarView) drawerView.findViewById(R.id.nav_avatar);
+                LinearLayout nav_header_main = (LinearLayout) findViewById(R.id.nav_header_main);
+                LinearLayout nav_header_right = (LinearLayout) findViewById(R.id.nav_header_right);
+                View fake_status_bar = (View) findViewById(R.id.fake_status_bar);
+
+                if (name_tv!=null && email_tv!=null) {
+                    if (name_tv.getText().length()==0 || email_tv.getText().length()==0) {
+                        String name = mPrefs.getString("FirstName","Android") + " " + mPrefs.getString("LastName","Studio");
+                        name_tv.setText(name);
+
+                        String email = mPrefs.getString("Email","android.studio@android.com");
+                        email_tv.setText(email);
+
+                        String image_uri = mPrefs.getString("Avatar","");
+
+                        AvatarPlaceholder placeholder = new AvatarPlaceholder(getInitials(name));
+
+                        AvatarGlideLoader imageLoader = new AvatarGlideLoader(getInitials(name));
+                        imageLoader.loadImage(avatar,placeholder,image_uri);
+
+                        Log.d("On Drawer Opened: ","Method called");
+                    }
+                }
+
+                //set the right and main nav_headers
+                if (!nav_set[0]) {
+
+                    if (nav_header_main != null) {
+                        nav_header_main.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
+                        nav_header_main.getLayoutParams().height += insetTop;
+                        nav_header_main.invalidate();
+                        nav_header_main.requestLayout();
+
+                        nav_set[0] = true;
+                    }
+                }
+                if (!nav_set[1]) {
+                    if (nav_header_right!=null && fake_status_bar!=null){
+                        nav_header_right.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
+                        nav_header_right.getLayoutParams().height += insetTop;
+
+                        fake_status_bar.getLayoutParams().height = insetTop;
+                        nav_header_right.invalidate();
+                        nav_header_right.requestLayout();
+
+                        nav_set[1] = true;
+                    }
+                }
+
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -259,6 +393,36 @@ public class MainActivity extends AppCompatActivity
         }else {
             showDialogNoNet();
         }
+
+
+        //Status Bar height
+//        Log.d("Status Bar height :",String.valueOf(convertPixelsToDp(getStatusBarHeight(),this)));
+
+    }
+
+    public float getStatusBarHeight() {
+        float result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            //result = getResources().getDimensionPixelSize(resourceId);
+            result = getResources().getDimension(resourceId);
+        }
+        return result;
+    }
+
+    /*
+     * Return user short name
+     */
+    private static String getInitials(String name) {
+
+        String[] strings = name.split(" ");//no i18n
+        String shortName;
+        if (strings.length == 1) {
+            shortName = strings[0].substring(0, 2);
+        } else {
+            shortName = strings[0].substring(0, 1) + strings[1].substring(0, 1);
+        }
+        return shortName.toUpperCase();
     }
 
     private void setUpCustomText(String text, TextView textView) {

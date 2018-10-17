@@ -12,6 +12,8 @@ import android.support.design.widget.Snackbar;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.WindowInsetsCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -26,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -94,6 +97,34 @@ public class QuestionActivity extends AppCompatActivity {
 //            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorBlack25alpha));
 //            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorBlack75alpha));
+        }
+
+        /*
+            Adjusting the Status bar margin for Different notches
+         */
+        LinearLayout quesHeader = (LinearLayout) findViewById(R.id.ques_header);
+
+        if (Build.VERSION.SDK_INT >= 20){
+            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) ->{
+                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
+                params.topMargin = insets.getSystemWindowInsetTop();
+                v.invalidate();
+                v.requestLayout();
+
+                int top=0,bottom=0;
+                if (select==0){
+                    top = getResources().getDimensionPixelSize(R.dimen.app_bar_height);
+                    top += insets.getSystemWindowInsetTop();
+                }
+                else if (select==1){
+                    top = insets.getSystemWindowInsetTop();
+                }
+                bottom = getResources().getDimensionPixelSize(R.dimen.spacer_16dp);
+                quesHeader.setPadding(0,top,0,bottom);
+                quesHeader.requestLayout();
+
+                return insets.consumeSystemWindowInsets();
+            });
         }
 
         Drawable bg;
@@ -215,7 +246,7 @@ public class QuestionActivity extends AppCompatActivity {
             public void onResponse(Call<Paper> call, Response<Paper> response) {
                 Log.d("Call",call.request().toString());
                 if(response.isSuccessful()) {
-                    Log.d(TAG,"issuccess");
+                    Log.d(TAG,"isSuccess");
 
                     int select = getIntent().getIntExtra("PaperActivity.EXTRA_Select",-1);
                     mProgressBar.setVisibility(View.GONE);

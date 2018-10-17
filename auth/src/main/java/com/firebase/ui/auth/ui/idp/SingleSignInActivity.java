@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
+import android.util.Log;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
@@ -29,6 +30,10 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.TwitterAuthProvider;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class SingleSignInActivity extends InvisibleActivityBase {
     private SocialProviderResponseHandler mHandler;
@@ -43,7 +48,9 @@ public class SingleSignInActivity extends InvisibleActivityBase {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         User user = User.getUser(getIntent());
-        String provider = user.getProviderId();
+        final String provider = user.getProviderId();
+
+        Log.d("auth:SingleSignIn",provider);
 
         AuthUI.IdpConfig providerConfig =
                 ProviderUtils.getConfigFromIdps(getFlowParams().providerInfo, provider);
@@ -82,11 +89,13 @@ public class SingleSignInActivity extends InvisibleActivityBase {
         mProvider.getOperation().observe(this, new ResourceObserver<IdpResponse>(this) {
             @Override
             protected void onSuccess(@NonNull IdpResponse response) {
+                Log.d("auth:SingleSignIn","provider onSuccess");
                 mHandler.startSignIn(response);
             }
 
             @Override
             protected void onFailure(@NonNull Exception e) {
+                Log.d("auth:SingleSignIn","provider onFailure");
                 mHandler.startSignIn(IdpResponse.from(e));
             }
         });
@@ -95,6 +104,26 @@ public class SingleSignInActivity extends InvisibleActivityBase {
                 this, R.string.fui_progress_dialog_loading) {
             @Override
             protected void onSuccess(@NonNull IdpResponse response) {
+                Log.d("auth:SingleSignIn","handler onSuccess");
+                Log.d("auth:SingleSignIn","handler onSuccess");
+                Log.d("Provider Idp Token",response.getUser().getProviderId() + " : " + response.getIdpToken());
+                Log.d("User Email:",response.getEmail());
+
+                try{
+                    Class<?> loginUtilClass = Class.forName("in.co.erudition.paper.util.LoginUtils");
+                    final Object loginUtil = loginUtilClass.newInstance();
+
+                    final Method login_idp = loginUtil.getClass().getMethod("login_via_idp",String.class,String.class,String.class);
+                    try{
+                        String message = (String) login_idp.invoke(loginUtil,response.getUser().getProviderId(),response.getEmail(),response.getIdpToken());
+                        Log.d("login_idp_method: ",message);
+                    }catch (IllegalAccessException | InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 startSaveCredentials(mHandler.getCurrentUser(), response, null);
             }
 

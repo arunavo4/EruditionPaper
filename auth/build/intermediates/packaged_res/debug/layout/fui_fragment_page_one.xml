@@ -11,10 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/fui_offset_top"
-        android:layout_gravity="center_horizontal">
+        android:paddingBottom="50dp"
+        android:layout_gravity="center">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/img_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

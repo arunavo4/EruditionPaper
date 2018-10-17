@@ -3,12 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     defaultConfig {
         applicationId "in.co.erudition.paper"
         vectorDrawables.useSupportLibrary = true
         minSdkVersion 19
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         resConfigs "en"
@@ -32,6 +32,10 @@ android {
             }
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -42,14 +46,15 @@ dependencies {
     api project(path: ':customfab')
     api project(path: ':scalinglib')
     api project(path: ':auth')
+    api project(path: ':avatar')
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation "com.android.support:customtabs:27.1.1"
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support:recyclerview-v7:27.1.1'
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation "com.android.support:customtabs:28.0.0"
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
 
     //Facebook login
     implementation 'com.facebook.android:facebook-login:4.35.0'

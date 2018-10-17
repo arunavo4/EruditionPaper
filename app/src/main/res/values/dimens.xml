@@ -68,6 +68,7 @@
     <!--Profile Activity-->
     <dimen name="app_bar_height_profile">240dp</dimen>
     <dimen name="edit_text_width_profile">250dp</dimen>
+    <dimen name="avatar_view_small_size">66dp</dimen>
 
     <!--Search Activity-->
     <dimen name="app_bar_height_search">160dp</dimen>

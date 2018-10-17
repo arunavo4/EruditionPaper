@@ -10,10 +10,13 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.WindowInsetsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -25,6 +28,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -167,6 +171,34 @@ public class PaperActivity extends AppCompatActivity{
             bg = VectorDrawableCompat.create(getResources(), R.drawable.ic_arrow_back_black_24dp, null);
             bg = DrawableCompat.wrap(bg);
             DrawableCompat.setTint(bg, ContextCompat.getColor(this, R.color.colorWhite));
+        }
+
+        /*
+            Adjusting the Status bar margin for Different notches
+         */
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+
+        if (Build.VERSION.SDK_INT >= 20){
+            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) ->{
+                v.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
+                v.getLayoutParams().height += insets.getSystemWindowInsetTop();
+
+                String from = getIntent().getStringExtra("FROM");
+                ViewGroup.MarginLayoutParams params;
+                if(from.contentEquals("action_fab")){
+                    params = (ViewGroup.MarginLayoutParams) toolbar_textView.getLayoutParams();
+                }
+                else{
+                    params = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
+                }
+                params.topMargin = insets.getSystemWindowInsetTop();
+
+
+                v.invalidate();
+                v.requestLayout();
+
+                return insets.consumeSystemWindowInsets();
+            });
         }
 
 

@@ -30,6 +30,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
     private List<PaperGroup> paperGroups;
     private List<PaperQuestion> paperQuestions;
     private ArrayList<QuestionAnswer> data;
+    private int group_pos;
     private Context mContext;
     private Intent mIntent;
     private StringBuilder str;
@@ -38,6 +39,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
     public QuestionAdapter(Context context, List<PaperGroup> mPapers, int pos, Intent intent, QuestionAdapter.QuestionItemListener itemListener){
         mContext = context;
         paperQuestions = mPapers.get(pos).getPaperQuestion();
+        group_pos = pos;
         mIntent = intent;
         paperGroups = mPapers;
         mItemListener = itemListener;
@@ -129,7 +131,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
             ques_tv.setLongClickable(false);
 
 
-
             //Setting click events on both webview and the card
             ques_tv.setOnTouchListener(new View.OnTouchListener() {
 
@@ -182,6 +183,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                 intent.putExtra("QUESTION_ADAPTER.parcelData",data);
                 intent.putExtras(mIntent);
                 int pos = Integer.parseInt(paperQuestion.getCode()) - 1;
+                pos = getQues_pos(group_pos, pos);
                 intent.putExtra("QUESTION_ADAPTER.position",pos);
                 mContext.startActivity(intent);
             }
@@ -214,6 +216,17 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 
     private PaperQuestion getQues(int adapterPosition) {
         return paperQuestions.get(adapterPosition);
+    }
+
+    private int getQues_pos(int group_no,int ques_no){
+        int pos=0;
+        Log.d("Question group no:",String.valueOf(group_no));
+        for(int i=0;i<group_no;i++) {
+            pos += paperGroups.get(i).getPaperQuestion().size();
+        }
+        pos += ques_no;
+        Log.d("Question pos:", String.valueOf(pos));
+        return pos;
     }
 
     public interface QuestionItemListener {

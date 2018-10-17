@@ -1,7 +1,9 @@
 package in.co.erudition.paper.activity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
@@ -10,6 +12,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,12 +21,15 @@ import android.support.design.widget.TextInputLayout;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.WindowInsetsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,11 +41,16 @@ import com.google.android.gms.tasks.Task;
 
 import java.util.Calendar;
 
+import in.co.erudition.avatar.AvatarPlaceholder;
+import in.co.erudition.paper.Erudition;
 import in.co.erudition.paper.LoginActivity;
 import in.co.erudition.paper.R;
+import in.co.erudition.paper.util.AvatarGlideLoader;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    private static SharedPreferences mPrefs;
+    private static SharedPreferences.Editor mPrefsEdit;
     private DatePickerDialog.OnDateSetListener dateSetListener;
 
     @Override
@@ -51,6 +62,10 @@ public class ProfileActivity extends AppCompatActivity {
         TextView profile_name = (TextView) findViewById(R.id.profile_name_tv);
         ImageView img_profile_pic = (ImageView) findViewById(R.id.img_profile_pic);
 
+        //Shared Preferences
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+        mPrefsEdit = mPrefs.edit();
 
         // To set the background of the activity go below the StatusBar
         getWindow().getDecorView().setSystemUiVisibility(
@@ -61,6 +76,25 @@ public class ProfileActivity extends AppCompatActivity {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorBlack25alpha));
             getWindow().setNavigationBarColor(getResources().getColor(R.color.colorBlack75alpha));
+        }
+
+        /*
+            Adjusting the Status bar margin for Different notches
+         */
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.my_appbar_container);
+
+        if (Build.VERSION.SDK_INT >= 20){
+            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) ->{
+                v.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
+                v.getLayoutParams().height += insets.getSystemWindowInsetTop();
+
+                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
+                params.topMargin = insets.getSystemWindowInsetTop();
+                v.invalidate();
+                v.requestLayout();
+
+                return insets.consumeSystemWindowInsets();
+            });
         }
 
         Drawable bg;
@@ -74,10 +108,17 @@ public class ProfileActivity extends AppCompatActivity {
             DrawableCompat.setTint(bg, ContextCompat.getColor(this, R.color.colorWhite));
         }
 
+
+        /*
+            Retrieve data from the shared Pref
+         */
+
+        String name = mPrefs.getString("FirstName","Android") + " " + mPrefs.getString("LastName","Studio");
+
         toolbar.setNavigationIcon(bg);
-        collapsingToolbarLayout.setTitle("Surojit Ghosh");
+        collapsingToolbarLayout.setTitle(name);
         setSupportActionBar(toolbar);
-        profile_name.setText("Surojit Ghosh");
+        profile_name.setText(name);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,18 +136,32 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        //Set the profile picture
+
+        /*
+            Set the Display Picture
+            If there is an avatar URL then display it
+            else make a new layer using the initial letters
+         */
+
+        String image_uri = mPrefs.getString("Avatar","");
+        AvatarPlaceholder placeholder = new AvatarPlaceholder(getInitials(name));
+
+//        setProfileAvatar()
+
         Drawable[] layers = new Drawable[2];
         layers[1] = getResources().getDrawable(R.drawable.ic_foreground_34alpha);
-        layers[0] = getResources().getDrawable(R.drawable.profile_pic);
+        layers[0] = getResources().getDrawable(R.drawable.ic_foreground_34alpha);
         LayerDrawable layerDrawable = new LayerDrawable(layers);
         img_profile_pic.setImageDrawable(layerDrawable);
+
+
+
 
         //Date picker
         final TextInputEditText inputLayout = (TextInputEditText) findViewById(R.id.date_of_birth_tv);
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.date_of_birth);
 
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+        inputLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar cal = Calendar.getInstance();
@@ -127,6 +182,10 @@ public class ProfileActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+
+    }
+
+    private void setProfileAvatar(ImageView view, String ImageUri, String name) {
 
     }
 
@@ -159,6 +218,21 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /*
+     * Return user short name
+     */
+    private static String getInitials(String name) {
+
+        String[] strings = name.split(" ");//no i18n
+        String shortName;
+        if (strings.length == 1) {
+            shortName = strings[0].substring(0, 2);
+        } else {
+            shortName = strings[0].substring(0, 1) + strings[1].substring(0, 1);
+        }
+        return shortName.toUpperCase();
     }
 
 }
