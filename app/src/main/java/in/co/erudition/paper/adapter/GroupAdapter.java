@@ -36,7 +36,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> 
     private GroupAdapter.GroupItemListener mItemListener;
     private RecyclerView.RecycledViewPool viewPool;
 
-    public GroupAdapter(Context context, List<PaperGroup> mPapers, Intent intent, GroupAdapter.GroupItemListener itemListener){
+    public GroupAdapter(Context context, List<PaperGroup> mPapers, Intent intent, GroupAdapter.GroupItemListener itemListener) {
         mContext = context;
         paperGroups = mPapers;
         mIntent = intent;
@@ -89,13 +89,13 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> 
             mRecyclerView.setAdapter(mAdapter[pos]);
             mRecyclerView.setHasFixedSize(true);
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-            Log.d("GroupAdapter","done adapter" + String.valueOf(holder.getAdapterPosition()));
+            Log.d("GroupAdapter", "done adapter" + String.valueOf(holder.getAdapterPosition()));
 
             //fixed content no need to update adapter
 //            mAdapter[pos].updateQues(group.getPaperQuestion());
+        } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
+            Log.e("Exception", e.toString());
         }
-        catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e)
-        {   Log.e("Exception",e.toString()); }
     }
 
     @Override
@@ -121,11 +121,11 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> 
         @Override
         public void onClick(View v) {
             Log.d("Adapter Position:", String.valueOf(getAdapterPosition()));
-             PaperGroup paperGroup = getGroup(getAdapterPosition());
+            PaperGroup paperGroup = getGroup(getAdapterPosition());
             Log.d("Group:", String.valueOf(paperGroup.getGroupName()));
             //TODO: Need to transfer intent data and start new activity
             int position = getAdapterPosition();
-            if(position != RecyclerView.NO_POSITION) {
+            if (position != RecyclerView.NO_POSITION) {
                 showDialogInfo(paperGroup);
             }
 
@@ -134,7 +134,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> 
 
     public void updateGroups(Paper papers) {
         paperGroups = papers.getPaperGroup();
-        Log.d("GroupAdapter","No of groups :" + String.valueOf(paperGroups.size()));
+        Log.d("GroupAdapter", "No of groups :" + String.valueOf(paperGroups.size()));
         mAdapter = new QuestionAdapter[paperGroups.size()];
         notifyDataSetChanged();
     }
@@ -153,9 +153,9 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> 
     private void showDialogInfo(PaperGroup group) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_info,null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_info, null);
 
-        Animation view_anim = AnimationUtils.loadAnimation(mContext,R.anim.zoom_in);
+        Animation view_anim = AnimationUtils.loadAnimation(mContext, R.anim.zoom_in);
         view.startAnimation(view_anim);
 
         //set all the details
@@ -165,18 +165,18 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> 
         Button btn_contd = (Button) view.findViewById(R.id.btn_cont);
 
         //Set the views and make them visible if its not
-        if (!group.getGroupName().contentEquals(" ")){
-            if (g_tv.getVisibility()==View.GONE)
+        if (!group.getGroupName().contentEquals(" ")) {
+            if (g_tv.getVisibility() == View.GONE)
                 g_tv.setVisibility(View.VISIBLE);
             g_tv.setText(group.getGroupName());
         }
-        if (!group.getGroupDesc1().contentEquals(" ")){
-            if (g_desc_tv_1.getVisibility()==View.GONE)
+        if (!group.getGroupDesc1().contentEquals(" ")) {
+            if (g_desc_tv_1.getVisibility() == View.GONE)
                 g_desc_tv_1.setVisibility(View.VISIBLE);
             g_desc_tv_1.setText(group.getGroupDesc1());
         }
-        if (!group.getGroupDesc2().contentEquals(" ")){
-            if (g_desc_tv_2.getVisibility()==View.GONE)
+        if (!group.getGroupDesc2().contentEquals(" ")) {
+            if (g_desc_tv_2.getVisibility() == View.GONE)
                 g_desc_tv_2.setVisibility(View.VISIBLE);
             g_desc_tv_2.setText(group.getGroupDesc2());
         }
@@ -190,7 +190,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 //cancel the dialogue
-                if (alertDialog.isShowing()){
+                if (alertDialog.isShowing()) {
                     alertDialog.cancel();
                 }
             }

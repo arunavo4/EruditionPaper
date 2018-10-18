@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
@@ -47,8 +46,8 @@ public class SettingsActivity extends AppCompatActivity {
          */
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 
-        if (Build.VERSION.SDK_INT >= 20){
-            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) ->{
+        if (Build.VERSION.SDK_INT >= 20) {
+            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) -> {
                 v.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
                 v.getLayoutParams().height += insets.getSystemWindowInsetTop();
 
@@ -62,11 +61,10 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         Drawable bg;
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             bg = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_black_24dp);
             bg.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), PorterDuff.Mode.MULTIPLY);
-        }
-        else {
+        } else {
             bg = VectorDrawableCompat.create(getResources(), R.drawable.ic_arrow_back_black_24dp, null);
             bg = DrawableCompat.wrap(bg);
             DrawableCompat.setTint(bg, ContextCompat.getColor(this, R.color.colorWhite));
@@ -87,14 +85,14 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //show the snackBar
-                final Snackbar snackBar = Snackbar.make((CoordinatorLayout)findViewById(R.id.settings_main),getString(R.string.snackBar_clear_cache), Snackbar.LENGTH_LONG);
+                final Snackbar snackBar = Snackbar.make((CoordinatorLayout) findViewById(R.id.settings_main), getString(R.string.snackBar_clear_cache), Snackbar.LENGTH_LONG);
 
-                        snackBar.setAction(getString(R.string.dismiss), new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                snackBar.dismiss();
-                            }
-                        }).show();
+                snackBar.setAction(getString(R.string.dismiss), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        snackBar.dismiss();
+                    }
+                }).show();
             }
         });
 

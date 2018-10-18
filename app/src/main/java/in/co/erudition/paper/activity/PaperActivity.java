@@ -54,7 +54,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PaperActivity extends AppCompatActivity{
+public class PaperActivity extends AppCompatActivity {
 
     private PaperAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -89,23 +89,23 @@ public class PaperActivity extends AppCompatActivity{
         mPaperList = (LinearLayout) findViewById(R.id.paper_list);
         mNoPaper = (LinearLayout) findViewById(R.id.no_paper_found);
 
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.color_1,R.color.color_2,R.color.color_3,R.color.color_4);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.color_1, R.color.color_2, R.color.color_3, R.color.color_4);
 
         //Swipe to Refresh
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
 //                mProgressBar.setVisibility(View.VISIBLE);
-                if (select==0){
+                if (select == 0) {
                     loadChaps();
-                }else if (select==1){
+                } else if (select == 1) {
                     loadYears();
                 }
 //                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 
-        select = getIntent().getIntExtra("Selection Activity: Selection",-1);
+        select = getIntent().getIntExtra("Selection Activity: Selection", -1);
 
         /**
          * instantiate the floating action buttons
@@ -118,12 +118,12 @@ public class PaperActivity extends AppCompatActivity{
         FloatingActionButton fab_bookmark = (FloatingActionButton) findViewById(R.id.fab_bookmarks);
 
         intent = new Intent(this, PaperActivity.class);
-        intent.putExtra("FROM","action_fab");
+        intent.putExtra("FROM", "action_fab");
 
         fab_recent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("Title","Recent Papers");
+                intent.putExtra("Title", "Recent Papers");
                 fab.close(true);
                 startActivity(intent);
                 finish();
@@ -132,7 +132,7 @@ public class PaperActivity extends AppCompatActivity{
         fab_offline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("Title","Offline");
+                intent.putExtra("Title", "Offline");
                 fab.close(true);
                 startActivity(intent);
                 finish();
@@ -141,7 +141,7 @@ public class PaperActivity extends AppCompatActivity{
         fab_bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("Title","Bookmarks");
+                intent.putExtra("Title", "Bookmarks");
                 fab.close(true);
                 startActivity(intent);
                 finish();
@@ -163,11 +163,10 @@ public class PaperActivity extends AppCompatActivity{
         }
 
         Drawable bg;
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             bg = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_black_24dp);
             bg.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), PorterDuff.Mode.MULTIPLY);
-        }
-        else {
+        } else {
             bg = VectorDrawableCompat.create(getResources(), R.drawable.ic_arrow_back_black_24dp, null);
             bg = DrawableCompat.wrap(bg);
             DrawableCompat.setTint(bg, ContextCompat.getColor(this, R.color.colorWhite));
@@ -178,17 +177,16 @@ public class PaperActivity extends AppCompatActivity{
          */
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 
-        if (Build.VERSION.SDK_INT >= 20){
-            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) ->{
+        if (Build.VERSION.SDK_INT >= 20) {
+            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) -> {
                 v.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
                 v.getLayoutParams().height += insets.getSystemWindowInsetTop();
 
                 String from = getIntent().getStringExtra("FROM");
                 ViewGroup.MarginLayoutParams params;
-                if(from.contentEquals("action_fab")){
+                if (from.contentEquals("action_fab")) {
                     params = (ViewGroup.MarginLayoutParams) toolbar_textView.getLayoutParams();
-                }
-                else{
+                } else {
                     params = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
                 }
                 params.topMargin = insets.getSystemWindowInsetTop();
@@ -208,10 +206,10 @@ public class PaperActivity extends AppCompatActivity{
         mTextView = (TextView) findViewById(R.id.paper_name_tv);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_container);
 
-        try{
+        try {
             String from = getIntent().getStringExtra("FROM");
 
-            if(from.contentEquals("action_fab")){
+            if (from.contentEquals("action_fab")) {
                 toolbar_textView.setNavigationIcon(bg);
                 toolbar_textView.setTitle(getIntent().getStringExtra("UniversityActivity.EXTRA_Subject_NAME"));
                 setSupportActionBar(toolbar_textView);
@@ -224,22 +222,20 @@ public class PaperActivity extends AppCompatActivity{
                 });
 
                 String str = getIntent().getStringExtra("Title");
-                if (collapsingToolbarLayout.getVisibility()==View.VISIBLE){
+                if (collapsingToolbarLayout.getVisibility() == View.VISIBLE) {
                     collapsingToolbarLayout.setVisibility(View.GONE);
-                    if (mTextView.getVisibility()==View.GONE){
+                    if (mTextView.getVisibility() == View.GONE) {
                         mTextView.setVisibility(View.VISIBLE);
                         toolbar_textView.setVisibility(View.VISIBLE);
                     }
                 }
 
-                if (str.contentEquals("Offline")){
-                    mTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_offline,0,0,0);
-                }
-                else if (str.contentEquals("Bookmarks")){
-                    mTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_bookmark_24px,0,0,0);
-                }
-                else if (str.contentEquals("Recent Papers")){
-                    mTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_access_time_black_24dp,0,0,0);
+                if (str.contentEquals("Offline")) {
+                    mTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_offline, 0, 0, 0);
+                } else if (str.contentEquals("Bookmarks")) {
+                    mTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_bookmark_24px, 0, 0, 0);
+                } else if (str.contentEquals("Recent Papers")) {
+                    mTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_access_time_black_24dp, 0, 0, 0);
                 }
                 //TODO: No papers for now
                 mTextView.setText(getIntent().getStringExtra("Title"));
@@ -247,7 +243,7 @@ public class PaperActivity extends AppCompatActivity{
                 papers = false;
             }
             //For normal selection flow.
-            else if(from.contentEquals("Course")){
+            else if (from.contentEquals("Course")) {
                 toolbar.setNavigationIcon(bg);
                 toolbar.setTitle(getIntent().getStringExtra("UniversityActivity.EXTRA_Subject_NAME"));
                 setSupportActionBar(toolbar);
@@ -258,27 +254,29 @@ public class PaperActivity extends AppCompatActivity{
                         onBackPressed();
                     }
                 });
-                if (collapsingToolbarLayout.getVisibility()==View.GONE){
+                if (collapsingToolbarLayout.getVisibility() == View.GONE) {
                     collapsingToolbarLayout.setVisibility(View.VISIBLE);
-                    if (mTextView.getVisibility()==View.VISIBLE){
+                    if (mTextView.getVisibility() == View.VISIBLE) {
                         mTextView.setVisibility(View.GONE);
                         toolbar_textView.setVisibility(View.GONE);
                     }
                 }
 //                collapsingToolbarLayout.setTitle(getIntent().getStringExtra("CourseActivity.EXTRA_Subject_NAME"));
                 String title;
-                switch (select){
-                    case 0: title = "Chapters";
-                            break;
-                    case 1: title = "Year";
-                            break;
-                    default:title = getIntent().getStringExtra("CourseActivity.EXTRA_Subject_NAME");
+                switch (select) {
+                    case 0:
+                        title = "Chapters";
+                        break;
+                    case 1:
+                        title = "Year";
+                        break;
+                    default:
+                        title = getIntent().getStringExtra("CourseActivity.EXTRA_Subject_NAME");
                 }
                 collapsingToolbarLayout.setTitle(title);
             }
-        }
-        catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
-            Log.e("Exception",e.toString());
+        } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
+            Log.e("Exception", e.toString());
         }
 
         //Loading Starts
@@ -293,10 +291,10 @@ public class PaperActivity extends AppCompatActivity{
 
         int span = getResources().getInteger(R.integer.grid_span_count);
         RecyclerView.LayoutManager layoutManager;
-        if (select==0){
+        if (select == 0) {
             layoutManager = new LinearLayoutManager(this);
-        }else {
-            layoutManager = new GridLayoutManager(this,span);
+        } else {
+            layoutManager = new GridLayoutManager(this, span);
             ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset);
             mRecyclerView.addItemDecoration(itemDecoration);
         }
@@ -305,7 +303,7 @@ public class PaperActivity extends AppCompatActivity{
 
         //mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        Log.d("PaperActivity","done adapter");
+        Log.d("PaperActivity", "done adapter");
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -319,18 +317,16 @@ public class PaperActivity extends AppCompatActivity{
             }
         });
 
-        Log.d("PaperActivity","loading papers");
-        if (papers){
-            if (select==0) {
+        Log.d("PaperActivity", "loading papers");
+        if (papers) {
+            if (select == 0) {
                 mProgressBar.setVisibility(View.VISIBLE);
                 loadChaps();
-            }
-            else if (select==1){
+            } else if (select == 1) {
                 mProgressBar.setVisibility(View.VISIBLE);
                 loadYears();
             }
-        }
-        else {
+        } else {
             loadNoPapers();
         }
     }
@@ -339,7 +335,7 @@ public class PaperActivity extends AppCompatActivity{
         Log.d("PaperActivity", "loadNoPapersMethod");
 
         mProgressBar.setVisibility(View.GONE);
-        if (mPaperList.getVisibility()==View.VISIBLE){
+        if (mPaperList.getVisibility() == View.VISIBLE) {
             mPaperList.setVisibility(View.GONE);
         }
         mNoPaper.setVisibility(View.VISIBLE);
@@ -351,29 +347,28 @@ public class PaperActivity extends AppCompatActivity{
         String params[] = getIntent().getStringArrayExtra("CourseActivity.EXTRA_params");
 
         Log.d("Params", Arrays.toString(params));
-        chapCall = mService.getChapter(params[0],params[1],params[2],params[3]);
+        chapCall = mService.getChapter(params[0], params[1], params[2], params[3]);
         chapCall.enqueue(new Callback<List<Chapter>>() {
             @Override
             public void onResponse(Call<List<Chapter>> call, Response<List<Chapter>> response) {
-                Log.d("Call",call.request().toString());
-                if(response.isSuccessful()) {
-                    Log.d("PaperActivity","issuccess");
+                Log.d("Call", call.request().toString());
+                if (response.isSuccessful()) {
+                    Log.d("PaperActivity", "issuccess");
 
                     mProgressBar.setVisibility(View.GONE);
                     mSwipeRefreshLayout.setRefreshing(false);
 
-                    Log.d("Response Body",response.body().toString());
-                    mAdapter.updateChapters(response.body(),select);
+                    Log.d("Response Body", response.body().toString());
+                    mAdapter.updateChapters(response.body(), select);
                     Log.d("PaperActivity", "API success");
-                }else {
-                    int statusCode  = response.code();
-                    if(statusCode==401){
-                        Log.d("StatusCode","Unauthorized");
+                } else {
+                    int statusCode = response.code();
+                    if (statusCode == 401) {
+                        Log.d("StatusCode", "Unauthorized");
                     }
-                    if (statusCode==200){
-                        Log.d("StatusCode","OK");
-                    }
-                    else {
+                    if (statusCode == 200) {
+                        Log.d("StatusCode", "OK");
+                    } else {
                         Log.d("StatusCode", String.valueOf(statusCode));
                     }
                     // handle request errors depending on status code
@@ -382,14 +377,13 @@ public class PaperActivity extends AppCompatActivity{
 
             @Override
             public void onFailure(Call<List<Chapter>> call, Throwable t) {
-                if(call.isCanceled()){
+                if (call.isCanceled()) {
                     Log.d("PaperActivity", "call is cancelled");
 
-                }
-                else if(mNetworkUtils.isOnline(PaperActivity.this)){
+                } else if (mNetworkUtils.isOnline(PaperActivity.this)) {
                     Log.d("PaperActivity", "error loading from API");
                     showDialogError();
-                }else{
+                } else {
                     Log.d("PaperActivity", "Check your network connection");
                     showDialogNoNet();
                 }
@@ -407,30 +401,29 @@ public class PaperActivity extends AppCompatActivity{
         String params[] = getIntent().getStringArrayExtra("CourseActivity.EXTRA_params");
         Log.d("Params", Arrays.toString(params));
 
-        yearCall = mService.getYear(params[0],params[1],params[2],params[3]);
+        yearCall = mService.getYear(params[0], params[1], params[2], params[3]);
         yearCall.enqueue(new Callback<List<Year>>() {
 
             @Override
             public void onResponse(Call<List<Year>> call, Response<List<Year>> response) {
-                Log.d("Call",call.request().toString());
-                if(response.isSuccessful()) {
-                    Log.d("PaperActivity","issuccess");
+                Log.d("Call", call.request().toString());
+                if (response.isSuccessful()) {
+                    Log.d("PaperActivity", "issuccess");
 
                     mProgressBar.setVisibility(View.GONE);
                     mSwipeRefreshLayout.setRefreshing(false);
 
-                    Log.d("Response Body",response.body().toString());
-                    mAdapter.updateYears(response.body(),select);
+                    Log.d("Response Body", response.body().toString());
+                    mAdapter.updateYears(response.body(), select);
                     Log.d("PaperActivity", "API success");
-                }else {
-                    int statusCode  = response.code();
-                    if(statusCode==401){
-                        Log.d("StatusCode","Unauthorized");
+                } else {
+                    int statusCode = response.code();
+                    if (statusCode == 401) {
+                        Log.d("StatusCode", "Unauthorized");
                     }
-                    if (statusCode==200){
-                        Log.d("StatusCode","OK");
-                    }
-                    else {
+                    if (statusCode == 200) {
+                        Log.d("StatusCode", "OK");
+                    } else {
                         Log.d("StatusCode", String.valueOf(statusCode));
                     }
                     // handle request errors depending on status code
@@ -439,14 +432,13 @@ public class PaperActivity extends AppCompatActivity{
 
             @Override
             public void onFailure(Call<List<Year>> call, Throwable t) {
-                if(call.isCanceled()){
+                if (call.isCanceled()) {
                     Log.d("PaperActivity", "call is cancelled");
 
-                }
-                else if(mNetworkUtils.isOnline(PaperActivity.this)){
+                } else if (mNetworkUtils.isOnline(PaperActivity.this)) {
                     Log.d("PaperActivity", "error loading from API");
                     showDialogError();
-                }else{
+                } else {
                     Log.d("PaperActivity", "Check your network connection");
                     showDialogNoNet();
                 }
@@ -462,27 +454,27 @@ public class PaperActivity extends AppCompatActivity{
         //call load Papers
         mProgressBar.setVisibility(View.VISIBLE);
         mPaperList.setVisibility(View.VISIBLE);
-        Log.d("PaperActivity","retrying loading Papers");
-        if (select==0){
+        Log.d("PaperActivity", "retrying loading Papers");
+        if (select == 0) {
             loadChaps();
-        }else if (select==1){
+        } else if (select == 1) {
             loadYears();
-        }else {
+        } else {
             loadNoPapers();
         }
     }
 
     @Override
     public void onBackPressed() {
-        if (select==0){
-            if (chapCall!=null) {
-                if (!chapCall.isExecuted()){
+        if (select == 0) {
+            if (chapCall != null) {
+                if (!chapCall.isExecuted()) {
                     chapCall.cancel();
                 }
             }
-        }else if (select==1){
-            if (yearCall!=null) {
-                if (!yearCall.isExecuted()){
+        } else if (select == 1) {
+            if (yearCall != null) {
+                if (!yearCall.isExecuted()) {
                     yearCall.cancel();
                 }
             }
@@ -495,11 +487,11 @@ public class PaperActivity extends AppCompatActivity{
      * Method to inflate the dialog and show it.
      */
     private void showDialogNoNet() {
-        View view = getLayoutInflater().inflate(R.layout.dialog_no_internet,null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_no_internet, null);
 
         Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
 
-        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        final Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -508,7 +500,7 @@ public class PaperActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 //retry and close dialogue
-                if (dialog.isShowing()){
+                if (dialog.isShowing()) {
                     dialog.cancel();
                     onRetryLoadPapers();
                 }
@@ -517,11 +509,11 @@ public class PaperActivity extends AppCompatActivity{
     }
 
     private void showDialogError() {
-        View view = getLayoutInflater().inflate(R.layout.dialog_page_not_found,null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_page_not_found, null);
 
         Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
 
-        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        final Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -530,7 +522,7 @@ public class PaperActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 //retry and close dialogue
-                if (dialog.isShowing()){
+                if (dialog.isShowing()) {
                     dialog.cancel();
                     onBackPressed();
                 }
@@ -575,7 +567,7 @@ public class PaperActivity extends AppCompatActivity{
         mOpenAnimatorSet = new AnimatorSet();
         mCloseAnimatorSet = new AnimatorSet();
 
-        ObjectAnimator collapseAnimator =  ObjectAnimator.ofFloat(fab.getMenuIconView(),
+        ObjectAnimator collapseAnimator = ObjectAnimator.ofFloat(fab.getMenuIconView(),
                 "rotation",
                 -90f + ROTATION_ANGLE, 0f);
         ObjectAnimator expandAnimator = ObjectAnimator.ofFloat(fab.getMenuIconView(),

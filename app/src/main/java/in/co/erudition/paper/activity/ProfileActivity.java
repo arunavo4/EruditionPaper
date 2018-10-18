@@ -4,20 +4,17 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -35,6 +32,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.ImageViewTarget;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -45,7 +44,9 @@ import in.co.erudition.avatar.AvatarPlaceholder;
 import in.co.erudition.paper.Erudition;
 import in.co.erudition.paper.LoginActivity;
 import in.co.erudition.paper.R;
-import in.co.erudition.paper.util.AvatarGlideLoader;
+import in.co.erudition.paper.util.GlideApp;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -83,8 +84,8 @@ public class ProfileActivity extends AppCompatActivity {
          */
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.my_appbar_container);
 
-        if (Build.VERSION.SDK_INT >= 20){
-            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) ->{
+        if (Build.VERSION.SDK_INT >= 20) {
+            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) -> {
                 v.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
                 v.getLayoutParams().height += insets.getSystemWindowInsetTop();
 
@@ -98,11 +99,10 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         Drawable bg;
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             bg = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_black_24dp);
             bg.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), PorterDuff.Mode.MULTIPLY);
-        }
-        else {
+        } else {
             bg = VectorDrawableCompat.create(getResources(), R.drawable.ic_arrow_back_black_24dp, null);
             bg = DrawableCompat.wrap(bg);
             DrawableCompat.setTint(bg, ContextCompat.getColor(this, R.color.colorWhite));
@@ -113,7 +113,7 @@ public class ProfileActivity extends AppCompatActivity {
             Retrieve data from the shared Pref
          */
 
-        String name = mPrefs.getString("FirstName","Android") + " " + mPrefs.getString("LastName","Studio");
+        String name = mPrefs.getString("FirstName", "Android") + " " + mPrefs.getString("LastName", "Studio");
 
         toolbar.setNavigationIcon(bg);
         collapsingToolbarLayout.setTitle(name);
@@ -145,18 +145,36 @@ public class ProfileActivity extends AppCompatActivity {
             else make a new layer using the initial letters
          */
 
-        String image_uri = mPrefs.getString("Avatar","");
-        AvatarPlaceholder placeholder = new AvatarPlaceholder(getInitials(name));
+        String image_uri = mPrefs.getString("Avatar", "");
+        AvatarPlaceholder placeholder = new AvatarPlaceholder(this, getInitials(name));
 
-//        setProfileAvatar()
-
-        Drawable[] layers = new Drawable[2];
-        layers[1] = getResources().getDrawable(R.drawable.ic_foreground_34alpha);
-        layers[0] = getResources().getDrawable(R.drawable.ic_foreground_34alpha);
-        LayerDrawable layerDrawable = new LayerDrawable(layers);
-        img_profile_pic.setImageDrawable(layerDrawable);
-
-
+        img_profile_pic.setImageDrawable(placeholder);
+//        if (image_uri.contentEquals("")) {
+//            Drawable[] layers = new Drawable[2];
+//            layers[0] = placeholder;
+//            layers[1] = getResources().getDrawable(R.drawable.ic_foreground_34alpha);
+//            LayerDrawable layerDrawable = new LayerDrawable(layers);
+//            img_profile_pic.setImageDrawable(layerDrawable);
+//        } else {
+//            Drawable foreground = getResources().getDrawable(R.drawable.ic_foreground_34alpha);
+//
+//            GlideApp
+//                    .with(this)
+//                    .load(image_uri)
+//                    .apply(RequestOptions.placeholderOf(placeholder))
+//                    .transition(withCrossFade())
+//                    .into(new ImageViewTarget<Drawable>(img_profile_pic) {
+//                        @Override
+//                        protected void setResource(@Nullable Drawable resource) {
+//                            Drawable[] layers = new Drawable[2];
+//                            layers[0] = resource;
+//                            layers[1] = foreground;
+//                            LayerDrawable layerDrawable = new LayerDrawable(layers);
+//
+//                            view.setImageDrawable(layerDrawable);
+//                        }
+//                    });
+//        }
 
 
         //Date picker
@@ -212,7 +230,7 @@ public class ProfileActivity extends AppCompatActivity {
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         public void onComplete(@NonNull Task<Void> task) {
                             // user is now signed out
-                            Log.d("ProfileActivity","Signed Out!");
+                            Log.d("ProfileActivity", "Signed Out!");
                             startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
                             finish();
                         }

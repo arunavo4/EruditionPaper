@@ -15,7 +15,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.WindowInsetsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -26,7 +25,6 @@ import com.github.clans.fab.FloatingActionButton;
 import java.util.Calendar;
 
 import in.co.erudition.paper.R;
-import in.co.erudition.paper.util.ConverterUtils;
 
 public class ProfileEditActivity extends AppCompatActivity {
 
@@ -53,8 +51,8 @@ public class ProfileEditActivity extends AppCompatActivity {
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        if (Build.VERSION.SDK_INT >= 20){
-            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) ->{
+        if (Build.VERSION.SDK_INT >= 20) {
+            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) -> {
                 ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
                 params.topMargin = insets.getSystemWindowInsetTop();
                 v.invalidate();
@@ -71,11 +69,10 @@ public class ProfileEditActivity extends AppCompatActivity {
         }
 
         Drawable bg;
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             bg = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_black_24dp);
             bg.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), PorterDuff.Mode.MULTIPLY);
-        }
-        else {
+        } else {
             bg = VectorDrawableCompat.create(getResources(), R.drawable.ic_arrow_back_black_24dp, null);
             bg = DrawableCompat.wrap(bg);
             DrawableCompat.setTint(bg, ContextCompat.getColor(this, R.color.colorWhite));

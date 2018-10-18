@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
@@ -23,12 +22,13 @@ import in.co.erudition.paper.data.model.BoardCourse;
 import in.co.erudition.paper.data.model.BoardSession;
 import in.co.erudition.paper.data.model.BoardSubject;
 import in.co.erudition.paper.data.model.UniversityCourse;
+import in.co.erudition.paper.util.GlideApp;
 
 /**
  * Created by Arunavo Ray on 01-04-2018.
  */
 
-public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder>{
+public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder> {
 
     private UniversityCourse universityCourses;
     private List<BoardCourse> boardCourses;
@@ -45,7 +45,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     private Intent intent;
 
-    public CourseAdapter(Context context, UniversityCourse universityCourseList,String array[], TextView textView, CollapsingToolbarLayout collapsingToolbarLayout, CourseAdapter.CourseItemListener itemListener){
+    public CourseAdapter(Context context, UniversityCourse universityCourseList, String array[], TextView textView, CollapsingToolbarLayout collapsingToolbarLayout, CourseAdapter.CourseItemListener itemListener) {
         mContext = context;
         universityCourses = universityCourseList;
         mItemListener = itemListener;
@@ -84,34 +84,38 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         TextView mCodeFullTV = holder.mCodeFullTV;
         View nav_space = holder.spacer;
 
-        String mImgStr="#";
-        String mCodeStr="Code 001";
-        String mCodeFullStr="Full Subject Name";
+        String mImgStr = "#";
+        String mCodeStr = "Code 001";
+        String mCodeFullStr = "Full Subject Name";
 
-        try{
-            switch (selector){
-                case 0: BoardCourse course = boardCourses.get(holder.getAdapterPosition());
-                        mImgStr = course.getLogo();
-                        mCodeStr = course.getName();
-                        mCodeFullStr = course.getFullName();
-                        break;
+        try {
+            switch (selector) {
+                case 0:
+                    BoardCourse course = boardCourses.get(holder.getAdapterPosition());
+                    mImgStr = course.getLogo();
+                    mCodeStr = course.getName();
+                    mCodeFullStr = course.getFullName();
+                    break;
 
-                case 1: BoardSession session = boardSessions.get(holder.getAdapterPosition());
-                        mImgStr = session.getLogo();
-                        mCodeStr = session.getFullName();
-                        mCodeFullStr = session.getFullName();
-                        break;
+                case 1:
+                    BoardSession session = boardSessions.get(holder.getAdapterPosition());
+                    mImgStr = session.getLogo();
+                    mCodeStr = session.getFullName();
+                    mCodeFullStr = session.getFullName();
+                    break;
 
-                case 2: BoardSubject subject = boardSubjects.get(holder.getAdapterPosition());
-                        mImgStr = subject.getLogo();
-                        mCodeStr = subject.getName();
-                        mCodeFullStr = subject.getFullName();
-                        break;
-                default: selector=0;
+                case 2:
+                    BoardSubject subject = boardSubjects.get(holder.getAdapterPosition());
+                    mImgStr = subject.getLogo();
+                    mCodeStr = subject.getName();
+                    mCodeFullStr = subject.getFullName();
+                    break;
+                default:
+                    selector = 0;
             }
 
-            if(!mImgStr.contentEquals("#")) {
-                Glide
+            if (!mImgStr.contentEquals("#")) {
+                GlideApp
                         .with(mContext)
                         .load(mImgStr)
                         .apply(RequestOptions.placeholderOf(R.drawable.ic_foreground))
@@ -121,57 +125,66 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             }
             mCodeTV.setText(mCodeStr);
 
-            if (selector == 1){
+            if (selector == 1) {
                 mCodeFullTV.setText(mTopTV.getTitle());
-            }else{
+            } else {
                 mCodeFullTV.setText(mCodeFullStr);
             }
 
-            if (nav_space.getVisibility() == View.VISIBLE){
+            if (nav_space.getVisibility() == View.VISIBLE) {
                 nav_space.setVisibility(View.GONE);
             }
 
-            if (getItemCount()-1 == holder.getAdapterPosition()){
-                Log.d("Nav Spacer","inflated");
+            if (getItemCount() - 1 == holder.getAdapterPosition()) {
+                Log.d("Nav Spacer", "inflated");
                 nav_space.setVisibility(View.VISIBLE);
             }
+        } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
+            Log.e("Exception", e.toString());
         }
-        catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
-            Log.e("Exception",e.toString());}
     }
 
     @Override
     public int getItemCount() {
 
-        switch (selector){
-            case 0: return boardCourses.size();
+        switch (selector) {
+            case 0:
+                return boardCourses.size();
 
-            case 1: return boardSessions.size();
+            case 1:
+                return boardSessions.size();
 
-            case 2: return boardSubjects.size();
+            case 2:
+                return boardSubjects.size();
         }
         return 0;
     }
 
-    private void setParams(String Code){
-        switch (selector){
-            case 0: paramsStore[1] = Code;
-                    break;
-            case 1: paramsStore[2] = Code;
-                    break;
-            case 2: paramsStore[3] = Code;
-                    break;
+    private void setParams(String Code) {
+        switch (selector) {
+            case 0:
+                paramsStore[1] = Code;
+                break;
+            case 1:
+                paramsStore[2] = Code;
+                break;
+            case 2:
+                paramsStore[3] = Code;
+                break;
         }
     }
 
-    private void updateData(){
-        switch (selector){
-            case 0: boardCourses = universityCourses.getBoardCourse();
-                    break;
-            case 1: boardSessions = universityCourses.getBoardCourse().get(0).getBoardSession();
-                    break;
-            case 2: boardSubjects = universityCourses.getBoardCourse().get(0).getBoardSession().get(0).getBoardSubject();
-                    break;
+    private void updateData() {
+        switch (selector) {
+            case 0:
+                boardCourses = universityCourses.getBoardCourse();
+                break;
+            case 1:
+                boardSessions = universityCourses.getBoardCourse().get(0).getBoardSession();
+                break;
+            case 2:
+                boardSubjects = universityCourses.getBoardCourse().get(0).getBoardSession().get(0).getBoardSubject();
+                break;
         }
     }
 
@@ -202,28 +215,31 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 //            Log.d("UniversityId:", String.valueOf(mUniversity.getId()));
 
             int position = getAdapterPosition();
-            if(position != RecyclerView.NO_POSITION) {
-               switch (selector){
-                   case 0:  setParams(boardCourses.get(position).getCode());
-                            selector+=1;
-                            NameStr[selector] = boardCourses.get(position).getFullName();
-                            mItemListener.onUniversityClick("0");
-                            break;
+            if (position != RecyclerView.NO_POSITION) {
+                switch (selector) {
+                    case 0:
+                        setParams(boardCourses.get(position).getCode());
+                        selector += 1;
+                        NameStr[selector] = boardCourses.get(position).getFullName();
+                        mItemListener.onUniversityClick("0");
+                        break;
 
-                   case 1:  setParams(boardSessions.get(position).getCode());
-                            selector+=1;
-                            NameStr[selector] = boardSessions.get(position).getFullName();
-                            mItemListener.onUniversityClick("0");
-                            break;
+                    case 1:
+                        setParams(boardSessions.get(position).getCode());
+                        selector += 1;
+                        NameStr[selector] = boardSessions.get(position).getFullName();
+                        mItemListener.onUniversityClick("0");
+                        break;
 
-                   case 2:  intent.putExtra("CourseActivity.EXTRA_Subject_NAME",boardSubjects.get(position).getName());
-                            intent.putExtra("CourseActivity.EXTRA_Subject_FULL_NAME",boardSubjects.get(position).getFullName());
-                            setParams(boardSubjects.get(position).getCode());
-                            intent.putExtra("CourseActivity.EXTRA_params",paramsStore);
-                            intent.putExtra("FROM","Course");
-                            mContext.startActivity(intent);
-               }
-               setTextView(selector);
+                    case 2:
+                        intent.putExtra("CourseActivity.EXTRA_Subject_NAME", boardSubjects.get(position).getName());
+                        intent.putExtra("CourseActivity.EXTRA_Subject_FULL_NAME", boardSubjects.get(position).getFullName());
+                        setParams(boardSubjects.get(position).getCode());
+                        intent.putExtra("CourseActivity.EXTRA_params", paramsStore);
+                        intent.putExtra("FROM", "Course");
+                        mContext.startActivity(intent);
+                }
+                setTextView(selector);
             }
         }
     }
@@ -235,19 +251,19 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
-    public int getSelector(){
+    public int getSelector() {
         return selector;
     }
 
-    public void setSelectorOnBackPressed(){
-        selector-=1;
+    public void setSelectorOnBackPressed() {
+        selector -= 1;
         setTextView(selector);
         notifyDataSetChanged();
     }
 
-    private void setTextView(int selector){
+    private void setTextView(int selector) {
         String StaticStr = "Choose your ";
-        String Choice[] = {"Course","Semester","Subject"};
+        String Choice[] = {"Course", "Semester", "Subject"};
         String Str = StaticStr + Choice[selector];
         mChooseTV.setText(Str);
         mTopTV.setTitle(NameStr[selector]);

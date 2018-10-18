@@ -49,8 +49,8 @@ public class OfferActivity extends AppCompatActivity {
          */
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.my_appbar_container);
 
-        if (Build.VERSION.SDK_INT >= 20){
-            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) ->{
+        if (Build.VERSION.SDK_INT >= 20) {
+            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) -> {
                 v.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
                 v.getLayoutParams().height += insets.getSystemWindowInsetTop();
 
@@ -64,11 +64,10 @@ public class OfferActivity extends AppCompatActivity {
         }
 
         Drawable bg;
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             bg = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_black_24dp);
             bg.setColorFilter(ContextCompat.getColor(this, R.color.colorBlack75alpha), PorterDuff.Mode.MULTIPLY);
-        }
-        else {
+        } else {
             bg = VectorDrawableCompat.create(getResources(), R.drawable.ic_arrow_back_black_24dp, null);
             bg = DrawableCompat.wrap(bg);
             DrawableCompat.setTint(bg, ContextCompat.getColor(this, R.color.colorBlack75alpha));
@@ -118,14 +117,14 @@ public class OfferActivity extends AppCompatActivity {
         });
 
         //To set item
-        carouselPicker.setCurrentItem(getIntent().getIntExtra("MAIN_ACTIVITY_Carousel_pos",0),true);
+        carouselPicker.setCurrentItem(getIntent().getIntExtra("MAIN_ACTIVITY_Carousel_pos", 0), true);
 
         /**
          * Setup the pager indicator
          */
         PageIndicatorView pageIndicatorView = (PageIndicatorView) findViewById(R.id.pageIndicatorView);
         pageIndicatorView.setViewPager(carouselPicker);
-        pageIndicatorView.setSelection(getIntent().getIntExtra("MAIN_ACTIVITY_Carousel_pos",0));
+        pageIndicatorView.setSelection(getIntent().getIntExtra("MAIN_ACTIVITY_Carousel_pos", 0));
 
     }
 

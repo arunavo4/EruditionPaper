@@ -76,17 +76,17 @@ public class QuestionActivity extends AppCompatActivity {
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar_Ques);
 
-        appBarLayout =  (AppBarLayout) findViewById(R.id.my_appbar_container); //Changed
+        appBarLayout = (AppBarLayout) findViewById(R.id.my_appbar_container); //Changed
         appBarLayout.bringToFront();
 
         ViewGroup linearLayout = (ViewGroup) findViewById(R.id.ques_linear_layout);
-        int select = getIntent().getIntExtra("PaperActivity.EXTRA_Select",-1);
-        if (select==0){
+        int select = getIntent().getIntExtra("PaperActivity.EXTRA_Select", -1);
+        if (select == 0) {
             View header = LayoutInflater.from(this).inflate(R.layout.question_header_chap, linearLayout, false);
-            linearLayout.addView(header,0);
-        }else if (select==1){
+            linearLayout.addView(header, 0);
+        } else if (select == 1) {
             View header = LayoutInflater.from(this).inflate(R.layout.question_header_new, linearLayout, false);
-            linearLayout.addView(header,0);
+            linearLayout.addView(header, 0);
         }
         // To set the background of the activity go below the StatusBar
         getWindow().getDecorView().setSystemUiVisibility(
@@ -104,23 +104,22 @@ public class QuestionActivity extends AppCompatActivity {
          */
         LinearLayout quesHeader = (LinearLayout) findViewById(R.id.ques_header);
 
-        if (Build.VERSION.SDK_INT >= 20){
-            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) ->{
+        if (Build.VERSION.SDK_INT >= 20) {
+            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) -> {
                 ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
                 params.topMargin = insets.getSystemWindowInsetTop();
                 v.invalidate();
                 v.requestLayout();
 
-                int top=0,bottom=0;
-                if (select==0){
+                int top = 0, bottom = 0;
+                if (select == 0) {
                     top = getResources().getDimensionPixelSize(R.dimen.app_bar_height);
                     top += insets.getSystemWindowInsetTop();
-                }
-                else if (select==1){
+                } else if (select == 1) {
                     top = insets.getSystemWindowInsetTop();
                 }
                 bottom = getResources().getDimensionPixelSize(R.dimen.spacer_16dp);
-                quesHeader.setPadding(0,top,0,bottom);
+                quesHeader.setPadding(0, top, 0, bottom);
                 quesHeader.requestLayout();
 
                 return insets.consumeSystemWindowInsets();
@@ -128,18 +127,17 @@ public class QuestionActivity extends AppCompatActivity {
         }
 
         Drawable bg;
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             bg = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_black_24dp);
             bg.setColorFilter(ContextCompat.getColor(this, R.color.colorBlack75alpha), PorterDuff.Mode.MULTIPLY);
-        }
-        else {
+        } else {
             bg = VectorDrawableCompat.create(getResources(), R.drawable.ic_arrow_back_black_24dp, null);
             bg = DrawableCompat.wrap(bg);
             DrawableCompat.setTint(bg, ContextCompat.getColor(this, R.color.colorBlack75alpha));
         }
 
         toolbar.setNavigationIcon(bg);
-                                                            //CourseActivity.EXTRA_University_Key
+        //CourseActivity.EXTRA_University_Key
         toolbar.setTitle("");                                                        //changed
         setSupportActionBar(toolbar);
 
@@ -151,23 +149,23 @@ public class QuestionActivity extends AppCompatActivity {
         });
 
         try {
-            if (select==0){
+            if (select == 0) {
                 TextView chap_name_tv = (TextView) findViewById(R.id.chap_name_tv);
                 TextView chap_num_tv = (TextView) findViewById(R.id.chap_num_tv);
 
                 chap_name_tv.setText(getIntent().getStringExtra("PaperActivity.EXTRA_Full_Name"));
                 String str = "Chapter " + getIntent().getStringExtra("PaperActivity.EXTRA_Name");
                 chap_num_tv.setText(str);
-            }else if (select==1){
+            } else if (select == 1) {
                 TextView year_tv = (TextView) findViewById(R.id.year_tv);
                 TextView sub_name_tv = (TextView) findViewById(R.id.subject_name_tv);
 
                 year_tv.setText(getIntent().getStringExtra("PaperActivity.EXTRA_Year"));
                 sub_name_tv.setText(getIntent().getStringExtra("PaperActivity.EXTRA_Full_Name"));
             }
+        } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
+            Log.e("Exception", e.toString());
         }
-        catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e)
-        {   Log.e("Exception",e.toString()); }
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -196,17 +194,17 @@ public class QuestionActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        Log.d(TAG,"done adapter");
+        Log.d(TAG, "done adapter");
 
         NestedScrollView nestedScrollView = (NestedScrollView) findViewById(R.id.nested_parent_scroll);
-        if (nestedScrollView != null){
+        if (nestedScrollView != null) {
             nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
                 @Override
                 public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                     if (scrollY > oldScrollY && fab.getVisibility() == View.VISIBLE) {
                         //DOWN SCROLL
                         fab.hide();
-                        if (transparent){
+                        if (transparent) {
                             appBarLayout.setBackground(getResources().getDrawable(R.drawable.bg_white));
                             transparent = false;
                             //getIntent().getStringExtra("PaperActivity.EXTRA_Subject_Name") + " " +
@@ -219,7 +217,7 @@ public class QuestionActivity extends AppCompatActivity {
                     }
                     if (scrollY == 0) {
                         //TOP SCROLL
-                        if (!transparent){
+                        if (!transparent) {
                             appBarLayout.setBackground(getResources().getDrawable(R.drawable.bg_trasparent));
                             transparent = true;
                             toolbar.setTitle("");
@@ -229,7 +227,7 @@ public class QuestionActivity extends AppCompatActivity {
             });
         }
 
-        Log.d(TAG,"loading paper groups");
+        Log.d(TAG, "loading paper groups");
 
         loadPaperGroups();
     }
@@ -244,29 +242,28 @@ public class QuestionActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<Paper> call, Response<Paper> response) {
-                Log.d("Call",call.request().toString());
-                if(response.isSuccessful()) {
-                    Log.d(TAG,"isSuccess");
+                Log.d("Call", call.request().toString());
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "isSuccess");
 
-                    int select = getIntent().getIntExtra("PaperActivity.EXTRA_Select",-1);
+                    int select = getIntent().getIntExtra("PaperActivity.EXTRA_Select", -1);
                     mProgressBar.setVisibility(View.GONE);
-                    Log.d("Response Body",response.body().toString());
+                    Log.d("Response Body", response.body().toString());
                     mAdapter.updateGroups(response.body());
-                    if (select==0){
+                    if (select == 0) {
                         updatePaperCardChap(response.body());
-                    }else if (select==1){
+                    } else if (select == 1) {
                         updatePaperCard(response.body());
                     }
                     Log.d(TAG, "API success");
-                }else {
-                    int statusCode  = response.code();
-                    if(statusCode==401){
-                        Log.d("StatusCode","Unauthorized");
+                } else {
+                    int statusCode = response.code();
+                    if (statusCode == 401) {
+                        Log.d("StatusCode", "Unauthorized");
                     }
-                    if (statusCode==200){
-                        Log.d("StatusCode","OK");
-                    }
-                    else {
+                    if (statusCode == 200) {
+                        Log.d("StatusCode", "OK");
+                    } else {
                         Log.d("StatusCode", String.valueOf(statusCode));
                     }
                     // handle request errors depending on status code
@@ -276,22 +273,21 @@ public class QuestionActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Paper> call, Throwable t) {
                 String str = "Failed";
-                if(call.isCanceled()){
+                if (call.isCanceled()) {
                     Log.d(TAG, "call is cancelled");
 
-                }
-                else if(mNetworkUtils.isOnline(QuestionActivity.this)){
+                } else if (mNetworkUtils.isOnline(QuestionActivity.this)) {
                     Log.d("MainActivity", "error loading from API");
                     str = "error loading from API";
                     showDialogError();
-                }else{
+                } else {
                     Log.d("MainActivity", "Check your network connection");
                     str = "Check your network connection";
                     showDialogNoNet();
                 }
 
                 mProgressBar.setVisibility(View.GONE);
-                Snackbar.make((CoordinatorLayout)findViewById(R.id.app_bar_main4_layout),str, Snackbar.LENGTH_INDEFINITE)
+                Snackbar.make((CoordinatorLayout) findViewById(R.id.app_bar_main4_layout), str, Snackbar.LENGTH_INDEFINITE)
                         .setAction("Retry", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -313,7 +309,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         // Set item views based on your views and data model
         try {
-            if(!body.getLogo().contentEquals("#")) {
+            if (!body.getLogo().contentEquals("#")) {
                 Glide
                         .with(this)
                         .load(body.getLogo())
@@ -327,12 +323,12 @@ public class QuestionActivity extends AppCompatActivity {
             String time = body.getPaperTime() + " Min";
             time_tv.setText(time);
             marks_tv.setText(body.getPaperMarks());
+        } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
+            Log.e("Exception", e.toString());
         }
-        catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e)
-        {   Log.e("Exception",e.toString()); }
     }
 
-    private void updatePaperCardChap(Paper body){
+    private void updatePaperCardChap(Paper body) {
         TextView sub_name_tv = (TextView) findViewById(R.id.subject_name_tv);
         TextView chap_name_tv = (TextView) findViewById(R.id.chap_name_tv);
         TextView chap_num_tv = (TextView) findViewById(R.id.chap_num_tv);
@@ -345,21 +341,21 @@ public class QuestionActivity extends AppCompatActivity {
             String str = "Chapter " + body.getChapterName();
             chap_num_tv.setText(str);
             counter_tv.setText("999");
+        } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
+            Log.e("Exception", e.toString());
         }
-        catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e)
-        {   Log.e("Exception",e.toString()); }
     }
 
     private void onRetryLoadPaperGroups() {
         //call load Papers
         mProgressBar.setVisibility(View.VISIBLE);
-        Log.d(TAG,"retrying loading Paper groups");
+        Log.d(TAG, "retrying loading Paper groups");
         loadPaperGroups();
     }
 
     @Override
     public void onBackPressed() {
-        if (!call.isExecuted()){
+        if (!call.isExecuted()) {
             call.cancel();
         }
         super.onBackPressed();
@@ -369,11 +365,11 @@ public class QuestionActivity extends AppCompatActivity {
      * Method to inflate the dialog and show it.
      */
     private void showDialogNoNet() {
-        View view = getLayoutInflater().inflate(R.layout.dialog_no_internet,null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_no_internet, null);
 
         Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
 
-        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        final Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -382,7 +378,7 @@ public class QuestionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //retry and close dialogue
-                if (dialog.isShowing()){
+                if (dialog.isShowing()) {
                     dialog.cancel();
                     onRetryLoadPaperGroups();
                 }
@@ -391,11 +387,11 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     private void showDialogError() {
-        View view = getLayoutInflater().inflate(R.layout.dialog_page_not_found,null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_page_not_found, null);
 
         Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
 
-        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        final Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -404,13 +400,14 @@ public class QuestionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //retry and close dialogue
-                if (dialog.isShowing()){
+                if (dialog.isShowing()) {
                     dialog.cancel();
                     onBackPressed();
                 }
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -438,19 +435,16 @@ public class QuestionActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_share) {
             return true;
-        }
-        else if (id == R.id.action_offline){
+        } else if (id == R.id.action_offline) {
             isChecked_offline = !item.isChecked();
             item.setChecked(isChecked_offline);
-            if (isChecked_offline){
+            if (isChecked_offline) {
                 item.setTitle(R.string.action_offline_2);
-            }
-            else {
+            } else {
                 item.setTitle(R.string.action_offline_1);
             }
             return true;
-        }
-        else if (id == R.id.action_bookmark){
+        } else if (id == R.id.action_bookmark) {
             isChecked_bookmark = !item.isChecked();
             item.setChecked(isChecked_bookmark);
             return true;

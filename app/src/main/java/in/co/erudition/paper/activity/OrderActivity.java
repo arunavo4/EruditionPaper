@@ -3,18 +3,17 @@ package in.co.erudition.paper.activity;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.view.WindowInsetsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
-import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +33,7 @@ public class OrderActivity extends AppCompatActivity {
      */
 
     public static String POSITION = "POSITION";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +57,8 @@ public class OrderActivity extends AppCompatActivity {
          */
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 
-        if (Build.VERSION.SDK_INT >= 20){
-            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) ->{
+        if (Build.VERSION.SDK_INT >= 20) {
+            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) -> {
                 v.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
                 v.getLayoutParams().height += insets.getSystemWindowInsetTop();
 
@@ -72,11 +72,10 @@ public class OrderActivity extends AppCompatActivity {
         }
 
         Drawable bg;
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             bg = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_black_24dp);
             bg.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), PorterDuff.Mode.MULTIPLY);
-        }
-        else {
+        } else {
             bg = VectorDrawableCompat.create(getResources(), R.drawable.ic_arrow_back_black_24dp, null);
             bg = DrawableCompat.wrap(bg);
             DrawableCompat.setTint(bg, ContextCompat.getColor(this, R.color.colorWhite));
@@ -96,7 +95,7 @@ public class OrderActivity extends AppCompatActivity {
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mOrderActivityPagerAdapter = new OrderActivityPagerAdapter(getSupportFragmentManager(),this);
+        mOrderActivityPagerAdapter = new OrderActivityPagerAdapter(getSupportFragmentManager(), this);
         mViewPager.setAdapter(mOrderActivityPagerAdapter);
 
         mTabLayout = (TabLayout) findViewById(R.id.tabs);

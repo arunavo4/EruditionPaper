@@ -29,7 +29,7 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
     private Intent mIntent;
     private PaperAdapter.PaperItemListener mItemListener;
 
-    public PaperAdapter(Context context, List<Year> papers, List<Chapter> chapters, int s, Intent intent, PaperAdapter.PaperItemListener itemListener){
+    public PaperAdapter(Context context, List<Year> papers, List<Chapter> chapters, int s, Intent intent, PaperAdapter.PaperItemListener itemListener) {
         mContext = context;
         mChapters = chapters;
         select = s;
@@ -65,12 +65,12 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
 
         // Set item views based on your views and data model
         try {
-            if (select==0){
+            if (select == 0) {
                 Chapter paper = mChapters.get(holder.getAdapterPosition());
                 mPNameTV.setText(paper.getChapterFullName());
                 mPNumTV.setText(paper.getChapterName());
 
-            }else if (select==1){
+            } else if (select == 1) {
                 Year paper = mYears.get(holder.getAdapterPosition());
                 String str;
                 if (paper.getSolved().contentEquals("Active"))
@@ -82,24 +82,24 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
                 holder.mCountTv.setText(paper.getView());
             }
 
-            if (nav_space.getVisibility() == View.VISIBLE){
+            if (nav_space.getVisibility() == View.VISIBLE) {
                 nav_space.setVisibility(View.GONE);
             }
 
-            if (getItemCount()-1 == holder.getAdapterPosition()){
-                Log.d("Nav Spacer","inflated");
+            if (getItemCount() - 1 == holder.getAdapterPosition()) {
+                Log.d("Nav Spacer", "inflated");
                 nav_space.setVisibility(View.VISIBLE);
             }
+        } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
+            Log.e("Exception", e.toString());
         }
-        catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e)
-        {   Log.e("Exception",e.toString()); }
     }
 
     @Override
     public int getItemCount() {
-        if (select==0){
+        if (select == 0) {
             return mChapters.size();
-        }else if (select==1){
+        } else if (select == 1) {
             return mYears.size();
         }
         return 0;
@@ -117,7 +117,7 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
             mYearTV = (TextView) itemView.findViewById(R.id.tv_num);
             spacer = (View) itemView.findViewById(R.id.nav_spacer);
 
-            if (select==1)
+            if (select == 1)
                 mCountTv = (TextView) itemView.findViewById(R.id.counter_tv);
 
             itemView.setOnClickListener(this);
@@ -133,37 +133,36 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
             Log.d("Adapter Position:", String.valueOf(getAdapterPosition()));
 
             int position = getAdapterPosition();
-            if(position != RecyclerView.NO_POSITION) {
+            if (position != RecyclerView.NO_POSITION) {
                 Intent intent_ques = new Intent(mContext, QuestionActivity.class);
                 intent_ques.putExtras(mIntent);
 
-                if (select==0){
+                if (select == 0) {
                     Chapter chap = getChapter(getAdapterPosition());
-                    intent_ques.putExtra("PaperActivity.EXTRA_Year",chap.getYear());
-                    intent_ques.putExtra("PaperActivity.EXTRA_Full_Name",chap.getChapterFullName());
-                    intent_ques.putExtra("PaperActivity.EXTRA_Name",chap.getChapterName());
-                    intent_ques.putExtra("PaperActivity.EXTRA_Paper_Code",chap.getCode());
-                }
-                else if (select==1){
+                    intent_ques.putExtra("PaperActivity.EXTRA_Year", chap.getYear());
+                    intent_ques.putExtra("PaperActivity.EXTRA_Full_Name", chap.getChapterFullName());
+                    intent_ques.putExtra("PaperActivity.EXTRA_Name", chap.getChapterName());
+                    intent_ques.putExtra("PaperActivity.EXTRA_Paper_Code", chap.getCode());
+                } else if (select == 1) {
                     Year year = getYear(getAdapterPosition());
-                    intent_ques.putExtra("PaperActivity.EXTRA_Year",year.getYear());
-                    intent_ques.putExtra("PaperActivity.EXTRA_Full_Name",year.getSubjectFullName());
-                    intent_ques.putExtra("PaperActivity.EXTRA_Name",year.getSubjectName());
-                    intent_ques.putExtra("PaperActivity.EXTRA_Paper_Code",year.getCode());
+                    intent_ques.putExtra("PaperActivity.EXTRA_Year", year.getYear());
+                    intent_ques.putExtra("PaperActivity.EXTRA_Full_Name", year.getSubjectFullName());
+                    intent_ques.putExtra("PaperActivity.EXTRA_Name", year.getSubjectName());
+                    intent_ques.putExtra("PaperActivity.EXTRA_Paper_Code", year.getCode());
                 }
-                intent_ques.putExtra("PaperActivity.EXTRA_Select",select);
+                intent_ques.putExtra("PaperActivity.EXTRA_Select", select);
                 mContext.startActivity(intent_ques);
             }
         }
     }
 
-    public void updateYears(List<Year> years,int s) {
+    public void updateYears(List<Year> years, int s) {
         mYears = years;
         select = s;
         notifyDataSetChanged();
     }
 
-    public void updateChapters(List<Chapter> chapters,int s){
+    public void updateChapters(List<Chapter> chapters, int s) {
         mChapters = chapters;
         select = s;
         notifyDataSetChanged();

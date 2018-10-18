@@ -61,8 +61,8 @@ public class SelectionActivity extends AppCompatActivity {
          */
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 
-        if (Build.VERSION.SDK_INT >= 20){
-            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) ->{
+        if (Build.VERSION.SDK_INT >= 20) {
+            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) -> {
                 v.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
                 v.getLayoutParams().height += insets.getSystemWindowInsetTop();
 
@@ -81,11 +81,10 @@ public class SelectionActivity extends AppCompatActivity {
         }
 
         Drawable bg;
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             bg = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_black_24dp);
             bg.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), PorterDuff.Mode.MULTIPLY);
-        }
-        else {
+        } else {
             bg = VectorDrawableCompat.create(getResources(), R.drawable.ic_arrow_back_black_24dp, null);
             bg = DrawableCompat.wrap(bg);
             DrawableCompat.setTint(bg, ContextCompat.getColor(this, R.color.colorWhite));
@@ -112,12 +111,12 @@ public class SelectionActivity extends AppCompatActivity {
         final com.github.clans.fab.FloatingActionButton fab_bookmark = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fab_bookmarks);
 
         final Intent intent_fab = new Intent(this, PaperActivity.class);
-        intent_fab.putExtra("FROM","action_fab");
+        intent_fab.putExtra("FROM", "action_fab");
 
         fab_recent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent_fab.putExtra("Title","Recent Papers");
+                intent_fab.putExtra("Title", "Recent Papers");
                 fab.close(true);
                 startActivity(intent_fab);
             }
@@ -125,7 +124,7 @@ public class SelectionActivity extends AppCompatActivity {
         fab_offline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent_fab.putExtra("Title","Offline");
+                intent_fab.putExtra("Title", "Offline");
                 fab.close(true);
                 startActivity(intent_fab);
             }
@@ -133,7 +132,7 @@ public class SelectionActivity extends AppCompatActivity {
         fab_bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent_fab.putExtra("Title","Bookmarks");
+                intent_fab.putExtra("Title", "Bookmarks");
                 fab.close(true);
                 startActivity(intent_fab);
             }
@@ -142,20 +141,19 @@ public class SelectionActivity extends AppCompatActivity {
         setUpCustomFabMenuAnimation();
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_container);
-        try{
+        try {
             collapsingToolbarLayout.setTitle(getIntent().getStringExtra("CourseActivity.EXTRA_Subject_FULL_NAME"));
-        }
-        catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
-            Log.e("Exception",e.toString());
+        } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
+            Log.e("Exception", e.toString());
         }
 
-        final Intent intent = new Intent(this,PaperActivity.class);
+        final Intent intent = new Intent(this, PaperActivity.class);
         intent.putExtras(getIntent());
 
         chapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("Selection Activity: Selection",0);
+                intent.putExtra("Selection Activity: Selection", 0);
                 startActivity(intent);
             }
         });
@@ -163,7 +161,7 @@ public class SelectionActivity extends AppCompatActivity {
         yearBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("Selection Activity: Selection",1);
+                intent.putExtra("Selection Activity: Selection", 1);
                 startActivity(intent);
             }
         });
@@ -207,7 +205,7 @@ public class SelectionActivity extends AppCompatActivity {
         mOpenAnimatorSet = new AnimatorSet();
         mCloseAnimatorSet = new AnimatorSet();
 
-        ObjectAnimator collapseAnimator =  ObjectAnimator.ofFloat(fab.getMenuIconView(),
+        ObjectAnimator collapseAnimator = ObjectAnimator.ofFloat(fab.getMenuIconView(),
                 "rotation",
                 -90f + ROTATION_ANGLE, 0f);
         ObjectAnimator expandAnimator = ObjectAnimator.ofFloat(fab.getMenuIconView(),

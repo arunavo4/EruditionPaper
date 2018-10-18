@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -16,29 +15,28 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.WindowInsetsCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.TextAppearanceSpan;
 import android.util.Log;
-import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowInsets;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -73,7 +71,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private UniversityAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -97,7 +95,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
 
         TextView tv = (TextView) findViewById(R.id.app_name_tv_1);
-        setUpCustomText(getResources().getString(R.string.app_name),tv);
+        setUpCustomText(getResources().getString(R.string.app_name), tv);
         toolbar.setTitle("Erudition Paper");
         setSupportActionBar(toolbar);
 
@@ -120,7 +118,7 @@ public class MainActivity extends AppCompatActivity
         search_view.setListener(new ScalingLayoutListener() {
             @Override
             public void onCollapsed() {
-                Log.d("layout","Collapsed");
+                Log.d("layout", "Collapsed");
             }
 
             @Override
@@ -130,7 +128,7 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onProgress(float progress) {
-                Log.d("Progress",String.valueOf(progress));
+                Log.d("Progress", String.valueOf(progress));
                 space.setScaleY(2 + Math.abs(progress));
             }
         });
@@ -168,7 +166,7 @@ public class MainActivity extends AppCompatActivity
         });
 
         //To set item
-        carouselPicker.setCurrentItem(1,true);
+        carouselPicker.setCurrentItem(1, true);
 
 
         /**
@@ -190,12 +188,12 @@ public class MainActivity extends AppCompatActivity
         FloatingActionButton fab_bookmark = (FloatingActionButton) findViewById(R.id.fab_bookmarks);
 
         intent = new Intent(this, PaperActivity.class);
-        intent.putExtra("FROM","action_fab");
+        intent.putExtra("FROM", "action_fab");
 
         fab_recent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("Title","Recent Papers");
+                intent.putExtra("Title", "Recent Papers");
                 fab.close(true);
                 startActivity(intent);
             }
@@ -203,7 +201,7 @@ public class MainActivity extends AppCompatActivity
         fab_offline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("Title","Offline");
+                intent.putExtra("Title", "Offline");
                 fab.close(true);
                 startActivity(intent);
             }
@@ -211,7 +209,7 @@ public class MainActivity extends AppCompatActivity
         fab_bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("Title","Bookmarks");
+                intent.putExtra("Title", "Bookmarks");
                 fab.close(true);
                 startActivity(intent);
             }
@@ -246,9 +244,9 @@ public class MainActivity extends AppCompatActivity
                 insetTop = insets.getSystemWindowInsetTop();
 
                 ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
-                Log.d("toolbar top Margin: b",String.valueOf(params.topMargin));
+                Log.d("toolbar top Margin: b", String.valueOf(params.topMargin));
                 params.topMargin = insets.getSystemWindowInsetTop();
-                Log.d("toolbar top Margin: a",String.valueOf(params.topMargin));
+                Log.d("toolbar top Margin: a", String.valueOf(params.topMargin));
                 v.invalidate();
                 v.requestLayout();
 
@@ -257,7 +255,7 @@ public class MainActivity extends AppCompatActivity
 
                 CoordinatorLayout.LayoutParams search_viewLayoutParams =
                         (CoordinatorLayout.LayoutParams) search_view.getLayoutParams();
-                search_viewLayoutParams.setBehavior(new ScalingLayoutBehavior(search_view.getContext(),null, toolbarHeight));
+                search_viewLayoutParams.setBehavior(new ScalingLayoutBehavior(search_view.getContext(), null, toolbarHeight));
                 search_view.requestLayout();
 
                 params = (ViewGroup.MarginLayoutParams) fab.getLayoutParams();
@@ -265,7 +263,7 @@ public class MainActivity extends AppCompatActivity
                 fab.invalidate();
                 fab.requestLayout();
 
-                Log.d("Status Bar height i:",String.valueOf(ConverterUtils.convertPxToDp(this,insets.getSystemWindowInsetTop())));
+                Log.d("Status Bar height i:", String.valueOf(ConverterUtils.convertPxToDp(this, insets.getSystemWindowInsetTop())));
                 return insets.consumeSystemWindowInsets();
             });
 
@@ -295,22 +293,22 @@ public class MainActivity extends AppCompatActivity
                 LinearLayout nav_header_right = (LinearLayout) findViewById(R.id.nav_header_right);
                 View fake_status_bar = (View) findViewById(R.id.fake_status_bar);
 
-                if (name_tv!=null && email_tv!=null) {
-                    if (name_tv.getText().length()==0 || email_tv.getText().length()==0) {
-                        String name = mPrefs.getString("FirstName","Android") + " " + mPrefs.getString("LastName","Studio");
+                if (name_tv != null && email_tv != null) {
+                    if (name_tv.getText().length() == 0 || email_tv.getText().length() == 0) {
+                        String name = mPrefs.getString("FirstName", "Android") + " " + mPrefs.getString("LastName", "Studio");
                         name_tv.setText(name);
 
-                        String email = mPrefs.getString("Email","android.studio@android.com");
+                        String email = mPrefs.getString("Email", "android.studio@android.com");
                         email_tv.setText(email);
 
-                        String image_uri = mPrefs.getString("Avatar","");
+                        String image_uri = mPrefs.getString("Avatar", "");
 
-                        AvatarPlaceholder placeholder = new AvatarPlaceholder(getInitials(name));
+                        AvatarPlaceholder placeholder = new AvatarPlaceholder(MainActivity.this, getInitials(name));
 
                         AvatarGlideLoader imageLoader = new AvatarGlideLoader(getInitials(name));
-                        imageLoader.loadImage(avatar,placeholder,image_uri);
+                        imageLoader.loadImage(avatar, placeholder, image_uri);
 
-                        Log.d("On Drawer Opened: ","Method called");
+                        Log.d("On Drawer Opened: ", "Method called");
                     }
                 }
 
@@ -327,7 +325,7 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
                 if (!nav_set[1]) {
-                    if (nav_header_right!=null && fake_status_bar!=null){
+                    if (nav_header_right != null && fake_status_bar != null) {
                         nav_header_right.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
                         nav_header_right.getLayoutParams().height += insetTop;
 
@@ -368,7 +366,7 @@ public class MainActivity extends AppCompatActivity
         });
 
         int span = getResources().getInteger(R.integer.grid_span_count);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this,span);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, span);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -376,7 +374,7 @@ public class MainActivity extends AppCompatActivity
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset);
         mRecyclerView.addItemDecoration(itemDecoration);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        Log.d("MainActivity","done adapter");
+        Log.d("MainActivity", "done adapter");
 
         NestedScrollView nestedScrollView = (NestedScrollView) findViewById(R.id.nested_scroll_main);
         nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -392,10 +390,10 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        Log.d("MainActivity","loading Universities");
-        if(mNetworkUtils.isOnline(MainActivity.this)){
+        Log.d("MainActivity", "loading Universities");
+        if (mNetworkUtils.isOnline(MainActivity.this)) {
             loadUniversities();
-        }else {
+        } else {
             showDialogNoNet();
         }
 
@@ -459,7 +457,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void openSearchActivity() {
-        Intent search_intent = new Intent(this,SearchActivity.class);
+        Intent search_intent = new Intent(this, SearchActivity.class);
         startActivity(search_intent);
     }
 
@@ -472,24 +470,23 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onResponse(Call<List<University>> call, Response<List<University>> response) {
-                Log.d("Call",call.request().toString());
-                if(response.isSuccessful()) {
-                    Log.d("MainActivity","issuccess");
+                Log.d("Call", call.request().toString());
+                if (response.isSuccessful()) {
+                    Log.d("MainActivity", "issuccess");
 
                     mProgressBar.setVisibility(View.GONE);
 
-                    Log.d("Response Body",response.body().toString());
+                    Log.d("Response Body", response.body().toString());
                     mAdapter.updateUniversities(response.body());
                     Log.d("MainActivity", "API success");
-                }else {
-                    int statusCode  = response.code();
-                    if(statusCode==401){
-                        Log.d("StatusCode","Unauthorized");
+                } else {
+                    int statusCode = response.code();
+                    if (statusCode == 401) {
+                        Log.d("StatusCode", "Unauthorized");
                     }
-                    if (statusCode==200){
-                        Log.d("StatusCode","OK");
-                    }
-                    else {
+                    if (statusCode == 200) {
+                        Log.d("StatusCode", "OK");
+                    } else {
                         Log.d("StatusCode", String.valueOf(statusCode));
                     }
                     // handle request errors depending on status code
@@ -498,14 +495,13 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onFailure(Call<List<University>> call, Throwable t) {
-                if(call.isCanceled()){
+                if (call.isCanceled()) {
                     Log.d("MainActivity", "call is cancelled");
 
-                }
-                else if(mNetworkUtils.isOnline(MainActivity.this)){
+                } else if (mNetworkUtils.isOnline(MainActivity.this)) {
                     Log.d("MainActivity", "error loading from API");
                     showDialogError();
-                }else{
+                } else {
                     Log.d("MainActivity", "Check your network connection");
                     showDialogNoNet();
                 }
@@ -520,10 +516,10 @@ public class MainActivity extends AppCompatActivity
         //call load Universities
         mProgressBar.setVisibility(View.VISIBLE);
         mUniversityList.setVisibility(View.VISIBLE);
-        Log.d("MainActivity","retrying loading universities");
-        if(mNetworkUtils.isOnline(MainActivity.this)){
+        Log.d("MainActivity", "retrying loading universities");
+        if (mNetworkUtils.isOnline(MainActivity.this)) {
             loadUniversities();
-        }else {
+        } else {
             showDialogNoNet();
         }
     }
@@ -533,9 +529,9 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if(drawer.isDrawerOpen(GravityCompat.END)){
+        } else if (drawer.isDrawerOpen(GravityCompat.END)) {
             drawer.closeDrawer(GravityCompat.END);
-        }else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -573,55 +569,38 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_profile) {
             Intent intent = new Intent(this, ProfileActivity.class);
             startActivity(intent);
-        }
-        else if (id==R.id.nav_order_history)
-        {
+        } else if (id == R.id.nav_order_history) {
             Intent intent = new Intent(this, OrderActivity.class);
             startActivity(intent);
-        }
-        else if (id==R.id.nav_offers)
-        {
+        } else if (id == R.id.nav_offers) {
             Intent intent = new Intent(this, OfferActivity.class);
             startActivity(intent);
-        }
-        else if (id==R.id.nav_rewards)
-        {
+        } else if (id == R.id.nav_rewards) {
             Intent intent = new Intent(this, RewardActivity.class);
             startActivity(intent);
-        }
-        else if (id==R.id.nav_books)
-        {
+        } else if (id == R.id.nav_books) {
             Intent intent = new Intent(this, BookActivity.class);
             startActivity(intent);
-        }
-        else if (id==R.id.nav_help)
-        {
+        } else if (id == R.id.nav_help) {
             Intent intent = new Intent(this, HelpActivity.class);
             startActivity(intent);
-        }
-        else if (id==R.id.nav_settings)
-        {
+        } else if (id == R.id.nav_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         }
 
         ///The dialogs and webView Activities
-        else if (id==R.id.nav_pp)
-        {
-            Intent intent = new Intent(MainActivity.this,WebviewActivity.class);
-                intent.putExtra("Webview.Title", getString(R.string.privacy_p));
-                intent.putExtra("Webview.Address","");
-                startActivity(intent);
-        }
-        else if (id==R.id.nav_tos)
-        {
-            Intent intent = new Intent(MainActivity.this,WebviewActivity.class);
-                intent.putExtra("Webview.Title", getString(R.string.terms_of_service));
-                intent.putExtra("Webview.Address","");
-                startActivity(intent);
-        }
-        else if (id==R.id.nav_about)
-        {
+        else if (id == R.id.nav_pp) {
+            Intent intent = new Intent(MainActivity.this, WebviewActivity.class);
+            intent.putExtra("Webview.Title", getString(R.string.privacy_p));
+            intent.putExtra("Webview.Address", "");
+            startActivity(intent);
+        } else if (id == R.id.nav_tos) {
+            Intent intent = new Intent(MainActivity.this, WebviewActivity.class);
+            intent.putExtra("Webview.Title", getString(R.string.terms_of_service));
+            intent.putExtra("Webview.Address", "");
+            startActivity(intent);
+        } else if (id == R.id.nav_about) {
             //launch the dialog
 
         }
@@ -635,11 +614,11 @@ public class MainActivity extends AppCompatActivity
      * Method to inflate the dialog and show it.
      */
     private void showDialogNoNet() {
-        View view = getLayoutInflater().inflate(R.layout.dialog_no_internet,null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_no_internet, null);
 
         Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
 
-        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        final Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -648,7 +627,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 //retry and close dialogue
-                if (dialog.isShowing()){
+                if (dialog.isShowing()) {
                     dialog.cancel();
                     onRetryLoadUniversities();
                 }
@@ -657,11 +636,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void showDialogError() {
-        View view = getLayoutInflater().inflate(R.layout.dialog_error,null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_error, null);
 
         Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
 
-        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        final Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -670,7 +649,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 //retry and close dialogue
-                if (dialog.isShowing()){
+                if (dialog.isShowing()) {
                     dialog.cancel();
                     onBackPressed();
                 }
@@ -691,7 +670,7 @@ public class MainActivity extends AppCompatActivity
         mOpenAnimatorSet = new AnimatorSet();
         mCloseAnimatorSet = new AnimatorSet();
 
-        ObjectAnimator collapseAnimator =  ObjectAnimator.ofFloat(fab.getMenuIconView(),
+        ObjectAnimator collapseAnimator = ObjectAnimator.ofFloat(fab.getMenuIconView(),
                 "rotation",
                 -90f + ROTATION_ANGLE, 0f);
         ObjectAnimator expandAnimator = ObjectAnimator.ofFloat(fab.getMenuIconView(),

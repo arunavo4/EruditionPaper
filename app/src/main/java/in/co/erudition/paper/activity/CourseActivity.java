@@ -43,12 +43,11 @@ import in.co.erudition.paper.data.remote.BackendService;
 import in.co.erudition.paper.misc.ItemOffsetDecoration;
 import in.co.erudition.paper.network.NetworkUtils;
 import in.co.erudition.paper.util.ApiUtils;
-import in.co.erudition.paper.util.ConverterUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CourseActivity extends AppCompatActivity{
+public class CourseActivity extends AppCompatActivity {
 
     private CourseAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -72,7 +71,7 @@ public class CourseActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         //Init section codes
-        params = new String[]{"0","0","0","0"};
+        params = new String[]{"0", "0", "0", "0"};
         params[0] = getIntent().getStringExtra("UniversityActivity.EXTRA_BoardCode");
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar_course);
@@ -80,7 +79,7 @@ public class CourseActivity extends AppCompatActivity{
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeToRefresh2);
         mCourseList = (LinearLayout) findViewById(R.id.course_list);
 
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.color_1,R.color.color_2,R.color.color_3,R.color.color_4);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.color_1, R.color.color_2, R.color.color_3, R.color.color_4);
 
         //Swipe to Refresh
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -108,8 +107,8 @@ public class CourseActivity extends AppCompatActivity{
          */
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 
-        if (Build.VERSION.SDK_INT >= 20){
-            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) ->{
+        if (Build.VERSION.SDK_INT >= 20) {
+            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) -> {
                 v.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
                 v.getLayoutParams().height += insets.getSystemWindowInsetTop();
 
@@ -139,12 +138,12 @@ public class CourseActivity extends AppCompatActivity{
         FloatingActionButton fab_bookmark = (FloatingActionButton) findViewById(R.id.fab_bookmarks);
 
         intent = new Intent(this, PaperActivity.class);
-        intent.putExtra("FROM","action_fab");
+        intent.putExtra("FROM", "action_fab");
 
         fab_recent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("Title","Recent Papers");
+                intent.putExtra("Title", "Recent Papers");
                 fab.close(true);
                 startActivity(intent);
             }
@@ -152,7 +151,7 @@ public class CourseActivity extends AppCompatActivity{
         fab_offline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("Title","Offline");
+                intent.putExtra("Title", "Offline");
                 fab.close(true);
                 startActivity(intent);
             }
@@ -160,7 +159,7 @@ public class CourseActivity extends AppCompatActivity{
         fab_bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("Title","Bookmarks");
+                intent.putExtra("Title", "Bookmarks");
                 fab.close(true);
                 startActivity(intent);
             }
@@ -170,11 +169,10 @@ public class CourseActivity extends AppCompatActivity{
 
 
         Drawable bg;
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             bg = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_black_24dp);
             bg.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), PorterDuff.Mode.MULTIPLY);
-        }
-        else {
+        } else {
             bg = VectorDrawableCompat.create(getResources(), R.drawable.ic_arrow_back_black_24dp, null);
             bg = DrawableCompat.wrap(bg);
             DrawableCompat.setTint(bg, ContextCompat.getColor(this, R.color.colorWhite));
@@ -196,17 +194,15 @@ public class CourseActivity extends AppCompatActivity{
         try {
             Log.d("ImageView: ", getIntent().getStringExtra("UniversityActivity.EXTRA_PHOTO_URL"));
             Log.d("mUniversityNameTV: ", getIntent().getStringExtra("UniversityActivity.EXTRA_University_NAME"));
-        }
-        catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
-            Log.e("Exception",e.toString());
+        } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
+            Log.e("Exception", e.toString());
         }
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_container);
-        try{
+        try {
             collapsingToolbarLayout.setTitle(getIntent().getStringExtra("UniversityActivity.EXTRA_University_FULL_NAME"));
-        }
-        catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
-            Log.e("Exception",e.toString());
+        } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
+            Log.e("Exception", e.toString());
         }
 
         //Loading Starts
@@ -214,20 +210,20 @@ public class CourseActivity extends AppCompatActivity{
 
         mService = ApiUtils.getBackendService();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_university_selected);
-        mAdapter = new CourseAdapter(this, new UniversityCourse(), params, mChooseTV, collapsingToolbarLayout , new CourseAdapter.CourseItemListener() {
+        mAdapter = new CourseAdapter(this, new UniversityCourse(), params, mChooseTV, collapsingToolbarLayout, new CourseAdapter.CourseItemListener() {
             @Override
             public void onUniversityClick(String id) {
-               mProgressBar.setVisibility(View.VISIBLE);
-               mCourseList.setVisibility(View.INVISIBLE);
-               loadCourses();
-               if (fab.isMenuButtonHidden()){
-                   fab.showMenuButton(true);
-               }
+                mProgressBar.setVisibility(View.VISIBLE);
+                mCourseList.setVisibility(View.INVISIBLE);
+                loadCourses();
+                if (fab.isMenuButtonHidden()) {
+                    fab.showMenuButton(true);
+                }
             }
         });
 
         int span = getResources().getInteger(R.integer.grid_span_count);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this,span);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, span);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -235,7 +231,7 @@ public class CourseActivity extends AppCompatActivity{
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset2);
         mRecyclerView.addItemDecoration(itemDecoration);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        Log.d("CourseActivity","done adapter");
+        Log.d("CourseActivity", "done adapter");
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -249,7 +245,7 @@ public class CourseActivity extends AppCompatActivity{
             }
         });
 
-        Log.d("CourseActivity","loading Courses");
+        Log.d("CourseActivity", "loading Courses");
         loadCourses();
     }
 
@@ -257,39 +253,41 @@ public class CourseActivity extends AppCompatActivity{
 
         Log.d("CourseActivity", "loadCoursesMethod");
 
-        switch (mAdapter.getSelector()){
-            case 0: call = mService.getCourses(params[0]);
-                    break;
-            case 1: call = mService.getCourses(params[0],params[1]);
-                    break;
-            case 2: call = mService.getCourses(params[0],params[1],params[2]);
-                    break;
+        switch (mAdapter.getSelector()) {
+            case 0:
+                call = mService.getCourses(params[0]);
+                break;
+            case 1:
+                call = mService.getCourses(params[0], params[1]);
+                break;
+            case 2:
+                call = mService.getCourses(params[0], params[1], params[2]);
+                break;
         }
-        Log.d("Call",call.request().toString());
+        Log.d("Call", call.request().toString());
         call.enqueue(new Callback<UniversityCourse>() {
 
             @Override
             public void onResponse(Call<UniversityCourse> call, Response<UniversityCourse> response) {
-                Log.d("Call",call.request().toString());
-                if(response.isSuccessful()) {
-                    Log.d("CourseActivity","issuccess");
+                Log.d("Call", call.request().toString());
+                if (response.isSuccessful()) {
+                    Log.d("CourseActivity", "issuccess");
 
                     mProgressBar.setVisibility(View.GONE);
                     mCourseList.setVisibility(View.VISIBLE);
                     mSwipeRefreshLayout.setRefreshing(false);
 
-                    Log.d("Response Body",response.body().toString());
+                    Log.d("Response Body", response.body().toString());
                     mAdapter.updateUniversitiesFull(response.body());
                     Log.d("CourseActivity", "API success");
-                }else {
-                    int statusCode  = response.code();
-                    if(statusCode==401){
-                        Log.d("StatusCode","Unauthorized");
+                } else {
+                    int statusCode = response.code();
+                    if (statusCode == 401) {
+                        Log.d("StatusCode", "Unauthorized");
                     }
-                    if (statusCode==200){
-                        Log.d("StatusCode","OK");
-                    }
-                    else {
+                    if (statusCode == 200) {
+                        Log.d("StatusCode", "OK");
+                    } else {
                         Log.d("StatusCode", String.valueOf(statusCode));
                     }
                     // handle request errors depending on status code
@@ -298,14 +296,13 @@ public class CourseActivity extends AppCompatActivity{
 
             @Override
             public void onFailure(Call<UniversityCourse> call, Throwable t) {
-                if(call.isCanceled()){
+                if (call.isCanceled()) {
                     Log.d("CourseActivity", "call is cancelled");
 
-                }
-                else if(mNetworkUtils.isOnline(CourseActivity.this)){
+                } else if (mNetworkUtils.isOnline(CourseActivity.this)) {
                     Log.d("MainActivity", "error loading from API");
                     showDialogError();
-                }else{
+                } else {
                     Log.d("MainActivity", "Check your network connection");
                     showDialogNoNet();
                 }
@@ -320,13 +317,12 @@ public class CourseActivity extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
-        if(mAdapter.getSelector()==0) {
+        if (mAdapter.getSelector() == 0) {
             super.onBackPressed();
-        }
-        else{
+        } else {
             mAdapter.setSelectorOnBackPressed();
         }
-        if (!call.isExecuted()){
+        if (!call.isExecuted()) {
             call.cancel();
         }
     }
@@ -335,7 +331,7 @@ public class CourseActivity extends AppCompatActivity{
         //call load Courses
         mProgressBar.setVisibility(View.VISIBLE);
         mCourseList.setVisibility(View.VISIBLE);
-        Log.d("CourseActivity","retrying loading Courses");
+        Log.d("CourseActivity", "retrying loading Courses");
         loadCourses();
     }
 
@@ -344,11 +340,11 @@ public class CourseActivity extends AppCompatActivity{
      * Method to inflate the dialog and show it.
      */
     private void showDialogNoNet() {
-        View view = getLayoutInflater().inflate(R.layout.dialog_no_internet,null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_no_internet, null);
 
         Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
 
-        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        final Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -357,7 +353,7 @@ public class CourseActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 //retry and close dialogue
-                if (dialog.isShowing()){
+                if (dialog.isShowing()) {
                     dialog.cancel();
                     onRetryLoadCourses();
                 }
@@ -366,11 +362,11 @@ public class CourseActivity extends AppCompatActivity{
     }
 
     private void showDialogError() {
-        View view = getLayoutInflater().inflate(R.layout.dialog_page_not_found,null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_page_not_found, null);
 
         Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
 
-        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        final Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -379,7 +375,7 @@ public class CourseActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 //retry and close dialogue
-                if (dialog.isShowing()){
+                if (dialog.isShowing()) {
                     dialog.cancel();
                     onBackPressed();
                 }
@@ -426,7 +422,7 @@ public class CourseActivity extends AppCompatActivity{
         mOpenAnimatorSet = new AnimatorSet();
         mCloseAnimatorSet = new AnimatorSet();
 
-        ObjectAnimator collapseAnimator =  ObjectAnimator.ofFloat(fab.getMenuIconView(),
+        ObjectAnimator collapseAnimator = ObjectAnimator.ofFloat(fab.getMenuIconView(),
                 "rotation",
                 -90f + ROTATION_ANGLE, 0f);
         ObjectAnimator expandAnimator = ObjectAnimator.ofFloat(fab.getMenuIconView(),

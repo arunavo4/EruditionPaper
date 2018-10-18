@@ -64,7 +64,7 @@ public class AnswerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_answer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        AppBarLayout appBarLayout =  (AppBarLayout) findViewById(R.id.my_appbar_container);
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.my_appbar_container);
         appBarLayout.bringToFront();
 
         // To set the background of the activity go below the StatusBar
@@ -83,9 +83,6 @@ public class AnswerActivity extends AppCompatActivity {
          */
         if (Build.VERSION.SDK_INT >= 20){
             ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) ->{
-                v.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
-                v.getLayoutParams().height += insets.getSystemWindowInsetTop();
-
                 ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
                 params.topMargin = insets.getSystemWindowInsetTop();
                 v.invalidate();
@@ -96,11 +93,10 @@ public class AnswerActivity extends AppCompatActivity {
         }
 
         Drawable bg;
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             bg = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_black_24dp);
             bg.setColorFilter(ContextCompat.getColor(this, R.color.colorBlack75alpha), PorterDuff.Mode.MULTIPLY);
-        }
-        else {
+        } else {
             bg = VectorDrawableCompat.create(getResources(), R.drawable.ic_arrow_back_black_24dp, null);
             bg = DrawableCompat.wrap(bg);
             DrawableCompat.setTint(bg, ContextCompat.getColor(this, R.color.colorBlack75alpha));
@@ -140,7 +136,7 @@ public class AnswerActivity extends AppCompatActivity {
         // add pager behavior
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
-        Log.d(TAG,"done adapter");
+        Log.d(TAG, "done adapter");
 
         /**
          * Custom Touch Behaviour
@@ -149,10 +145,10 @@ public class AnswerActivity extends AppCompatActivity {
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(v.onTouchEvent(event)){
-                 return true;
+                if (v.onTouchEvent(event)) {
+                    return true;
                 }
-                Log.d("RecyclerView","Touched");
+                Log.d("RecyclerView", "Touched");
                 return false;
             }
 
@@ -165,7 +161,7 @@ public class AnswerActivity extends AppCompatActivity {
         //TODO: Need to fix the inner scroll problem by using the Nested prescroll
         recyclerView.setNestedScrollingEnabled(true);
 
-        recyclerView.scrollToPosition(getIntent().getIntExtra("QUESTION_ADAPTER.position",0));
+        recyclerView.scrollToPosition(getIntent().getIntExtra("QUESTION_ADAPTER.position", 0));
 
     }
 
@@ -182,23 +178,22 @@ public class AnswerActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<Paper> call, Response<Paper> response) {
-                Log.d("Call",call.request().toString());
-                if(response.isSuccessful()) {
-                    Log.d(TAG,"issuccess");
+                Log.d("Call", call.request().toString());
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "issuccess");
 
 //                    mProgressBar.setVisibility(View.GONE);
-                    Log.d("Response Body",response.body().toString());
+                    Log.d("Response Body", response.body().toString());
                     mAdapter.updateAnswers(response.body());
                     Log.d(TAG, "API success");
-                }else {
-                    int statusCode  = response.code();
-                    if(statusCode==401){
-                        Log.d("StatusCode","Unauthorized");
+                } else {
+                    int statusCode = response.code();
+                    if (statusCode == 401) {
+                        Log.d("StatusCode", "Unauthorized");
                     }
-                    if (statusCode==200){
-                        Log.d("StatusCode","OK");
-                    }
-                    else {
+                    if (statusCode == 200) {
+                        Log.d("StatusCode", "OK");
+                    } else {
                         Log.d("StatusCode", String.valueOf(statusCode));
                     }
                     // handle request errors depending on status code
@@ -208,22 +203,21 @@ public class AnswerActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Paper> call, Throwable t) {
                 String str = "Failed";
-                if(call.isCanceled()){
+                if (call.isCanceled()) {
                     Log.d(TAG, "call is cancelled");
 
-                }
-                else if(mNetworkUtils.isOnline(AnswerActivity.this)){
+                } else if (mNetworkUtils.isOnline(AnswerActivity.this)) {
                     Log.d("MainActivity", "error loading from API");
                     str = "error loading from API";
                     showDialogError();
-                }else{
+                } else {
                     Log.d("MainActivity", "Check your network connection");
                     str = "Check your network connection";
                     showDialogNoNet();
                 }
 
 //                mProgressBar.setVisibility(View.GONE);
-                Snackbar.make((CoordinatorLayout)findViewById(R.id.app_bar_main4_layout),str, Snackbar.LENGTH_INDEFINITE)
+                Snackbar.make((CoordinatorLayout) findViewById(R.id.app_bar_main4_layout), str, Snackbar.LENGTH_INDEFINITE)
                         .setAction("Retry", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -237,14 +231,14 @@ public class AnswerActivity extends AppCompatActivity {
     private void onRetryLoadPaperGroups() {
         //call load Papers
 //        mProgressBar.setVisibility(View.VISIBLE);
-        Log.d(TAG,"retrying loading Paper Answers");
+        Log.d(TAG, "retrying loading Paper Answers");
         loadPaperAnswers();
     }
 
     @Override
     public void onBackPressed() {
-        if (call!=null) {
-            if (!call.isExecuted()){
+        if (call != null) {
+            if (!call.isExecuted()) {
                 call.cancel();
             }
         }
@@ -283,9 +277,9 @@ public class AnswerActivity extends AppCompatActivity {
     private void showDialogInfo() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(AnswerActivity.this);
-        View view = getLayoutInflater().inflate(R.layout.dialog_info,null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_info, null);
 
-        Animation view_anim = AnimationUtils.loadAnimation(AnswerActivity.this,R.anim.zoom_in);
+        Animation view_anim = AnimationUtils.loadAnimation(AnswerActivity.this, R.anim.zoom_in);
         view.startAnimation(view_anim);
 
         //set all the details
@@ -296,21 +290,21 @@ public class AnswerActivity extends AppCompatActivity {
 
         //check for the current title of the toolbar
         String title = toolbar.getTitle().toString();
-        for (int i=0;i<data.size();i++){
-            if (data.get(i).getGroupName().contentEquals(title)){
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).getGroupName().contentEquals(title)) {
                 //now update all the views
-                if (!data.get(i).getGroupName().contentEquals(" ")){
-                    if (g_tv.getVisibility()==View.GONE)
+                if (!data.get(i).getGroupName().contentEquals(" ")) {
+                    if (g_tv.getVisibility() == View.GONE)
                         g_tv.setVisibility(View.VISIBLE);
                     g_tv.setText(data.get(i).getGroupName());
                 }
-                if (!data.get(i).getGroupDesc1().contentEquals(" ")){
-                    if (g_desc_tv_1.getVisibility()==View.GONE)
+                if (!data.get(i).getGroupDesc1().contentEquals(" ")) {
+                    if (g_desc_tv_1.getVisibility() == View.GONE)
                         g_desc_tv_1.setVisibility(View.VISIBLE);
                     g_desc_tv_1.setText(data.get(i).getGroupDesc1());
                 }
-                if (!data.get(i).getGroupDesc2().contentEquals(" ")){
-                    if (g_desc_tv_2.getVisibility()==View.GONE)
+                if (!data.get(i).getGroupDesc2().contentEquals(" ")) {
+                    if (g_desc_tv_2.getVisibility() == View.GONE)
                         g_desc_tv_2.setVisibility(View.VISIBLE);
                     g_desc_tv_2.setText(data.get(i).getGroupDesc2());
                 }
@@ -326,7 +320,7 @@ public class AnswerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //cancel the dialogue
-                if (alertDialog.isShowing()){
+                if (alertDialog.isShowing()) {
                     alertDialog.cancel();
                 }
             }
@@ -334,11 +328,11 @@ public class AnswerActivity extends AppCompatActivity {
     }
 
     private void showDialogNoNet() {
-        View view = getLayoutInflater().inflate(R.layout.dialog_no_internet,null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_no_internet, null);
 
         Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
 
-        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar);
+        final Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -347,7 +341,7 @@ public class AnswerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //retry and close dialogue
-                if (dialog.isShowing()){
+                if (dialog.isShowing()) {
                     dialog.cancel();
                     onRetryLoadPaperGroups();
                 }
@@ -356,11 +350,11 @@ public class AnswerActivity extends AppCompatActivity {
     }
 
     private void showDialogError() {
-        View view = getLayoutInflater().inflate(R.layout.dialog_error,null);
+        View view = getLayoutInflater().inflate(R.layout.dialog_error, null);
 
         Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
 
-        final Dialog dialog = new Dialog(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar);
+        final Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -369,7 +363,7 @@ public class AnswerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //retry and close dialogue
-                if (dialog.isShowing()){
+                if (dialog.isShowing()) {
                     dialog.cancel();
                     onBackPressed();
                 }

@@ -1,5 +1,7 @@
 package in.co.erudition.avatar;
 
+import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -29,22 +31,26 @@ public class AvatarPlaceholder extends Drawable {
     private float textStartXPoint;
     private float textStartYPoint;
 
-    public AvatarPlaceholder(String name) {
-        this(name, DEFAULT_TEXT_SIZE_PERCENTAGE, DEFAULT_PLACEHOLDER_STRING);
+    private Context mContext;
+
+    public AvatarPlaceholder(Context context, String name) {
+        this(context, name, DEFAULT_TEXT_SIZE_PERCENTAGE, DEFAULT_PLACEHOLDER_STRING);
     }
 
-    public AvatarPlaceholder(String name, @IntRange int textSizePercentage) {
-        this(name, textSizePercentage, DEFAULT_PLACEHOLDER_STRING);
+    public AvatarPlaceholder(Context context, String name, @IntRange int textSizePercentage) {
+        this(context, name, textSizePercentage, DEFAULT_PLACEHOLDER_STRING);
     }
 
-    public AvatarPlaceholder(String name, @NonNull String defaultString) {
-        this(name, DEFAULT_TEXT_SIZE_PERCENTAGE, defaultString);
+    public AvatarPlaceholder(Context context, String name, @NonNull String defaultString) {
+        this(context, name, DEFAULT_TEXT_SIZE_PERCENTAGE, defaultString);
     }
 
-    public AvatarPlaceholder(String name, @IntRange int textSizePercentage, @NonNull String defaultString) {
+    public AvatarPlaceholder(Context context, String name, @IntRange int textSizePercentage, @NonNull String defaultString) {
         this.defaultString = resolveStringWhenNoName(defaultString);
         this.avatarText = convertNameToAvatarText(name);
         this.textSizePercentage = textSizePercentage;
+
+        mContext = context;
 
         textPaint = new Paint();
         textPaint.setAntiAlias(true);
@@ -54,7 +60,7 @@ public class AvatarPlaceholder extends Drawable {
         backgroundPaint = new Paint();
         backgroundPaint.setAntiAlias(true);
         backgroundPaint.setStyle(Paint.Style.FILL);
-        backgroundPaint.setColor(Color.parseColor(convertStringToColor(name)));
+        backgroundPaint.setColor(getMatColor("500"));
     }
 
     @Override
@@ -83,6 +89,21 @@ public class AvatarPlaceholder extends Drawable {
     @Override
     public int getOpacity() {
         return PixelFormat.TRANSLUCENT;
+    }
+
+    private int getMatColor(String typeColor)
+    {
+        int returnColor = Color.BLACK;
+        int arrayId = mContext.getResources().getIdentifier("mdcolor_" + typeColor, "array", mContext.getPackageName());
+
+        if (arrayId != 0)
+        {
+            TypedArray colors = mContext.getResources().obtainTypedArray(arrayId);
+            int index = (int) (Math.random() * colors.length());
+            returnColor = colors.getColor(index, Color.BLACK);
+            colors.recycle();
+        }
+        return returnColor;
     }
 
     private void setAvatarTextValues() {

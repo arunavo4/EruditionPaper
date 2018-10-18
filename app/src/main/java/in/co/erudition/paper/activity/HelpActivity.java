@@ -59,8 +59,8 @@ public class HelpActivity extends AppCompatActivity {
          */
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
 
-        if (Build.VERSION.SDK_INT >= 20){
-            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) ->{
+        if (Build.VERSION.SDK_INT >= 20) {
+            ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) -> {
                 v.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
                 v.getLayoutParams().height += insets.getSystemWindowInsetTop();
 
@@ -79,11 +79,10 @@ public class HelpActivity extends AppCompatActivity {
         }
 
         Drawable bg;
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             bg = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_black_24dp);
             bg.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), PorterDuff.Mode.MULTIPLY);
-        }
-        else {
+        } else {
             bg = VectorDrawableCompat.create(getResources(), R.drawable.ic_arrow_back_black_24dp, null);
             bg = DrawableCompat.wrap(bg);
             DrawableCompat.setTint(bg, ContextCompat.getColor(this, R.color.colorWhite));
@@ -116,9 +115,9 @@ public class HelpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Open the Webview with the given address
-                Intent intent = new Intent(HelpActivity.this,WebviewActivity.class);
-                intent.putExtra("Webview.Title",getString(R.string.faq));
-                intent.putExtra("Webview.Address","");
+                Intent intent = new Intent(HelpActivity.this, WebviewActivity.class);
+                intent.putExtra("Webview.Title", getString(R.string.faq));
+                intent.putExtra("Webview.Address", "");
                 startActivity(intent);
             }
         });
@@ -138,7 +137,7 @@ public class HelpActivity extends AppCompatActivity {
         mOpenAnimatorSet = new AnimatorSet();
         mCloseAnimatorSet = new AnimatorSet();
 
-        ObjectAnimator collapseAnimator =  ObjectAnimator.ofFloat(fab.getMenuIconView(),
+        ObjectAnimator collapseAnimator = ObjectAnimator.ofFloat(fab.getMenuIconView(),
                 "rotation",
                 -90f + ROTATION_ANGLE, 0f);
         ObjectAnimator expandAnimator = ObjectAnimator.ofFloat(fab.getMenuIconView(),
@@ -180,9 +179,9 @@ public class HelpActivity extends AppCompatActivity {
     private void showDialogPlay() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(HelpActivity.this);
-        View view = LayoutInflater.from(HelpActivity.this).inflate(R.layout.dialog_google_play,null);
+        View view = LayoutInflater.from(HelpActivity.this).inflate(R.layout.dialog_google_play, null);
 
-        Animation view_anim = AnimationUtils.loadAnimation(HelpActivity.this,R.anim.zoom_in);
+        Animation view_anim = AnimationUtils.loadAnimation(HelpActivity.this, R.anim.zoom_in);
         view.startAnimation(view_anim);
 
         Button btn_later = (Button) view.findViewById(R.id.btn_later);
@@ -196,7 +195,7 @@ public class HelpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //cancel the dialogue
-                if (alertDialog.isShowing()){
+                if (alertDialog.isShowing()) {
                     alertDialog.cancel();
                 }
             }

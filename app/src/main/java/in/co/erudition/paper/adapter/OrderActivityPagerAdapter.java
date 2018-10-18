@@ -15,7 +15,7 @@ import in.co.erudition.paper.fragment.SubscriptionsFragment;
 public class OrderActivityPagerAdapter extends FragmentPagerAdapter {
 
     private final int PAGE_COUNT = 2;
-    private String tabTitles[] = new String[] { "Subscriptions", "Invoices" };
+    private String tabTitles[] = new String[]{"Subscriptions", "Invoices"};
     private Context context;
 
     public OrderActivityPagerAdapter(FragmentManager fm, Context context) {
@@ -25,7 +25,7 @@ public class OrderActivityPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        switch (position){
+        switch (position) {
             case 0:
                 return SubscriptionsFragment.newInstance();
             case 1:

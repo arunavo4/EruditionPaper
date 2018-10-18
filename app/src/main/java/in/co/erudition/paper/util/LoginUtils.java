@@ -23,7 +23,7 @@ public class LoginUtils {
     public static String eid = "0";
     private String message = "";
 
-    public LoginUtils(){
+    public LoginUtils() {
         //Empty constructor
         mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
                 Context.MODE_PRIVATE);
@@ -31,34 +31,35 @@ public class LoginUtils {
         mService = ApiUtils.getBackendService();
     }
 
-    public String login_via_idp(String provider_name, final String userEmail, String jwt_token){
+    public String login_via_idp(String provider_name, final String userEmail, String jwt_token) {
         String provider = "";
 
-        if (provider_name.contentEquals("google.com")){
+        if (provider_name.contentEquals("google.com")) {
             provider = "Google";
-        }else if (provider_name.contentEquals("facebook.com")){
+        } else if (provider_name.contentEquals("facebook.com")) {
             provider = "Facebook";
         }
-        Log.d("Login Params: ",provider + "," + userEmail + "," + jwt_token);
-        Call<Login> loginCall = mService.signIn_idp(provider,userEmail,jwt_token);
+        Log.d("Login Params: ", provider + "," + userEmail + "," + jwt_token);
+        Call<Login> loginCall = mService.signIn_idp(provider, userEmail, jwt_token);
         loginCall.enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
                 Login login = response.body();
                 eid = login.geteId();
                 message = login.getMsg();
-                Log.d("Login_via_idp:","Eid: " + eid);
-                Log.d("Login_via_idp:","message: " + message);
-                mPrefsEdit.putString("EId",eid);
-                mPrefsEdit.putString("Email",userEmail);
-                mPrefsEdit.putString("Msg",message);
+                Log.d("Login_via_idp:", "Eid: " + eid);
+                Log.d("Login_via_idp:", "message: " + message);
+                mPrefsEdit.putString("EId", eid);
+                mPrefsEdit.putString("Email", userEmail);
+                mPrefsEdit.putString("Msg", message);
                 mPrefsEdit.commit();
 
-                person_details(eid,null);
+                person_details(eid, null);
             }
+
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
-                Log.d("Login_via_idp:","Failed to login");
+                Log.d("Login_via_idp:", "Failed to login");
             }
         });
 
@@ -66,28 +67,28 @@ public class LoginUtils {
     }
 
     //SignUp via Email
-    public int signUp_via_Email(String first_name,String last_name,String userEmail){
+    public int signUp_via_Email(String first_name, String last_name, String userEmail) {
         int message = 0;
 
-        try{
-            Call<Login> loginCallEmail = mService.signUp_email(first_name,last_name,userEmail);
+        try {
+            Call<Login> loginCallEmail = mService.signUp_email(first_name, last_name, userEmail);
             Response<Login> loginResponseEmail = loginCallEmail.execute();
 
 
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return message;
     }
 
     //Confirm Email/ Password Update
-    public int confirm_email_pass_update(String userEmail,String code,String password){
+    public int confirm_email_pass_update(String userEmail, String code, String password) {
 
-        try{
-            Call<Login> call = mService.password_update_email(userEmail,code,password);
+        try {
+            Call<Login> call = mService.password_update_email(userEmail, code, password);
             Response<Login> response = call.execute();
 
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -95,24 +96,24 @@ public class LoginUtils {
     }
 
     //Forgot Password
-    public int forgot_password(String userEmail){
+    public int forgot_password(String userEmail) {
 
-        try{
+        try {
             Call<Login> call = mService.forgot_password(userEmail);
             Response<Login> response = call.execute();
 
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return 0;
     }
 
-    public int person_details(String Eid, String Email){
+    public int person_details(String Eid, String Email) {
         String id = "";
 
-        if (Eid!=null){
+        if (Eid != null) {
             id = Eid;
-        }else if (Email!=null){
+        } else if (Email != null) {
             id = Email;
         }
 
@@ -124,19 +125,19 @@ public class LoginUtils {
                     //Write to Shared Preferences
                     Person person = response.body();
 
-                    mPrefsEdit.putString("Avatar",person.getAvatar());
-                    mPrefsEdit.putString("FirstName",person.getFirstName());
-                    mPrefsEdit.putString("LastName",person.getLastName());
-                    mPrefsEdit.putString("EId",person.getEId());
-                    mPrefsEdit.putString("Email",person.getEmail());
-                    mPrefsEdit.putString("Role",person.getRole());
-                    mPrefsEdit.putString("Status",person.getStatus());
+                    mPrefsEdit.putString("Avatar", person.getAvatar());
+                    mPrefsEdit.putString("FirstName", person.getFirstName());
+                    mPrefsEdit.putString("LastName", person.getLastName());
+                    mPrefsEdit.putString("EId", person.getEId());
+                    mPrefsEdit.putString("Email", person.getEmail());
+                    mPrefsEdit.putString("Role", person.getRole());
+                    mPrefsEdit.putString("Status", person.getStatus());
                     mPrefsEdit.commit();
                 }
 
                 @Override
                 public void onFailure(Call<Person> call, Throwable t) {
-                    Log.d("Person Call:","Failed to get Person Details");
+                    Log.d("Person Call:", "Failed to get Person Details");
                 }
             });
         }

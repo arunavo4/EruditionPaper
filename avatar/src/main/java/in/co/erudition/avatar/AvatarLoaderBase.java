@@ -16,11 +16,11 @@ public abstract class AvatarLoaderBase implements AvatarLoader {
 
     @Override
     public void loadImage(@NonNull AvatarView avatarView, String avatarUrl, String name) {
-        loadImage(avatarView, new AvatarPlaceholder(name, defaultPlaceholderString), avatarUrl);
+        loadImage(avatarView, new AvatarPlaceholder(avatarView.getContext(), name, defaultPlaceholderString), avatarUrl);
     }
 
     @Override
     public void loadImage(@NonNull AvatarView avatarView, String avatarUrl, String name, int textSizePercentage) {
-        loadImage(avatarView, new AvatarPlaceholder(name, textSizePercentage, defaultPlaceholderString), avatarUrl);
+        loadImage(avatarView, new AvatarPlaceholder(avatarView.getContext(), name, textSizePercentage, defaultPlaceholderString), avatarUrl);
     }
 }
