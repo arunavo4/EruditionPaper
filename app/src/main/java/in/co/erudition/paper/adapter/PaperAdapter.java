@@ -139,7 +139,7 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
 
                 if (select == 0) {
                     Chapter chap = getChapter(getAdapterPosition());
-                    intent_ques.putExtra("PaperActivity.EXTRA_Year", chap.getYear());
+                    intent_ques.putExtra("PaperActivity.EXTRA_Year", "Chapter " + chap.getChapterName());
                     intent_ques.putExtra("PaperActivity.EXTRA_Full_Name", chap.getChapterFullName());
                     intent_ques.putExtra("PaperActivity.EXTRA_Name", chap.getChapterName());
                     intent_ques.putExtra("PaperActivity.EXTRA_Paper_Code", chap.getCode());

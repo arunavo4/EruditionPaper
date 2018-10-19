@@ -90,11 +90,13 @@
         <activity
             android:name=".activity.QuestionActivity"
             android:label="@string/blank"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
         <activity
             android:name=".activity.AnswerActivity"
             android:label="@string/blank"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
         <activity
             android:name=".activity.SelectionActivity"
             android:label="@string/blank"
@@ -109,8 +111,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.ProfileEditActivity"
-            android:label="@string/title_activity_profile_edit"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/blank"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

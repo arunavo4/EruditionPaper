@@ -41,7 +41,10 @@
     <dimen name="card_info_h_w">300dp</dimen>
 
     <!--Paper Activity-->
-    <dimen name="recycler_view_offset">8dp</dimen>
+    <dimen name="item_offset_paper">0dp</dimen>
+    <dimen name="recycler_view_width">360dp</dimen>
+    <dimen name="recycler_view_offset_start">15dp</dimen>
+    <dimen name="recycler_view_offset_end">5dp</dimen>
     <dimen name="card_height_chapter">96dp</dimen>
     <dimen name="card_margin_chap_left_right">12dp</dimen>
     <dimen name="card_margin_chap_top_bottom">6dp</dimen>

@@ -95,7 +95,7 @@ public class RetrofitClient {
         if (retrofitAuth == null) {
 
             Dispatcher dispatcher = new Dispatcher();
-            dispatcher.setMaxRequests(1);
+            dispatcher.setMaxRequests(5);
 
             OkHttpClient httpClient = new OkHttpClient
                     .Builder()
@@ -120,6 +120,7 @@ public class RetrofitClient {
     private static String generateToken() {
         Log.d("Interceptor","generating Token");
 
+        //TODO: Fix the case of authorization == null
         //make synchronous calls;
         try{
             Call<JwtToken> jwtTokenCall = mService.getToken(eid,password);

@@ -12,24 +12,26 @@
 
     <LinearLayout
         android:id="@+id/paper_list"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/recycler_view_width"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginStart="@dimen/recycler_view_offset">
+        android:layout_gravity="center_horizontal"
+        android:paddingStart="@dimen/recycler_view_offset_start"
+        android:paddingEnd="@dimen/recycler_view_offset_end">
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeToRefresh3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view_paper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:foregroundGravity="center_horizontal"
                 android:clipToPadding="false"
-                android:scrollbars="vertical"
-                android:padding="@dimen/item_offset"
-                android:background="@color/colorTransparent"/>
+                android:scrollbars="none"/>
 
         </android.support.v4.widget.SwipeRefreshLayout>
 

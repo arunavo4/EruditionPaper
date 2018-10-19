@@ -11,15 +11,24 @@ public class Chapter {
     @SerializedName("Code")
     @Expose
     private String code;
+    @SerializedName("SubjectName")
+    @Expose
+    private String subjectName;
+    @SerializedName("SubjectFullName")
+    @Expose
+    private String subjectFullName;
+    @SerializedName("ChapterCode")
+    @Expose
+    private String chapterCode;
     @SerializedName("ChapterName")
     @Expose
     private String chapterName;
     @SerializedName("ChapterFullName")
     @Expose
     private String chapterFullName;
-    @SerializedName("Year")
+    @SerializedName("Solved")
     @Expose
-    private String year;
+    private String solved;
 
     public String getId() {
         return id;
@@ -35,6 +44,30 @@ public class Chapter {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
+
+    public String getSubjectFullName() {
+        return subjectFullName;
+    }
+
+    public void setSubjectFullName(String subjectFullName) {
+        this.subjectFullName = subjectFullName;
+    }
+
+    public String getChapterCode() {
+        return chapterCode;
+    }
+
+    public void setChapterCode(String chapterCode) {
+        this.chapterCode = chapterCode;
     }
 
     public String getChapterName() {
@@ -53,11 +86,11 @@ public class Chapter {
         this.chapterFullName = chapterFullName;
     }
 
-    public String getYear() {
-        return year;
+    public String getSolved() {
+        return solved;
     }
 
-    public void setYear(String year) {
-        this.year = year;
+    public void setSolved(String solved) {
+        this.solved = solved;
     }
 }

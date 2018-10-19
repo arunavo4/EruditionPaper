@@ -66,7 +66,7 @@ public class QuestionActivity extends AppCompatActivity {
 
     private boolean isChecked_offline = false;
     private boolean isChecked_bookmark = false;
-    private Boolean transparent = true;
+    private boolean transparent = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,6 +230,7 @@ public class QuestionActivity extends AppCompatActivity {
         Log.d(TAG, "loading paper groups");
 
         loadPaperGroups();
+
     }
 
     private void loadPaperGroups() {

@@ -24,6 +24,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,6 +51,7 @@ import in.co.erudition.paper.data.remote.BackendService;
 import in.co.erudition.paper.misc.ItemOffsetDecoration;
 import in.co.erudition.paper.network.NetworkUtils;
 import in.co.erudition.paper.util.ApiUtils;
+import in.co.erudition.paper.util.ConverterUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -89,6 +91,15 @@ public class PaperActivity extends AppCompatActivity {
         mPaperList = (LinearLayout) findViewById(R.id.paper_list);
         mNoPaper = (LinearLayout) findViewById(R.id.no_paper_found);
 
+        select = getIntent().getIntExtra("Selection Activity: Selection", -1);
+
+        /*
+            ON the basis of select change the width to *match parent*
+         */
+        if (select==0){
+            mPaperList.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
+        }
+
         mSwipeRefreshLayout.setColorSchemeResources(R.color.color_1, R.color.color_2, R.color.color_3, R.color.color_4);
 
         //Swipe to Refresh
@@ -105,7 +116,6 @@ public class PaperActivity extends AppCompatActivity {
             }
         });
 
-        select = getIntent().getIntExtra("Selection Activity: Selection", -1);
 
         /**
          * instantiate the floating action buttons
@@ -289,13 +299,17 @@ public class PaperActivity extends AppCompatActivity {
             }
         });
 
+        /*
+            Check if the display has more than 360dp width
+            if so add offset to the papers
+         */
         int span = getResources().getInteger(R.integer.grid_span_count);
         RecyclerView.LayoutManager layoutManager;
         if (select == 0) {
             layoutManager = new LinearLayoutManager(this);
         } else {
             layoutManager = new GridLayoutManager(this, span);
-            ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset);
+            ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset_paper);
             mRecyclerView.addItemDecoration(itemDecoration);
         }
         mRecyclerView.setLayoutManager(layoutManager);
