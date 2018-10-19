@@ -39,13 +39,20 @@
                 android:padding="@dimen/text_view_margin"
                 android:text="@string/choose_university"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view_universities"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="@dimen/recycler_view_width"
                 android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:scrollbars="none"
-                android:padding="@dimen/item_offset" />
+                android:layout_gravity="center_horizontal">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_universities"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:scrollbars="none"
+                    android:padding="@dimen/item_offset" />
+
+            </LinearLayout>
 
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
