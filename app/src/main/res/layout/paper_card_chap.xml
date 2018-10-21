@@ -25,7 +25,7 @@
         <TextView
             android:id="@+id/tv_name"
             style="@style/ChapNameTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/chap_name_text_view_width"
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:layout_gravity="center_vertical"/>

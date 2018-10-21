@@ -13,9 +13,9 @@ import in.co.erudition.paper.data.model.Year;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
+import retrofit2.http.Path;
 
 /**
  * Created by Arunavo Ray on 05-06-2018.
@@ -31,7 +31,7 @@ public interface BackendService {
     @POST("oauth4")
     @FormUrlEncoded
     Call<JwtToken> getToken(@Field("EId") String eid,
-                              @Field("Password") String password);
+                            @Field("Password") String password);
 
     //Email, Google, Facebook Login
     @POST("login")
@@ -70,6 +70,47 @@ public interface BackendService {
     Call<Person> getPersonDetailsEmail(@Field("Email") String email);
 
 
+    //Update User Detail By EId
+    @POST("person/{EId}")
+    @FormUrlEncoded
+    Call<Paper> updatePerson(@Path("EId") String eid,
+                             @Field("Avatar") String avatar,
+                             @Field("FirstName") String first_name,
+                             @Field("LastName") String last_name,
+                             @Field("Phone") String phone,
+                             @Field("DOB") String dob,
+                             @Field("Gender") String gender);
+
+    @POST("person/{EId}")
+    @FormUrlEncoded
+    Call<Paper> updatePerson(@Path("EId") String eid,
+                             @Field("FirstName") String first_name,
+                             @Field("LastName") String last_name,
+                             @Field("Phone") String phone,
+                             @Field("DOB") String dob,
+                             @Field("Gender") String gender);
+
+    @POST("person/{EId}")
+    @FormUrlEncoded
+    Call<Paper> updatePerson(@Path("EId") String eid,
+                             @Field("FirstName") String first_name,
+                             @Field("LastName") String last_name);
+
+    @POST("person/{EId}")
+    @FormUrlEncoded
+    Call<Paper> updatePerson(@Path("EId") String eid,
+                             @Field("Phone") String phone,
+                             @Field("DOB") String dob,
+                             @Field("Gender") String gender);
+
+    //Upload the Avatar
+    @POST("person/{EId}")
+    @Multipart
+    Call<Paper> uploadAvatar(@Path("EId") String eid,
+                             @Field("Avatar") String avatar);
+
+
+
     /*
     Backend API Calls
      */
@@ -95,22 +136,81 @@ public interface BackendService {
     @POST("board/course/session/subject/year")
     @FormUrlEncoded
     Call<List<Year>> getYear(@Field("BoardCode") String boardCode,
-                                   @Field("CourseCode") String courseCode,
-                                   @Field("SessionCode") String sessionCode,
-                                   @Field("SubjectCode") String subjectCode);
+                             @Field("CourseCode") String courseCode,
+                             @Field("SessionCode") String sessionCode,
+                             @Field("SubjectCode") String subjectCode);
 
     @POST("board/course/session/subject/chapter")
     @FormUrlEncoded
     Call<List<Chapter>> getChapter(@Field("BoardCode") String boardCode,
-                             @Field("CourseCode") String courseCode,
-                             @Field("SessionCode") String sessionCode,
-                             @Field("SubjectCode") String subjectCode);
+                                   @Field("CourseCode") String courseCode,
+                                   @Field("SessionCode") String sessionCode,
+                                   @Field("SubjectCode") String subjectCode);
 
 
     @POST("paper")
     @FormUrlEncoded
     Call<Paper> getPaper(@Field("PaperCode") String paperCode);
 
+
+    /*
+        Notify me Call
+     */
+    @POST("person/{EId}/notifyme")
+    @FormUrlEncoded
+    Call<Paper> notifyMe(@Path("EId") String eid,
+                         @Field("BoardCode") String boardCode);
+
+    @POST("person/{EId}/notifyme")
+    @FormUrlEncoded
+    Call<Paper> notifyMe(@Path("EId") String eid,
+                         @Field("BoardCode") String boardCode,
+                         @Field("CourseCode") String courseCode);
+
+    @POST("person/{EId}/notifyme")
+    @FormUrlEncoded
+    Call<Paper> notifyMe(@Path("EId") String eid,
+                         @Field("BoardCode") String boardCode,
+                         @Field("CourseCode") String courseCode,
+                         @Field("SessionCode") String sessionCode);
+
+    @POST("person/{EId}/notifyme")
+    @FormUrlEncoded
+    Call<Paper> notifyMe(@Path("EId") String eid,
+                         @Field("BoardCode") String boardCode,
+                         @Field("CourseCode") String courseCode,
+                         @Field("SessionCode") String sessionCode,
+                         @Field("SubjectCode") String subjectCode);
+
+
+    /*
+        Set Favourite or Semester Carousel
+     */
+    @POST("person/{EId}/favorite")
+    @FormUrlEncoded
+    Call<Paper> setFavourite(@Path("EId") String eid,
+                             @Field("BoardCode") String boardCode);
+
+    @POST("person/{EId}/favorite")
+    @FormUrlEncoded
+    Call<Paper> setFavourite(@Path("EId") String eid,
+                             @Field("BoardCode") String boardCode,
+                             @Field("CourseCode") String courseCode);
+
+    @POST("person/{EId}/favorite")
+    @FormUrlEncoded
+    Call<Paper> setFavourite(@Path("EId") String eid,
+                             @Field("BoardCode") String boardCode,
+                             @Field("CourseCode") String courseCode,
+                             @Field("SessionCode") String sessionCode);
+
+    @POST("person/{EId}/favorite")
+    @FormUrlEncoded
+    Call<Paper> setFavourite(@Path("EId") String eid,
+                             @Field("BoardCode") String boardCode,
+                             @Field("CourseCode") String courseCode,
+                             @Field("SessionCode") String sessionCode,
+                             @Field("SubjectCode") String subjectCode);
 
 
 //    @GET("/database/university/{id}")

@@ -17,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.WindowInsetsCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -74,7 +75,6 @@ public class PaperActivity extends AppCompatActivity {
 
     private TextView mTextView;
     private CollapsingToolbarLayout collapsingToolbarLayout;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private boolean papers = true;
     private int select = 0;
@@ -87,7 +87,6 @@ public class PaperActivity extends AppCompatActivity {
         Toolbar toolbar_textView = (Toolbar) findViewById(R.id.toolbar2);
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar_paper);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeToRefresh3);
         mPaperList = (LinearLayout) findViewById(R.id.paper_list);
         mNoPaper = (LinearLayout) findViewById(R.id.no_paper_found);
 
@@ -99,23 +98,6 @@ public class PaperActivity extends AppCompatActivity {
         if (select==0){
             mPaperList.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
         }
-
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.color_1, R.color.color_2, R.color.color_3, R.color.color_4);
-
-        //Swipe to Refresh
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-//                mProgressBar.setVisibility(View.VISIBLE);
-                if (select == 0) {
-                    loadChaps();
-                } else if (select == 1) {
-                    loadYears();
-                }
-//                mSwipeRefreshLayout.setRefreshing(false);
-            }
-        });
-
 
         /**
          * instantiate the floating action buttons
@@ -319,13 +301,15 @@ public class PaperActivity extends AppCompatActivity {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         Log.d("PaperActivity", "done adapter");
 
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        NestedScrollView nestedScrollView = (NestedScrollView) findViewById(R.id.nested_scroll_paper);
+        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0 && !fab.isMenuButtonHidden()) {
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY > oldScrollY && !fab.isMenuButtonHidden()) {
+                    //DOWN SCROLL
                     fab.hideMenuButton(true);
-                } else if (dy < 0 && fab.isMenuButtonHidden()) {
+                }
+                if (scrollY < oldScrollY && fab.isMenuButtonHidden()) {
                     fab.showMenuButton(true);
                 }
             }
@@ -370,7 +354,6 @@ public class PaperActivity extends AppCompatActivity {
                     Log.d("PaperActivity", "issuccess");
 
                     mProgressBar.setVisibility(View.GONE);
-                    mSwipeRefreshLayout.setRefreshing(false);
 
                     Log.d("Response Body", response.body().toString());
                     mAdapter.updateChapters(response.body(), select);
@@ -403,7 +386,6 @@ public class PaperActivity extends AppCompatActivity {
                 }
 
                 mProgressBar.setVisibility(View.GONE);
-                mSwipeRefreshLayout.setRefreshing(false);
                 mPaperList.setVisibility(View.GONE);
             }
         });
@@ -425,7 +407,6 @@ public class PaperActivity extends AppCompatActivity {
                     Log.d("PaperActivity", "issuccess");
 
                     mProgressBar.setVisibility(View.GONE);
-                    mSwipeRefreshLayout.setRefreshing(false);
 
                     Log.d("Response Body", response.body().toString());
                     mAdapter.updateYears(response.body(), select);
@@ -458,7 +439,6 @@ public class PaperActivity extends AppCompatActivity {
                 }
 
                 mProgressBar.setVisibility(View.GONE);
-                mSwipeRefreshLayout.setRefreshing(false);
                 mPaperList.setVisibility(View.GONE);
             }
         });

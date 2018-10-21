@@ -4,11 +4,9 @@
     <item
         android:drawable="@color/default_bg_color"/>
 
-    <item>
-        <bitmap
-            android:gravity="center_vertical|end"
-            android:src="@drawable/splash_199"/>
-    </item>
+    <item
+        android:gravity="center"
+        android:drawable="@drawable/ic_splash"/>
 
     <item>
         <bitmap

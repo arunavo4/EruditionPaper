@@ -62,7 +62,7 @@ public class CourseActivity extends AppCompatActivity {
     private String params[];
 
     private CollapsingToolbarLayout collapsingToolbarLayout;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+//    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,20 +76,20 @@ public class CourseActivity extends AppCompatActivity {
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar_course);
         TextView mChooseTV = (TextView) findViewById(R.id.choose_tv);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeToRefresh2);
+//        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeToRefresh2);
         mCourseList = (LinearLayout) findViewById(R.id.course_list);
 
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.color_1, R.color.color_2, R.color.color_3, R.color.color_4);
+//        mSwipeRefreshLayout.setColorSchemeResources(R.color.color_1, R.color.color_2, R.color.color_3, R.color.color_4);
 
         //Swipe to Refresh
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-//                mProgressBar.setVisibility(View.VISIBLE);
-                loadCourses();
-//                mSwipeRefreshLayout.setRefreshing(false);
-            }
-        });
+//        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+////                mProgressBar.setVisibility(View.VISIBLE);
+//                loadCourses();
+////                mSwipeRefreshLayout.setRefreshing(false);
+//            }
+//        });
 
         // To set the background of the activity go below the StatusBar
         getWindow().getDecorView().setSystemUiVisibility(
@@ -275,7 +275,7 @@ public class CourseActivity extends AppCompatActivity {
 
                     mProgressBar.setVisibility(View.GONE);
                     mCourseList.setVisibility(View.VISIBLE);
-                    mSwipeRefreshLayout.setRefreshing(false);
+//                    mSwipeRefreshLayout.setRefreshing(false);
 
                     Log.d("Response Body", response.body().toString());
                     mAdapter.updateUniversitiesFull(response.body());
@@ -308,7 +308,7 @@ public class CourseActivity extends AppCompatActivity {
                 }
 
                 mProgressBar.setVisibility(View.GONE);
-                mSwipeRefreshLayout.setRefreshing(false);
+//                mSwipeRefreshLayout.setRefreshing(false);
                 mCourseList.setVisibility(View.GONE);
             }
         });

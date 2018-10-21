@@ -149,6 +149,20 @@
         <item name="android:textAlignment">textStart</item>
     </style>
 
+    <style name="collapsedTitleTextAppearance.Profile">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
+
+    <style name="expandedTitleTextAppearance.Profile" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
+        <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
+
     <!--TabLayout-->
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">@color/colorWhite</item>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="item_offset_paper">5dp</dimen>
+    <dimen name="chap_name_text_view_width">210dp</dimen>
     <dimen name="recycler_view_width">370dp</dimen>
     <dimen name="recycler_view_offset_start">15dp</dimen>
     <dimen name="recycler_view_offset_end">5dp</dimen>

@@ -25,6 +25,15 @@ public class Paper {
     @SerializedName("Logo")
     @Expose
     private String logo;
+    @SerializedName("Cover")
+    @Expose
+    private String cover;
+    @SerializedName("Background")
+    @Expose
+    private String background;
+    @SerializedName("Type")
+    @Expose
+    private String type;
     @SerializedName("BoardCode")
     @Expose
     private String boardCode;
@@ -61,6 +70,9 @@ public class Paper {
     @SerializedName("SubjectFullName")
     @Expose
     private String subjectFullName;
+    @SerializedName("ChapterCode")
+    @Expose
+    private String chapterCode;
     @SerializedName("ChapterName")
     @Expose
     private String chapterName;
@@ -70,9 +82,6 @@ public class Paper {
     @SerializedName("Year")
     @Expose
     private String year;
-    @SerializedName("Type")
-    @Expose
-    private String type;
     @SerializedName("PaperTime")
     @Expose
     private String paperTime;
@@ -97,6 +106,9 @@ public class Paper {
     @SerializedName("Solved")
     @Expose
     private String solved;
+    @SerializedName("Tags")
+    @Expose
+    private String tags;
     @SerializedName("Status")
     @Expose
     private String status;
@@ -396,4 +408,37 @@ public class Paper {
         this.paperGroup = paperGroup;
     }
 
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public String getChapterCode() {
+        return chapterCode;
+    }
+
+    public void setChapterCode(String chapterCode) {
+        this.chapterCode = chapterCode;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    public String getBackground() {
+        return background;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
+    }
 }
+
+

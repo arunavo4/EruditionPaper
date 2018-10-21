@@ -110,15 +110,17 @@ public class LoginUtils {
 
     public int person_details(String Eid, String Email) {
         String id = "";
+        Call<Person> personCall;
 
         if (Eid != null) {
             id = Eid;
-        } else if (Email != null) {
+            personCall = mService.getPersonDetailsEid(id);
+        } else{
             id = Email;
+            personCall = mService.getPersonDetailsEmail(id);
         }
 
         if (!id.contentEquals("")) {
-            Call<Person> personCall = mService.getPersonDetailsEid(id);
             personCall.enqueue(new Callback<Person>() {
                 @Override
                 public void onResponse(Call<Person> call, Response<Person> response) {

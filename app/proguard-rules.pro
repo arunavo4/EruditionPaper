@@ -20,6 +20,9 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+#RenderScript
+-keep class android.support.v8.renderscript.** { *; }
+
 #Retrofit
 -dontwarn retrofit.**
 -keep class retrofit.** { *; }

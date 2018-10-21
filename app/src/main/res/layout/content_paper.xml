@@ -10,20 +10,19 @@
     tools:context="in.co.erudition.paper.activity.PaperActivity"
     tools:showIn="@layout/activity_paper">
 
-    <LinearLayout
-        android:id="@+id/paper_list"
-        android:layout_width="@dimen/recycler_view_width"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal"
-        android:paddingStart="@dimen/recycler_view_offset_start"
-        android:paddingEnd="@dimen/recycler_view_offset_end">
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_scroll_paper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipeToRefresh3"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/paper_list"
+            android:layout_width="@dimen/recycler_view_width"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:paddingStart="@dimen/recycler_view_offset_start"
+            android:paddingEnd="@dimen/recycler_view_offset_end">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view_paper"
@@ -33,9 +32,9 @@
                 android:clipToPadding="false"
                 android:scrollbars="none"/>
 
-        </android.support.v4.widget.SwipeRefreshLayout>
+        </LinearLayout>
 
-    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
         android:id="@+id/no_paper_found"

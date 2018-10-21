@@ -46,6 +46,7 @@
     <dimen name="recycler_view_offset_start">15dp</dimen>
     <dimen name="recycler_view_offset_end">5dp</dimen>
     <dimen name="card_height_chapter">96dp</dimen>
+    <dimen name="chap_name_text_view_width">200dp</dimen>
     <dimen name="card_margin_chap_left_right">12dp</dimen>
     <dimen name="card_margin_chap_top_bottom">6dp</dimen>
 

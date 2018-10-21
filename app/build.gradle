@@ -13,6 +13,9 @@ android {
         versionName "1.0"
         resConfigs "en"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        renderscriptTargetApi 28
+        renderscriptSupportModeEnabled true
     }
     buildTypes {
         debug {
@@ -59,8 +62,8 @@ dependencies {
     //Facebook login
     implementation 'com.facebook.android:facebook-login:4.35.0'
 
-    //Circle image view
-    //implementation 'de.hdodenhof:circleimageview:2.1.0'
+    //Colour Shadow Circular view
+    implementation 'com.github.armcha:ColoredShadowImageView:1.1.0'
 
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'

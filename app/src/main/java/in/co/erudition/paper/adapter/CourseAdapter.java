@@ -1,5 +1,6 @@
 package in.co.erudition.paper.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -271,5 +273,27 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     public interface CourseItemListener {
         void onUniversityClick(String id);
+    }
+
+    private void showDialogComingSoon() {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_coming_soon, null);
+
+        Button btn_notify = (Button) view.findViewById(R.id.btn_notify);
+
+        final Dialog dialog = new Dialog(mContext, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
+
+        btn_notify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //retry and close dialogue
+                if (dialog.isShowing()) {
+                    dialog.cancel();
+//                    onBackPressed();
+                }
+            }
+        });
     }
 }
