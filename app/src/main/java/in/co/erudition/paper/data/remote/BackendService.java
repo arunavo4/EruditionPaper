@@ -4,7 +4,9 @@ import java.util.List;
 
 import in.co.erudition.paper.data.model.Chapter;
 import in.co.erudition.paper.data.model.JwtToken;
+import in.co.erudition.paper.data.model.Login;
 import in.co.erudition.paper.data.model.Paper;
+import in.co.erudition.paper.data.model.Person;
 import in.co.erudition.paper.data.model.University;
 import in.co.erudition.paper.data.model.UniversityCourse;
 import in.co.erudition.paper.data.model.Year;
@@ -21,11 +23,51 @@ import retrofit2.http.Query;
 
 public interface BackendService {
 
+    /*
+    Login and User data related Calls
+    */
+
     //jwt Token
     @POST("oauth4")
     @FormUrlEncoded
     Call<JwtToken> getToken(@Field("EId") String eid,
                               @Field("Password") String password);
+
+    //Email, Google, Facebook Login
+    @POST("login")
+    @FormUrlEncoded
+    Call<Login> signIn_idp(@Field("Social") String social,
+                           @Field("Email") String email,
+                           @Field("Password") String password);
+
+    //SignUp via Email
+    @POST("register")
+    @FormUrlEncoded
+    Call<Login> signUp_email(@Field("FirstName") String first_name,
+                             @Field("LastName") String last_name,
+                             @Field("Email") String email);
+
+    //Confirm Email/ Password Update
+    @POST("password")
+    @FormUrlEncoded
+    Call<Login> password_update_email(@Field("Email") String email,
+                                      @Field("SecretCode") String code,
+                                      @Field("Password") String password);
+
+    //Forgot Password
+    @POST("forgotpassword")
+    @FormUrlEncoded
+    Call<Login> forgot_password(@Field("Email") String email);
+
+
+    //Get User Detail By EId or Email
+    @POST("person")
+    @FormUrlEncoded
+    Call<Person> getPersonDetailsEid(@Field("EId") String eid);
+
+    @POST("person")
+    @FormUrlEncoded
+    Call<Person> getPersonDetailsEmail(@Field("Email") String email);
 
 
     /*

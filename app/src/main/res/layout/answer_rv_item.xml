@@ -13,6 +13,7 @@
         android:elevation="@dimen/spacer_8dp">
 
         <LinearLayout
+            android:id="@+id/answer_header"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/app_bar_plus_status_bar"

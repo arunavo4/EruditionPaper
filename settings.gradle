@@ -1,1 +1,1 @@
-include ':app', ':pageindicatorview', ':fabulousfilter', ':customfab', ':scalinglib', ':internal:lint', ':internal:lintchecks', ':auth'
+include ':app', ':pageindicatorview', ':fabulousfilter', ':customfab', ':scalinglib', ':internal:lint', ':internal:lintchecks', ':auth', ':avatar'

@@ -1,13 +1,17 @@
 <resources>
     <string name="app_name">Erudition Paper</string>
     <string name="blank"> </string>
-    
+
     <string name="add">ADD</string>
     <string name="continue_btn">CONTINUE</string>
+    <string name="play_btn">GOOGLE PLAY</string>
+    <string name="later_btn">LATER</string>
     <string name="time">Time:</string>
     <string name="marks">Marks:</string>
+    <string name="repeated">Repeated:</string>
     <string name="retry">Retry</string>
     <string name="go_back">Go Back</string>
+    <string name="notify_me">NOTIFY ME</string>
     <string name="referal_sample">ER007R</string>
     <string name="referal_code">Referral Code</string>
     <string name="title_activity_main">MainActivity</string>
@@ -21,15 +25,17 @@
     <string name="app_name_first">Erudition</string>
     <string name="app_name_sec">Paper</string>
 
-    <string name="search_text">Search Courses &amp; Subjects</string>
+    <string name="search_text">Search Questions</string>
 
     <string name="answers">Answer:</string>
     <string name="type_a_comment">Type a comment</string>
-    
+
+    <string name="edit_profile">Edit Details</string>
+
     <!--Books-->
-    <string name="coming_soon_top">Coming Soon</string>
-    <string name="coming_soon_bottom">Paperback Editions of Erudition Paper will be Available really soon.</string>
-    
+    <string name="book_top">Coming Soon</string>
+    <string name="book_bottom">Paperback Editions of Erudition Paper will be Available really soon.</string>
+
     <!--Offer-->
     <string name="offer_description">Offer Description</string>
     <string name="offer_dummy_text">Additional 5% Discount a minimum transaction of Rs.2000 using Axis Bank Credit &amp; Debit Cards Maximum discount per transaction is Rs.200 Offer Period: 4th April 2018 – 27th March 2019 (Wednesdays only) Offer is applicable on a maximum of 2 transactions per card per Wednesday Steps to avail offer: Select items to purchase for minimum of Rs.2000 Make payment using Axis Bank Credit &amp; Debit card Available On: Axis Bank Retail Credit Cards Axis Bank Retail Debit Card. LIC Credit Cards. Offer valid up to March 27,2019 </string>
@@ -46,12 +52,29 @@
     <string name="no_rewards_top">No Previous Rewards</string>
     <string name="no_rewards_bottom">Start Sharing with Your Friends &amp; After they Join Your Rewards will start appear here</string>
 
-    <!--No Internet and error-->
+    <!--No Internet and error and maintenance-->
     <string name="no_internet_top">No Internet</string>
     <string name="no_internet_bottom">Your internet connection was interrupted,  Please retry.</string>
     <string name="error_top">Some Error Occurred</string>
     <string name="error_bottom">The page you are looking for does not exist</string>
+    <string name="maintenance_top">Maintenance Break</string>
+    <string name="maintenance_bottom">Sorry, the servers are under maintenance. Please try again in about 30 minutes.</string>
+    <string name="page_not_found_top">Page Not Found</string>
+    <string name="page_not_found_bottom">The Page You are Looking for is not available</string>
+    <string name="coming_soon_top">Coming Soon</string>
+    <string name="coming_soon_bottom">We are about to add these Papers really soon So Click Notify Me so we can Inform You on your Registered Email Id when it became Live</string>
+
     <string name="no_papers">No Papers Found</string>
+    <string name="dialog_google_play">Glad to see you Like Erudition Paper!\n If you\'re up for it, we would really appreciate you reviewing us.</string>
+    <string name="awesome">Awesome!</string>
+
+    <!--Help and Feedback-->
+    <string name="like_erudition">Like Erudition Paper?</string>
+    <string name="faq">F.A.Q.</string>
+    <string name="submit_a_prob">Submit a Problem</string>
+    <string name="subject_help">Subject</string>
+    <string name="issues_faced">Issue Faced</string>
+    <string name="state_issues">State your Issue Here…</string>
 
     <!--Fab Action Menu-->
     <string name="offline_paper">Offline Papers</string>
@@ -61,6 +84,20 @@
     <string name="fb_messenger">Facebook Messenger</string>
     <string name="whatsapp">WhatsApp</string>
 
+    <!--Profile-->
+    <string name="mobile">Mobile</string>
+    <string name="email">E-Mail</string>
+    <string name="university_p">University</string>
+    <string name="college">College</string>
+    <string name="department">Department</string>
+    <string name="semester_p">Semester</string>
+    <string name="academic_details">Academic Details</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="gender">Gender</string>
+    <string name="dob">Date of Birth</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+
     <!--Navigation Drawer-->
     <string name="profile">Profile</string>
     <string name="order_history">Order History</string>
@@ -69,10 +106,17 @@
     <string name="books">Books</string>
     <string name="help">Help &amp; Feedback</string>
     <string name="setting">Settings</string>
+    <string name="privacy_p">Privacy Policy</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="about">About Erudition Paper</string>
 
     <!--Navigation Right-->
     <string name="no_notification">No New Notifications</string>
 
+    <!--Settings-->
+    <string name="clear_cache">Clear Cache</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="snackBar_clear_cache">App Cache Cleared!</string>
 
     <!--Menu Actions-->
     <string name="action_logout">Sign Out</string>
@@ -83,6 +127,7 @@
     <string name="action_offline_2">Remove Offline</string>
     <string name="action_bookmark">Bookmark</string>
     <string name="action_info">info</string>
+    <string name="action_photo">photo</string>
 
 
     <!--Choose-->
@@ -95,6 +140,9 @@
     <!--Chapter / Year-->
     <string name="chapter_wise">Chapter\nWise</string>
     <string name="year_wise">Year\nWise</string>
+
+    <string name="chapter_wise_new">Chapter Wise</string>
+    <string name="year_wise_new">Year Wise</string>
 
     <!--FaceBook -->
     <string name="facebook_application_id" translatable="false">1830176010527608</string>
@@ -122,6 +170,9 @@
     <string name="title_activity_offer">OfferActivity</string>
     <string name="title_activity_question">QuestionActivity</string>
     <string name="title_activity_answer">AnswerActivity</string>
+    <string name="title_activity_selection">SelectionActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_profile_edit">ProfileEditActivity</string>
 
 
 </resources>

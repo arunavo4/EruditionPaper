@@ -58,7 +58,7 @@
         to sign in. Enter your password for that account.
     </string>
     <string name="fui_progress_dialog_signing_in" translation_description="Progress dialog text">Signing in…</string>
-    <string name="fui_trouble_signing_in" translation_description="Link leading to forgot password flow">Trouble signing in?</string>
+    <string name="fui_trouble_signing_in" translation_description="Link leading to forgot password flow">Forgot Password?</string>
 
     <!-- Password recovery -->
     <string name="fui_title_recover_password_activity" translation_description="Recover password screen title">Recover password</string>

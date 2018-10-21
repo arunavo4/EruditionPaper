@@ -1,0 +1,68 @@
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/card_height_chap_year"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:layout_marginStart="@dimen/spacer_4dp"
+    android:layout_marginEnd="@dimen/card_margin_chap_left_right"
+    android:layout_marginBottom="@dimen/card_margin_chap_top_bottom"
+    android:layout_marginTop="@dimen/card_margin_chap_top_bottom"
+    android:padding="@dimen/card_padding_all"
+    app:cardCornerRadius="5dp"
+    app:cardUseCompatPadding="false"
+    app:cardBackgroundColor="@color/colorWhite"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacer_12dp"
+        android:layout_marginEnd="@dimen/spacer_12dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/ChapNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:layout_gravity="center_vertical"/>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="@dimen/spacer_2dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_vertical"
+                android:background="@color/colorPrimary54alpha"/>
+
+            <FrameLayout
+                android:layout_width="70dp"
+                android:layout_height="70dp">
+
+                <TextView
+                    android:id="@+id/tv_num"
+                    style="@style/ChapNumTextViewBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

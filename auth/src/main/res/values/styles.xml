@@ -29,19 +29,20 @@
     </style>
 
     <!--Custom Intro Style-->
-    <style name="TopTextView">
-        <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textColor">@color/fui_colorBlack</item>
+    <style name="TopTextViewNew">
+        <item name="android:textColor">@color/fui_colorMaterialBlack</item>
         <item name="android:layout_marginBottom">5dp</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/fui_source_sans_pro_semibold</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="BottomTextView">
         <item name="android:textColor">@color/fui_colorMaterialBlack</item>
         <item name="android:textAlignment">center</item>
         <item name="android:layout_marginTop">5dp</item>
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">normal</item>
     </style>
@@ -206,15 +207,16 @@
         <item name="android:layout_width">@dimen/fui_auth_method_button_width_new</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:drawablePadding">@dimen/fui_auth_method_button_drawablePadding</item>
         <item name="android:textStyle">bold</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
-        <item name="android:layout_marginLeft">@dimen/fui_auth_method_button_margin</item>
-        <item name="android:layout_marginRight">@dimen/fui_auth_method_button_margin</item>
+        <item name="android:layout_marginLeft">@dimen/fui_auth_method_btn_margin</item>
+        <item name="android:layout_marginRight">@dimen/fui_auth_method_btn_margin</item>
         <item name="android:gravity">left|center_vertical</item>
-        <item name="android:typeface">normal</item>
-        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
+        <item name="android:foreground">@drawable/fui_selectable_item_background</item>
     </style>
 
     <style name="FirebaseUI.Button.AccountChooser.EmailButton">
@@ -227,11 +229,11 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_gravity">center_horizontal</item>
-        <item name="android:typeface">normal</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textSize">16sp</item>
         <item name="android:background">@drawable/fui_email_bg</item>
         <item name="android:textColor">#000000</item>
-        <item name="android:foreground">?android:attr/selectableItemBackgroundBorderless</item>
+        <!--<item name="android:foreground">@drawable/fui_selectable_item_background</item>-->
     </style>
 
     <style name="FirebaseUI.Button.AccountChooser.PhoneButton">

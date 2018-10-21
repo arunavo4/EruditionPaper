@@ -3,7 +3,6 @@ package in.co.erudition.paper.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,19 +10,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import in.co.erudition.paper.R;
-import in.co.erudition.paper.activitiy.AnswerActivity;
-import in.co.erudition.paper.data.model.Paper;
+import in.co.erudition.paper.activity.AnswerActivity;
 import in.co.erudition.paper.data.model.PaperGroup;
 import in.co.erudition.paper.data.model.PaperQuestion;
 import in.co.erudition.paper.data.model.QuestionAnswer;
@@ -36,14 +30,16 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
     private List<PaperGroup> paperGroups;
     private List<PaperQuestion> paperQuestions;
     private ArrayList<QuestionAnswer> data;
+    private int group_pos;
     private Context mContext;
     private Intent mIntent;
     private StringBuilder str;
     private QuestionAdapter.QuestionItemListener mItemListener;
 
-    public QuestionAdapter(Context context, List<PaperGroup> mPapers, int pos, Intent intent, QuestionAdapter.QuestionItemListener itemListener){
+    public QuestionAdapter(Context context, List<PaperGroup> mPapers, int pos, Intent intent, QuestionAdapter.QuestionItemListener itemListener) {
         mContext = context;
         paperQuestions = mPapers.get(pos).getPaperQuestion();
+        group_pos = pos;
         mIntent = intent;
         paperGroups = mPapers;
         mItemListener = itemListener;
@@ -63,7 +59,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         str.append("    </style>\n <script src=\"prism.js\"></script>\n</head>");
         str.append("<body>\n");
 
-        Log.d("QuestionAdapter","Total Ques:" + String.valueOf(paperQuestions.size()));
+        Log.d("QuestionAdapter", "Total Ques:" + String.valueOf(paperQuestions.size()));
     }
 
     @Override
@@ -85,20 +81,22 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         final WebView q_tv = holder.ques_tv;
         TextView m_tv = holder.marks_tv;
         TextView q_no_tv = holder.ques_no_tv;
+        TextView r_tv = holder.repeated_tv;
 
         // Set item views based on your views and data model
         try {
             //q_tv.loadData(getHtmlData(ques.getQuestion()), "text/html", null);
-            q_tv.loadDataWithBaseURL("file:///android_asset/",getHtmlData(ques.getQuestion()), "text/html", "UTF-8", null);
+            q_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(ques.getQuestion()), "text/html", "UTF-8", null);
             m_tv.setText(ques.getMarks());
             q_no_tv.setText(ques.getQuestionNo() + ".");
+            r_tv.setText(ques.getRepeat());
 
+        } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
+            Log.e("Exception", e.toString());
         }
-        catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e)
-        {   Log.e("Exception",e.toString()); }
     }
 
-    private String getHtmlData(String data){
+    private String getHtmlData(String data) {
         return str.toString() + data + "</body>\n</html>";
     }
 
@@ -111,6 +109,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public WebView ques_tv;
         public TextView marks_tv;
+        public TextView repeated_tv;
         public TextView ques_no_tv;
 
         public ViewHolder(final View itemView) {
@@ -119,7 +118,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
             ques_tv = (WebView) itemView.findViewById(R.id.question_tv);
             marks_tv = (TextView) itemView.findViewById(R.id.marks_tv);
             ques_no_tv = (TextView) itemView.findViewById(R.id.ques_num);
-
+            repeated_tv = (TextView) itemView.findViewById(R.id.ques_repeat);
 
             ques_tv.getSettings().setJavaScriptEnabled(true);
 
@@ -130,7 +129,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                 }
             });
             ques_tv.setLongClickable(false);
-
 
 
             //Setting click events on both webview and the card
@@ -152,11 +150,11 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                             float endY = event.getY();
                             if (isAClick(startX, endX, startY, endY)) {
                                 itemView.callOnClick();     // WE HAVE A CLICK!!
-                                Log.d("WebView","Click");
+                                Log.d("WebView", "Click");
                             }
                             break;
                     }
-                    Log.d("itemView","Touched!");
+                    Log.d("itemView", "Touched!");
                     //Let the other functions work as intended
                     return false;
                 }
@@ -164,7 +162,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
                 private boolean isAClick(float startX, float endX, float startY, float endY) {
                     float differenceX = Math.abs(startX - endX);
                     float differenceY = Math.abs(startY - endY);
-                    return !(differenceX > mTouchSlop|| differenceY > mTouchSlop);
+                    return !(differenceX > mTouchSlop || differenceY > mTouchSlop);
                 }
             });
 
@@ -178,14 +176,15 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
             Log.d("Ques No:", String.valueOf(paperQuestion.getQuestionCode()));
 
             int position = getAdapterPosition();
-            if(position != RecyclerView.NO_POSITION) {
+            if (position != RecyclerView.NO_POSITION) {
                 //Now call the function to parcel the whole data and pass it along.
                 parcelData();
                 Intent intent = new Intent(mContext, AnswerActivity.class);
-                intent.putExtra("QUESTION_ADAPTER.parcelData",data);
+                intent.putExtra("QUESTION_ADAPTER.parcelData", data);
                 intent.putExtras(mIntent);
-                int pos = Integer.parseInt(paperQuestion.getQuestionCode()) - 1;
-                intent.putExtra("QUESTION_ADAPTER.position",pos);
+                int pos = Integer.parseInt(paperQuestion.getCode()) - 1;
+                pos = getQues_pos(group_pos, pos);
+                intent.putExtra("QUESTION_ADAPTER.position", pos);
                 mContext.startActivity(intent);
             }
         }
@@ -198,25 +197,36 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 //        notifyDataSetChanged();
 //    }
 
-    private void parcelData(){
+    private void parcelData() {
         try {
             //get the total data item count
-            for (int i=0;i<paperGroups.size();i++){
+            for (int i = 0; i < paperGroups.size(); i++) {
                 PaperGroup paperGroup = paperGroups.get(i);
                 List<PaperQuestion> paperQuestions = paperGroup.getPaperQuestion();
-                for (int j=0;j<paperQuestions.size();j++){
+                for (int j = 0; j < paperQuestions.size(); j++) {
                     PaperQuestion paperQuestion = paperQuestions.get(j);
-                    data.add(new QuestionAnswer(paperGroup,paperQuestion));
+                    data.add(new QuestionAnswer(paperGroup, paperQuestion));
                 }
             }
 
         } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
-            Log.e("Exception",e.toString());
+            Log.e("Exception", e.toString());
         }
     }
 
     private PaperQuestion getQues(int adapterPosition) {
         return paperQuestions.get(adapterPosition);
+    }
+
+    private int getQues_pos(int group_no, int ques_no) {
+        int pos = 0;
+        Log.d("Question group no:", String.valueOf(group_no));
+        for (int i = 0; i < group_no; i++) {
+            pos += paperGroups.get(i).getPaperQuestion().size();
+        }
+        pos += ques_no;
+        Log.d("Question pos:", String.valueOf(pos));
+        return pos;
     }
 
     public interface QuestionItemListener {

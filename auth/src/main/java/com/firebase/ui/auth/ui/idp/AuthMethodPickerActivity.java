@@ -26,6 +26,7 @@ import android.support.annotation.RestrictTo;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -50,14 +51,21 @@ import com.firebase.ui.auth.util.data.PrivacyDisclosureUtils;
 import com.firebase.ui.auth.viewmodel.ResourceObserver;
 import com.firebase.ui.auth.viewmodel.idp.ProviderSignInBase;
 import com.firebase.ui.auth.viewmodel.idp.SocialProviderResponseHandler;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FacebookAuthProvider;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.TwitterAuthProvider;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /** Presents the list of authentication options for this app to the user. */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
@@ -98,7 +106,26 @@ public class AuthMethodPickerActivity extends AppCompatBase {
         mHandler.getOperation().observe(this, new ResourceObserver<IdpResponse>(
                 this, R.string.fui_progress_dialog_signing_in) {
             @Override
-            protected void onSuccess(@NonNull IdpResponse response) {
+            protected void onSuccess(@NonNull final IdpResponse response) {
+                Log.d("auth:SingleSignIn","handler onSuccess");
+                Log.d("Provider Idp Token",response.getUser().getProviderId() + " : " + response.getIdpToken());
+                Log.d("User Email:",response.getEmail());
+
+                try{
+                    Class<?> loginUtilClass = Class.forName("in.co.erudition.paper.util.LoginUtils");
+                    final Object loginUtil = loginUtilClass.newInstance();
+
+                    final Method login_idp = loginUtil.getClass().getMethod("login_via_idp",String.class,String.class,String.class);
+                    try{
+                        String message = (String) login_idp.invoke(loginUtil,response.getUser().getProviderId(),response.getEmail(),response.getIdpToken());
+                        Log.d("login_idp_method: ",message);
+                    }catch (IllegalAccessException | InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 startSaveCredentials(mHandler.getCurrentUser(), response, null);
             }
 

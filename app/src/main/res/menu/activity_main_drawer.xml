@@ -42,4 +42,23 @@
                 android:title="@string/setting" />
     </group>
 
+    <item
+        android:id="@+id/nav_pp"
+        android:title="@string/privacy_p"
+        />
+
+    <item
+        android:id="@+id/nav_tos"
+        android:title="@string/terms_of_service"
+        />
+
+    <item
+        android:id="@+id/nav_about"
+        android:title="@string/about"
+        />
+
+    <item
+        android:id="@+id/nav_space"
+        android:title="@string/blank"
+        />
 </menu>

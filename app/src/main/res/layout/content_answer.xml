@@ -6,7 +6,7 @@
     android:animateLayoutChanges="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.co.erudition.paper.activitiy.AnswerActivity"
+    tools:context="in.co.erudition.paper.activity.AnswerActivity"
     tools:showIn="@layout/activity_answer">
 
     <android.support.v7.widget.RecyclerView

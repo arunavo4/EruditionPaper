@@ -2,14 +2,12 @@ package in.co.erudition.paper.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.TextView;
@@ -76,17 +74,18 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
         TextView mark_tv = holder.marks_tv;
         TextView ques_num_tv = holder.ques_no_tv;
 
-        try{
+        try {
             mToolbar.setTitle(questionAnswer.getGroupName());
             //q_tv.loadData(getHtmlData(ques.getQuestion()), "text/html", null);
-            question_tv.loadDataWithBaseURL("file:///android_asset/",getHtmlData(questionAnswer.getQuestion()), "text/html", "UTF-8", null);
-            answer_tv.loadDataWithBaseURL("file:///android_asset/",getHtmlData(questionAnswer.getAnswer()), "text/html", "UTF-8", null);
+            question_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(questionAnswer.getQuestion()), "text/html", "UTF-8", null);
+            answer_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(questionAnswer.getAnswer()), "text/html", "UTF-8", null);
 
             mark_tv.setText(questionAnswer.getMarks());
             ques_num_tv.setText(questionAnswer.getQuestionNo() + ".");
 
-        }catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e)
-        {   Log.e("Exception",e.toString()); }
+        } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
+            Log.e("Exception", e.toString());
+        }
     }
 
     @Override
@@ -94,7 +93,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
         return data.size();
     }
 
-    private String getHtmlData(String data){
+    private String getHtmlData(String data) {
         return str.toString() + data + "</body>\n</html>";
     }
 
@@ -152,18 +151,18 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
                             if (Math.abs(deltaX) > mTouchSlop) {
                                 // Left to Right swipe action
                                 if (x2 > x1) {
-                                    Log.d("WebView","left to right Swipe");
-                                    if (ques_tv.canScrollHorizontally(1)){
-                                        Log.d("Horizontal Scroll","left to right");
+                                    Log.d("WebView", "left to right Swipe");
+                                    if (ques_tv.canScrollHorizontally(1)) {
+                                        Log.d("Horizontal Scroll", "left to right");
                                         return true;
                                     }
                                 }
 
                                 // Right to left swipe action
                                 else {
-                                    Log.d("WebView","Right to left Swipe");
-                                    if (ques_tv.canScrollHorizontally(-1)){
-                                        Log.d("Horizontal Scroll","Right to left");
+                                    Log.d("WebView", "Right to left Swipe");
+                                    if (ques_tv.canScrollHorizontally(-1)) {
+                                        Log.d("Horizontal Scroll", "Right to left");
                                         return true;
                                     }
                                 }
@@ -173,13 +172,13 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
                             }
                             break;
                         case MotionEvent.ACTION_MOVE:
-                            Log.d("ques_tv","Moved");
-                            if (ques_tv.canScrollHorizontally(-1)){
-                                Log.d("Horizontal Scroll","left to right");
+                            Log.d("ques_tv", "Moved");
+                            if (ques_tv.canScrollHorizontally(-1)) {
+                                Log.d("Horizontal Scroll", "left to right");
                                 return true;
                             }
                     }
-                        Log.d("ques_tv","Touched!");
+                    Log.d("ques_tv", "Touched!");
                     return false;
                 }
             });
@@ -196,21 +195,21 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
 
     public void updateAnswers(Paper papers) {
         List<PaperGroup> paperGroups = papers.getPaperGroup();
-        Log.d("GroupAdapter","No of groups :" + String.valueOf(paperGroups.size()));
+        Log.d("GroupAdapter", "No of groups :" + String.valueOf(paperGroups.size()));
 
         try {
             //get the total data item count
-            for (int i=0;i<paperGroups.size();i++){
+            for (int i = 0; i < paperGroups.size(); i++) {
                 PaperGroup paperGroup = paperGroups.get(i);
                 List<PaperQuestion> paperQuestions = paperGroup.getPaperQuestion();
-                for (int j=0;j<paperQuestions.size();j++){
+                for (int j = 0; j < paperQuestions.size(); j++) {
                     PaperQuestion paperQuestion = paperQuestions.get(j);
-                    data.add(new QuestionAnswer(paperGroup,paperQuestion));
+                    data.add(new QuestionAnswer(paperGroup, paperQuestion));
                 }
             }
 
         } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
-            Log.e("Exception",e.toString());
+            Log.e("Exception", e.toString());
         }
 
         notifyDataSetChanged();

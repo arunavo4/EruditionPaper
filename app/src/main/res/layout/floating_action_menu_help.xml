@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="bottom|end"
     android:layout_marginEnd="@dimen/spacer_0dp"
-    android:layout_marginBottom="@dimen/nav_bar_height"
+    android:layout_marginBottom="@dimen/spacer_0dp"
     fab:menu_closeOnTouchOutside="true"
     fab:menu_shadowColor="#66E74C3C"
     fab:menu_shadowRadius="4dp"

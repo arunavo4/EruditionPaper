@@ -8,7 +8,7 @@
     See:
     https://developers.facebook.com/docs/facebook-login/android
     -->
-    <string name="facebook_application_id" translatable="false">CHANGE-ME</string>
+    <string name="facebook_application_id" translatable="false">1830176010527608</string>
 
     <!--
      To enable Chrome Custom Tabs for Facebook Login on devices without the Facebook app
@@ -18,7 +18,7 @@
      See:
      https://developers.facebook.com/docs/facebook-login/android#chrome_custom_tabs
     -->
-    <string name="facebook_login_protocol_scheme" translatable="false">fbYOUR_APP_ID</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb1830176010527608</string>
 
     <!--
     The Google web client ID associated with this Android application. The

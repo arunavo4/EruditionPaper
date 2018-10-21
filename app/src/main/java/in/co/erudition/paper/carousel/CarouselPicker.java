@@ -15,14 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import in.co.erudition.paper.R;
-import in.co.erudition.paper.activitiy.MainActivity;
-import in.co.erudition.paper.activitiy.OfferActivity;
+import in.co.erudition.paper.activity.MainActivity;
+import in.co.erudition.paper.activity.OfferActivity;
 
 /**
  * Created by Arunavo Ray on 14-06-2018.

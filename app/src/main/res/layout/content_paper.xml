@@ -7,48 +7,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="in.co.erudition.paper.activitiy.PaperActivity"
+    tools:context="in.co.erudition.paper.activity.PaperActivity"
     tools:showIn="@layout/activity_paper">
 
     <LinearLayout
         android:id="@+id/paper_list"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/recycler_view_width"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginStart="@dimen/recycler_view_offset">
+        android:layout_gravity="center_horizontal"
+        android:paddingStart="@dimen/recycler_view_offset_start"
+        android:paddingEnd="@dimen/recycler_view_offset_end">
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeToRefresh3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view_paper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:foregroundGravity="center_horizontal"
                 android:clipToPadding="false"
-                android:scrollbars="vertical"
-                android:padding="@dimen/item_offset"
-                android:background="@color/colorTransparent"/>
+                android:scrollbars="none"/>
 
         </android.support.v4.widget.SwipeRefreshLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/selection_chap_or_year"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="@dimen/recycler_view_offset"
-        android:gravity="center_horizontal"
-        android:visibility="gone">
-
-        <include android:id="@+id/chapter_btn"
-            layout="@layout/paper_btn_chap"/>
-
-        <include android:id="@+id/year_btn"
-            layout="@layout/paper_btn_year"/>
 
     </LinearLayout>
 

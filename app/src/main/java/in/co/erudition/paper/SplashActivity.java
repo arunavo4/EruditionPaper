@@ -1,13 +1,11 @@
 package in.co.erudition.paper;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import in.co.erudition.paper.activitiy.MainActivity;
+import in.co.erudition.paper.activity.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

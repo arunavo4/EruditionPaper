@@ -19,17 +19,20 @@
             android:layout_weight="0">
 
             <android.support.v7.widget.AppCompatImageView
-                android:layout_width="@dimen/group_width"
+                android:layout_width="match_parent"
+                android:minWidth="@dimen/group_width"
                 android:layout_height="@dimen/group_height"
                 app:srcCompat="@drawable/ic_group_view"/>
 
             <TextView
                 android:id="@+id/group_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacer_8dp"
+                android:layout_marginEnd="@dimen/spacer_8dp"
                 style="@style/GroupText"
-                android:layout_gravity="center"
-                android:text="Group-A"/>
+                android:layout_gravity="center"/>
+
         </FrameLayout>
 
         <FrameLayout

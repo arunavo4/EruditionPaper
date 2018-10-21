@@ -7,9 +7,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    tools:context="in.co.erudition.paper.activitiy.RewardHistoryActivity">
+    tools:context="in.co.erudition.paper.activity.RewardHistoryActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height_rewards_his"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -38,7 +39,7 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="@dimen/app_bar_height"
                 android:layout_marginTop="@dimen/toolbar_offset"
                 android:theme="@style/ToolBarStyle"
                 android:title="@string/app_name"
@@ -57,11 +58,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_marginEnd="@dimen/spacer_10dp"
-        android:layout_marginBottom="@dimen/nav_bar_height_plus_10dp"
+        android:layout_marginBottom="@dimen/spacer_10dp"
         fab:srcCompat="@drawable/ic_share"
         fab:fab_shadowXOffset="2dp"
         fab:fab_shadowYOffset="6dp"
-        fab:fab_label="@string/recent_papers"
         fab:fab_colorNormal="#E74C3C"
         fab:fab_colorPressed="#E75043"
         fab:fab_colorRipple="#99FFFFFF"

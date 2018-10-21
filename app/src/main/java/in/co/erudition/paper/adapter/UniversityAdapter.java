@@ -10,14 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
-import in.co.erudition.paper.activitiy.CourseActivity;
 import in.co.erudition.paper.R;
+import in.co.erudition.paper.activity.CourseActivity;
 import in.co.erudition.paper.data.model.University;
+import in.co.erudition.paper.util.GlideApp;
 
 /**
  * Created by Arunavo Ray on 31-03-2018.
@@ -29,7 +29,7 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Vi
     private Context mContext;
     private UniversityItemListener mItemListener;
 
-    public UniversityAdapter(Context context,List<University> universities, UniversityItemListener itemListener){
+    public UniversityAdapter(Context context, List<University> universities, UniversityItemListener itemListener) {
         mContext = context;
         mUniversities = universities;
         mItemListener = itemListener;
@@ -57,19 +57,17 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Vi
         TextView mUNameTV = holder.mUniversityNameTV;
 //        View nav_space = holder.spacer;
 
-        try{
-            Log.d("UnivesityImage",mUniversity.getLogo());
-            Log.d("UnivesityName",mUniversity.getName());
-        }
-        catch (Exception e)
-        {
-            Log.e("Exception",e.toString());
+        try {
+            Log.d("UnivesityImage", mUniversity.getLogo());
+            Log.d("UnivesityName", mUniversity.getName());
+        } catch (Exception e) {
+            Log.e("Exception", e.toString());
         }
 
         // Set item views based on your views and data model
         try {
-            if(!mUniversity.getLogo().contentEquals("#")) {
-                Glide
+            if (!mUniversity.getLogo().contentEquals("#")) {
+                GlideApp
                         .with(mContext)
                         .load(mUniversity.getLogo())
                         .apply(RequestOptions.placeholderOf(R.drawable.bg_white))
@@ -82,9 +80,9 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Vi
 //                Log.d("Nav Spacer","inflated");
 //                nav_space.setVisibility(View.VISIBLE);
 //            }
+        } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
+            Log.e("Exception", e.toString());
         }
-        catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e)
-        {   Log.e("Exception",e.toString()); }
     }
 
     @Override
@@ -118,12 +116,12 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Vi
             Log.d("UniversityId:", String.valueOf(mUniversity.getId()));
 
             int position = getAdapterPosition();
-            if(position != RecyclerView.NO_POSITION) {
+            if (position != RecyclerView.NO_POSITION) {
                 Intent intent = new Intent(mContext, CourseActivity.class);
                 intent.putExtra("UniversityActivity.EXTRA_PHOTO_URL", mUniversity.getLogo());
-                intent.putExtra("UniversityActivity.EXTRA_University_NAME",mUniversity.getName());
-                intent.putExtra("UniversityActivity.EXTRA_University_FULL_NAME",mUniversity.getFullName());
-                intent.putExtra("UniversityActivity.EXTRA_BoardCode",mUniversity.getCode());
+                intent.putExtra("UniversityActivity.EXTRA_University_NAME", mUniversity.getName());
+                intent.putExtra("UniversityActivity.EXTRA_University_FULL_NAME", mUniversity.getFullName());
+                intent.putExtra("UniversityActivity.EXTRA_BoardCode", mUniversity.getCode());
                 mContext.startActivity(intent);
             }
 

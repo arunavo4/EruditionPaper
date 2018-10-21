@@ -14,6 +14,9 @@ public class PaperQuestion {
     @SerializedName("Answer")
     @Expose
     private String answer;
+    @SerializedName("Repeat")
+    @Expose
+    private String repeat;
     @SerializedName("Code")
     @Expose
     private String code;
@@ -84,5 +87,13 @@ public class PaperQuestion {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getRepeat() {
+        return repeat;
+    }
+
+    public void setRepeat(String repeat) {
+        this.repeat = repeat;
     }
 }

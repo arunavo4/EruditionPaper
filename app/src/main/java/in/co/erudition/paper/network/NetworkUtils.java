@@ -25,9 +25,7 @@ public class NetworkUtils {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) mContext.getSystemService(mContext.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-        boolean isWiFi = activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
-
-        return isWiFi;
+        return activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
     }
 
     public boolean isOnline(Context mContext){

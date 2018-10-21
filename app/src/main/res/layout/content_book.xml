@@ -7,14 +7,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="in.co.erudition.paper.activitiy.BookActivity"
+    tools:context="in.co.erudition.paper.activity.BookActivity"
     tools:showIn="@layout/activity_book">
 
     <ImageView
         android:id="@+id/img_empty_sub"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:layout_gravity="bottom|center_horizontal"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_coming_soon" />
 
@@ -32,14 +32,14 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="5dp"
             style="@style/TopTextView"
-            android:text="@string/coming_soon_top"/>
+            android:text="@string/book_top"/>
 
         <TextView
             android:layout_width="236dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             style="@style/BottomTextView"
-            android:text="@string/coming_soon_bottom"/>
+            android:text="@string/book_bottom"/>
 
     </LinearLayout>
 

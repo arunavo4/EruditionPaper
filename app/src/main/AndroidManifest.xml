@@ -14,10 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_application_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_application_id" />
+
         <activity
             android:name=".LoginActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
@@ -29,66 +33,85 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activitiy.MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/blank"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activitiy.OrderActivity"
+            android:name=".activity.OrderActivity"
             android:label="@string/blank"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activitiy.HelpActivity"
+            android:name=".activity.HelpActivity"
             android:label="@string/blank"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activitiy.BookActivity"
+            android:name=".activity.BookActivity"
             android:label="@string/blank"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activitiy.ProfileActivity"
+            android:name=".activity.ProfileActivity"
             android:label="@string/blank"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activitiy.CourseActivity"
-            android:label="@string/blank"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activitiy.PaperActivity"
+            android:name=".activity.CourseActivity"
             android:label="@string/blank"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activitiy.RewardActivity"
+            android:name=".activity.PaperActivity"
             android:label="@string/blank"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activitiy.RewardHistoryActivity"
+            android:name=".activity.RewardActivity"
             android:label="@string/blank"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activitiy.SearchActivity"
+            android:name=".activity.RewardHistoryActivity"
+            android:label="@string/blank"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.SearchActivity"
             android:label="@string/title_activity_search"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activitiy.OfferActivity"
+            android:name=".activity.OfferActivity"
             android:label="@string/blank"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activitiy.QuestionActivity"
+            android:name=".activity.QuestionActivity"
+            android:label="@string/blank"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity
+            android:name=".activity.AnswerActivity"
+            android:label="@string/blank"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
+        <activity
+            android:name=".activity.SelectionActivity"
             android:label="@string/blank"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activitiy.AnswerActivity"
-            android:label="@string/title_activity_answer"
+            android:name=".activity.SettingsActivity"
+            android:label="@string/blank"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.WebviewActivity"
+            android:label="@string/blank"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ProfileEditActivity"
+            android:label="@string/blank"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

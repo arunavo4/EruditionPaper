@@ -6,7 +6,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/paper_stack_bg"
         android:layout_width="wrap_content"

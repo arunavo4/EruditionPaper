@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_header_right"
     android:layout_width="match_parent"
     android:layout_height="@dimen/app_bar_plus_status_bar"
     android:background="@color/colorPrimary"
@@ -8,6 +9,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <View
+        android:id="@+id/fake_status_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/status_bar_height"
         android:background="@color/colorBlack25alpha"
