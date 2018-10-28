@@ -274,6 +274,7 @@ public class AnswerActivity extends AppCompatActivity {
             }
         }
         super.onBackPressed();
+        timer.cancel();
     }
 
     @Override

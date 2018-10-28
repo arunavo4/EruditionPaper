@@ -55,7 +55,7 @@ public class SelectionActivity extends AppCompatActivity {
         final LinearLayout selection = (LinearLayout) findViewById(R.id.selection_chap_or_year);
         TextView title = (TextView) findViewById(R.id.university_name_tv);
 
-        title.setText(getIntent().getStringExtra("UniversityActivity.EXTRA_University_FULL_NAME"));
+        title.setText(getIntent().getStringExtra("CourseActivity.EXTRA_Subject_FULL_NAME"));
 
         // To set the background of the activity go below the StatusBar
         getWindow().getDecorView().setSystemUiVisibility(
@@ -160,7 +160,7 @@ public class SelectionActivity extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_container);
         try {
 //            collapsingToolbarLayout.setTitle(getIntent().getStringExtra("UniversityActivity.EXTRA_University_FULL_NAME"));
-            collapsingToolbarLayout.setTitle(getIntent().getStringExtra("UniversityActivity.EXTRA_University_NAME"));
+            collapsingToolbarLayout.setTitle(getIntent().getStringExtra("CourseActivity.EXTRA_Subject_NAME"));
         } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
             Log.e("Exception", e.toString());
         }
