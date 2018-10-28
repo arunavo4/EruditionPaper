@@ -41,18 +41,21 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     private Context mContext;
     private CourseAdapter.CourseItemListener mItemListener;
     private TextView mChooseTV;
+    private TextView mTitleTV;
     private CollapsingToolbarLayout mTopTV;
     private String[] NameStr;
+    private String[] NameStrFull;
     private int selector;
 
     private Intent intent;
 
-    public CourseAdapter(Context context, UniversityCourse universityCourseList, String array[], TextView textView, CollapsingToolbarLayout collapsingToolbarLayout, CourseAdapter.CourseItemListener itemListener) {
+    public CourseAdapter(Context context, UniversityCourse universityCourseList, String array[], TextView textView, TextView title, CollapsingToolbarLayout collapsingToolbarLayout, CourseAdapter.CourseItemListener itemListener) {
         mContext = context;
         universityCourses = universityCourseList;
         mItemListener = itemListener;
         paramsStore = array;
         mChooseTV = textView;
+        mTitleTV = title;
         mTopTV = collapsingToolbarLayout;
 
         boardCourses = new ArrayList<BoardCourse>();
@@ -60,6 +63,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         boardSubjects = new ArrayList<BoardSubject>();
 
         NameStr = new String[4];
+        NameStrFull = new String[4];
         selector = 0;
         intent = new Intent(mContext, SelectionActivity.class);
     }
@@ -128,7 +132,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             mCodeTV.setText(mCodeStr);
 
             if (selector == 1) {
-                mCodeFullTV.setText(mTopTV.getTitle());
+                mCodeFullTV.setText(mTitleTV.getText());
             } else {
                 mCodeFullTV.setText(mCodeFullStr);
             }
@@ -139,7 +143,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
             if (getItemCount() - 1 == holder.getAdapterPosition()) {
                 Log.d("Nav Spacer", "inflated");
-                nav_space.setVisibility(View.VISIBLE);
+//                nav_space.setVisibility(View.VISIBLE);    //TODO: Turn it on when there is no ads
             }
         } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
             Log.e("Exception", e.toString());
@@ -222,7 +226,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                     case 0:
                         setParams(boardCourses.get(position).getCode());
                         selector += 1;
-                        NameStr[selector] = boardCourses.get(position).getFullName();
+                        NameStr[selector] = boardCourses.get(position).getName();
+                        NameStrFull[selector] = boardCourses.get(position).getFullName();
                         mItemListener.onUniversityClick("0");
                         break;
 
@@ -230,6 +235,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                         setParams(boardSessions.get(position).getCode());
                         selector += 1;
                         NameStr[selector] = boardSessions.get(position).getFullName();
+                        NameStrFull[selector] = boardCourses.get(position).getFullName();
                         mItemListener.onUniversityClick("0");
                         break;
 
@@ -249,7 +255,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     public void updateUniversitiesFull(UniversityCourse universityCourseList) {
         universityCourses = universityCourseList;
         updateData();
-        NameStr[0] = universityCourses.getFullName();
+        NameStr[0] = universityCourses.getName();
+        NameStrFull[0] = universityCourses.getFullName();
         notifyDataSetChanged();
     }
 
@@ -269,6 +276,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         String Str = StaticStr + Choice[selector];
         mChooseTV.setText(Str);
         mTopTV.setTitle(NameStr[selector]);
+        mTitleTV.setText(NameStrFull[selector]);
     }
 
     public interface CourseItemListener {

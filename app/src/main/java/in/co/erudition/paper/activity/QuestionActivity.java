@@ -99,14 +99,14 @@ public class QuestionActivity extends AppCompatActivity {
                 // Load the next interstitial.
                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
                 //Set the timer Again
-                timer = new AdCountDownTimer(60000,1000);
+                timer = new AdCountDownTimer(15000,1000);
                 timer.start();
             }
 
         });
 
         //Set a timer for 1 min
-        timer = new AdCountDownTimer(60000,1000);
+        timer = new AdCountDownTimer(15000,1000);
         timer.start();
 
         ViewGroup linearLayout = (ViewGroup) findViewById(R.id.ques_linear_layout);

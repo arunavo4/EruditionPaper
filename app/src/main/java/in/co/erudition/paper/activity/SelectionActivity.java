@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.ads.AdRequest;
@@ -40,7 +41,7 @@ public class SelectionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selection);
+        setContentView(R.layout.activity_selection_old);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         //Load Ads
@@ -52,6 +53,9 @@ public class SelectionActivity extends AppCompatActivity {
         CardView yearBtn = (CardView) findViewById(R.id.year_btn);
         CardView chapBtn = (CardView) findViewById(R.id.chapter_btn);
         final LinearLayout selection = (LinearLayout) findViewById(R.id.selection_chap_or_year);
+        TextView title = (TextView) findViewById(R.id.university_name_tv);
+
+        title.setText(getIntent().getStringExtra("UniversityActivity.EXTRA_University_FULL_NAME"));
 
         // To set the background of the activity go below the StatusBar
         getWindow().getDecorView().setSystemUiVisibility(
@@ -83,6 +87,11 @@ public class SelectionActivity extends AppCompatActivity {
                 params.bottomMargin = insets.getSystemWindowInsetBottom();
                 fab.invalidate();
                 fab.requestLayout();
+
+                params = (ViewGroup.MarginLayoutParams) mAdView.getLayoutParams();
+                params.bottomMargin = insets.getSystemWindowInsetBottom();
+                mAdView.invalidate();
+                mAdView.requestLayout();
 
                 return insets.consumeSystemWindowInsets();
             });
@@ -150,7 +159,8 @@ public class SelectionActivity extends AppCompatActivity {
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_container);
         try {
-            collapsingToolbarLayout.setTitle(getIntent().getStringExtra("CourseActivity.EXTRA_Subject_FULL_NAME"));
+//            collapsingToolbarLayout.setTitle(getIntent().getStringExtra("UniversityActivity.EXTRA_University_FULL_NAME"));
+            collapsingToolbarLayout.setTitle(getIntent().getStringExtra("UniversityActivity.EXTRA_University_NAME"));
         } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
             Log.e("Exception", e.toString());
         }

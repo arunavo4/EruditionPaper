@@ -37,6 +37,8 @@ import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import org.w3c.dom.Text;
+
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.adapter.CourseAdapter;
 import in.co.erudition.paper.data.model.UniversityCourse;
@@ -63,12 +65,13 @@ public class CourseActivity extends AppCompatActivity {
     private String params[];
 
     private CollapsingToolbarLayout collapsingToolbarLayout;
+    private TextView title;
 //    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course);
+        setContentView(R.layout.activity_course_old);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         //Load Ads
@@ -82,6 +85,7 @@ public class CourseActivity extends AppCompatActivity {
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar_course);
         TextView mChooseTV = (TextView) findViewById(R.id.choose_tv);
+        title = (TextView) findViewById(R.id.university_name_tv);
 //        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeToRefresh2);
         mCourseList = (LinearLayout) findViewById(R.id.course_list);
 
@@ -127,6 +131,11 @@ public class CourseActivity extends AppCompatActivity {
                 params.bottomMargin = insets.getSystemWindowInsetBottom();
                 fab.invalidate();
                 fab.requestLayout();
+
+                params = (ViewGroup.MarginLayoutParams) mAdView.getLayoutParams();
+                params.bottomMargin = insets.getSystemWindowInsetBottom();
+                mAdView.invalidate();
+                mAdView.requestLayout();
 
                 return insets.consumeSystemWindowInsets();
             });
@@ -186,6 +195,7 @@ public class CourseActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(bg);
 //        toolbar.setTitle(getIntent().getStringExtra("UniversityActivity.EXTRA_University_NAME"));
         toolbar.setTitle(R.string.blank);
+        title.setText(getIntent().getStringExtra("UniversityActivity.EXTRA_University_FULL_NAME"));
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -205,7 +215,8 @@ public class CourseActivity extends AppCompatActivity {
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_container);
         try {
-            collapsingToolbarLayout.setTitle(getIntent().getStringExtra("UniversityActivity.EXTRA_University_FULL_NAME"));
+//            collapsingToolbarLayout.setTitle(getIntent().getStringExtra("UniversityActivity.EXTRA_University_FULL_NAME"));
+            collapsingToolbarLayout.setTitle(getIntent().getStringExtra("UniversityActivity.EXTRA_University_NAME"));
         } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
             Log.e("Exception", e.toString());
         }
@@ -215,7 +226,7 @@ public class CourseActivity extends AppCompatActivity {
 
         mService = ApiUtils.getBackendService();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_university_selected);
-        mAdapter = new CourseAdapter(this, new UniversityCourse(), params, mChooseTV, collapsingToolbarLayout, new CourseAdapter.CourseItemListener() {
+        mAdapter = new CourseAdapter(this, new UniversityCourse(), params, mChooseTV, title, collapsingToolbarLayout, new CourseAdapter.CourseItemListener() {
             @Override
             public void onUniversityClick(String id) {
                 mProgressBar.setVisibility(View.VISIBLE);
