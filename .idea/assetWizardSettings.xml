@@ -23,7 +23,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="91" />
+                                                <entry key="scalingPercent" value="102" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -34,8 +34,11 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundImage" value="G:\Programming\E-commerce\Android\EruditionPaper2\app\src\main\res\drawable\ic_launcher_background.xml" />
+                                      <entry key="backgroundLayerName" value="ic_erudition_background" />
                                       <entry key="foregroundImage" value="G:\Programming\E-commerce\Android\EruditionPaper2\app\src\main\res\drawable\ic_launcher_foreground.xml" />
+                                      <entry key="foregroundLayerName" value="ic_erudition_foreground" />
                                       <entry key="legacyIconShape" value="CIRCLE" />
+                                      <entry key="previewDensity" value="XXHIGH" />
                                       <entry key="showGrid" value="true" />
                                       <entry key="webIconShape" value="CIRCLE" />
                                     </map>

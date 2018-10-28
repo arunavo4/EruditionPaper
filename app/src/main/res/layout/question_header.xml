@@ -9,7 +9,7 @@
     android:layout_marginTop="@dimen/status_bar_height"
     android:orientation="vertical">
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/university_img"
         android:layout_width="@dimen/card_image_view"
         android:layout_height="@dimen/card_image_view"

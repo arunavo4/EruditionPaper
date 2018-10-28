@@ -20,7 +20,7 @@ package com.firebase.ui.auth.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.RestrictTo;
+import androidx.annotation.RestrictTo;
 
 import java.text.Collator;
 import java.util.Locale;

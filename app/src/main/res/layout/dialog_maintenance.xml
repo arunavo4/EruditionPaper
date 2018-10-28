@@ -21,7 +21,7 @@
             style="@style/TopTextView"
             android:text="@string/maintenance_top"/>
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

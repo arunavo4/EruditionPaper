@@ -15,7 +15,7 @@
 package com.firebase.ui.auth.ui.email;
 
 import android.content.Intent;
-import android.support.design.widget.TextInputLayout;
+import com.google.android.material.textfield.TextInputLayout;
 import android.widget.Button;
 
 import com.firebase.ui.auth.IdpResponse;

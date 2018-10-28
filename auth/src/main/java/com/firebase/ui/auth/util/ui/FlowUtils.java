@@ -3,8 +3,8 @@ package com.firebase.ui.auth.util.ui;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.IntentSender;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.data.model.IntentRequiredException;

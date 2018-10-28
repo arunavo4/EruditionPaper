@@ -1,8 +1,8 @@
 package com.firebase.ui.auth.data.remote;
 
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 import android.text.TextUtils;
 
 import com.firebase.ui.auth.IdpResponse;

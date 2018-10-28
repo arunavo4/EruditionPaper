@@ -17,11 +17,11 @@ package com.firebase.ui.auth.ui.email;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewCompat;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.core.view.ViewCompat;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;

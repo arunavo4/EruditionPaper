@@ -1,9 +1,9 @@
 package com.firebase.ui.auth.ui;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import androidx.fragment.app.Fragment;
 import android.view.ContextThemeWrapper;
 
 import com.firebase.ui.auth.IdpResponse;

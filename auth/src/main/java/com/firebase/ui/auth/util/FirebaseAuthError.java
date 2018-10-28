@@ -1,6 +1,6 @@
 package com.firebase.ui.auth.util;
 
-import android.support.annotation.RestrictTo;
+import androidx.annotation.RestrictTo;
 
 import com.google.firebase.auth.FirebaseAuthException;
 

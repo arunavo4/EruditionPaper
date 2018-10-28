@@ -1,6 +1,6 @@
 package in.co.erudition.avatar;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public interface AvatarLoader {
     void loadImage(@NonNull AvatarView avatarView, @NonNull AvatarPlaceholder avatarPlaceholder, String avatarUrl);

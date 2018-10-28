@@ -1,6 +1,6 @@
 package in.co.erudition.avatar;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public abstract class AvatarLoaderBase implements AvatarLoader {
 

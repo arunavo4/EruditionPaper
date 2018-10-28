@@ -10,11 +10,11 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.Log;
 
-public class AvatarView extends android.support.v7.widget.AppCompatImageView {
+public class AvatarView extends androidx.appcompat.widget.AppCompatImageView {
 
     private int defaultBorderColor;
     private int defaultBorderWidth;

@@ -6,13 +6,13 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DimenRes;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DimenRes;
+import androidx.core.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 
-import static android.support.v4.view.ViewCompat.LAYER_TYPE_SOFTWARE;
+import static androidx.core.view.ViewCompat.LAYER_TYPE_SOFTWARE;
 /**
  * Created by Arunavo Ray on 16-06-2018.
  */

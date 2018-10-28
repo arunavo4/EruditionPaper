@@ -3,7 +3,7 @@ package in.co.erudition.paper.misc;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import android.support.design.widget.AppBarLayout;
+import com.google.android.material.appbar.AppBarLayout;
 import android.util.AttributeSet;
 import android.view.WindowInsets;
 

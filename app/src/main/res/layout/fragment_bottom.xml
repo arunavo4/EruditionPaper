@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/btn_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
             android:layout_alignBottom="@+id/header_comment"
             android:background="@color/colorBlack25alpha"/>
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_comments"
@@ -113,7 +113,7 @@
                 android:elevation="@dimen/spacer_12dp"
                 android:layout_weight="1">
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/btn_send"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

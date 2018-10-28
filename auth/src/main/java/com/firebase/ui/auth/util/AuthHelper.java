@@ -1,7 +1,7 @@
 package com.firebase.ui.auth.util;
 
-import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 
 import com.firebase.ui.auth.data.model.FlowParameters;
 import com.google.firebase.FirebaseApp;

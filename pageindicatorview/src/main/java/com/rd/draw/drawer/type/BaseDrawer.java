@@ -3,7 +3,7 @@ package com.rd.draw.drawer.type;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.rd.draw.IndicatorShape;
 import com.rd.draw.data.Indicator;

@@ -1,9 +1,9 @@
 package com.firebase.ui.auth.viewmodel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.support.annotation.CallSuper;
-import android.support.annotation.RestrictTo;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.annotation.CallSuper;
+import androidx.annotation.RestrictTo;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

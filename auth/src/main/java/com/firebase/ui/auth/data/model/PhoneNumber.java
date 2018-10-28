@@ -17,7 +17,7 @@
  */
 package com.firebase.ui.auth.data.model;
 
-import android.support.annotation.RestrictTo;
+import androidx.annotation.RestrictTo;
 import android.text.TextUtils;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)

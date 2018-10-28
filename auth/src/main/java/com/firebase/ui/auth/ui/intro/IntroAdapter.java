@@ -1,10 +1,10 @@
 package com.firebase.ui.auth.ui.intro;
 
 import android.content.Context;
-import android.graphics.pdf.PdfDocument;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 public class IntroAdapter extends FragmentPagerAdapter {
     private final int PAGE_COUNT = 3;

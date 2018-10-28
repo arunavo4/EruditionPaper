@@ -16,7 +16,7 @@ package com.firebase.ui.auth.ui.phone;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
+import com.google.android.material.textfield.TextInputLayout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -258,7 +258,7 @@ public class PhoneActivityTest {
                      getAlertDialogMessage());
 
         //test bad code cleared on clicking OK in alert
-        android.support.v7.app.AlertDialog a = mActivity.getAlertDialog();
+        androidx.appcompat.app.AlertDialog a = mActivity.getAlertDialog();
         Button ok = a.findViewById(android.R.id.button1);
         ok.performClick();
         assertEquals("- - - - - -", mConfirmationCodeEditText.getText().toString());
@@ -391,7 +391,7 @@ public class PhoneActivityTest {
     }
 
     private String getAlertDialogMessage() {
-        android.support.v7.app.AlertDialog a = mActivity.getAlertDialog();
+        androidx.appcompat.app.AlertDialog a = mActivity.getAlertDialog();
         assertTrue(a.isShowing());
         return ((TextView) (a.findViewById(android.R.id.message))).getText().toString();
     }

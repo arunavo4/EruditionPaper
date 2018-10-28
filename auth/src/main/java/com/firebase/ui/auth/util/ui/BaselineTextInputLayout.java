@@ -1,8 +1,8 @@
 package com.firebase.ui.auth.util.ui;
 
 import android.content.Context;
-import android.support.annotation.RestrictTo;
-import android.support.design.widget.TextInputLayout;
+import androidx.annotation.RestrictTo;
+import com.google.android.material.textfield.TextInputLayout;
 import android.util.AttributeSet;
 import android.widget.EditText;
 

@@ -75,30 +75,30 @@ public interface BackendService {
     @POST("person/{EId}")
     @FormUrlEncoded
     Call<PresetResponseCode> updatePerson(@Path("EId") String eid,
-                             @Field("FirstName") String first_name,
-                             @Field("LastName") String last_name,
-                             @Field("Phone") String phone,
-                             @Field("DOB") String dob,
-                             @Field("Gender") String gender);
+                                          @Field("FirstName") String first_name,
+                                          @Field("LastName") String last_name,
+                                          @Field("Phone") String phone,
+                                          @Field("Gender") String gender,
+                                          @Field("DOB")String dob);
 
     @POST("person/{EId}")
     @FormUrlEncoded
     Call<PresetResponseCode> updatePerson(@Path("EId") String eid,
-                             @Field("FirstName") String first_name,
-                             @Field("LastName") String last_name);
+                                          @Field("FirstName") String first_name,
+                                          @Field("LastName") String last_name);
 
     @POST("person/{EId}")
     @FormUrlEncoded
     Call<PresetResponseCode> updatePerson(@Path("EId") String eid,
-                             @Field("Phone") String phone,
-                             @Field("DOB") String dob,
-                             @Field("Gender") String gender);
+                                          @Field("Phone") String phone,
+                                          @Field("Gender") String gender,
+                                          @Field("DOB") String dob);
 
     //Upload the Avatar
     @POST("person/{EId}")
     @Multipart
     Call<PresetResponseCode> uploadAvatar(@Path("EId") String eid,
-                             @Field("Avatar") String avatar);
+                                          @Field("Avatar") String avatar);
 
 
 

@@ -18,6 +18,8 @@ public class PreferenceUtils {
     }
 
     public static void writePersonDetails(Person person){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
         mPrefsEdit = mPrefs.edit();
         mPrefsEdit.putString("Avatar", person.getAvatar());
         mPrefsEdit.putString("ProfileImage", person.getProfileImage());
@@ -64,6 +66,8 @@ public class PreferenceUtils {
     }
 
     static void writeLoginDetails(Login login, String userEmail){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
         mPrefsEdit = mPrefs.edit();
         mPrefsEdit.putString("EId", login.geteId());
         mPrefsEdit.putString("Email", userEmail);

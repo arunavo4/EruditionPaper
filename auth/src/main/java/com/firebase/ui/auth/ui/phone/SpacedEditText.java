@@ -20,7 +20,7 @@ package com.firebase.ui.auth.ui.phone;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.design.widget.TextInputEditText;
+import com.google.android.material.textfield.TextInputEditText;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;

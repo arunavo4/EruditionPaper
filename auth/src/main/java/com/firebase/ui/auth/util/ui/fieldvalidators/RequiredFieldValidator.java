@@ -14,8 +14,8 @@
 
 package com.firebase.ui.auth.util.ui.fieldvalidators;
 
-import android.support.annotation.RestrictTo;
-import android.support.design.widget.TextInputLayout;
+import androidx.annotation.RestrictTo;
+import com.google.android.material.textfield.TextInputLayout;
 
 import com.firebase.ui.auth.R;
 

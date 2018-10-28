@@ -2,7 +2,7 @@ package com.firebase.ui.auth.ui;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 /**
  * Helper class to manage a ProgressDialog.

@@ -6,31 +6,28 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputEditText;
-import android.support.graphics.drawable.VectorDrawableCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.WindowInsetsCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.appbar.AppBarLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.firebase.ui.auth.util.data.PrivacyDisclosureUtils;
 import com.github.clans.fab.FloatingActionButton;
 
 import java.util.Calendar;
 
 import in.co.erudition.paper.R;
-import in.co.erudition.paper.data.model.Person;
 import in.co.erudition.paper.data.model.PresetResponseCode;
 import in.co.erudition.paper.data.remote.BackendService;
 import in.co.erudition.paper.network.NetworkUtils;
@@ -118,6 +115,7 @@ public class ProfileEditActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Check if data has been entered in any input
                 //and make the api calls
+//                fab.show
                 getPersonalData();
                 updatePerson();
             }

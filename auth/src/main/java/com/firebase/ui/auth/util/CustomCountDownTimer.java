@@ -15,8 +15,8 @@
 package com.firebase.ui.auth.util;
 
 import android.os.CountDownTimer;
-import android.support.annotation.RestrictTo;
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.RestrictTo;
+import androidx.annotation.VisibleForTesting;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public abstract class CustomCountDownTimer {

@@ -1,8 +1,8 @@
 package com.rd.draw.controller;
 
 import android.graphics.Canvas;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.rd.animation.data.Value;
 import com.rd.animation.type.AnimationType;
 import com.rd.draw.data.Indicator;
