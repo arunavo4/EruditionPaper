@@ -17,17 +17,12 @@ import retrofit2.Response;
 
 public class LoginUtils {
     private BackendService mService;
-    private static SharedPreferences mPrefs;
-    private static SharedPreferences.Editor mPrefsEdit;
     private NetworkUtils mNetworkUtils = new NetworkUtils();
     public static String eid = "0";
     private String message = "";
 
     public LoginUtils() {
         //Empty constructor
-        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
-                Context.MODE_PRIVATE);
-        mPrefsEdit = mPrefs.edit();
         mService = ApiUtils.getBackendService();
     }
 
@@ -49,10 +44,7 @@ public class LoginUtils {
                 message = login.getMsg();
                 Log.d("Login_via_idp:", "Eid: " + eid);
                 Log.d("Login_via_idp:", "message: " + message);
-                mPrefsEdit.putString("EId", eid);
-                mPrefsEdit.putString("Email", userEmail);
-                mPrefsEdit.putString("Msg", message);
-                mPrefsEdit.commit();
+                PreferenceUtils.writeLoginDetails(login,userEmail);
 
                 person_details(eid, null);
             }
@@ -127,14 +119,7 @@ public class LoginUtils {
                     //Write to Shared Preferences
                     Person person = response.body();
 
-                    mPrefsEdit.putString("Avatar", person.getAvatar());
-                    mPrefsEdit.putString("FirstName", person.getFirstName());
-                    mPrefsEdit.putString("LastName", person.getLastName());
-                    mPrefsEdit.putString("EId", person.getEId());
-                    mPrefsEdit.putString("Email", person.getEmail());
-                    mPrefsEdit.putString("Role", person.getRole());
-                    mPrefsEdit.putString("Status", person.getStatus());
-                    mPrefsEdit.commit();
+                    PreferenceUtils.writePersonDetails(person);
                 }
 
                 @Override

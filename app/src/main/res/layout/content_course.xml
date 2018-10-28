@@ -33,20 +33,44 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/spacer_4dp"/>
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipeToRefresh2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <!--<android.support.v4.widget.SwipeRefreshLayout-->
+            <!--android:id="@+id/swipeToRefresh2"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view_university_selected"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:scrollbars="vertical"
                 android:padding="@dimen/item_offset" />
 
-        </android.support.v4.widget.SwipeRefreshLayout>
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacer_16dp"
+                android:layout_gravity="center_horizontal"
+                ads:adSize="SMART_BANNER"
+                ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+            </com.google.android.gms.ads.AdView>
+
+            <View
+                android:id="@+id/nav_spacer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/nav_bar_height"/>
+
+        </LinearLayout>
+
+        <!--</android.support.v4.widget.SwipeRefreshLayout>-->
 
     </LinearLayout>
 

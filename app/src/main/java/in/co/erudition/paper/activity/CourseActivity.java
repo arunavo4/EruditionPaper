@@ -35,6 +35,8 @@ import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.adapter.CourseAdapter;
@@ -69,6 +71,11 @@ public class CourseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        //Load Ads
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         //Init section codes
         params = new String[]{"0", "0", "0", "0"};
@@ -125,7 +132,6 @@ public class CourseActivity extends AppCompatActivity {
                 return insets.consumeSystemWindowInsets();
             });
         }
-
 
         /**
          * instantiate the floating action buttons

@@ -43,108 +43,177 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacer_12dp"
+                android:layout_marginBottom="@dimen/spacer_12dp"
+                android:layout_gravity="center_horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_weight="0"
                     android:layout_marginEnd="@dimen/spacer_16dp"
+                    android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_outline_university_24px"/>
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColorHint="@color/colorMaterialBlack_no_alpha"
-                    app:hintTextAppearance="@style/HintTextViewProfile">
+                    android:layout_weight="0"
+                    android:orientation="vertical">
 
-                    <android.support.design.widget.TextInputEditText
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/uni_tv_p"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/university_p" />
+                        style="@style/ProfileCardTextViewBold"
+                        android:text="@string/university"/>
 
-                </android.support.design.widget.TextInputLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/ProfileCardTextView"
+                        android:text="@string/university"/>
+
+                </LinearLayout>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacer_1dp"
+                android:layout_marginStart="@dimen/spacer_40dp"
+                android:layout_marginEnd="@dimen/spacer_4dp"
+                android:background="@color/colorBlack34alpha"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacer_12dp"
+                android:layout_marginBottom="@dimen/spacer_12dp"
+                android:layout_gravity="center_horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_weight="0"
                     android:layout_marginEnd="@dimen/spacer_16dp"
+                    android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_outline_college_24px"/>
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColorHint="@color/colorMaterialBlack_no_alpha"
-                    app:hintTextAppearance="@style/HintTextViewProfile">
+                    android:layout_weight="0"
+                    android:orientation="vertical">
 
-                    <android.support.design.widget.TextInputEditText
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/coll_tv_p"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/college" />
-                    <!--@dimen/edit_text_width_profile-->
-                </android.support.design.widget.TextInputLayout>
+                        style="@style/ProfileCardTextViewBold"
+                        android:text="@string/college"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/ProfileCardTextView"
+                        android:text="@string/college"/>
+
+                </LinearLayout>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacer_1dp"
+                android:layout_marginStart="@dimen/spacer_40dp"
+                android:layout_marginEnd="@dimen/spacer_4dp"
+                android:background="@color/colorBlack34alpha"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacer_12dp"
+                android:layout_marginBottom="@dimen/spacer_12dp"
+                android:layout_gravity="center_horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_weight="0"
                     android:layout_marginEnd="@dimen/spacer_16dp"
+                    android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_dept_24px"/>
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColorHint="@color/colorMaterialBlack_no_alpha"
-                    app:hintTextAppearance="@style/HintTextViewProfile">
+                    android:layout_weight="0"
+                    android:orientation="vertical">
 
-                    <android.support.design.widget.TextInputEditText
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/dept_tv_p"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/department" />
+                        style="@style/ProfileCardTextViewBold"
+                        android:text="@string/department"/>
 
-                </android.support.design.widget.TextInputLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/ProfileCardTextView"
+                        android:text="@string/department"/>
+
+                </LinearLayout>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacer_1dp"
+                android:layout_marginStart="@dimen/spacer_40dp"
+                android:layout_marginEnd="@dimen/spacer_4dp"
+                android:background="@color/colorBlack34alpha"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacer_12dp"
+                android:layout_marginBottom="@dimen/spacer_12dp"
+                android:layout_gravity="center_horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_weight="0"
                     android:layout_marginEnd="@dimen/spacer_16dp"
+                    android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_outline_semester_24px"/>
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColorHint="@color/colorMaterialBlack_no_alpha"
-                    app:hintTextAppearance="@style/HintTextViewProfile">
+                    android:layout_weight="0"
+                    android:orientation="vertical">
 
-                    <android.support.design.widget.TextInputEditText
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/sem_tv_p"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/semester_p" />
+                        style="@style/ProfileCardTextViewBold"
+                        android:text="@string/semester_p"/>
 
-                </android.support.design.widget.TextInputLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/ProfileCardTextView"
+                        android:text="@string/semester_p"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 

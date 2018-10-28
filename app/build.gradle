@@ -7,15 +7,16 @@ android {
     defaultConfig {
         applicationId "in.co.erudition.paper"
         vectorDrawables.useSupportLibrary = true
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         resConfigs "en"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        renderscriptTargetApi 28
-        renderscriptSupportModeEnabled true
+//        renderscriptTargetApi 28
+//        renderscriptSupportModeEnabled true
     }
     buildTypes {
         debug {
@@ -62,9 +63,6 @@ dependencies {
     //Facebook login
     implementation 'com.facebook.android:facebook-login:4.35.0'
 
-    //Colour Shadow Circular view
-    implementation 'com.github.armcha:ColoredShadowImageView:1.1.0'
-
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.google.code.gson:gson:2.8.5'
@@ -78,6 +76,9 @@ dependencies {
         // Excludes the support library because it's already included by Glide.
         transitive = false
     }
+
+    //Google ads
+    implementation 'com.google.firebase:firebase-ads:17.0.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

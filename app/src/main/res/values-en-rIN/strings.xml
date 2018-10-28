@@ -155,9 +155,6 @@
     <!-- Facebook Application ID, prefixed by 'fb'. Enables Chrome Custom tabs. -->
     <string name="facebook_login_protocol_scheme" translatable="false">fb1830176010527608</string>
 
-    <!--AdMob-->
-    <string name="admob_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
-
     <!--Symbols-->
     <!--Rupee Symbol-->
     <string name="Rs">\u20B9</string>

@@ -40,114 +40,227 @@
             android:paddingEnd="@dimen/spacer_16dp"
             android:orientation="vertical">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacer_12dp"
+                android:layout_marginBottom="@dimen/spacer_12dp"
+                android:layout_gravity="center_horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_weight="0"
                     android:layout_marginEnd="@dimen/spacer_16dp"
+                    android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_outline_person_24px"/>
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColorHint="@color/colorMaterialBlack_no_alpha"
-                    app:hintTextAppearance="@style/HintTextViewProfile">
+                    android:layout_weight="0"
+                    android:orientation="vertical">
 
-                    <android.support.design.widget.TextInputEditText
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/first_name_tv_p"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/first_name" />
+                        style="@style/ProfileCardTextViewBold"
+                        android:text="@string/first_name"/>
 
-                </android.support.design.widget.TextInputLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/ProfileCardTextView"
+                        android:text="@string/first_name"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacer_1dp"
+                android:layout_marginStart="@dimen/spacer_40dp"
+                android:layout_marginEnd="@dimen/spacer_4dp"
+                android:background="@color/colorBlack34alpha"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacer_12dp"
+                android:layout_marginBottom="@dimen/spacer_12dp"
+                android:layout_gravity="center_horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_weight="0"
                     android:layout_marginEnd="@dimen/spacer_16dp"
+                    android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_outline_person_24px"/>
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColorHint="@color/colorMaterialBlack_no_alpha"
-                    app:hintTextAppearance="@style/HintTextViewProfile">
+                    android:layout_weight="0"
+                    android:orientation="vertical">
 
-                    <android.support.design.widget.TextInputEditText
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/last_name_tv_p"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/last_name" />
+                        style="@style/ProfileCardTextViewBold"
+                        android:text="@string/last_name"/>
 
-                </android.support.design.widget.TextInputLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/ProfileCardTextView"
+                        android:text="@string/last_name"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacer_1dp"
+                android:layout_marginStart="@dimen/spacer_40dp"
+                android:layout_marginEnd="@dimen/spacer_4dp"
+                android:background="@color/colorBlack34alpha"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacer_12dp"
+                android:layout_marginBottom="@dimen/spacer_12dp"
+                android:layout_gravity="center_horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_weight="0"
                     android:layout_marginEnd="@dimen/spacer_16dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_phone_black_24dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/phone_tv_p"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/ProfileCardTextViewBold"
+                        android:text="@string/phone"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/ProfileCardTextView"
+                        android:text="@string/phone"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacer_1dp"
+                android:layout_marginStart="@dimen/spacer_40dp"
+                android:layout_marginEnd="@dimen/spacer_4dp"
+                android:background="@color/colorBlack34alpha"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacer_12dp"
+                android:layout_marginBottom="@dimen/spacer_12dp"
+                android:layout_gravity="center_horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:layout_marginEnd="@dimen/spacer_16dp"
+                    android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_outline_gender_24px"/>
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColorHint="@color/colorMaterialBlack_no_alpha"
-                    app:hintTextAppearance="@style/HintTextViewProfile">
+                    android:layout_weight="0"
+                    android:orientation="vertical">
 
-                    <android.support.design.widget.TextInputEditText
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/gender_tv_p"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/gender" />
+                        style="@style/ProfileCardTextViewBold"
+                        android:text="@string/gender"/>
 
-                </android.support.design.widget.TextInputLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/ProfileCardTextView"
+                        android:text="@string/gender"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacer_1dp"
+                android:layout_marginStart="@dimen/spacer_40dp"
+                android:layout_marginEnd="@dimen/spacer_4dp"
+                android:background="@color/colorBlack34alpha"/>
+
             <LinearLayout
-                android:id="@+id/date_of_birth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacer_12dp"
+                android:layout_marginBottom="@dimen/spacer_12dp"
+                android:layout_gravity="center_horizontal">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_weight="0"
                     android:layout_marginEnd="@dimen/spacer_16dp"
+                    android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_outline_dob_24px"/>
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColorHint="@color/colorMaterialBlack_no_alpha"
-                    app:hintTextAppearance="@style/HintTextViewProfile">
+                    android:layout_weight="0"
+                    android:orientation="vertical">
 
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/date_of_birth_tv"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/date_of_birth_tv_p"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:focusableInTouchMode="false"
-                        android:hint="@string/dob" />
+                        style="@style/ProfileCardTextViewBold"
+                        android:text="@string/dob"/>
 
-                </android.support.design.widget.TextInputLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/ProfileCardTextView"
+                        android:text="@string/dob"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 

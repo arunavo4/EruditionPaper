@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -23,6 +24,13 @@ public class AvatarPlaceholder extends Drawable {
     private Paint textPaint;
     private Paint backgroundPaint;
     private RectF placeholderBounds;
+
+    int circleRadius;
+    int circleCenterXValue;
+    int circleCenterYValue;
+
+    private int viewSize;
+    private Rect circleRect;
 
     private String avatarText;
     private int textSizePercentage;
@@ -65,12 +73,19 @@ public class AvatarPlaceholder extends Drawable {
 
     @Override
     public void draw(@NonNull Canvas canvas) {
+        saveBasicValues(canvas);
+
         if (placeholderBounds == null) {
             placeholderBounds = new RectF(0, 0, canvas.getWidth(), canvas.getHeight());
             setAvatarTextValues();
         }
 
-        canvas.drawRect(placeholderBounds, backgroundPaint);
+        canvas.translate(circleCenterXValue, circleCenterYValue);
+
+        //Draw Border
+        canvas.drawCircle(circleRadius, circleRadius, circleRadius, backgroundPaint);
+
+//        canvas.drawRect(placeholderBounds, backgroundPaint);
         canvas.drawText(avatarText, textStartXPoint, textStartYPoint, textPaint);
     }
 
@@ -90,6 +105,20 @@ public class AvatarPlaceholder extends Drawable {
     public int getOpacity() {
         return PixelFormat.TRANSLUCENT;
     }
+
+    private void saveBasicValues(Canvas canvas) {
+        int viewHeight = canvas.getHeight();
+        int viewWidth = canvas.getWidth();
+
+        viewSize = Math.min(viewWidth, viewHeight);
+
+        circleCenterXValue = (viewWidth - viewSize) / 2;
+        circleCenterYValue = (viewHeight - viewSize) / 2;
+        circleRadius = (viewSize) / 2;
+
+        circleRect = new Rect(0, 0, viewSize, viewSize);
+    }
+
 
     private int getMatColor(String typeColor)
     {

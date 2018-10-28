@@ -7,6 +7,7 @@ import in.co.erudition.paper.data.model.JwtToken;
 import in.co.erudition.paper.data.model.Login;
 import in.co.erudition.paper.data.model.Paper;
 import in.co.erudition.paper.data.model.Person;
+import in.co.erudition.paper.data.model.PresetResponseCode;
 import in.co.erudition.paper.data.model.University;
 import in.co.erudition.paper.data.model.UniversityCourse;
 import in.co.erudition.paper.data.model.Year;
@@ -73,8 +74,7 @@ public interface BackendService {
     //Update User Detail By EId
     @POST("person/{EId}")
     @FormUrlEncoded
-    Call<Paper> updatePerson(@Path("EId") String eid,
-                             @Field("Avatar") String avatar,
+    Call<PresetResponseCode> updatePerson(@Path("EId") String eid,
                              @Field("FirstName") String first_name,
                              @Field("LastName") String last_name,
                              @Field("Phone") String phone,
@@ -83,22 +83,13 @@ public interface BackendService {
 
     @POST("person/{EId}")
     @FormUrlEncoded
-    Call<Paper> updatePerson(@Path("EId") String eid,
-                             @Field("FirstName") String first_name,
-                             @Field("LastName") String last_name,
-                             @Field("Phone") String phone,
-                             @Field("DOB") String dob,
-                             @Field("Gender") String gender);
-
-    @POST("person/{EId}")
-    @FormUrlEncoded
-    Call<Paper> updatePerson(@Path("EId") String eid,
+    Call<PresetResponseCode> updatePerson(@Path("EId") String eid,
                              @Field("FirstName") String first_name,
                              @Field("LastName") String last_name);
 
     @POST("person/{EId}")
     @FormUrlEncoded
-    Call<Paper> updatePerson(@Path("EId") String eid,
+    Call<PresetResponseCode> updatePerson(@Path("EId") String eid,
                              @Field("Phone") String phone,
                              @Field("DOB") String dob,
                              @Field("Gender") String gender);
@@ -106,7 +97,7 @@ public interface BackendService {
     //Upload the Avatar
     @POST("person/{EId}")
     @Multipart
-    Call<Paper> uploadAvatar(@Path("EId") String eid,
+    Call<PresetResponseCode> uploadAvatar(@Path("EId") String eid,
                              @Field("Avatar") String avatar);
 
 
@@ -158,29 +149,29 @@ public interface BackendService {
      */
     @POST("person/{EId}/notifyme")
     @FormUrlEncoded
-    Call<Paper> notifyMe(@Path("EId") String eid,
-                         @Field("BoardCode") String boardCode);
+    Call<PresetResponseCode> notifyMe(@Path("EId") String eid,
+                                      @Field("BoardCode") String boardCode);
 
     @POST("person/{EId}/notifyme")
     @FormUrlEncoded
-    Call<Paper> notifyMe(@Path("EId") String eid,
-                         @Field("BoardCode") String boardCode,
-                         @Field("CourseCode") String courseCode);
+    Call<PresetResponseCode> notifyMe(@Path("EId") String eid,
+                                      @Field("BoardCode") String boardCode,
+                                      @Field("CourseCode") String courseCode);
 
     @POST("person/{EId}/notifyme")
     @FormUrlEncoded
-    Call<Paper> notifyMe(@Path("EId") String eid,
-                         @Field("BoardCode") String boardCode,
-                         @Field("CourseCode") String courseCode,
-                         @Field("SessionCode") String sessionCode);
+    Call<PresetResponseCode> notifyMe(@Path("EId") String eid,
+                                      @Field("BoardCode") String boardCode,
+                                      @Field("CourseCode") String courseCode,
+                                      @Field("SessionCode") String sessionCode);
 
     @POST("person/{EId}/notifyme")
     @FormUrlEncoded
-    Call<Paper> notifyMe(@Path("EId") String eid,
-                         @Field("BoardCode") String boardCode,
-                         @Field("CourseCode") String courseCode,
-                         @Field("SessionCode") String sessionCode,
-                         @Field("SubjectCode") String subjectCode);
+    Call<PresetResponseCode> notifyMe(@Path("EId") String eid,
+                                      @Field("BoardCode") String boardCode,
+                                      @Field("CourseCode") String courseCode,
+                                      @Field("SessionCode") String sessionCode,
+                                      @Field("SubjectCode") String subjectCode);
 
 
     /*
@@ -188,29 +179,29 @@ public interface BackendService {
      */
     @POST("person/{EId}/favorite")
     @FormUrlEncoded
-    Call<Paper> setFavourite(@Path("EId") String eid,
-                             @Field("BoardCode") String boardCode);
+    Call<PresetResponseCode> setFavourite(@Path("EId") String eid,
+                                          @Field("BoardCode") String boardCode);
 
     @POST("person/{EId}/favorite")
     @FormUrlEncoded
-    Call<Paper> setFavourite(@Path("EId") String eid,
-                             @Field("BoardCode") String boardCode,
-                             @Field("CourseCode") String courseCode);
+    Call<PresetResponseCode> setFavourite(@Path("EId") String eid,
+                                          @Field("BoardCode") String boardCode,
+                                          @Field("CourseCode") String courseCode);
 
     @POST("person/{EId}/favorite")
     @FormUrlEncoded
-    Call<Paper> setFavourite(@Path("EId") String eid,
-                             @Field("BoardCode") String boardCode,
-                             @Field("CourseCode") String courseCode,
-                             @Field("SessionCode") String sessionCode);
+    Call<PresetResponseCode> setFavourite(@Path("EId") String eid,
+                                          @Field("BoardCode") String boardCode,
+                                          @Field("CourseCode") String courseCode,
+                                          @Field("SessionCode") String sessionCode);
 
     @POST("person/{EId}/favorite")
     @FormUrlEncoded
-    Call<Paper> setFavourite(@Path("EId") String eid,
-                             @Field("BoardCode") String boardCode,
-                             @Field("CourseCode") String courseCode,
-                             @Field("SessionCode") String sessionCode,
-                             @Field("SubjectCode") String subjectCode);
+    Call<PresetResponseCode> setFavourite(@Path("EId") String eid,
+                                          @Field("BoardCode") String boardCode,
+                                          @Field("CourseCode") String courseCode,
+                                          @Field("SessionCode") String sessionCode,
+                                          @Field("SubjectCode") String subjectCode);
 
 
 //    @GET("/database/university/{id}")

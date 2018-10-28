@@ -6,14 +6,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
@@ -30,48 +27,60 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.bumptech.glide.request.Request;
+import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.DrawableImageViewTarget;
-import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.request.target.ViewTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.firebase.ui.auth.AuthUI;
+import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.Calendar;
 
 import in.co.erudition.avatar.AvatarPlaceholder;
+import in.co.erudition.avatar.AvatarView;
 import in.co.erudition.paper.Erudition;
 import in.co.erudition.paper.LoginActivity;
 import in.co.erudition.paper.R;
+import in.co.erudition.paper.data.model.Person;
+import in.co.erudition.paper.data.remote.BackendService;
+import in.co.erudition.paper.util.ApiUtils;
+import in.co.erudition.paper.util.AvatarGlideLoader;
 import in.co.erudition.paper.util.GlideApp;
-import io.github.armcha.coloredshadow.ShadowImageView;
+import in.co.erudition.paper.util.LoginUtils;
+import in.co.erudition.paper.util.PreferenceUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class ProfileActivity extends AppCompatActivity {
-
+    private String person_details[] = new String[5];
+    private BackendService mService;
+    CollapsingToolbarLayout collapsingToolbarLayout;
     private static SharedPreferences mPrefs;
-    private static SharedPreferences.Editor mPrefsEdit;
-    private DatePickerDialog.OnDateSetListener dateSetListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_new);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_container);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_container);
 //        TextView profile_name = (TextView) findViewById(R.id.profile_name_tv);        //old version
-        ShadowImageView img_profile_pic = (ShadowImageView) findViewById(R.id.img_profile_pic);
+        ImageView img_profile_pic = (ImageView) findViewById(R.id.img_profile_pic);
 
         //Shared Preferences
         mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
                 Context.MODE_PRIVATE);
-        mPrefsEdit = mPrefs.edit();
+
+        //Read existing data from prefs
+        showPersonalDataFrmPrefs();
+
+        mService = ApiUtils.getBackendService();
 
         // To set the background of the activity go below the StatusBar
         getWindow().getDecorView().setSystemUiVisibility(
@@ -99,6 +108,12 @@ public class ProfileActivity extends AppCompatActivity {
                 v.invalidate();
                 v.requestLayout();
 
+                params = (ViewGroup.MarginLayoutParams) fab.getLayoutParams();
+                params.bottomMargin = insets.getSystemWindowInsetBottom();
+                params.bottomMargin += getResources().getDimensionPixelSize(R.dimen.spacer_10dp);
+                fab.invalidate();
+                fab.requestLayout();
+
                 return insets.consumeSystemWindowInsets();
             });
         }
@@ -113,15 +128,8 @@ public class ProfileActivity extends AppCompatActivity {
             DrawableCompat.setTint(bg, ContextCompat.getColor(this, R.color.colorBlack));
         }
 
-
-        /*
-            Retrieve data from the shared Pref
-         */
-
-        String name = mPrefs.getString("FirstName", "Android") + " " + mPrefs.getString("LastName", "Studio");
-
         toolbar.setNavigationIcon(bg);
-        collapsingToolbarLayout.setTitle(name);
+        collapsingToolbarLayout.setTitle(PreferenceUtils.readName());
         setSupportActionBar(toolbar);
         //profile_name.setText(name);       //No more required (old version_)
 
@@ -133,7 +141,6 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,77 +156,121 @@ public class ProfileActivity extends AppCompatActivity {
             If there is an avatar URL then display it
             else make a new layer using the initial letters
          */
+        setProfilePicture(img_profile_pic);
 
-        String image_uri = mPrefs.getString("Avatar", "");
-        AvatarPlaceholder placeholder = new AvatarPlaceholder(this, getInitials(name));
 
-        if (image_uri.contentEquals("")) {
-            /**
-             *             Drawable[] layers = new Drawable[2];
-             *             layers[0] = placeholder;
-             *             layers[1] = getResources().getDrawable(R.drawable.ic_foreground_34alpha);
-             *             LayerDrawable layerDrawable = new LayerDrawable(layers);
-             *             img_profile_pic.setImageDrawable(layerDrawable);
-             */
-            img_profile_pic.setImageDrawable(placeholder);
-        } else {
-            GlideApp
-                    .with(this)
-                    .load(image_uri)
-                    .apply(RequestOptions.placeholderOf(placeholder).centerCrop())
-                    .transition(withCrossFade())
-                    .into(new ViewTarget<ImageView, Drawable>(img_profile_pic) {
+        loadPersonDetails(mPrefs.getString("EId",""),mPrefs.getString("Email",""));
+    }
 
-                        @Override
-                        public void onLoadStarted(@Nullable Drawable placeholder) {
-                            super.onLoadStarted(placeholder);
-                            img_profile_pic.setImageDrawable(placeholder);
-                        }
+    private void loadPersonDetails(String Eid, String Email) {
+        String id = "";
+        Call<Person> personCall;
 
-                        @Override
-                        public void onLoadCleared(@Nullable Drawable placeholder) {
-                            super.onLoadCleared(placeholder);
-                            img_profile_pic.setImageDrawable(placeholder);
-                        }
-
-                        @Override
-                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                            img_profile_pic.setImageDrawable(resource);
-                        }
-                    });
+        if (Eid.contentEquals("")) {
+            id = Eid;
+            personCall = mService.getPersonDetailsEid(id);
+        } else{
+            id = Email;
+            personCall = mService.getPersonDetailsEmail(id);
         }
 
+        if (!id.contentEquals("")) {
+            personCall.enqueue(new Callback<Person>() {
+                @Override
+                public void onResponse(Call<Person> call, Response<Person> response) {
+                    Log.d("Call", call.request().toString());
+                    if (response.isSuccessful()) {
+                        //Write to Shared Preferences
+                        Person person = response.body();
 
-        //Date picker
-        final TextInputEditText inputLayout = (TextInputEditText) findViewById(R.id.date_of_birth_tv);
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.date_of_birth);
+                        PreferenceUtils.writePersonDetails(person);
 
-        inputLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
+                        Log.d("Person Call:", "Successfully Written Details");
+                        //read from prefs
+                        showPersonalDataFrmPrefs();
+                        collapsingToolbarLayout.setTitle(PreferenceUtils.readName());
+                        //Also change the name
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(ProfileActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
+//                    setProfilePicture(img_profile_pic);
 
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
+                    } else {
+                        int statusCode = response.code();
+                        if (statusCode == 401) {
+                            Log.d("StatusCode", "Unauthorized");
+                        }
+                        if (statusCode == 200) {
+                            Log.d("StatusCode", "OK");
+                        } else {
+                            Log.d("StatusCode", String.valueOf(statusCode));
+                        }
+                        // handle request errors depending on status code
+                    }
+                }
 
-                                inputLayout.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                            }
-                        }, year, month, day);
-                datePickerDialog.show();
-            }
-        });
+                @Override
+                public void onFailure(Call<Person> call, Throwable t) {
+                    Log.d("Person Call:", "Failed to get Person Details");
+                }
+            });
+        }
+    }
+
+    private void setProfilePicture(ImageView imageView){
+        String image_uri = getProfileAvatar();
+        AvatarPlaceholder placeholder = new AvatarPlaceholder(this, getInitials(PreferenceUtils.readName()));
+
+//        AvatarGlideLoader imageLoader = new AvatarGlideLoader(getInitials(name));
+//        imageLoader.loadImage(img_profile_pic, placeholder, image_uri);
+        GlideApp
+                .with(this)
+                .load(image_uri)
+                .apply(RequestOptions.placeholderOf(placeholder)
+                        .fitCenter())
+                .transition(withCrossFade())
+                .error(placeholder)
+                .circleCrop()
+                .into(imageView);
+    }
+
+    private void setPersonalDetails(){
+        TextView first_name = (TextView) findViewById(R.id.first_name_tv_p);
+        TextView last_name = (TextView) findViewById(R.id.last_name_tv_p);
+        TextView phone = (TextView) findViewById(R.id.phone_tv_p);
+        TextView gender = (TextView) findViewById(R.id.gender_tv_p);
+        TextView dob = (TextView) findViewById(R.id.date_of_birth_tv_p);
 
     }
 
-    private void setProfileAvatar(ImageView view, String ImageUri, String name) {
+    private void showPersonalDataFrmPrefs(){
+        TextView first_name = (TextView) findViewById(R.id.first_name_tv_p);
+        TextView last_name = (TextView) findViewById(R.id.last_name_tv_p);
+        TextView phone = (TextView) findViewById(R.id.phone_tv_p);
+        TextView gender = (TextView) findViewById(R.id.gender_tv_p);
+        TextView dob = (TextView) findViewById(R.id.date_of_birth_tv_p);
+        TextView email = (TextView) findViewById(R.id.email_tv_p);
 
+        person_details = PreferenceUtils.readPersonalDetails(person_details);
+
+        first_name.setText(person_details[0]);
+        last_name.setText(person_details[1]);
+        phone.setText(person_details[2]);
+        gender.setText(person_details[3]);
+        dob.setText(person_details[4]);
+        email.setText(PreferenceUtils.readEmail());
+
+    }
+
+    private String getProfileAvatar() {
+
+        String uri_profile_img = mPrefs.getString("ProfileImage", "");
+        if(!uri_profile_img.contentEquals("")){
+            return uri_profile_img;
+        }else{
+            uri_profile_img = mPrefs.getString("Avatar", "");
+        }
+        Log.d("Avatar: ", uri_profile_img);
+
+        return uri_profile_img;
     }
 
     @Override
@@ -251,6 +302,11 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     /*

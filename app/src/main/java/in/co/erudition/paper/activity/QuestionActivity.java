@@ -5,6 +5,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -35,6 +36,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 
 import java.util.ArrayList;
 
@@ -64,6 +68,9 @@ public class QuestionActivity extends AppCompatActivity {
 
     private String TAG = "QuestionActivity";
 
+    private InterstitialAd mInterstitialAd;
+    private AdCountDownTimer timer;
+
     private boolean isChecked_offline = false;
     private boolean isChecked_bookmark = false;
     private boolean transparent = true;
@@ -78,6 +85,28 @@ public class QuestionActivity extends AppCompatActivity {
 
         appBarLayout = (AppBarLayout) findViewById(R.id.my_appbar_container); //Changed
         appBarLayout.bringToFront();
+
+        //Setup Interstitial Ads --> only once at startup
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/8691691433");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        //load ads in advance
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                //Set the timer Again
+                timer = new AdCountDownTimer(6000,1000);
+                timer.start();
+            }
+
+        });
+
+        //Set a timer for 1 min
+        timer = new AdCountDownTimer(6000,1000);
+        timer.start();
 
         ViewGroup linearLayout = (ViewGroup) findViewById(R.id.ques_linear_layout);
         int select = getIntent().getIntExtra("PaperActivity.EXTRA_Select", -1);
@@ -360,6 +389,7 @@ public class QuestionActivity extends AppCompatActivity {
             call.cancel();
         }
         super.onBackPressed();
+        timer.cancel();
     }
 
     /**
@@ -407,6 +437,34 @@ public class QuestionActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private class AdCountDownTimer extends CountDownTimer{
+
+        /**
+         * @param millisInFuture    The number of millis in the future from the call
+         *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
+         *                          is called.
+         * @param countDownInterval The interval along the way to receive
+         *                          {@link #onTick(long)} callbacks.
+         */
+        public AdCountDownTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            //callback for every tick interval
+        }
+
+        @Override
+        public void onFinish() {
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+            } else {
+                Log.d(TAG, "The interstitial wasn't loaded yet.");
+            }
+        }
     }
 
     @Override

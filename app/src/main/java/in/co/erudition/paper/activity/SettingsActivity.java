@@ -1,5 +1,7 @@
 package in.co.erudition.paper.activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -14,13 +16,19 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.WindowInsetsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
+import in.co.erudition.paper.Erudition;
 import in.co.erudition.paper.R;
 
 public class SettingsActivity extends AppCompatActivity {
+    private static SharedPreferences mPrefs;
+    private static SharedPreferences.Editor mPrefsEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +37,10 @@ public class SettingsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         CardView clear_cache_btn = (CardView) findViewById(R.id.clear_cache_btn);
+        SwitchCompat ad_btn = (SwitchCompat) findViewById(R.id.ad_btn_toggle);
+
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
 
         // To set the background of the activity go below the StatusBar
         getWindow().getDecorView().setSystemUiVisibility(
@@ -94,6 +106,20 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 }).show();
             }
+        });
+
+        ad_btn.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            mPrefsEdit = mPrefs.edit();
+
+            if (isChecked){
+                //Turn on all adMob Ads
+                mPrefsEdit.putBoolean("AdMob",true);
+            }
+            else {
+                mPrefsEdit.putBoolean("AdMob",false);
+            }
+            mPrefsEdit.apply();
+            Log.d("AdMob State:", String.valueOf(isChecked));
         });
 
     }

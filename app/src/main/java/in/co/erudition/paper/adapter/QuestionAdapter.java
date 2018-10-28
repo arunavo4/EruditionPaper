@@ -50,7 +50,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
          * https://www.erudition.co.in/resources/public/js/prism.js
          */
 
-        str = new StringBuilder("<html>\n");
+        str = new StringBuilder("<html>");
 
         str.append("<head>\n    <link rel=\"stylesheet\" href=\"prism.css\">\n");
         str.append("    <style>\n    img {height: auto!important;  width: 100%!important; overflow-x: auto!important; overflow-y: hidden!important;\n");

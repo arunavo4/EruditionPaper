@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.FirebaseApp;
 
 public class Erudition extends Application {
@@ -16,6 +17,8 @@ public class Erudition extends Application {
         super.onCreate();
         // Required initialization logic here!
         FirebaseApp.initializeApp(this);
+        //AdMob init
+        MobileAds.initialize(this, getResources().getString(R.string.admob_app_id));
         //Application context
         contextOfApplication = getApplicationContext();
     }

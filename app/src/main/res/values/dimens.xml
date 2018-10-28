@@ -17,6 +17,8 @@
     <dimen name="icon_24dp">24dp</dimen>
 
     <!--Spacers-->
+    <dimen name="spacer_40dp">40dp</dimen>
+    <dimen name="spacer_36dp">36dp</dimen>
     <dimen name="spacer_32dp">32dp</dimen>
     <dimen name="spacer_20dp">20dp</dimen>
     <dimen name="spacer_16dp">16dp</dimen>
@@ -73,6 +75,7 @@
     <dimen name="app_bar_height_profile">240dp</dimen>
     <dimen name="edit_text_width_profile">250dp</dimen>
     <dimen name="avatar_view_small_size">66dp</dimen>
+    <dimen name="avatar_view_large_size">120dp</dimen>
 
     <!--Search Activity-->
     <dimen name="app_bar_height_search">160dp</dimen>

@@ -71,6 +71,18 @@
         <!--<item name="android:tint">@color/colorWhite</item>-->
     </style>
 
+    <!--Toolbar Profile-->
+    <style name="ToolBarStyle.dark" parent="AppTheme">
+        <!--Text color of the Title-->
+        <item name="android:textColorPrimary">@color/colorMaterialBlack_no_alpha</item>
+        <!--The menu icon color-->
+        <item name="android:textColorSecondary">@color/colorMaterialBlack_no_alpha</item>
+        <item name="actionMenuTextColor">@color/colorMaterialBlack_no_alpha</item>
+        <!--color of the other icons in toolbar-->
+        <item name="android:tint">@color/colorMaterialBlack_no_alpha</item>
+    </style>
+
+
     <!--BUTTON-->
     <style name="AddButton" parent="Theme.AppCompat">
         <item name="colorButtonNormal">@color/colorPrimary</item>
@@ -150,15 +162,14 @@
     </style>
 
     <style name="collapsedTitleTextAppearance.Profile">
-        <item name="android:textColor">@color/colorWhite</item>
-        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
+        <item name="android:fontFamily">@font/source_sans_pro_bold</item>
         <item name="android:textAlignment">textStart</item>
     </style>
 
     <style name="expandedTitleTextAppearance.Profile" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
         <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
-        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
+        <item name="android:fontFamily">@font/source_sans_pro_bold</item>
         <item name="android:textSize">30sp</item>
         <item name="android:textAlignment">textStart</item>
     </style>

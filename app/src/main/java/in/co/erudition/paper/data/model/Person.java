@@ -6,30 +6,75 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Person {
-    @SerializedName("_id")
+    @SerializedName("EId")
     @Expose
-    private String id;
+    private String eId;
     @SerializedName("Avatar")
     @Expose
     private String avatar;
+    @SerializedName("ProfileImage")
+    @Expose
+    private String profileImage;
+    @SerializedName("FullName")
+    @Expose
+    private String fullName;
     @SerializedName("FirstName")
     @Expose
     private String firstName;
+    @SerializedName("MiddleName")
+    @Expose
+    private String middleName;
     @SerializedName("LastName")
     @Expose
     private String lastName;
     @SerializedName("Email")
     @Expose
     private String email;
+    @SerializedName("Phone")
+    @Expose
+    private String phone;
+    @SerializedName("Role")
+    @Expose
+    private String role;
+    @SerializedName("DOB")
+    @Expose
+    private String dOB;
+    @SerializedName("Gender")
+    @Expose
+    private String gender;
     @SerializedName("RegDate")
     @Expose
     private String regDate;
     @SerializedName("SecretCode")
     @Expose
     private String secretCode;
-    @SerializedName("EId")
+    @SerializedName("Category")
     @Expose
-    private String eId;
+    private String category;
+    @SerializedName("Religion")
+    @Expose
+    private String religion;
+    @SerializedName("BoardCode")
+    @Expose
+    private String boardCode;
+    @SerializedName("CourseCode")
+    @Expose
+    private String courseCode;
+    @SerializedName("SessionCode")
+    @Expose
+    private String sessionCode;
+    @SerializedName("SubjectCode")
+    @Expose
+    private String subjectCode;
+    @SerializedName("PreviousSession")
+    @Expose
+    private String previousSession;
+    @SerializedName("Status")
+    @Expose
+    private String status;
+    @SerializedName("Website")
+    @Expose
+    private String website;
     @SerializedName("PersonCollege")
     @Expose
     private List<PersonCollege> personCollege = null;
@@ -51,20 +96,9 @@ public class Person {
     @SerializedName("PersonForm")
     @Expose
     private List<Object> personForm = null;
-    @SerializedName("Role")
+    @SerializedName("PersonBoardNotification")
     @Expose
-    private String role;
-    @SerializedName("Status")
-    @Expose
-    private String status;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    private List<PersonBoardNotification> personBoardNotification = null;
 
     public String getAvatar() {
         return avatar;
@@ -98,6 +132,14 @@ public class Person {
         this.email = email;
     }
 
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
     public String getRegDate() {
         return regDate;
     }
@@ -120,6 +162,38 @@ public class Person {
 
     public void setEId(String eId) {
         this.eId = eId;
+    }
+
+    public String getBoardCode() {
+        return boardCode;
+    }
+
+    public void setBoardCode(String boardCode) {
+        this.boardCode = boardCode;
+    }
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
+    }
+
+    public String getSessionCode() {
+        return sessionCode;
+    }
+
+    public void setSessionCode(String sessionCode) {
+        this.sessionCode = sessionCode;
+    }
+
+    public String getSubjectCode() {
+        return subjectCode;
+    }
+
+    public void setSubjectCode(String subjectCode) {
+        this.subjectCode = subjectCode;
     }
 
     public List<PersonCollege> getPersonCollege() {
@@ -178,6 +252,14 @@ public class Person {
         this.personForm = personForm;
     }
 
+    public List<PersonBoardNotification> getPersonBoardNotification() {
+        return personBoardNotification;
+    }
+
+    public void setPersonBoardNotification(List<PersonBoardNotification> personBoardNotification) {
+        this.personBoardNotification = personBoardNotification;
+    }
+
     public String getRole() {
         return role;
     }
@@ -192,5 +274,77 @@ public class Person {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getdOB() {
+        return dOB;
+    }
+
+    public void setdOB(String dOB) {
+        this.dOB = dOB;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getReligion() {
+        return religion;
+    }
+
+    public void setReligion(String religion) {
+        this.religion = religion;
+    }
+
+    public String getPreviousSession() {
+        return previousSession;
+    }
+
+    public void setPreviousSession(String previousSession) {
+        this.previousSession = previousSession;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 }

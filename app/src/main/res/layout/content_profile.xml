@@ -4,12 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:animateLayoutChanges="true"
-    android:background="@color/default_bg_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="in.co.erudition.paper.activity.ProfileActivity"
-    tools:showIn="@layout/activity_profile">
+    tools:showIn="@layout/activity_profile_new">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -23,7 +22,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true">
 
-            <include layout="@layout/card_phone_email"/>
+            <include layout="@layout/card_email"/>
 
             <include layout="@layout/card_academic_details"/>
 

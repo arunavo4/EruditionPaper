@@ -10,6 +10,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.graphics.drawable.VectorDrawableCompat;
@@ -18,14 +19,12 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.WindowInsetsCompat;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +38,9 @@ import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,7 +54,6 @@ import in.co.erudition.paper.data.remote.BackendService;
 import in.co.erudition.paper.misc.ItemOffsetDecoration;
 import in.co.erudition.paper.network.NetworkUtils;
 import in.co.erudition.paper.util.ApiUtils;
-import in.co.erudition.paper.util.ConverterUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -72,6 +73,9 @@ public class PaperActivity extends AppCompatActivity {
 
     private FloatingActionMenu fab;
     private Intent intent;
+
+    private InterstitialAd mInterstitialAd;
+    private AdCountDownTimer timer;
 
     private TextView mTextView;
     private CollapsingToolbarLayout collapsingToolbarLayout;
@@ -95,9 +99,32 @@ public class PaperActivity extends AppCompatActivity {
         /*
             ON the basis of select change the width to *match parent*
          */
-        if (select==0){
+        if (select == 0) {
             mPaperList.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
         }
+
+
+        //Setup Interstitial Ads --> only once at startup
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        //load ads in advance
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                //Set the timer Again
+                timer = new AdCountDownTimer(6000, 1000);
+                timer.start();
+            }
+
+        });
+
+        //Set a timer for 1 min
+        timer = new AdCountDownTimer(6000, 1000);
+        timer.start();
 
         /**
          * instantiate the floating action buttons
@@ -475,6 +502,7 @@ public class PaperActivity extends AppCompatActivity {
         }
 
         super.onBackPressed();
+        timer.cancel();
     }
 
     /**
@@ -595,5 +623,32 @@ public class PaperActivity extends AppCompatActivity {
         mCloseAnimatorSet.setDuration(ANIMATION_DURATION);
 
         fab.setIconToggleAnimatorSet(mOpenAnimatorSet);
+    }
+
+    private class AdCountDownTimer extends CountDownTimer {
+        /**
+         * @param millisInFuture    The number of millis in the future from the call
+         *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
+         *                          is called.
+         * @param countDownInterval The interval along the way to receive
+         *                          {@link #onTick(long)} callbacks.
+         */
+        public AdCountDownTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+
+        }
+
+        @Override
+        public void onFinish() {
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+            } else {
+                Log.d("PaperActivity", "The interstitial wasn't loaded yet.");
+            }
+        }
     }
 }

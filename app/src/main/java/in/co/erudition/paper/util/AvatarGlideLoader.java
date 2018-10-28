@@ -26,6 +26,7 @@ public class AvatarGlideLoader extends AvatarLoaderBase {
                 .with(avatarView.getContext())
                 .load(avatarUrl)
                 .apply(RequestOptions.placeholderOf(avatarPlaceholder).fitCenter())
+                .error(avatarPlaceholder)
                 .transition(withCrossFade())
                 .into(avatarView);
     }

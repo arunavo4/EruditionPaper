@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -50,6 +51,7 @@ import com.rd.PageIndicatorView;
 import java.util.ArrayList;
 import java.util.List;
 
+import iammert.com.view.scalinglib.ProgressOutlineProvider;
 import iammert.com.view.scalinglib.ScalingLayout;
 import iammert.com.view.scalinglib.ScalingLayoutBehavior;
 import iammert.com.view.scalinglib.ScalingLayoutListener;
@@ -88,6 +90,8 @@ public class MainActivity extends AppCompatActivity
     private static SharedPreferences mPrefs;
     private static SharedPreferences.Editor mPrefsEdit;
 
+    private ProgressOutlineProvider pop;        //Bug in android pie
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +111,7 @@ public class MainActivity extends AppCompatActivity
         mUniversityList = (LinearLayout) findViewById(R.id.university_list);
 
         final View space = (View) findViewById(R.id.spacer_top);
+
         //Search view
         ScalingLayout search_view = (ScalingLayout) findViewById(R.id.scalingLayout);
         search_view.setOnClickListener(new View.OnClickListener() {
@@ -123,16 +128,33 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onExpanded() {
-
             }
 
             @Override
             public void onProgress(float progress) {
                 Log.d("Progress", String.valueOf(progress));
                 space.setScaleY(2 + Math.abs(progress));
+
+                // Workaround for a BUG in android 9 (behavior change)
+                if(pop != null) { pop.updateProgress(search_view.getSettings().getMaxRadius(), progress); }
             }
         });
 
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            pop = new ProgressOutlineProvider();
+            search_view.setOutlineProvider(pop);
+            search_view.setClipToOutline(true);
+
+            search_view.post(new Runnable() {
+                @TargetApi(Build.VERSION_CODES.P)
+                @Override
+                public void run() {
+                    pop.updateProgress(search_view.getSettings().getMaxRadius(), 1);
+                    search_view.invalidateOutline();
+                }
+            });
+        }
 
         /**
          * Set up the Carousel
@@ -301,7 +323,7 @@ public class MainActivity extends AppCompatActivity
                         String email = mPrefs.getString("Email", "android.studio@android.com");
                         email_tv.setText(email);
 
-                        String image_uri = mPrefs.getString("Avatar", "");
+                        String image_uri = getProfileAvatar();
 
                         AvatarPlaceholder placeholder = new AvatarPlaceholder(MainActivity.this, getInitials(name));
 
@@ -400,19 +422,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     /*
-        Deprecated way to getStatusBAr Height
-     */
-    public float getStatusBarHeight() {
-        float result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            //result = getResources().getDimensionPixelSize(resourceId);
-            result = getResources().getDimension(resourceId);
-        }
-        return result;
-    }
-
-    /*
      * Return user short name
      */
     private static String getInitials(String name) {
@@ -425,6 +434,18 @@ public class MainActivity extends AppCompatActivity
             shortName = strings[0].substring(0, 1) + strings[1].substring(0, 1);
         }
         return shortName.toUpperCase();
+    }
+
+    private String getProfileAvatar() {
+
+        String uri_profile_img = mPrefs.getString("ProfileImage", "");
+        if(!uri_profile_img.contentEquals("")){
+            return uri_profile_img;
+        }else{
+            uri_profile_img = mPrefs.getString("Avatar", "");
+        }
+
+        return uri_profile_img;
     }
 
     private void setUpCustomText(String text, TextView textView) {

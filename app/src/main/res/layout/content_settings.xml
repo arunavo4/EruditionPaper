@@ -57,6 +57,56 @@
 
             </android.support.v7.widget.CardView>
 
+            <android.support.v7.widget.CardView
+                android:id="@+id/ad_btn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/app_bar_height"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="@dimen/card_padding"
+                android:layout_margin="@dimen/spacer_4dp"
+                android:layout_gravity="center_horizontal"
+                app:cardCornerRadius="2dp"
+                app:cardUseCompatPadding="false"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="@dimen/spacer_16dp"
+                    android:paddingEnd="@dimen/spacer_16dp"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/spacer_16dp"
+                        app:tint="@color/colorPrimary"
+                        app:srcCompat="@drawable/ic_attach_money_black_24dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacer_32dp"
+                        android:layout_gravity="center"
+                        style="@style/ProfileCardTextViewBold"
+                        android:text="@string/adMob_toggle"/>
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/ad_btn_toggle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

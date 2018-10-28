@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.List;
 
 import in.co.erudition.paper.R;
@@ -83,6 +86,9 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
             mark_tv.setText(questionAnswer.getMarks());
             ques_num_tv.setText(questionAnswer.getQuestionNo() + ".");
 
+            AdRequest adRequest = new AdRequest.Builder().build();
+            holder.adView.loadAd(adRequest);
+
         } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
             Log.e("Exception", e.toString());
         }
@@ -103,6 +109,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
         public WebView ans_tv;
         public TextView marks_tv;
         public TextView ques_no_tv;
+        public AdView adView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -113,6 +120,8 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
             marks_tv = (TextView) itemView.findViewById(R.id.marks_tv);
             ques_no_tv = (TextView) itemView.findViewById(R.id.ques_num);
 
+            //Load Ads
+            adView = (AdView) itemView.findViewById(R.id.adView);
 
             ques_tv.getSettings().setJavaScriptEnabled(true);
             ques_tv.setOnLongClickListener(new View.OnLongClickListener() {
