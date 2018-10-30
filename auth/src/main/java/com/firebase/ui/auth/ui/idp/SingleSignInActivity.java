@@ -1,5 +1,6 @@
 package com.firebase.ui.auth.ui.idp;
 
+import androidx.annotation.Keep;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -33,7 +34,7 @@ import com.google.firebase.auth.TwitterAuthProvider;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-
+@Keep
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class SingleSignInActivity extends InvisibleActivityBase {
     private SocialProviderResponseHandler mHandler;

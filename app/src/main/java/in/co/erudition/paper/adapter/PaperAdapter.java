@@ -2,6 +2,8 @@ package in.co.erudition.paper.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+
+import androidx.annotation.Keep;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +21,7 @@ import in.co.erudition.paper.data.model.Year;
 /**
  * Created by Arunavo Ray on 03-04-2018.
  */
-
+@Keep
 public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> {
 
     private List<Chapter> mChapters;

@@ -14,6 +14,7 @@
 
 package com.firebase.ui.auth.ui.idp;
 
+import androidx.annotation.Keep;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -61,6 +62,7 @@ import java.util.List;
 
 /** Presents the list of authentication options for this app to the user. */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+@Keep
 public class AuthMethodPickerActivity extends AppCompatBase {
 
     private SocialProviderResponseHandler mHandler;

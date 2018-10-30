@@ -100,7 +100,7 @@
         app:cardCornerRadius="5dp"
         android:clipToPadding="false"
         app:cardUseCompatPadding="true"
-        android:layout_margin="@dimen/margin_card_offer">
+        android:layout_margin="@dimen/spacer_6dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -111,7 +111,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/offer_des_tv_margin"
+                android:layout_margin="@dimen/spacer_6dp"
                 style="@style/OfferTextViewBold"
                 android:text="@string/answers"/>
 
@@ -124,9 +124,8 @@
                 android:id="@+id/answer_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/offer_des_tv_margin"
-                android:layout_marginEnd="@dimen/spacer_4dp"
-                android:padding="@dimen/spacer_12dp"
+                android:layout_marginTop="@dimen/spacer_6dp"
+                android:padding="@dimen/spacer_0dp"
                 android:layout_gravity="center_vertical|start"/>
 
         </LinearLayout>

@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+
+import androidx.annotation.Keep;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +31,7 @@ import in.co.erudition.paper.util.GlideApp;
 /**
  * Created by Arunavo Ray on 01-04-2018.
  */
-
+@Keep
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder> {
 
     private UniversityCourse universityCourses;
@@ -89,6 +91,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         TextView mCodeTV = holder.mCodeTV;
         TextView mCodeFullTV = holder.mCodeFullTV;
         View nav_space = holder.spacer;
+        View ad_space = holder.ad_spacer;
 
         String mImgStr = "#";
         String mCodeStr = "Code 001";
@@ -139,11 +142,13 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
             if (nav_space.getVisibility() == View.VISIBLE) {
                 nav_space.setVisibility(View.GONE);
+                ad_space.setVisibility(View.GONE);
             }
 
             if (getItemCount() - 1 == holder.getAdapterPosition()) {
                 Log.d("Nav Spacer", "inflated");
-//                nav_space.setVisibility(View.VISIBLE);    //TODO: Turn it on when there is no ads
+                nav_space.setVisibility(View.VISIBLE);    //TODO: Turn it on when there is no ads
+                ad_space.setVisibility(View.VISIBLE);
             }
         } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
             Log.e("Exception", e.toString());
@@ -199,6 +204,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         public TextView mCodeTV;
         public TextView mCodeFullTV;
         public View spacer;
+        public View ad_spacer;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -206,6 +212,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             mCodeTV = (TextView) itemView.findViewById(R.id.tv_code);
             mCodeFullTV = (TextView) itemView.findViewById(R.id.tv_code_full);
             spacer = (View) itemView.findViewById(R.id.nav_spacer_2);
+            ad_spacer = (View) itemView.findViewById(R.id.nav_spacer_ad);
 
             itemView.setOnClickListener(this);
         }

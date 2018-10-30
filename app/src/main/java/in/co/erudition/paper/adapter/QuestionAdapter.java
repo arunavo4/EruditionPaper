@@ -3,6 +3,8 @@ package in.co.erudition.paper.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+
+import androidx.annotation.Keep;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,7 +27,7 @@ import in.co.erudition.paper.data.model.QuestionAnswer;
 /**
  * Created by Arunavo Ray on 09-06-2018.
  */
-
+@Keep
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder> {
     private List<PaperGroup> paperGroups;
     private List<PaperQuestion> paperQuestions;

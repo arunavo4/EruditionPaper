@@ -34,8 +34,8 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img_profile_pic"
-                android:layout_width="@dimen/avatar_view_large_size"
-                android:layout_height= "@dimen/avatar_view_large_size"
+                android:layout_width="@dimen/avatar_view_size"
+                android:layout_height= "@dimen/avatar_view_size"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"

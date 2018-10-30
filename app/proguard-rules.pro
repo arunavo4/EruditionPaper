@@ -24,10 +24,39 @@
 -keep class android.support.v8.renderscript.** { *; }
 
 #Retrofit
--dontwarn retrofit.**
+-keep class retrofit2.** { *; }
 -keep class retrofit.** { *; }
 -keepattributes Signature
 -keepattributes Exceptions
+-dontnote retrofit2.Platform
+-dontwarn retrofit2.** # Also keeps Twitter at bay as long as they keep using Retrofit
+-dontnote retrofit2.**
+
+#okhttp
+# JSR 305 annotations are for embedding nullability information.
+-dontwarn javax.annotation.**
+
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+
+# Animal Sniffer compileOnly dependency to ensure APIs are compatible with older versions of Java.
+-dontwarn org.codehaus.mojo.animal_sniffer.*
+
+# OkHttp platform used only on JVM and when Conscrypt dependency is available.
+-dontwarn okhttp3.internal.platform.ConscryptPlatform
+
+#okhttp3 extra
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+-dontwarn okhttp3.**
+-dontnote okhttp3.**
+
+# Okio
+-keep class sun.misc.Unsafe { *; }
+-dontwarn java.nio.file.*
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 
 #Gson
 -keep class sun.misc.Unsafe { *; }
@@ -35,6 +64,9 @@
 
 #To Safely enable code obfuscation for Gson
 -keepclassmembers class com.codepath.models** { <fields>; }
+
+#retrolambda
+-dontwarn java.lang.invoke.*
 
 #Glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
@@ -44,3 +76,38 @@
   public *;
 }
 -dontwarn com.bumptech.glide.load.resource.bitmap.VideoDecoder
+
+#FireBase Ads
+-keep public class com.google.firebase.analytics.FirebaseAnalytics {
+    public *;
+}
+
+-keep public class com.google.android.gms.measurement.AppMeasurement {
+    public *;
+}
+
+##app
+#-dontobfuscate
+#-dontoptimize
+#-optimizations !code/allocation/variable
+
+#Facebook
+-dontnote com.facebook.**
+-keepnames class com.facebook.login.LoginManager
+-dontwarn com.facebook.**
+
+#Keep my models feild names
+-keepclassmembers class in.co.erudition.paper.data.model.** { <fields>; }
+
+#Using reflection
+-keep class in.co.erudition.paper.util.LoginUtils
+-dontnote in.co.erudition.paper.util.LoginUtils
+
+#dont warn
+-dontwarn in.co.erudition.paper.**
+-dontwarn iammert.com.view.scalinglib.**
+-dontwarn com.rd.**
+-dontwarn com.allattentionhere.fabulousfilter.**
+-dontwarn com.github.clans.fab.**
+-dontwarn com.firebase.ui.auth.**
+-dontwarn in.co.erudition.avatar.**

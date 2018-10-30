@@ -1,12 +1,13 @@
 package in.co.erudition.paper.util;
 
+import androidx.annotation.Keep;
 import in.co.erudition.paper.data.remote.BackendService;
 import in.co.erudition.paper.data.remote.RetrofitClient;
 
 /**
  * Created by Arunavo Ray on 05-06-2018.
  */
-
+@Keep
 public class ApiUtils {
     //TODO: encrypt this address
     public static final String BASE_URL = "https://www.erudition.co.in/api/v1/";

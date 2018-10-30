@@ -3,10 +3,12 @@ package in.co.erudition.paper.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.annotation.Keep;
 import in.co.erudition.paper.Erudition;
 import in.co.erudition.paper.data.model.Login;
 import in.co.erudition.paper.data.model.Person;
 
+@Keep
 public class PreferenceUtils {
     private static SharedPreferences mPrefs;
     private static SharedPreferences.Editor mPrefsEdit;

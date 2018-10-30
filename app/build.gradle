@@ -3,15 +3,23 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    signingConfigs {
+        release {
+            keyAlias 'key0'
+            keyPassword '@1321arucool#'
+            storeFile file('G:/Programming/E-commerce/Android_Keys/erudition_key.jks')
+            storePassword '#3rdapr1972'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "in.co.erudition.paper"
         vectorDrawables.useSupportLibrary = true
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 28
-        multiDexEnabled true
-        versionCode 1
-        versionName "1.0"
+//        multiDexEnabled true
+        versionCode 190000100
+        versionName "0.1-alpha"
         resConfigs "en"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -20,20 +28,16 @@ android {
     }
     buildTypes {
         debug {
-            minifyEnabled false  // don't shrink
-            useProguard false   // don't obfuscate
-
+            minifyEnabled true  // don't shrink
+            useProguard true   // don't obfuscate
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-
         release {
-            postprocessing {
-                removeUnusedCode false
-                removeUnusedResources true
-                obfuscate true
-                optimizeCode false
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            }
+            minifyEnabled true  // shrink
+            useProguard true   // obfuscate
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            renderscriptDebuggable false
         }
     }
     compileOptions {
@@ -43,47 +47,40 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.71"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.61'
     api project(path: ':pageindicatorview')
     api project(path: ':fabulousfilter')
     api project(path: ':customfab')
     api project(path: ':scalinglib')
     api project(path: ':auth')
     api project(path: ':avatar')
-
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     implementation 'androidx.appcompat:appcompat:1.0.0'
-    implementation "androidx.browser:browser:1.0.0"
+    implementation 'androidx.browser:browser:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.viewpager:viewpager:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-
     //Firebase
     implementation 'com.google.firebase:firebase-core:16.0.4'
-
     //Facebook login
     implementation 'com.facebook.android:facebook-login:4.35.0'
-
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
-
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'androidx.annotation:annotation:1.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
-    implementation("com.github.bumptech.glide:recyclerview-integration:4.8.0") {
+    implementation('com.github.bumptech.glide:recyclerview-integration:4.8.0') {
         // Excludes the support library because it's already included by Glide.
         transitive = false
     }
-
     //Google ads
     implementation 'com.google.firebase:firebase-ads:17.0.0'
-
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'

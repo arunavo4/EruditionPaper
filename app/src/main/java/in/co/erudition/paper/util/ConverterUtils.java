@@ -3,6 +3,8 @@ package in.co.erudition.paper.util;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
+import androidx.annotation.Keep;
+
 public class ConverterUtils {
 
     /**

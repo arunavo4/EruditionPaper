@@ -2,6 +2,8 @@ package in.co.erudition.paper.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+
+import androidx.annotation.Keep;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,7 +28,7 @@ import in.co.erudition.paper.data.model.PaperGroup;
 /**
  * Created by Arunavo Ray on 09-06-2018.
  */
-
+@Keep
 public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> {
 
     private QuestionAdapter mAdapter[];

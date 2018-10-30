@@ -2,6 +2,8 @@ package in.co.erudition.paper.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+
+import androidx.annotation.Keep;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +24,7 @@ import in.co.erudition.paper.util.GlideApp;
 /**
  * Created by Arunavo Ray on 31-03-2018.
  */
-
+@Keep
 public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.ViewHolder> {
 
     private List<University> mUniversities;

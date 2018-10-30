@@ -1,6 +1,8 @@
 package in.co.erudition.paper.adapter;
 
 import android.content.Context;
+
+import androidx.annotation.Keep;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -11,7 +13,7 @@ import in.co.erudition.paper.fragment.SubscriptionsFragment;
 /**
  * Created by Arunavo Ray on 05-06-2018.
  */
-
+@Keep
 public class OrderActivityPagerAdapter extends FragmentPagerAdapter {
 
     private final int PAGE_COUNT = 2;

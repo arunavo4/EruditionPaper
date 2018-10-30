@@ -7,6 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import com.google.android.material.appbar.AppBarLayout;
+
+import androidx.annotation.Keep;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;

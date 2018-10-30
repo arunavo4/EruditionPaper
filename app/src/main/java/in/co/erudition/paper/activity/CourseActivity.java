@@ -74,6 +74,8 @@ public class CourseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_course_old);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+//        View ad_spacer = (View) findViewById(R.id.nav_spacer_ad);
+
         //Load Ads
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -136,6 +138,10 @@ public class CourseActivity extends AppCompatActivity {
                 params.bottomMargin = insets.getSystemWindowInsetBottom();
                 mAdView.invalidate();
                 mAdView.requestLayout();
+
+//                params = (ViewGroup.MarginLayoutParams) ad_spacer.getLayoutParams();
+//                params.bottomMargin = insets.getSystemWindowInsetBottom();
+//                ad_spacer.requestLayout();
 
                 return insets.consumeSystemWindowInsets();
             });

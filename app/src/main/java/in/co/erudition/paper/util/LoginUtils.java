@@ -6,6 +6,7 @@ import android.util.Log;
 
 import java.io.IOException;
 
+import androidx.annotation.Keep;
 import in.co.erudition.paper.Erudition;
 import in.co.erudition.paper.data.model.Login;
 import in.co.erudition.paper.data.model.Person;
@@ -15,6 +16,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@Keep
 public class LoginUtils {
     private BackendService mService;
     private NetworkUtils mNetworkUtils = new NetworkUtils();

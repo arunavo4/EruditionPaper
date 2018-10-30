@@ -5,4 +5,6 @@
     <dimen name="chap_name_text_view_width">250dp</dimen>
     <dimen name="recycler_view_offset_start">15dp</dimen>
     <dimen name="recycler_view_offset_end">5dp</dimen>
+
+    <dimen name="avatar_view_size">120dp</dimen>
 </resources>

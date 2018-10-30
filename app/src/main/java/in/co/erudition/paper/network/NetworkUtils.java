@@ -4,10 +4,11 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import androidx.annotation.Keep;
+
 /**
  * Created by Arunavo Ray on 31-03-2018.
  */
-
 public class NetworkUtils {
 
     public NetworkUtils(){
