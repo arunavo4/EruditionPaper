@@ -159,6 +159,12 @@
     <!--AdMob-->
     <string name="admob_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
 
+    <!--Tos and Pp-->
+    <string name="tos_url" translatable="false">https://paper.erudition.co.in/terms-and-conditions</string>
+    <string name="pp_url" translatable="false">https://paper.erudition.co.in/privacy-policy</string>
+
+    <string name="faq_url" translatable="false">https://paper.erudition.co.in/faq</string>
+
     <!--Symbols-->
     <!--Rupee Symbol-->
     <string name="Rs">\u20B9</string>

@@ -1,9 +1,12 @@
 package in.co.erudition.paper.activity;
 
+import android.annotation.SuppressLint;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+
+import com.erudition.polygonprogressbar.NSidedProgressBar;
 import com.google.android.material.appbar.AppBarLayout;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import androidx.core.content.ContextCompat;
@@ -14,16 +17,37 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 
 import in.co.erudition.paper.R;
 
 public class WebviewActivity extends AppCompatActivity {
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        WebView webView = (WebView) findViewById(R.id.web_view);
+        NSidedProgressBar progressBar = (NSidedProgressBar) findViewById(R.id.progressBar);
+
+        // Load thw WebView
+        webView.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+//                progressBar.setProgress(newProgress);
+                if (newProgress==100){
+                    progressBar.setVisibility(View.GONE);
+                }else {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl(getIntent().getStringExtra("Webview.Address"));
 
         // To set the background of the activity go below the StatusBar
         getWindow().getDecorView().setSystemUiVisibility(
@@ -75,5 +99,6 @@ public class WebviewActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
     }
 }

@@ -10,7 +10,7 @@
         <item name="android:buttonStyle">@style/FirebaseUI.Button</item>
     </style>
 
-    <style name="FirebaseUI.Transparent" parent="FirebaseUI">
+    <style name="FirebaseUI.Transparent" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@color/fui_transparent</item>
         <item name="android:windowContentOverlay">@null</item>

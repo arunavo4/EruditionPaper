@@ -11,6 +11,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+
+import com.erudition.polygonprogressbar.NSidedProgressBar;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
@@ -67,7 +69,7 @@ public class PaperActivity extends AppCompatActivity {
     private Call<List<Chapter>> chapCall;
     private NetworkUtils mNetworkUtils = new NetworkUtils();
 
-    private ProgressBar mProgressBar;
+    private NSidedProgressBar mProgressBar;
     private LinearLayout mPaperList;
     private LinearLayout mNoPaper;
 
@@ -90,7 +92,7 @@ public class PaperActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         Toolbar toolbar_textView = (Toolbar) findViewById(R.id.toolbar2);
 
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar_paper);
+        mProgressBar = (NSidedProgressBar) findViewById(R.id.progressBar_paper);
         mPaperList = (LinearLayout) findViewById(R.id.paper_list);
         mNoPaper = (LinearLayout) findViewById(R.id.no_paper_found);
 

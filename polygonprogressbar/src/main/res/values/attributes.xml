@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NSidedProgressBar">
+        <attr name="nsidedProg_sideCount" format="integer" />
+        <attr name="nsidedProg_primaryColor" format="color" />
+        <attr name="nsidedProg_secondaryColor" format="color" />
+        <attr name="nsidedProg_baseSpeed" format="float" />
+        <attr name="nsidedProg_refreshRate" format="integer" />
+        <attr name="nsidedProg_primaryRimWidth" format="float" />
+        <attr name="nsidedProg_secondaryRimWidth" format="float" />
+        <attr name="nsidedProg_clockwise" format="boolean" />
+        <attr name="nsidedProg_determinate" format="boolean" />
+        <attr name="nsidedProg_startSide" format="integer" />
+    </declare-styleable>
+</resources>

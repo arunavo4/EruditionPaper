@@ -63,12 +63,14 @@
     </androidx.core.widget.NestedScrollView>
 
 
-    <ProgressBar
+    <com.erudition.polygonprogressbar.NSidedProgressBar
         android:id="@+id/progressBar_universities"
-        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        app:nsidedProg_baseSpeed="5"
+        app:nsidedProg_sideCount="4"
+        app:nsidedProg_clockwise="true"
         android:visibility="gone"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

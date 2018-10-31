@@ -14,6 +14,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+
+import com.erudition.polygonprogressbar.NSidedProgressBar;
 import com.google.android.material.appbar.AppBarLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import com.google.android.material.navigation.NavigationView;
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity
     private Call<List<University>> call;
     private NetworkUtils mNetworkUtils = new NetworkUtils();
 
-    private ProgressBar mProgressBar;
+    private NSidedProgressBar mProgressBar;
     private LinearLayout mUniversityList;
     private FloatingActionMenu fab;
     private Intent intent;
@@ -105,9 +107,8 @@ public class MainActivity extends AppCompatActivity
 
         mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
                 Context.MODE_PRIVATE);
-        mPrefsEdit = mPrefs.edit();
 
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar_universities);
+        mProgressBar = (NSidedProgressBar) findViewById(R.id.progressBar_universities);
         mUniversityList = (LinearLayout) findViewById(R.id.university_list);
 
         final View space = (View) findViewById(R.id.spacer_top);
@@ -614,12 +615,12 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.nav_pp) {
             Intent intent = new Intent(MainActivity.this, WebviewActivity.class);
             intent.putExtra("Webview.Title", getString(R.string.privacy_p));
-            intent.putExtra("Webview.Address", "");
+            intent.putExtra("Webview.Address", getString(R.string.pp_url));
             startActivity(intent);
         } else if (id == R.id.nav_tos) {
             Intent intent = new Intent(MainActivity.this, WebviewActivity.class);
             intent.putExtra("Webview.Title", getString(R.string.terms_of_service));
-            intent.putExtra("Webview.Address", "");
+            intent.putExtra("Webview.Address",getString(R.string.tos_url));
             startActivity(intent);
         } else if (id == R.id.nav_about) {
             //launch the dialog

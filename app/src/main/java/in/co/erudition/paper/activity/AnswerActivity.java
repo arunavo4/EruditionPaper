@@ -153,12 +153,7 @@ public class AnswerActivity extends AppCompatActivity {
 
         mService = ApiUtils.getBackendService();
         recyclerView = (RecyclerView) findViewById(R.id.answers_rv);
-        mAdapter = new AnswerAdapter(this, data, toolbar, new GroupAdapter.GroupItemListener() {
-            @Override
-            public void onGroupClick(String id) {
-                Toast.makeText(AnswerActivity.this, "Post id is" + id, Toast.LENGTH_SHORT).show();
-            }
-        });
+        mAdapter = new AnswerAdapter(this, data, toolbar, id -> Toast.makeText(AnswerActivity.this, "Post id is" + id, Toast.LENGTH_SHORT).show());
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false));

@@ -10,6 +10,8 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+
+import com.erudition.polygonprogressbar.NSidedProgressBar;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
@@ -58,7 +60,7 @@ public class CourseActivity extends AppCompatActivity {
     private Call<UniversityCourse> call;
     private NetworkUtils mNetworkUtils = new NetworkUtils();
 
-    private ProgressBar mProgressBar;
+    private NSidedProgressBar mProgressBar;
     private LinearLayout mCourseList;
     private FloatingActionMenu fab;
     private Intent intent;
@@ -85,7 +87,7 @@ public class CourseActivity extends AppCompatActivity {
         params = new String[]{"0", "0", "0", "0"};
         params[0] = getIntent().getStringExtra("UniversityActivity.EXTRA_BoardCode");
 
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar_course);
+        mProgressBar = (NSidedProgressBar) findViewById(R.id.progressBar_course);
         TextView mChooseTV = (TextView) findViewById(R.id.choose_tv);
         title = (TextView) findViewById(R.id.university_name_tv);
 //        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeToRefresh2);

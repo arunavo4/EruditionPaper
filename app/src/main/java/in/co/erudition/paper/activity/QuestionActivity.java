@@ -6,6 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+
+import com.erudition.polygonprogressbar.NSidedProgressBar;
 import com.google.android.material.appbar.AppBarLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -62,7 +64,7 @@ public class QuestionActivity extends AppCompatActivity {
     private Call<Paper> call;
     private NetworkUtils mNetworkUtils = new NetworkUtils();
     private FloatingActionButton fab;
-    private ProgressBar mProgressBar;
+    private NSidedProgressBar mProgressBar;
     private AppBarLayout appBarLayout;
     private Toolbar toolbar;
 
@@ -81,7 +83,7 @@ public class QuestionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_question_new);             //Changed
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar_Ques);
+        mProgressBar = (NSidedProgressBar) findViewById(R.id.progressBar_Ques);
 
         appBarLayout = (AppBarLayout) findViewById(R.id.my_appbar_container); //Changed
         appBarLayout.bringToFront();

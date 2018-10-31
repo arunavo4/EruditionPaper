@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/internal/lint" />
             <option value="$PROJECT_DIR$/internal/lintchecks" />
             <option value="$PROJECT_DIR$/pageindicatorview" />
+            <option value="$PROJECT_DIR$/polygonprogressbar" />
             <option value="$PROJECT_DIR$/scalinglib" />
           </set>
         </option>

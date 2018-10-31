@@ -117,7 +117,7 @@ public class HelpActivity extends AppCompatActivity {
                 //Open the Webview with the given address
                 Intent intent = new Intent(HelpActivity.this, WebviewActivity.class);
                 intent.putExtra("Webview.Title", getString(R.string.faq));
-                intent.putExtra("Webview.Address", "");
+                intent.putExtra("Webview.Address", getString(R.string.faq_url));
                 startActivity(intent);
             }
         });

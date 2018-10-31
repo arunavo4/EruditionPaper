@@ -18,13 +18,11 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
 //        multiDexEnabled true
-        versionCode 190000100
+        versionCode 191000101
         versionName "0.1-alpha"
         resConfigs "en"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-//        renderscriptTargetApi 28
-//        renderscriptSupportModeEnabled true
     }
     buildTypes {
         debug {
@@ -34,7 +32,7 @@ android {
         }
         release {
             minifyEnabled true  // shrink
-            useProguard true   // obfuscate
+            useProguard true  // obfuscate
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
             renderscriptDebuggable false
@@ -53,6 +51,7 @@ dependencies {
     api project(path: ':fabulousfilter')
     api project(path: ':customfab')
     api project(path: ':scalinglib')
+    api project(path: ':polygonprogressbar')
     api project(path: ':auth')
     api project(path: ':avatar')
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
