@@ -24,6 +24,9 @@ public class University {
     @SerializedName("Logo")
     @Expose
     private String logo;
+    @SerializedName("State")
+    @Expose
+    private String state;
 
     public String getId() {
         return id;
@@ -65,4 +68,11 @@ public class University {
         this.logo = logo;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 }

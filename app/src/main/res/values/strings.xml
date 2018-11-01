@@ -53,6 +53,10 @@
     <string name="no_rewards_top">No Previous Rewards</string>
     <string name="no_rewards_bottom">Start Sharing with Your Friends &amp; After they Join Your Rewards will start appear here</string>
 
+    <!--Share-->
+    <string name="share_top">Show some Friendship</string>
+    <string name="share_bottom">Share The News so that your friends can also enjoy Erudition Paper On The Go</string>
+
     <!--No Internet and error and maintenance-->
     <string name="no_internet_top">No Internet</string>
     <string name="no_internet_bottom">Your internet connection was interrupted,  Please retry.</string>
@@ -148,8 +152,9 @@
     <string name="chapter_wise">Chapter\nWise</string>
     <string name="year_wise">Year\nWise</string>
 
-    <string name="chapter_wise_new">Chapter Wise</string>
-    <string name="year_wise_new">Year Wise</string>
+    <string name="chapter_wise_new">Chapter View</string>
+    <string name="year_wise_new">Year View</string>
+    <string name="syllabus">Syllabus</string>
 
     <!--FaceBook -->
     <string name="facebook_application_id" translatable="false">1830176010527608</string>
@@ -186,6 +191,8 @@
     <string name="title_activity_selection">SelectionActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_profile_edit">ProfileEditActivity</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_syllabus">SyllabusActivity</string>
 
 
 </resources>

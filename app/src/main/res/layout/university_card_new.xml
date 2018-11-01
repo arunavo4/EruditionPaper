@@ -3,9 +3,27 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <include layout="@layout/university_card"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/university_card"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/coming_soon_overlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:elevation="0dp"
+            app:srcCompat="@drawable/ic_coming_soon_overlay"
+            android:visibility="visible"/>
+
+    </FrameLayout>
 
     <View
         android:id="@+id/nav_spacer_1"

@@ -22,10 +22,16 @@
             android:gravity="center_horizontal">
 
             <include android:id="@+id/chapter_btn"
-                layout="@layout/paper_btn_chap_new"/>
+                layout="@layout/paper_btn_chap_new"
+                android:visibility="invisible"/>
 
             <include android:id="@+id/year_btn"
-                layout="@layout/paper_btn_year_new"/>
+                layout="@layout/paper_btn_year_new"
+                android:visibility="invisible"/>
+
+            <include android:id="@+id/syllabus_btn"
+                layout="@layout/paper_btn_syllabus"
+                android:visibility="invisible"/>
 
         </LinearLayout>
 

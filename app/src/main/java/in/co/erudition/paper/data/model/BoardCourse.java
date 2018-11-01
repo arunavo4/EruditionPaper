@@ -22,6 +22,9 @@ public class BoardCourse {
     @SerializedName("Status")
     @Expose
     private String status;
+    @SerializedName("State")
+    @Expose
+    private String state;
     @SerializedName("BoardSession")
     @Expose
     private List<BoardSession> boardSession = null;
@@ -72,5 +75,13 @@ public class BoardCourse {
 
     public void setBoardSession(List<BoardSession> boardSession) {
         this.boardSession = boardSession;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

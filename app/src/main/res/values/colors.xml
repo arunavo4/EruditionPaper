@@ -50,6 +50,7 @@
     <color name="blue_new">#46aad7</color>
     <color name="blue_accent">#28C9C9</color>
     <color name="fab_blue_fb">#0084FF</color>
+    <color name="blue_nav">#0066B8</color>
 
     <!--Yellow-->
     <color name="yellow_star">#fdd922</color>

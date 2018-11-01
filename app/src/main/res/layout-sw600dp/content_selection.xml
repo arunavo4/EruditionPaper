@@ -13,21 +13,39 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/selection_chap_or_year"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/spacer_8dp"
-            android:gravity="center_horizontal">
+            android:orientation="vertical">
 
-            <include android:id="@+id/chapter_btn"
-                layout="@layout/paper_btn_chap_new"/>
+            <LinearLayout
+                android:id="@+id/selection_chap_or_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacer_8dp"
+                android:gravity="center_horizontal">
 
-            <include android:id="@+id/year_btn"
-                layout="@layout/paper_btn_year_new"/>
+                <include android:id="@+id/chapter_btn"
+                    layout="@layout/paper_btn_chap_new"/>
+
+                <include android:id="@+id/year_btn"
+                    layout="@layout/paper_btn_year_new"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacer_8dp"
+                android:gravity="center_horizontal">
+
+                <include android:id="@+id/syllabus_btn"
+                    layout="@layout/paper_btn_syllabus"/>
+
+            </LinearLayout>
 
         </LinearLayout>
-
 
     </androidx.core.widget.NestedScrollView>
 

@@ -44,6 +44,7 @@
 
     <include layout="@layout/content_help" />
 
-    <include layout="@layout/floating_action_menu_help"/>
+    <include layout="@layout/floating_action_menu_help"
+        android:visibility="invisible"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

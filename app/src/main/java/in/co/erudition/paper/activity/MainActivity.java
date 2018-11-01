@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import androidx.annotation.NonNull;
 import com.erudition.polygonprogressbar.NSidedProgressBar;
 import com.google.android.material.appbar.AppBarLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
@@ -100,9 +103,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
 
-        TextView tv = (TextView) findViewById(R.id.app_name_tv_1);
-        setUpCustomText(getResources().getString(R.string.app_name), tv);
-        toolbar.setTitle("Erudition Paper");
+//        TextView tv = (TextView) findViewById(R.id.app_name_tv_1);
+//        setUpCustomText(getResources().getString(R.string.app_name), tv);
+//        toolbar.setTitle("Erudition Paper");
         setSupportActionBar(toolbar);
 
         mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
@@ -128,7 +131,7 @@ public class MainActivity extends AppCompatActivity
             }
 
             @Override
-            public void onExpanded() {
+            public void onExpanded() {Log.d("layout", "Expanded");
             }
 
             @Override
@@ -591,14 +594,17 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_profile) {
             Intent intent = new Intent(this, ProfileActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_order_history) {
-            Intent intent = new Intent(this, OrderActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_offers) {
-            Intent intent = new Intent(this, OfferActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_rewards) {
-            Intent intent = new Intent(this, RewardActivity.class);
+//        } else if (id == R.id.nav_order_history) {
+//            Intent intent = new Intent(this, OrderActivity.class);
+//            startActivity(intent);
+//        } else if (id == R.id.nav_offers) {
+//            Intent intent = new Intent(this, OfferActivity.class);
+//            startActivity(intent);
+//        } else if (id == R.id.nav_rewards) {
+//            Intent intent = new Intent(this, RewardActivity.class);
+//            startActivity(intent);
+        } else if (id == R.id.nav_share) {
+            Intent intent = new Intent(this, RewardHistoryActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_books) {
             Intent intent = new Intent(this, BookActivity.class);

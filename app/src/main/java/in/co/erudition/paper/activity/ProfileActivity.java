@@ -111,11 +111,11 @@ public class ProfileActivity extends AppCompatActivity {
         Drawable bg;
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             bg = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_black_24dp);
-            bg.setColorFilter(ContextCompat.getColor(this, R.color.colorBlack), PorterDuff.Mode.MULTIPLY);
+            bg.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), PorterDuff.Mode.MULTIPLY);
         } else {
             bg = VectorDrawableCompat.create(getResources(), R.drawable.ic_arrow_back_black_24dp, null);
             bg = DrawableCompat.wrap(bg);
-            DrawableCompat.setTint(bg, ContextCompat.getColor(this, R.color.colorBlack));
+            DrawableCompat.setTint(bg, ContextCompat.getColor(this, R.color.colorWhite));
         }
 
         toolbar.setNavigationIcon(bg);

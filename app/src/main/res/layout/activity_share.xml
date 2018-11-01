@@ -49,7 +49,39 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_reward_history" />
+    <!--<include layout="@layout/content_share" />-->
+    <LinearLayout
+        android:id="@+id/rewards_404_not_found"
+        android:paddingTop="@dimen/spacer_32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_no_net"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/toolbar_offset"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_friends" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            style="@style/TopTextView.share"
+            android:text="@string/share_top"/>
+
+        <TextView
+            android:layout_width="@dimen/bottom_tv_width_max"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            style="@style/BottomTextView.share"
+            android:text="@string/share_bottom"/>
+
+    </LinearLayout>
 
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/fab"

@@ -15,7 +15,7 @@
         android:id="@+id/my_appbar_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height_profile"
-        android:background="@color/colorTransparent"
+        android:background="@color/colorMaterialBlack_no_alpha"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -27,7 +27,7 @@
             app:collapsedTitleGravity="start"
             app:collapsedTitleTextAppearance="@style/collapsedTitleTextAppearance.Profile"
             app:expandedTitleTextAppearance="@style/expandedTitleTextAppearance.Profile"
-            app:contentScrim="@color/default_bg_color"
+            app:contentScrim="@color/colorMaterialBlack_no_alpha"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <!--To Scroll off scroll|exitUntilCollapsed-->
@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_bar_height"
                 android:layout_marginTop="@dimen/status_bar_height"
-                android:theme="@style/ToolBarStyle.dark"
+                android:theme="@style/ToolBarStyle"
                 android:title="@string/app_name"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />

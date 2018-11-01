@@ -33,6 +33,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -81,6 +82,7 @@ public class PaperActivity extends AppCompatActivity {
 
     private TextView mTextView;
     private CollapsingToolbarLayout collapsingToolbarLayout;
+    private Dialog dialog;
 
     private boolean papers = true;
     private int select = 0;
@@ -492,6 +494,11 @@ public class PaperActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (dialog!=null){
+            if (dialog.isShowing()){
+                dialog.cancel();
+            }
+        }
         if (select == 0) {
             if (chapCall != null) {
                 if (!chapCall.isExecuted()) {
@@ -531,7 +538,7 @@ public class PaperActivity extends AppCompatActivity {
 
         Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
 
-        final Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -552,11 +559,22 @@ public class PaperActivity extends AppCompatActivity {
         View view = getLayoutInflater().inflate(R.layout.dialog_page_not_found, null);
 
         Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
+        ImageView btn_back = (ImageView) view.findViewById(R.id.btn_back);
 
-        final Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog.isShowing()) {
+                    dialog.cancel();
+                    onBackPressed();
+                }
+            }
+        });
 
         btn_go_back.setOnClickListener(new View.OnClickListener() {
             @Override

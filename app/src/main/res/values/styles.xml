@@ -31,7 +31,7 @@
     <style name="AppTheme.SplashActivity" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="android:windowBackground">@drawable/background_splash</item>
+        <item name="android:windowBackground">@drawable/background_splash_dark</item>
         <item name="android:navigationBarColor">@color/colorTransparent</item>
         <item name="android:statusBarColor">@color/colorTransparent</item>
         <!--<item name="android:windowTranslucentStatus">true</item>-->
@@ -40,7 +40,7 @@
     </style>
 
     <style name="Transparent" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
@@ -67,6 +67,17 @@
         <item name="actionMenuTextColor">@color/colorWhite</item>
         <!--color of the other icons in toolbar-->
         <item name="android:tint">@color/colorWhite</item>
+    </style>
+
+    <style name="ToolBarStyle.bold" parent="AppTheme">
+        <!--Text color of the Title-->
+        <item name="android:textColorPrimary">@color/colorWhite</item>
+        <!--The menu icon color-->
+        <item name="android:textColorSecondary">@color/colorWhite</item>
+        <item name="actionMenuTextColor">@color/colorWhite</item>
+        <!--color of the other icons in toolbar-->
+        <item name="android:tint">@color/colorWhite</item>
+        <item name="android:fontFamily">@font/source_sans_pro_bold</item>
     </style>
 
     <!-- ToolBar Courses & Paper-->
@@ -128,10 +139,15 @@
     </style>
 
     <!--Collapsing toolbar-->
+    <style name="collapsedTitleTextAppearance.bold">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:fontFamily">@font/source_sans_bold</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
+
     <style name="collapsedTitleTextAppearance">
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:textAlignment">textStart</item>
     </style>
 
@@ -171,13 +187,13 @@
     </style>
 
     <style name="collapsedTitleTextAppearance.Profile">
-        <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
+        <item name="android:textColor">@color/colorWhite</item>
         <item name="android:fontFamily">@font/source_sans_pro_bold</item>
         <item name="android:textAlignment">textStart</item>
     </style>
 
     <style name="expandedTitleTextAppearance.Profile" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
-        <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
+        <item name="android:textColor">@color/colorWhite</item>
         <item name="android:fontFamily">@font/source_sans_pro_bold</item>
         <item name="android:textSize">30sp</item>
         <item name="android:textAlignment">textStart</item>
@@ -367,6 +383,20 @@
         <item name="android:textColor">@color/colorMaterialBlack</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TopTextView.share">
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="BottomTextView.share">
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
+        <item name="android:textColor">@color/colorMaterialBlack</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="TopTextView_404">

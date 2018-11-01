@@ -26,6 +26,9 @@ public class UniversityCourse {
     @SerializedName("Logo")
     @Expose
     private String logo;
+    @SerializedName("State")
+    @Expose
+    private String state;
     @SerializedName("BoardCourse")
     @Expose
     private List<BoardCourse> boardCourse = null;
@@ -78,4 +81,11 @@ public class UniversityCourse {
         this.boardCourse = boardCourse;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 }

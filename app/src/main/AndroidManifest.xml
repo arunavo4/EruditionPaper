@@ -20,7 +20,7 @@
         <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/admob_app_id"/>
+            android:value="@string/admob_app_id" />
 
         <activity
             android:name=".LoginActivity"
@@ -97,14 +97,14 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.QuestionActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/blank"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="orientation|screenSize|keyboardHidden"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.AnswerActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/blank"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="orientation|screenSize|keyboardHidden"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SelectionActivity"
             android:label="@string/blank"
@@ -120,7 +120,11 @@
         <activity
             android:name=".activity.ProfileEditActivity"
             android:label="@string/blank"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.SyllabusActivity"
+            android:label="@string/title_activity_syllabus"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

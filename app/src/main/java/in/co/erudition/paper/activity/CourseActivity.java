@@ -30,9 +30,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -43,11 +45,13 @@ import org.w3c.dom.Text;
 
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.adapter.CourseAdapter;
+import in.co.erudition.paper.data.model.PresetResponseCode;
 import in.co.erudition.paper.data.model.UniversityCourse;
 import in.co.erudition.paper.data.remote.BackendService;
 import in.co.erudition.paper.misc.ItemOffsetDecoration;
 import in.co.erudition.paper.network.NetworkUtils;
 import in.co.erudition.paper.util.ApiUtils;
+import in.co.erudition.paper.util.PreferenceUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -65,6 +69,8 @@ public class CourseActivity extends AppCompatActivity {
     private FloatingActionMenu fab;
     private Intent intent;
     private String params[];
+    private AdView adView;
+    private Dialog dialog;
 
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private TextView title;
@@ -79,9 +85,9 @@ public class CourseActivity extends AppCompatActivity {
 //        View ad_spacer = (View) findViewById(R.id.nav_spacer_ad);
 
         //Load Ads
-        AdView mAdView = (AdView) findViewById(R.id.adView);
+        adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        adView.loadAd(adRequest);
 
         //Init section codes
         params = new String[]{"0", "0", "0", "0"};
@@ -136,10 +142,10 @@ public class CourseActivity extends AppCompatActivity {
                 fab.invalidate();
                 fab.requestLayout();
 
-                params = (ViewGroup.MarginLayoutParams) mAdView.getLayoutParams();
+                params = (ViewGroup.MarginLayoutParams) adView.getLayoutParams();
                 params.bottomMargin = insets.getSystemWindowInsetBottom();
-                mAdView.invalidate();
-                mAdView.requestLayout();
+                adView.invalidate();
+                adView.requestLayout();
 
 //                params = (ViewGroup.MarginLayoutParams) ad_spacer.getLayoutParams();
 //                params.bottomMargin = insets.getSystemWindowInsetBottom();
@@ -149,6 +155,14 @@ public class CourseActivity extends AppCompatActivity {
             });
         }
 
+        //Check if its in not active state
+        int state_selector = 0;
+        String state = getIntent().getStringExtra("UniversityActivity.EXTRA_State");
+        if (state!=null) {
+            if (state.contentEquals("Not Active")) {
+                state_selector = 1;
+            }
+        }
         /**
          * instantiate the floating action buttons
          */
@@ -239,7 +253,12 @@ public class CourseActivity extends AppCompatActivity {
             public void onUniversityClick(String id) {
                 mProgressBar.setVisibility(View.VISIBLE);
                 mCourseList.setVisibility(View.INVISIBLE);
-                loadCourses();
+                if (mAdapter.getState()!=1){
+                    loadCourses();
+                }else {
+                    showDialogSoon();
+                    loadCourses();
+                }
                 if (fab.isMenuButtonHidden()) {
                     fab.showMenuButton(true);
                 }
@@ -270,7 +289,12 @@ public class CourseActivity extends AppCompatActivity {
         });
 
         Log.d("CourseActivity", "loading Courses");
-        loadCourses();
+        if (mAdapter.getState()==1 || state_selector==1){
+            showDialogSoon();
+            loadCourses();
+        }else {
+            loadCourses();
+        }
     }
 
     private void loadCourses() {
@@ -339,6 +363,65 @@ public class CourseActivity extends AppCompatActivity {
 
     }
 
+    private void notifyMeCall(){
+        Log.d("CourseActivity", "notifyMeMethod");
+
+        Call<PresetResponseCode> notifyCall;
+        String eid = PreferenceUtils.getEid();
+
+        switch (mAdapter.getSelector()) {
+            case 0:
+                notifyCall = mService.notifyMe(eid,params[0]);
+                break;
+            case 1:
+                notifyCall = mService.notifyMe(eid,params[0], params[1]);
+                break;
+            case 2:
+                notifyCall = mService.notifyMe(eid,params[0], params[1], params[2]);
+                break;
+            default:
+                notifyCall = mService.notifyMe(eid,params[0]);
+        }
+        Log.d("Call", notifyCall.request().toString());
+        notifyCall.enqueue(new Callback<PresetResponseCode>() {
+            @Override
+            public void onResponse(Call<PresetResponseCode> call, Response<PresetResponseCode> response) {
+                if (response.isSuccessful()) {
+                    Log.d("CourseActivity", "issuccess");
+                    Log.d("Response Body", response.body().toString());
+                    Log.d("CourseActivity", "API success");
+
+                    //Toast
+                    Toast.makeText(CourseActivity.this,"You will be notified!",Toast.LENGTH_LONG).show();
+                } else {
+                    int statusCode = response.code();
+                    if (statusCode == 401) {
+                        Log.d("StatusCode", "Unauthorized");
+                    }
+                    if (statusCode == 200) {
+                        Log.d("StatusCode", "OK");
+                    } else {
+                        Log.d("StatusCode", String.valueOf(statusCode));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PresetResponseCode> call, Throwable t) {
+                if (call.isCanceled()) {
+                    Log.d("CourseActivity", "call is cancelled");
+
+                } else if (mNetworkUtils.isOnline(CourseActivity.this)) {
+                    Log.d("MainActivity", "error loading from API");
+                    showDialogError();
+                } else {
+                    Log.d("MainActivity", "Check your network connection");
+                    showDialogNoNet();
+                }
+            }
+        });
+    }
+
     @Override
     public void onBackPressed() {
         if (mAdapter.getSelector() == 0) {
@@ -349,6 +432,18 @@ public class CourseActivity extends AppCompatActivity {
         if (!call.isExecuted()) {
             call.cancel();
         }
+        if (dialog!=null){
+            if (dialog.isShowing()){
+                dialog.cancel();
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        adView.removeAllViews();
+        adView.destroy();
+        super.onDestroy();
     }
 
     private void onRetryLoadCourses() {
@@ -368,7 +463,7 @@ public class CourseActivity extends AppCompatActivity {
 
         Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
 
-        final Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -389,11 +484,22 @@ public class CourseActivity extends AppCompatActivity {
         View view = getLayoutInflater().inflate(R.layout.dialog_page_not_found, null);
 
         Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
+        ImageView btn_back = (ImageView) view.findViewById(R.id.btn_back);
 
-        final Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog.isShowing()) {
+                    dialog.cancel();
+                    onBackPressed();
+                }
+            }
+        });
 
         btn_go_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -407,6 +513,36 @@ public class CourseActivity extends AppCompatActivity {
         });
     }
 
+    private void showDialogSoon() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_coming_soon, null);
+
+        Button btn_notify = (Button) view.findViewById(R.id.btn_notify);
+        ImageView btn_go_back = (ImageView) view.findViewById(R.id.btn_go_back);
+
+        dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
+
+        btn_go_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog.isShowing()) {
+                    dialog.cancel();
+                    onBackPressed();
+                }
+            }
+        });
+
+        btn_notify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //call notify
+                notifyMeCall();
+                onBackPressed();
+            }
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

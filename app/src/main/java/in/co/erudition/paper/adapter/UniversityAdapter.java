@@ -4,7 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 
 import androidx.annotation.Keep;
+import androidx.cardview.widget.CardView;
+import androidx.core.widget.ImageViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +61,7 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Vi
         University mUniversity = mUniversities.get(holder.getAdapterPosition());
         ImageView mImgView = holder.mImageView;
         TextView mUNameTV = holder.mUniversityNameTV;
+        ImageView mBanner = holder.banner;
 //        View nav_space = holder.spacer;
 
         try {
@@ -82,6 +87,12 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Vi
 //                Log.d("Nav Spacer","inflated");
 //                nav_space.setVisibility(View.VISIBLE);
 //            }
+            if (mUniversity.getState()!=null) {
+                if (mUniversity.getState().contentEquals("Not Active")) {
+                    //set foreground as coming soon
+                    mBanner.setVisibility(View.VISIBLE);
+                }else { mBanner.setVisibility(View.INVISIBLE); }
+            }else { mBanner.setVisibility(View.INVISIBLE); }
         } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
             Log.e("Exception", e.toString());
         }
@@ -95,12 +106,14 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView mImageView;
         public TextView mUniversityNameTV;
+        public ImageView banner;
 //        public View spacer;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mImageView = (ImageView) itemView.findViewById(R.id.university_logo);
             mUniversityNameTV = (TextView) itemView.findViewById(R.id.tv_university_name);
+            banner = (ImageView) itemView.findViewById(R.id.coming_soon_overlay);
 //            spacer = (View) itemView.findViewById(R.id.nav_spacer_1);
 
             itemView.setOnClickListener(this);
@@ -124,6 +137,7 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Vi
                 intent.putExtra("UniversityActivity.EXTRA_University_NAME", mUniversity.getName());
                 intent.putExtra("UniversityActivity.EXTRA_University_FULL_NAME", mUniversity.getFullName());
                 intent.putExtra("UniversityActivity.EXTRA_BoardCode", mUniversity.getCode());
+                intent.putExtra("UniversityActivity.EXTRA_State",mUniversity.getState());
                 mContext.startActivity(intent);
             }
 

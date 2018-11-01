@@ -53,6 +53,10 @@
     <string name="no_rewards_top">No Previous Rewards</string>
     <string name="no_rewards_bottom">Start Sharing with Your Friends &amp; After they Join Your Rewards will start appear here</string>
 
+    <!--Share-->
+    <string name="share_top">Show some Friendship</string>
+    <string name="share_bottom">Share The News so that your friends can also enjoy Erudition Paper On The Go</string>
+
     <!--No Internet and error and maintenance-->
     <string name="no_internet_top">No Internet</string>
     <string name="no_internet_bottom">Your internet connection was interrupted,  Please retry.</string>
@@ -148,8 +152,9 @@
     <string name="chapter_wise">Chapter\nWise</string>
     <string name="year_wise">Year\nWise</string>
 
-    <string name="chapter_wise_new">Chapter Wise</string>
-    <string name="year_wise_new">Year Wise</string>
+    <string name="chapter_wise_new">Chapter View</string>
+    <string name="year_wise_new">Year View</string>
+    <string name="syllabus">Syllabus</string>
 
     <!--FaceBook -->
     <string name="facebook_application_id" translatable="false">1830176010527608</string>
@@ -158,6 +163,12 @@
 
     <!--AdMob-->
     <string name="admob_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+
+    <!--Tos and Pp-->
+    <string name="tos_url" translatable="false">https://paper.erudition.co.in/terms-and-conditions</string>
+    <string name="pp_url" translatable="false">https://paper.erudition.co.in/privacy-policy</string>
+
+    <string name="faq_url" translatable="false">https://paper.erudition.co.in/faq</string>
 
     <!--Symbols-->
     <!--Rupee Symbol-->

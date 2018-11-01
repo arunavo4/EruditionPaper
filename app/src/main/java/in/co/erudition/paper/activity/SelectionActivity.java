@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -24,19 +25,32 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import in.co.erudition.paper.R;
+import in.co.erudition.paper.data.model.PresetResponseCode;
+import in.co.erudition.paper.data.remote.BackendService;
+import in.co.erudition.paper.network.NetworkUtils;
+import in.co.erudition.paper.util.ApiUtils;
+import in.co.erudition.paper.util.PreferenceUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SelectionActivity extends AppCompatActivity {
-
+    private BackendService mService;
+    private NetworkUtils mNetworkUtils = new NetworkUtils();
     private FloatingActionMenu fab;
     private AdView mAdView;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +62,16 @@ public class SelectionActivity extends AppCompatActivity {
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        mService = ApiUtils.getBackendService();
+
+        //Check if its in not active state
+        String state = getIntent().getStringExtra("CourseActivity.EXTRA_Subject_State");
+        if (state!=null) {
+            if (state.contentEquals("Not Active")) {
+                showDialogSoon();
+            }
+        }
 
         //Selection Buttons
         CardView yearBtn = (CardView) findViewById(R.id.year_btn);
@@ -186,6 +210,85 @@ public class SelectionActivity extends AppCompatActivity {
 
     }
 
+    private void notifyMeCall(){
+        Log.d("CourseActivity", "notifyMeMethod");
+        String params[] = getIntent().getStringArrayExtra("CourseActivity.EXTRA_params");
+        Call<PresetResponseCode> notifyCall = mService.notifyMe(PreferenceUtils.getEid(),params[0], params[1], params[2], params[3]);;
+
+        Log.d("Call", notifyCall.request().toString());
+        notifyCall.enqueue(new Callback<PresetResponseCode>() {
+            @Override
+            public void onResponse(Call<PresetResponseCode> call, Response<PresetResponseCode> response) {
+                if (response.isSuccessful()) {
+                    Log.d("SelectionActivity", "issuccess");
+                    Log.d("Response Body", response.body().toString());
+                    Log.d("SelectionActivity", "API success");
+
+                    //Toast
+                    Toast.makeText(SelectionActivity.this,"You will be notified!",Toast.LENGTH_LONG).show();
+                } else {
+                    int statusCode = response.code();
+                    if (statusCode == 401) {
+                        Log.d("StatusCode", "Unauthorized");
+                    }
+                    if (statusCode == 200) {
+                        Log.d("StatusCode", "OK");
+                    } else {
+                        Log.d("StatusCode", String.valueOf(statusCode));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PresetResponseCode> call, Throwable t) {
+                if (call.isCanceled()) {
+                    Log.d("CourseActivity", "call is cancelled");
+
+                } else if (mNetworkUtils.isOnline(SelectionActivity.this)) {
+                    Log.d("MainActivity", "error loading from API");
+                } else {
+                    Log.d("MainActivity", "Check your network connection");
+                }
+            }
+        });
+    }
+
+
+    private void showDialogSoon() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_coming_soon, null);
+
+        Button btn_notify = (Button) view.findViewById(R.id.btn_notify);
+        ImageView btn_go_back = (ImageView) view.findViewById(R.id.btn_go_back);
+
+        dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
+
+        btn_go_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog.isShowing()) {
+                    dialog.cancel();
+                    onBackPressed();
+                }
+            }
+        });
+
+        btn_notify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //call notify
+                notifyMeCall();
+//                onBackPressed();
+                if (dialog.isShowing()) {
+                    dialog.cancel();
+                    onBackPressed();
+                }
+            }
+        });
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -208,6 +311,23 @@ public class SelectionActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mAdView.removeAllViews();
+        mAdView.destroy();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (dialog!=null){
+            if (dialog.isShowing()){
+                dialog.cancel();
+            }
+        }
+        super.onBackPressed();
     }
 
     /**

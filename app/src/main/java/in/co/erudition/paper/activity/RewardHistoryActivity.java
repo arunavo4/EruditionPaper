@@ -24,7 +24,8 @@ public class RewardHistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reward_history);
+//        setContentView(R.layout.activity_reward_history);
+        setContentView(R.layout.activity_share);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         // To set the background of the activity go below the StatusBar
@@ -75,7 +76,8 @@ public class RewardHistoryActivity extends AppCompatActivity {
         }
 
         toolbar.setNavigationIcon(bg);
-        toolbar.setTitle("Rewards History");
+//        toolbar.setTitle("Rewards History");
+        toolbar.setTitle("Share");
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

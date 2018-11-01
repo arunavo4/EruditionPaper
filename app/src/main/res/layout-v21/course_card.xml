@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/card_size_2_height"
+    android:id="@+id/card_course"
+    android:foreground="?android:attr/selectableItemBackgroundBorderless"
+    android:paddingStart="@dimen/card_padding"
+    android:paddingEnd="@dimen/card_padding"
+    android:paddingTop="@dimen/card_padding"
+    android:paddingBottom="5dp"
+    app:cardCornerRadius="5dp"
+    app:cardUseCompatPadding="false"
+    app:cardElevation="4dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/course_thumbnail_img_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_white"
+        android:foreground="@drawable/ic_foreground_40_alpha"
+        android:scaleType="centerCrop"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linear_layout_height"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/code_text_margin"
+            android:layout_marginEnd="@dimen/code_text_margin"
+            android:layout_marginTop="@dimen/code_text_margin"
+            android:paddingStart="@dimen/full_text_margin"
+            android:paddingEnd="@dimen/full_text_margin"
+            android:maxLines="1"
+            android:ellipsize="end"
+            style="@style/CodeTextView"/>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/tv_code_full"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:padding="@dimen/full_text_margin"
+            android:textAlignment="center"
+            android:maxLines="2"
+            android:ellipsize="end"
+            style="@style/CodeFullTextView"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

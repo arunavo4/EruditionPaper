@@ -6,8 +6,12 @@ import android.content.Intent;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import androidx.annotation.Keep;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Build;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +52,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     private String[] NameStr;
     private String[] NameStrFull;
     private int selector;
+    private int state_selector;
 
     private Intent intent;
 
@@ -67,6 +72,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         NameStr = new String[4];
         NameStrFull = new String[4];
         selector = 0;
+        state_selector = 0;
         intent = new Intent(mContext, SelectionActivity.class);
     }
 
@@ -90,12 +96,14 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         ImageView mImgView = holder.mImageView;
         TextView mCodeTV = holder.mCodeTV;
         TextView mCodeFullTV = holder.mCodeFullTV;
+        ImageView mBanner = holder.banner;
         View nav_space = holder.spacer;
         View ad_space = holder.ad_spacer;
 
         String mImgStr = "#";
         String mCodeStr = "Code 001";
         String mCodeFullStr = "Full Subject Name";
+        String state = "Active";
 
         try {
             switch (selector) {
@@ -104,6 +112,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                     mImgStr = course.getLogo();
                     mCodeStr = course.getName();
                     mCodeFullStr = course.getFullName();
+                    state = course.getState();
                     break;
 
                 case 1:
@@ -111,6 +120,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                     mImgStr = session.getLogo();
                     mCodeStr = session.getFullName();
                     mCodeFullStr = session.getFullName();
+                    state = session.getState();
                     break;
 
                 case 2:
@@ -118,6 +128,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                     mImgStr = subject.getLogo();
                     mCodeStr = subject.getName();
                     mCodeFullStr = subject.getFullName();
+                    state = subject.getState();
                     break;
                 default:
                     selector = 0;
@@ -150,6 +161,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                 nav_space.setVisibility(View.VISIBLE);    //TODO: Turn it on when there is no ads
                 ad_space.setVisibility(View.VISIBLE);
             }
+
+            if (state!=null) {
+                if (state.contentEquals("Not Active")) {
+                    mBanner.setVisibility(View.VISIBLE);
+                }else { mBanner.setVisibility(View.INVISIBLE); }
+            }else { mBanner.setVisibility(View.INVISIBLE); }
         } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
             Log.e("Exception", e.toString());
         }
@@ -203,6 +220,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         public ImageView mImageView;
         public TextView mCodeTV;
         public TextView mCodeFullTV;
+        public ImageView banner;
         public View spacer;
         public View ad_spacer;
 
@@ -211,6 +229,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             mImageView = (ImageView) itemView.findViewById(R.id.course_thumbnail_img_view);
             mCodeTV = (TextView) itemView.findViewById(R.id.tv_code);
             mCodeFullTV = (TextView) itemView.findViewById(R.id.tv_code_full);
+            banner = (ImageView) itemView.findViewById(R.id.coming_soon_overlay);
             spacer = (View) itemView.findViewById(R.id.nav_spacer_2);
             ad_spacer = (View) itemView.findViewById(R.id.nav_spacer_ad);
 
@@ -226,13 +245,20 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         public void onClick(View v) {
             Log.d("Adapter Position:", String.valueOf(getAdapterPosition()));
 //            Log.d("UniversityId:", String.valueOf(mUniversity.getId()));
-
+            String state = null;
+            state_selector = 0;
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION) {
                 switch (selector) {
                     case 0:
                         setParams(boardCourses.get(position).getCode());
                         selector += 1;
+                        state = boardCourses.get(position).getState();
+                        if (state!=null) {
+                            if (state.contentEquals("Not Active")) {
+                                state_selector = 1;
+                            }
+                        }
                         NameStr[selector] = boardCourses.get(position).getName();
                         NameStrFull[selector] = boardCourses.get(position).getFullName();
                         mItemListener.onUniversityClick("0");
@@ -241,6 +267,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                     case 1:
                         setParams(boardSessions.get(position).getCode());
                         selector += 1;
+                        state = boardSessions.get(position).getState();
+                        if (state!=null) {
+                            if (state.contentEquals("Not Active")) {
+                                state_selector = 1;
+                            }
+                        }
                         NameStr[selector] = boardSessions.get(position).getFullName();
                         NameStrFull[selector] = boardCourses.get(position).getFullName();
                         mItemListener.onUniversityClick("0");
@@ -250,6 +282,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                         intent.putExtra("CourseActivity.EXTRA_Subject_NAME", boardSubjects.get(position).getName());
                         intent.putExtra("CourseActivity.EXTRA_Subject_FULL_NAME", boardSubjects.get(position).getFullName());
                         setParams(boardSubjects.get(position).getCode());
+                        intent.putExtra("CourseActivity.EXTRA_Subject_State", boardSubjects.get(position).getState());
+                        intent.putExtra("CourseActivity.EXTRA_Subject_Syllabus",boardSubjects.get(position).getSyllabus());
+                        intent.putExtra("CourseActivity.EXTRA_Subject_YearView",boardSubjects.get(position).getYearView());
+                        intent.putExtra("CourseActivity.EXTRA_Subject_ChapView",boardSubjects.get(position).getChapterView());
                         intent.putExtra("CourseActivity.EXTRA_params", paramsStore);
                         intent.putExtra("FROM", "Course");
                         mContext.startActivity(intent);
@@ -269,6 +305,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     public int getSelector() {
         return selector;
+    }
+
+    public int getState(){
+        return state_selector;
     }
 
     public void setSelectorOnBackPressed() {

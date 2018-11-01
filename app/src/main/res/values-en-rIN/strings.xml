@@ -26,6 +26,7 @@
     <string name="app_name_sec">Paper</string>
 
     <string name="search_text">Search Questions</string>
+    <string name="search">Search</string>
 
     <string name="answers">Answer:</string>
     <string name="type_a_comment">Type a comment</string>
@@ -51,6 +52,10 @@
     <!--Rewards-->
     <string name="no_rewards_top">No Previous Rewards</string>
     <string name="no_rewards_bottom">Start Sharing with Your Friends &amp; After they Join Your Rewards will start appear here</string>
+
+    <!--Share-->
+    <string name="share_top">Show some Friendship</string>
+    <string name="share_bottom">Share The News so that your friends can also enjoy Erudition Paper On The Go</string>
 
     <!--No Internet and error and maintenance-->
     <string name="no_internet_top">No Internet</string>
@@ -147,13 +152,23 @@
     <string name="chapter_wise">Chapter\nWise</string>
     <string name="year_wise">Year\nWise</string>
 
-    <string name="chapter_wise_new">Chapter Wise</string>
-    <string name="year_wise_new">Year Wise</string>
+    <string name="chapter_wise_new">Chapter View</string>
+    <string name="year_wise_new">Year View</string>
+    <string name="syllabus">Syllabus</string>
 
     <!--FaceBook -->
     <string name="facebook_application_id" translatable="false">1830176010527608</string>
     <!-- Facebook Application ID, prefixed by 'fb'. Enables Chrome Custom tabs. -->
     <string name="facebook_login_protocol_scheme" translatable="false">fb1830176010527608</string>
+
+    <!--AdMob-->
+    <string name="admob_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+
+    <!--Tos and Pp-->
+    <string name="tos_url" translatable="false">https://paper.erudition.co.in/terms-and-conditions</string>
+    <string name="pp_url" translatable="false">https://paper.erudition.co.in/privacy-policy</string>
+
+    <string name="faq_url" translatable="false">https://paper.erudition.co.in/faq</string>
 
     <!--Symbols-->
     <!--Rupee Symbol-->

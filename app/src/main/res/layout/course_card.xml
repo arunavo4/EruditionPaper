@@ -4,8 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/card_size_2_height"
+    android:id="@+id/card_course"
     android:foreground="?android:attr/selectableItemBackground"
-    android:padding="@dimen/card_padding"
+    android:paddingStart="@dimen/card_padding"
+    android:paddingEnd="@dimen/card_padding"
+    android:paddingTop="@dimen/card_padding"
+    android:paddingBottom="5dp"
     app:cardCornerRadius="5dp"
     app:cardUseCompatPadding="false"
     app:cardElevation="4dp">
