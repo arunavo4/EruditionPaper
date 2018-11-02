@@ -8,6 +8,7 @@ import in.co.erudition.paper.data.model.Login;
 import in.co.erudition.paper.data.model.Paper;
 import in.co.erudition.paper.data.model.Person;
 import in.co.erudition.paper.data.model.PresetResponseCode;
+import in.co.erudition.paper.data.model.SearchResult;
 import in.co.erudition.paper.data.model.University;
 import in.co.erudition.paper.data.model.UniversityCourse;
 import in.co.erudition.paper.data.model.Year;
@@ -203,6 +204,10 @@ public interface BackendService {
                                           @Field("SessionCode") String sessionCode,
                                           @Field("SubjectCode") String subjectCode);
 
+
+    @POST("question/search")
+    @FormUrlEncoded
+    Call<List<SearchResult>> search(@Field("Search") String query);
 
 //    @GET("/database/university/{id}")
 //    Call<List<UniversityFull>> getCourses(@Path("id") String id);

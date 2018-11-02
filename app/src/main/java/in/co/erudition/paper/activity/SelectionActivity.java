@@ -76,6 +76,16 @@ public class SelectionActivity extends AppCompatActivity {
         //Selection Buttons
         CardView yearBtn = (CardView) findViewById(R.id.year_btn);
         CardView chapBtn = (CardView) findViewById(R.id.chapter_btn);
+        CardView syllabusBtn = (CardView) findViewById(R.id.syllabus_btn);
+
+        //Check if they needs to be made visible
+        if (getIntent().getStringExtra("CourseActivity.EXTRA_Subject_YearView").contentEquals("Not Active"))
+            yearBtn.setVisibility(View.GONE);
+        if (getIntent().getStringExtra("CourseActivity.EXTRA_Subject_ChapView").contentEquals("Not Active"))
+            chapBtn.setVisibility(View.GONE);
+        if (getIntent().getStringExtra("CourseActivity.EXTRA_Subject_Syllabus").contentEquals(""))
+            syllabusBtn.setVisibility(View.GONE);
+
         final LinearLayout selection = (LinearLayout) findViewById(R.id.selection_chap_or_year);
         TextView title = (TextView) findViewById(R.id.university_name_tv);
 
@@ -190,6 +200,8 @@ public class SelectionActivity extends AppCompatActivity {
         }
 
         final Intent intent = new Intent(this, PaperActivity.class);
+        final Intent syllabusIntent = new Intent(this,SyllabusActivity.class);
+        syllabusIntent.putExtras(getIntent());
         intent.putExtras(getIntent());
 
         chapBtn.setOnClickListener(new View.OnClickListener() {
@@ -205,6 +217,13 @@ public class SelectionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 intent.putExtra("Selection Activity: Selection", 1);
                 startActivity(intent);
+            }
+        });
+
+        syllabusBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(syllabusIntent);
             }
         });
 

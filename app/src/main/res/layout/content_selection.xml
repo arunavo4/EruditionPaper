@@ -23,15 +23,15 @@
 
             <include android:id="@+id/chapter_btn"
                 layout="@layout/paper_btn_chap_new"
-                android:visibility="invisible"/>
+                android:visibility="visible"/>
 
             <include android:id="@+id/year_btn"
                 layout="@layout/paper_btn_year_new"
-                android:visibility="invisible"/>
+                android:visibility="visible"/>
 
             <include android:id="@+id/syllabus_btn"
                 layout="@layout/paper_btn_syllabus"
-                android:visibility="invisible"/>
+                android:visibility="visible"/>
 
         </LinearLayout>
 

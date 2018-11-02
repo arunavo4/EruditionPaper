@@ -78,9 +78,9 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
                 if (paper.getSolved().contentEquals("Active"))
                     str = "Solved";
                 else{
+                    str = "Un-Solved";
                     mPNameTV.setTextColor(mContext.getResources().getColor(R.color.red_fav));
                 }
-                    str = "Un-Solved";
                 mPNameTV.setText(str);
                 mPNumTV.setText(paper.getYear());
                 holder.mCountTv.setText(paper.getView());

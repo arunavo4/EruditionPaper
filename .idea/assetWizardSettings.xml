@@ -71,7 +71,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/editor/ic_attach_money_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_close_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -81,12 +81,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="77" />
-                            <entry key="outputName" value="ic_coming_soon_overlay" />
+                            <entry key="outputName" value="ic_close_black" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="G:\Programming\E-commerce\erudition\Coming Soon 2.svg" />
-                            <entry key="width" value="77" />
                           </map>
                         </option>
                       </PersistentState>

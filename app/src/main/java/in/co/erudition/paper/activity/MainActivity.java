@@ -265,6 +265,7 @@ public class MainActivity extends AppCompatActivity
 
         if (Build.VERSION.SDK_INT >= 20) {
             ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) -> {
+                v.getLayoutParams().height = getResources().getDimensionPixelSize(R.dimen.app_bar_layout_height);
                 v.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
                 v.getLayoutParams().height += insets.getSystemWindowInsetTop();
                 insetTop = insets.getSystemWindowInsetTop();
