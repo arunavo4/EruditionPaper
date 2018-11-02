@@ -193,8 +193,10 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (!searchCall.isExecuted()) {
-            searchCall.cancel();
+        if (searchCall!=null) {
+            if (!searchCall.isExecuted()) {
+                searchCall.cancel();
+            }
         }
     }
 
