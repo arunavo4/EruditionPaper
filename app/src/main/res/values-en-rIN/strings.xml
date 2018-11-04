@@ -33,6 +33,8 @@
 
     <string name="edit_profile">Edit Details</string>
 
+    <string name="notify_msg">You will be notified!</string>
+
     <!--Books-->
     <string name="book_top">Coming Soon</string>
     <string name="book_bottom">Paperback Editions of Erudition Paper will be Available really soon.</string>
@@ -76,7 +78,9 @@
     <!--Help and Feedback-->
     <string name="like_erudition">Like Erudition Paper?</string>
     <string name="faq">F.A.Q.</string>
-    <string name="submit_a_prob">Submit a Problem</string>
+    <string name="submit_btn">Submit</string>
+    <string name="feedback_success">Feedback Submitted!</string>
+    <string name="submit_a_prob">Contact Support</string>
     <string name="subject_help">Subject</string>
     <string name="issues_faced">Issue Faced</string>
     <string name="state_issues">State your Issue Here…</string>
@@ -124,6 +128,12 @@
     <string name="no_notification">No New Notifications</string>
 
     <!--Settings-->
+    <string name="account">Account</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="change_password">Change Password</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="delete_message">Contact Administrator</string>
+    <string name="app_account">Application</string>
     <string name="clear_cache">Clear Cache</string>
     <string name="dismiss">Dismiss</string>
     <string name="snackBar_clear_cache">App Cache Cleared!</string>
@@ -191,6 +201,7 @@
     <string name="title_activity_selection">SelectionActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_profile_edit">ProfileEditActivity</string>
-
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_syllabus">SyllabusActivity</string>
 
 </resources>

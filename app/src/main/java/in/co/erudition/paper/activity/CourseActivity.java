@@ -257,7 +257,7 @@ public class CourseActivity extends AppCompatActivity {
                     loadCourses();
                 }else {
                     showDialogSoon();
-                    loadCourses();
+//                    loadCourses();
                 }
                 if (fab.isMenuButtonHidden()) {
                     fab.showMenuButton(true);
@@ -291,7 +291,7 @@ public class CourseActivity extends AppCompatActivity {
         Log.d("CourseActivity", "loading Courses");
         if (mAdapter.getState()==1 || state_selector==1){
             showDialogSoon();
-            loadCourses();
+//            loadCourses();
         }else {
             loadCourses();
         }
@@ -529,7 +529,7 @@ public class CourseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (dialog.isShowing()) {
                     dialog.cancel();
-                    onBackPressed();
+//                    onBackPressed();
                 }
             }
         });
@@ -539,7 +539,7 @@ public class CourseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //call notify
                 notifyMeCall();
-                onBackPressed();
+//                onBackPressed();
             }
         });
     }

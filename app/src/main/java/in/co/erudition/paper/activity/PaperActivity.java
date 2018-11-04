@@ -120,14 +120,14 @@ public class PaperActivity extends AppCompatActivity {
                 // Load the next interstitial.
                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
                 //Set the timer Again
-                timer = new AdCountDownTimer(15000, 1000);
+                timer = new AdCountDownTimer(600000, 1000);
                 timer.start();
             }
 
         });
 
         //Set a timer for 1 min
-        timer = new AdCountDownTimer(15000, 1000);
+        timer = new AdCountDownTimer(600000, 1000);
         timer.start();
 
         /**

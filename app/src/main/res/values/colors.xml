@@ -61,6 +61,8 @@
 
     <!--Green-->
     <color name="green">#25D366</color>
+    <color name="green_light">#6EC422</color>
+    <color name="green_sap">#689F38</color>
 
     <!--Purple-->
     <color name="purple">#673AB7</color>

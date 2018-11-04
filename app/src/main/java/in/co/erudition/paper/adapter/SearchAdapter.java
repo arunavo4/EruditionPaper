@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -117,8 +118,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             ques_no_tv = (TextView) itemView.findViewById(R.id.ques_num);
             repeated_tv = (TextView) itemView.findViewById(R.id.ques_repeat);
 
+            //Optimizations
             ques_tv.getSettings().setJavaScriptEnabled(true);
-
+            ques_tv.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+            ques_tv.getSettings().setAppCacheEnabled(true);
+            ques_tv.setLayerType(View.LAYER_TYPE_HARDWARE,null);
             ques_tv.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {

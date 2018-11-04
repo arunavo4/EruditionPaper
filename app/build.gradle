@@ -18,8 +18,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
 //        multiDexEnabled true
-        versionCode 191000201
-        versionName "0.2-alpha"
+        versionCode 191000305
+        versionName "0.3.5-alpha"
         resConfigs "en"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -51,6 +51,7 @@ dependencies {
     api project(path: ':fabulousfilter')
     api project(path: ':customfab')
     api project(path: ':scalinglib')
+    api project(path: ':morphingbutton')
     api project(path: ':polygonprogressbar')
     api project(path: ':auth')
     api project(path: ':avatar')

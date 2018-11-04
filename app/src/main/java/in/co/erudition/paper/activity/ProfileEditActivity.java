@@ -214,7 +214,9 @@ public class ProfileEditActivity extends AppCompatActivity {
                 Log.d("Call", call.request().toString());
                 if (response.isSuccessful()) {
                     Log.d("EditDetails:","Successful!");
-                    Log.d("Message:",response.body().getMsg());
+                    if (response.body() != null) {
+                        Log.d("Message:",response.body().getMsg());
+                    }
                     // showPersonalDataFrmPrefs();
 
                     Snackbar.make((CoordinatorLayout) findViewById(R.id.edit_activity_main_layout), getString(R.string.successfully_updated), Snackbar.LENGTH_LONG)

@@ -122,6 +122,8 @@ public class NSidedProgressBar extends View {
         secPath = new Path();
         pathMeasure = new PathMeasure();
 
+        timer = new Timer();
+
         setPaints();
 
         xVertiCoord = new float[sideCount];

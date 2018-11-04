@@ -9,7 +9,11 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+
+import com.erudition.morphingbutton.impl.MorphingButton;
 import com.google.android.material.appbar.AppBarLayout;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -19,20 +23,36 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import in.co.erudition.paper.R;
+import in.co.erudition.paper.data.model.PresetResponseCode;
+import in.co.erudition.paper.data.remote.BackendService;
+import in.co.erudition.paper.network.NetworkUtils;
+import in.co.erudition.paper.util.ApiUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HelpActivity extends AppCompatActivity {
-
+    private BackendService mService;
+    private NetworkUtils mNetworkUtils = new NetworkUtils();
+    private MorphingButton submit_btn;
     private FloatingActionMenu fab;
+    private boolean btn_pressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +62,13 @@ public class HelpActivity extends AppCompatActivity {
 
         CardView like_btn = (CardView) findViewById(R.id.like_erudition_paper);
         CardView faq_btn = (CardView) findViewById(R.id.faq_btn);
+        TextInputEditText subject = (TextInputEditText) findViewById(R.id.subject_feedback);
+        TextInputLayout subject_layout = (TextInputLayout) findViewById(R.id.subject_feedback_layout);
+        TextInputLayout issue_layout = (TextInputLayout) findViewById(R.id.issue_feedback_layout);
+        TextInputEditText issue = (TextInputEditText) findViewById(R.id.issue_feedback);
+        submit_btn = (MorphingButton) findViewById(R.id.submit_btn);
+
+        morphToSquare(submit_btn, 0);
 
         // To set the background of the activity go below the StatusBar
         getWindow().getDecorView().setSystemUiVisibility(
@@ -92,35 +119,126 @@ public class HelpActivity extends AppCompatActivity {
 //        toolbar.setTitle("Order History");
         setSupportActionBar(toolbar);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        mService = ApiUtils.getBackendService();
 
         fab = (FloatingActionMenu) findViewById(R.id.fab_menu);
 
         setUpCustomFabMenuAnimation();
 
-        like_btn.setOnClickListener(new View.OnClickListener() {
+        like_btn.setOnClickListener(v -> {
+            //Show the dialog
+            showDialogPlay();
+        });
+
+        faq_btn.setOnClickListener(v -> {
+            //Open the Webview with the given address
+            Intent intent = new Intent(HelpActivity.this, WebviewActivity.class);
+            intent.putExtra("Webview.Title", getString(R.string.faq));
+            intent.putExtra("Webview.Address", getString(R.string.faq_url));
+            startActivity(intent);
+        });
+
+        submit_btn.setOnClickListener(v -> {
+            //check if its not empty
+            subject_layout.setError(null);
+            issue_layout.setError(null);
+            if (btn_pressed){
+                btn_pressed = false;
+                morphToSquare(submit_btn,getResources().getInteger(R.integer.mb_animation));
+            }
+            else if (subject.getText().toString().length()!=0 && issue.getText().toString().length()!=0 ){
+                if (!btn_pressed) {
+                    btn_pressed = true;
+                    submit_feedback(subject.getText().toString(),issue.getText().toString());
+                }
+            }else{
+                if (subject.getText().toString().length()==0){
+//                    subject.setError(null);
+                    subject_layout.setError("Cannot be Empty!");
+                }
+                if (issue.getText().toString().length()==0){
+//                    issue.setError(null);
+                    issue_layout.setError("Cannot be Empty!");
+                }
+            }
+        });
+    }
+
+    private void submit_feedback(String subject, String issue) {
+
+        Log.d("HelpActivity","Submit Feedback");
+        Call<PresetResponseCode> feedbackCall = mService.submitFeedback(subject,issue);
+        feedbackCall.enqueue(new Callback<PresetResponseCode>() {
             @Override
-            public void onClick(View v) {
-                //Show the dialog
-                showDialogPlay();
+            public void onResponse(Call<PresetResponseCode> call, Response<PresetResponseCode> response) {
+                //If successful just display that update was successful
+                Log.d("Call", call.request().toString());
+                if (response.isSuccessful()) {
+                    Log.d("Api CAll","Successful!");
+                    if (response.body() != null) {
+                        Log.d("Message:",response.body().getMsg());
+                    }
+                    morphToSuccess(submit_btn);
+                    Toast.makeText(HelpActivity.this,getString(R.string.feedback_success),Toast.LENGTH_LONG).show();
+
+                } else {
+                    int statusCode = response.code();
+                    if (statusCode == 401) {
+                        Log.d("StatusCode", "Unauthorized");
+                    }
+                    if (statusCode == 200) {
+                        Log.d("StatusCode", "OK");
+                    } else {
+                        Log.d("StatusCode", String.valueOf(statusCode));
+                    }
+                    // handle request errors depending on status code
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PresetResponseCode> call, Throwable t) {
+                morphToFailure(submit_btn);
+                Toast.makeText(HelpActivity.this,getString(R.string.error_occurred),Toast.LENGTH_LONG).show();
             }
         });
 
-        faq_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Open the Webview with the given address
-                Intent intent = new Intent(HelpActivity.this, WebviewActivity.class);
-                intent.putExtra("Webview.Title", getString(R.string.faq));
-                intent.putExtra("Webview.Address", getString(R.string.faq_url));
-                startActivity(intent);
-            }
-        });
+    }
+
+    private void morphToSuccess(final MorphingButton btnMorph) {
+        MorphingButton.Params circle = MorphingButton.Params.create()
+                .duration(getResources().getInteger(R.integer.mb_animation))
+                .cornerRadius(getResources().getDimensionPixelSize(R.dimen.submit_btn_height))
+                .width(getResources().getDimensionPixelSize(R.dimen.submit_btn_height))
+                .height(getResources().getDimensionPixelSize(R.dimen.submit_btn_height))
+                .color(getResources().getColor(R.color.green_light))
+                .colorPressed(getResources().getColor(R.color.green_sap))
+                .icon(R.drawable.ic_done_all_white_24dp);
+        btnMorph.morph(circle);
+    }
+
+    private void morphToFailure(final MorphingButton btnMorph) {
+        MorphingButton.Params circle = MorphingButton.Params.create()
+                .duration(getResources().getInteger(R.integer.mb_animation))
+                .cornerRadius(getResources().getDimensionPixelSize(R.dimen.submit_btn_height))
+                .width(getResources().getDimensionPixelSize(R.dimen.submit_btn_height))
+                .height(getResources().getDimensionPixelSize(R.dimen.submit_btn_height))
+                .color(getResources().getColor(R.color.red_fab_help))
+                .colorPressed(getResources().getColor(R.color.red_fav))
+                .icon(R.drawable.ic_close_black_24dp);
+        btnMorph.morph(circle);
+    }
+
+    private void morphToSquare(final MorphingButton btnMorph, int duration) {
+        MorphingButton.Params square = MorphingButton.Params.create()
+                .duration(duration)
+                .cornerRadius(getResources().getDimensionPixelSize(R.dimen.submit_btn_height))
+                .width(getResources().getDimensionPixelSize(R.dimen.submit_btn_width))
+                .height(getResources().getDimensionPixelSize(R.dimen.submit_btn_height))
+                .color(getResources().getColor(R.color.colorMaterialBlack_no_alpha))
+                .colorPressed(getResources().getColor(R.color.colorMaterialBlack))
+                .text(getString(R.string.submit_btn));
+        btnMorph.morph(square);
     }
 
 

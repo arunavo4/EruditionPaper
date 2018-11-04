@@ -41,8 +41,8 @@
     <ProgressBar
         android:id="@+id/progressBar_Ques"
         style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/progress_bar_size"
+        android:layout_height="@dimen/progress_bar_size"
         android:layout_gravity="center"
         android:visibility="gone"/>
 

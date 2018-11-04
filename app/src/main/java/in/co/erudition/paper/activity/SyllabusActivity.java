@@ -85,11 +85,11 @@ public class SyllabusActivity extends AppCompatActivity {
         Drawable bg;
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             bg = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_black_24dp);
-            bg.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), PorterDuff.Mode.MULTIPLY);
+            bg.setColorFilter(ContextCompat.getColor(this, R.color.colorBlack75alpha), PorterDuff.Mode.MULTIPLY);
         } else {
             bg = VectorDrawableCompat.create(getResources(), R.drawable.ic_arrow_back_black_24dp, null);
             bg = DrawableCompat.wrap(bg);
-            DrawableCompat.setTint(bg, ContextCompat.getColor(this, R.color.colorWhite));
+            DrawableCompat.setTint(bg, ContextCompat.getColor(this, R.color.colorBlack75alpha));
         }
 
         toolbar.setNavigationIcon(bg);
@@ -121,7 +121,7 @@ public class SyllabusActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_courses_papers, menu);
+        getMenuInflater().inflate(R.menu.menu_search_ans, menu);
         return true;
     }
 

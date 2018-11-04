@@ -39,6 +39,8 @@
                 android:paddingStart="@dimen/uni_name_padding"
                 android:paddingEnd="@dimen/uni_name_padding"
                 android:text="@string/university_name"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.85"
                 android:textAppearance="@style/Toolbar.TitleTextCourse"/>
 
             <androidx.appcompat.widget.Toolbar

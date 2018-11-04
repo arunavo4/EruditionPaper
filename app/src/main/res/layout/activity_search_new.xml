@@ -30,12 +30,21 @@
 
     <com.erudition.polygonprogressbar.NSidedProgressBar
         android:id="@+id/progressBar_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/progress_bar_size"
+        android:layout_height="@dimen/progress_bar_size"
         android:layout_gravity="center"
         app:nsidedProg_baseSpeed="5"
         app:nsidedProg_sideCount="4"
-        app:nsidedProg_clockwise="true"
-        android:visibility="gone"/>
+        app:nsidedProg_clockwise="true" />
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+    </com.google.android.gms.ads.AdView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

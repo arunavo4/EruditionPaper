@@ -9,6 +9,8 @@ import androidx.annotation.Keep;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.os.Build;
 import android.util.Log;
 import android.util.TypedValue;
@@ -162,11 +164,22 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                 ad_space.setVisibility(View.VISIBLE);
             }
 
+            //Turn Inactive image into GreyScale
+            ColorMatrix colorMatrix = new ColorMatrix();
+            ColorMatrixColorFilter colorFilter = new ColorMatrixColorFilter(colorMatrix);
+            colorMatrix.setSaturation(0);
+            ColorMatrixColorFilter bw_filter = new ColorMatrixColorFilter(colorMatrix);
+
             if (state!=null) {
                 if (state.contentEquals("Not Active")) {
+                    mImgView.setColorFilter(bw_filter);
                     mBanner.setVisibility(View.VISIBLE);
-                }else { mBanner.setVisibility(View.INVISIBLE); }
-            }else { mBanner.setVisibility(View.INVISIBLE); }
+                }else {
+                    mImgView.setColorFilter(colorFilter);
+                    mBanner.setVisibility(View.INVISIBLE); }
+            }else {
+                mImgView.setColorFilter(colorFilter);
+                mBanner.setVisibility(View.INVISIBLE); }
         } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
             Log.e("Exception", e.toString());
         }

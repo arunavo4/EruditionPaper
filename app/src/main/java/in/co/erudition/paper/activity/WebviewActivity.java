@@ -18,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import in.co.erudition.paper.R;
@@ -47,6 +48,9 @@ public class WebviewActivity extends AppCompatActivity {
             }
         });
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        webView.getSettings().setAppCacheEnabled(true);
+        webView.setLayerType(View.LAYER_TYPE_HARDWARE,null);
         webView.loadUrl(getIntent().getStringExtra("Webview.Address"));
 
         // To set the background of the activity go below the StatusBar

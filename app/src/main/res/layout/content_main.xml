@@ -65,12 +65,11 @@
 
     <com.erudition.polygonprogressbar.NSidedProgressBar
         android:id="@+id/progressBar_universities"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/progress_bar_size"
+        android:layout_height="@dimen/progress_bar_size"
         android:layout_gravity="center"
         app:nsidedProg_baseSpeed="5"
         app:nsidedProg_sideCount="4"
-        app:nsidedProg_clockwise="true"
-        android:visibility="gone"/>
+        app:nsidedProg_clockwise="true"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:layout_gravity="center_horizontal"
+    app:cardCornerRadius="2dp"
+    app:cardUseCompatPadding="false"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/linear_layout_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/offer_des_tv_margin"
+            style="@style/ProfileCardTextViewBold"
+            android:text="@string/app_account"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacer_1dp"
+            android:layout_marginStart="@dimen/spacer_12dp"
+            android:layout_marginEnd="@dimen/spacer_12dp"
+            android:background="@color/colorBlack34alpha"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/clear_cache_btn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/app_bar_height"
+                android:paddingStart="@dimen/spacer_16dp"
+                android:paddingEnd="@dimen/spacer_16dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacer_16dp"
+                    app:tint="@color/colorPrimary"
+                    app:srcCompat="@drawable/ic_delete_black_24dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacer_32dp"
+                    android:layout_gravity="center"
+                    style="@style/ProfileCardTextViewBold"
+                    android:text="@string/clear_cache"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacer_1dp"
+                android:layout_marginStart="@dimen/spacer_20dp"
+                android:layout_marginEnd="@dimen/spacer_0dp"
+                android:background="@color/colorBlack34alpha"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/app_bar_height"
+                android:paddingStart="@dimen/spacer_16dp"
+                android:paddingEnd="@dimen/spacer_16dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacer_16dp"
+                    app:tint="@color/colorPrimary"
+                    app:srcCompat="@drawable/ic_attach_money_black_24dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacer_32dp"
+                    android:layout_gravity="center"
+                    style="@style/ProfileCardTextViewBold"
+                    android:text="@string/adMob_toggle"/>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/ad_btn_toggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

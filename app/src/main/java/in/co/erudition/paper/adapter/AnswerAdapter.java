@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -126,6 +127,9 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
             adView = (AdView) itemView.findViewById(R.id.adView);
 
             ques_tv.getSettings().setJavaScriptEnabled(true);
+            ques_tv.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+            ques_tv.getSettings().setAppCacheEnabled(true);
+            ques_tv.setLayerType(View.LAYER_TYPE_HARDWARE,null);
             ques_tv.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -135,6 +139,9 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
             ques_tv.setLongClickable(false);
 
             ans_tv.getSettings().setJavaScriptEnabled(true);
+            ans_tv.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+            ans_tv.getSettings().setAppCacheEnabled(true);
+            ans_tv.setLayerType(View.LAYER_TYPE_HARDWARE,null);
             ans_tv.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {

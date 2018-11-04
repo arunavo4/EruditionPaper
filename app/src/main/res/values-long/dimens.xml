@@ -3,4 +3,7 @@
     <dimen name="ad_view_height">90dp</dimen>
 
     <dimen name="avatar_view_size">120dp</dimen>
+
+    <dimen name="progress_bar_size">70dp</dimen>
+
 </resources>

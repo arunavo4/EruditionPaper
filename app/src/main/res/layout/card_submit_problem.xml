@@ -53,12 +53,14 @@
                     app:srcCompat="@drawable/ic_outline_subject_24px"/>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/subject_feedback_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColorHint="@color/colorMaterialBlack_no_alpha"
                     app:hintTextAppearance="@style/HintTextViewProfile">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/subject_feedback"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/subject_help" />
@@ -79,13 +81,17 @@
                     android:layout_marginEnd="@dimen/spacer_16dp"
                     app:srcCompat="@drawable/ic_outline_announcement_24px"/>
 
+
+
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/issue_feedback_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColorHint="@color/colorMaterialBlack_no_alpha"
                     app:hintTextAppearance="@style/HintTextViewProfile">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/issue_feedback"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/issues_faced" />
@@ -95,6 +101,17 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <com.erudition.morphingbutton.impl.MorphingButton
+            android:id="@+id/submit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacer_8dp"
+            android:layout_marginEnd="@dimen/spacer_16dp"
+            android:layout_marginBottom="@dimen/spacer_16dp"
+            android:layout_gravity="center_vertical|end"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"/>
 
     </LinearLayout>
 

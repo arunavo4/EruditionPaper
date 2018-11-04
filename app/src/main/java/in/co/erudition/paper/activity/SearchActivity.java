@@ -8,6 +8,8 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.erudition.polygonprogressbar.NSidedProgressBar;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -23,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,6 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +56,8 @@ public class SearchActivity extends AppCompatActivity {
     private Call<List<SearchResult>> searchCall;
     private NSidedProgressBar progressBar;
     private LinearLayout searchList;
+    private TextView result_count;
+    private AdView adView;
     private NetworkUtils mNetworkUtils = new NetworkUtils();
 
     @Override
@@ -62,8 +68,17 @@ public class SearchActivity extends AppCompatActivity {
 
 //        SearchView searchView = (SearchView) findViewById(R.id.search);
 
+        //Load Ads
+        adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
         progressBar = (NSidedProgressBar) findViewById(R.id.progressBar_search);
         searchList = (LinearLayout) findViewById(R.id.search_linear_layout);
+        result_count = (TextView) findViewById(R.id.result_count);
+        View nav_space = (View) findViewById(R.id.nav_spacer_ad);
+
+        progressBar.setVisibility(View.INVISIBLE);
 
         // To set the background of the activity go below the StatusBar
         getWindow().getDecorView().setSystemUiVisibility(
@@ -71,9 +86,9 @@ public class SearchActivity extends AppCompatActivity {
                         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         if (Build.VERSION.SDK_INT >= 21) {
-//            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorBlack25alpha));
-//            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorBlack75alpha));
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorBlack75alpha));
         }
 
         /*
@@ -90,6 +105,16 @@ public class SearchActivity extends AppCompatActivity {
                 params.topMargin = insets.getSystemWindowInsetTop();
                 v.invalidate();
                 v.requestLayout();
+
+                params = (ViewGroup.MarginLayoutParams) adView.getLayoutParams();
+                params.bottomMargin = insets.getSystemWindowInsetBottom();
+                adView.invalidate();
+                adView.requestLayout();
+
+                params = (ViewGroup.MarginLayoutParams) nav_space.getLayoutParams();
+                params.bottomMargin = insets.getSystemWindowInsetBottom();
+                nav_space.invalidate();
+                nav_space.requestLayout();
 
                 return insets.consumeSystemWindowInsets();
             });
@@ -145,6 +170,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private void search(String query){
 
+          double start = System.currentTimeMillis();
             searchCall = mService.search(query);
 
             searchCall.enqueue(new Callback<List<SearchResult>>() {
@@ -154,9 +180,17 @@ public class SearchActivity extends AppCompatActivity {
                     Log.d("Call", call.request().toString());
                     if (response.isSuccessful()) {
                         Log.d("Search:","Successful!");
+                        double end = System.currentTimeMillis();
+                        double responseTime = (end-start)/1000.0;
+                        int size = 0;
+                        if (response.body() != null) {
+                            size = response.body().size();
+                        }
+                        String str = "About " + String.valueOf(size) + " Results" + " (" + String.valueOf(responseTime) + ") seconds";
+                        result_count.setText(str);
                         mAdapter.updateResults(response.body());
                         searchList.setVisibility(View.VISIBLE);
-                        progressBar.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.INVISIBLE);
                     } else {
                         int statusCode = response.code();
                         if (statusCode == 401) {
@@ -173,7 +207,7 @@ public class SearchActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<List<SearchResult>> call, Throwable t) {
-                    progressBar.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.INVISIBLE);
                     if (call.isCanceled()) {
                         Log.d("SearchActivity", "call is cancelled");
 
@@ -198,6 +232,13 @@ public class SearchActivity extends AppCompatActivity {
                 searchCall.cancel();
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        adView.removeAllViews();
+        adView.destroy();
+        super.onDestroy();
     }
 
     @Override

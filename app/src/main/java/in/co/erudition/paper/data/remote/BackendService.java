@@ -209,6 +209,11 @@ public interface BackendService {
     @FormUrlEncoded
     Call<List<SearchResult>> search(@Field("Search") String query);
 
+    @POST("feedback")
+    @FormUrlEncoded
+    Call<PresetResponseCode> submitFeedback(@Field("Subject") String subject,
+                                            @Field("MsgBody") String msgBody);
+
 //    @GET("/database/university/{id}")
 //    Call<List<UniversityFull>> getCourses(@Path("id") String id);
 

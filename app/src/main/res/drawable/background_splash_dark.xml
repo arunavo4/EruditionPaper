@@ -4,8 +4,10 @@
     <item
         android:drawable="@color/colorBlack"/>
 
-    <item
-        android:gravity="center"
-        android:drawable="@drawable/ic_erudition_paper_txt"/>
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/erudition_paper_splash"/>
+    </item>
 
 </layer-list>

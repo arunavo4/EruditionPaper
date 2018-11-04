@@ -500,7 +500,7 @@ public class MainActivity extends AppCompatActivity
                 if (response.isSuccessful()) {
                     Log.d("MainActivity", "issuccess");
 
-                    mProgressBar.setVisibility(View.GONE);
+                    mProgressBar.setVisibility(View.INVISIBLE);
 
                     Log.d("Response Body", response.body().toString());
                     mAdapter.updateUniversities(response.body());
@@ -531,7 +531,7 @@ public class MainActivity extends AppCompatActivity
                     Log.d("MainActivity", "Check your network connection");
                     showDialogNoNet();
                 }
-                mProgressBar.setVisibility(View.GONE);
+                mProgressBar.setVisibility(View.INVISIBLE);
                 mUniversityList.setVisibility(View.GONE);
             }
         });

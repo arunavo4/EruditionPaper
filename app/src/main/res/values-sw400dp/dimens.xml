@@ -7,4 +7,6 @@
     <dimen name="recycler_view_offset_end">5dp</dimen>
 
     <dimen name="avatar_view_size">120dp</dimen>
+
+    <dimen name="progress_bar_size">70dp</dimen>
 </resources>

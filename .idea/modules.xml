@@ -11,6 +11,7 @@
       <module fileurl="file://$PROJECT_DIR$/internal/internal.iml" filepath="$PROJECT_DIR$/internal/internal.iml" />
       <module fileurl="file://$PROJECT_DIR$/internal/lint/lint.iml" filepath="$PROJECT_DIR$/internal/lint/lint.iml" />
       <module fileurl="file://$PROJECT_DIR$/internal/lintchecks/lintchecks.iml" filepath="$PROJECT_DIR$/internal/lintchecks/lintchecks.iml" />
+      <module fileurl="file://$PROJECT_DIR$/morphingbutton/morphingbutton.iml" filepath="$PROJECT_DIR$/morphingbutton/morphingbutton.iml" />
       <module fileurl="file://$PROJECT_DIR$/pageindicatorview/pageindicatorview.iml" filepath="$PROJECT_DIR$/pageindicatorview/pageindicatorview.iml" />
       <module fileurl="file://$PROJECT_DIR$/polygonprogressbar/polygonprogressbar.iml" filepath="$PROJECT_DIR$/polygonprogressbar/polygonprogressbar.iml" />
       <module fileurl="file://$PROJECT_DIR$/scalinglib/scalinglib.iml" filepath="$PROJECT_DIR$/scalinglib/scalinglib.iml" />

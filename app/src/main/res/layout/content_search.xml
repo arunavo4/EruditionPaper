@@ -22,6 +22,14 @@
 
             <!--<include layout="@layout/question_header_new" />-->
 
+            <TextView
+                android:id="@+id/result_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/spacer_8dp"
+                android:layout_gravity="center_horizontal"
+                android:textAppearance="@style/CodeFullTextView"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_search"
                 android:layout_width="match_parent"
@@ -30,6 +38,13 @@
                 android:scrollbars="vertical"
                 android:padding="@dimen/spacer_0dp"
                 android:background="@color/colorTransparent"/>
+
+            <View
+                android:id="@+id/nav_spacer_ad"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ad_view_height"
+                android:layout_gravity="bottom"
+                android:visibility="visible"/>
 
         </LinearLayout>
 
