@@ -14,9 +14,11 @@ import android.view.animation.AnimationUtils;
 
 import com.erudition.morphingbutton.R;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 
+@Keep
 public class IndeterminateProgressButton extends MorphingButton {
 
     private int mColor1;

@@ -35,6 +35,13 @@
 
     <string name="notify_msg">You will be notified!</string>
 
+    <string name="avatar_updated_msg">Avatar Updated!</string>
+    <string name="avatar_update_fail_msg">Update Failed!</string>
+
+    <string name="Search_no_records">No Results Found</string>
+
+    <string name="not_set">(Not Set)</string>
+
     <!--Books-->
     <string name="book_top">Coming Soon</string>
     <string name="book_bottom">Paperback Editions of Erudition Paper will be Available really soon.</string>
@@ -172,12 +179,14 @@
     <string name="facebook_login_protocol_scheme" translatable="false">fb1830176010527608</string>
 
     <!--AdMob-->
-    <string name="admob_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="admob_app_id" translatable="false">ca-app-pub-5088140684773836~3500871325</string>
+    <string name="admob_smart_banner_id" translatable="false">ca-app-pub-5088140684773836/8817825614</string>
+    <string name="admob_interstitial_ad_id" translatable="false">ca-app-pub-5088140684773836/9561304916</string>
 
     <!--Tos and Pp-->
     <string name="tos_url" translatable="false">https://paper.erudition.co.in/terms-and-conditions</string>
     <string name="pp_url" translatable="false">https://paper.erudition.co.in/privacy-policy</string>
-
+    <string name="about_url" translatable="false">https://paper.erudition.co.in/about</string>
     <string name="faq_url" translatable="false">https://paper.erudition.co.in/faq</string>
 
     <!--Symbols-->

@@ -26,7 +26,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_search" />
+    <include layout="@layout/content_search_new" />
 
     <com.erudition.polygonprogressbar.NSidedProgressBar
         android:id="@+id/progressBar_search"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
         ads:adSize="SMART_BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+        ads:adUnitId="@string/admob_smart_banner_id">
     </com.google.android.gms.ads.AdView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

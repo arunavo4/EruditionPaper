@@ -103,6 +103,10 @@
     </style>
 
 
+    <style name="Toolbar.TitleText.Bold" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <!--BUTTON-->
     <style name="AddButton" parent="Theme.AppCompat">
         <item name="colorButtonNormal">@color/colorPrimary</item>
@@ -498,16 +502,34 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="ProfileCardTextViewBold.Red">
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
+        <item name="android:textColor">@color/red_fab_help</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="ProfileCardTextView">
         <item name="android:fontFamily">@font/source_sans_pro_regular</item>
         <item name="android:textColor">@color/colorBlack54alpha</item>
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="HintTextViewProfile">
+    <style name="HintTextViewProfile" parent="TextAppearance.Design.Hint">
         <item name="android:fontFamily">@font/source_sans_pro_regular</item>
         <item name="android:textColor">@color/colorMaterialBlack</item>
         <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="HelperTextViewProfile" parent="TextAppearance.Design.HelperText">
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
+        <item name="android:textColor">@color/colorMaterialBlack</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextViewProfile">
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <!--Help and Feedback-->

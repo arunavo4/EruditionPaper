@@ -7,6 +7,7 @@
     android:layout_margin="@dimen/spacer_8dp"
     android:clickable="true"
     android:focusable="true"
+    android:background="@color/red_fav"
     android:foreground="?android:attr/selectableItemBackground"
     android:padding="@dimen/card_padding"
     app:cardCornerRadius="5dp"

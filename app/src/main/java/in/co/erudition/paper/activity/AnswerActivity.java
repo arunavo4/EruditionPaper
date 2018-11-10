@@ -62,8 +62,8 @@ public class AnswerActivity extends AppCompatActivity {
     private NetworkUtils mNetworkUtils = new NetworkUtils();
     private String TAG = "AnswerActivity";
 
-    private InterstitialAd mInterstitialAd;
-    private AdCountDownTimer timer;
+//    private InterstitialAd mInterstitialAd;
+//    private AdCountDownTimer timer;
 
     private ArrayList<QuestionAnswer> data;
     private Toolbar toolbar;
@@ -85,31 +85,31 @@ public class AnswerActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 21) {
 //            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorBlack25alpha));
-//            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorBlack75alpha));
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
         }
 
         //Setup Interstitial Ads --> only once at startup
         //Interstitial video ads
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/8691691433");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-        //load ads in advance
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                // Load the next interstitial.
-                mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                //Set the timer Again
-                timer = new AdCountDownTimer(600000, 1000);
-                timer.start();
-            }
-
-        });
-
-        //Set a timer for 1 min
-        timer = new AdCountDownTimer(600000, 1000);
-        timer.start();
+//        mInterstitialAd = new InterstitialAd(this);
+//        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/8691691433");
+//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//
+//        //load ads in advance
+//        mInterstitialAd.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdClosed() {
+//                // Load the next interstitial.
+//                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//                //Set the timer Again
+//                timer = new AdCountDownTimer(600000, 1000);
+//                timer.start();
+//            }
+//
+//        });
+//
+//        //Set a timer for 1 min
+//        timer = new AdCountDownTimer(600000, 1000);
+//        timer.start();
 
         /*
             Adjusting the Status bar margin for Different notches
@@ -270,20 +270,20 @@ public class AnswerActivity extends AppCompatActivity {
             }
         }
         super.onBackPressed();
-        timer.cancel();
+//        timer.cancel();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        timer.cancel();
+//        timer.cancel();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         //restart the timer
-        timer.start();
+//        timer.start();
     }
 
 
@@ -412,30 +412,30 @@ public class AnswerActivity extends AppCompatActivity {
         });
     }
 
-    private class AdCountDownTimer extends CountDownTimer {
-        /**
-         * @param millisInFuture    The number of millis in the future from the call
-         *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
-         *                          is called.
-         * @param countDownInterval The interval along the way to receive
-         *                          {@link #onTick(long)} callbacks.
-         */
-        public AdCountDownTimer(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-
-        }
-
-        @Override
-        public void onFinish() {
-            if (mInterstitialAd.isLoaded()) {
-                mInterstitialAd.show();
-            } else {
-                Log.d("PaperActivity", "The interstitial wasn't loaded yet.");
-            }
-        }
-    }
+//    private class AdCountDownTimer extends CountDownTimer {
+//        /**
+//         * @param millisInFuture    The number of millis in the future from the call
+//         *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
+//         *                          is called.
+//         * @param countDownInterval The interval along the way to receive
+//         *                          {@link #onTick(long)} callbacks.
+//         */
+//        public AdCountDownTimer(long millisInFuture, long countDownInterval) {
+//            super(millisInFuture, countDownInterval);
+//        }
+//
+//        @Override
+//        public void onTick(long millisUntilFinished) {
+//
+//        }
+//
+//        @Override
+//        public void onFinish() {
+//            if (mInterstitialAd.isLoaded()) {
+//                mInterstitialAd.show();
+//            } else {
+//                Log.d("PaperActivity", "The interstitial wasn't loaded yet.");
+//            }
+//        }
+//    }
 }

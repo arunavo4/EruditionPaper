@@ -12,11 +12,13 @@ import in.co.erudition.paper.data.model.SearchResult;
 import in.co.erudition.paper.data.model.University;
 import in.co.erudition.paper.data.model.UniversityCourse;
 import in.co.erudition.paper.data.model.Year;
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 /**
@@ -96,10 +98,10 @@ public interface BackendService {
                                           @Field("DOB") String dob);
 
     //Upload the Avatar
-    @POST("person/{EId}")
+    @POST("person/{EId}/profileimage")
     @Multipart
     Call<PresetResponseCode> uploadAvatar(@Path("EId") String eid,
-                                          @Field("Avatar") String avatar);
+                                          @Part MultipartBody.Part image);
 
 
 

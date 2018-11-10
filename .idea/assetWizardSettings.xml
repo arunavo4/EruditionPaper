@@ -34,9 +34,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundImage" value="G:\Programming\E-commerce\Android\EruditionPaper2\app\src\main\res\drawable\ic_launcher_background.xml" />
-                                      <entry key="backgroundLayerName" value="ic_erudition_background" />
                                       <entry key="foregroundImage" value="G:\Programming\E-commerce\Android\EruditionPaper2\app\src\main\res\drawable\ic_launcher_foreground.xml" />
-                                      <entry key="foregroundLayerName" value="ic_erudition_foreground" />
                                       <entry key="legacyIconShape" value="CIRCLE" />
                                       <entry key="previewDensity" value="XXHIGH" />
                                       <entry key="showGrid" value="true" />
@@ -81,10 +79,11 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_done_white_24dp" />
+                            <entry key="outputName" value="ic_lock_black_24dp" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="G:\Programming\E-commerce\erudition\baseline-exit_to_app-24px.svg" />
+                            <entry key="sourceFile" value="G:\Programming\E-commerce\erudition\outline-lock-24px.svg" />
                           </map>
                         </option>
                       </PersistentState>

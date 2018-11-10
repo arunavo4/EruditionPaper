@@ -117,9 +117,9 @@ public class CourseActivity extends AppCompatActivity {
                         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+//            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorBlack25alpha));
-            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorBlack75alpha));
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
         }
 
         /*
@@ -257,7 +257,7 @@ public class CourseActivity extends AppCompatActivity {
                     loadCourses();
                 }else {
                     showDialogSoon();
-//                    loadCourses();
+                    loadCourses();
                 }
                 if (fab.isMenuButtonHidden()) {
                     fab.showMenuButton(true);
@@ -291,7 +291,7 @@ public class CourseActivity extends AppCompatActivity {
         Log.d("CourseActivity", "loading Courses");
         if (mAdapter.getState()==1 || state_selector==1){
             showDialogSoon();
-//            loadCourses();
+            loadCourses();
         }else {
             loadCourses();
         }
@@ -392,7 +392,7 @@ public class CourseActivity extends AppCompatActivity {
                     Log.d("CourseActivity", "API success");
 
                     //Toast
-                    Toast.makeText(CourseActivity.this,"You will be notified!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CourseActivity.this,getString(R.string.notify_msg),Toast.LENGTH_LONG).show();
                 } else {
                     int statusCode = response.code();
                     if (statusCode == 401) {
@@ -529,7 +529,7 @@ public class CourseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (dialog.isShowing()) {
                     dialog.cancel();
-//                    onBackPressed();
+                    onBackPressed();
                 }
             }
         });
@@ -539,7 +539,7 @@ public class CourseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //call notify
                 notifyMeCall();
-//                onBackPressed();
+                onBackPressed();
             }
         });
     }

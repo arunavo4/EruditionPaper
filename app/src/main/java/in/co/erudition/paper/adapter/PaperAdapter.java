@@ -64,6 +64,7 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
         TextView mPNameTV = holder.mNameTV;
         TextView mPNumTV = holder.mYearTV;
         View nav_space = holder.spacer;
+        View ad_space = holder.ad_spacer;
 
         // Set item views based on your views and data model
         try {
@@ -74,25 +75,32 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
 
             } else if (select == 1) {
                 Year paper = mYears.get(holder.getAdapterPosition());
+                mPNumTV.setText(paper.getYear());
+                holder.mCountTv.setText(paper.getView());
                 String str;
-                if (paper.getSolved().contentEquals("Active"))
-                    str = "Solved";
-                else{
+                if (paper.getSolved()!=null) {
+                    if (paper.getSolved().contentEquals("Active"))
+                        str = "Solved";
+                    else{
+                        str = "Un-Solved";
+                        mPNameTV.setTextColor(mContext.getResources().getColor(R.color.red_fav));
+                    }
+                }else {
                     str = "Un-Solved";
                     mPNameTV.setTextColor(mContext.getResources().getColor(R.color.red_fav));
                 }
                 mPNameTV.setText(str);
-                mPNumTV.setText(paper.getYear());
-                holder.mCountTv.setText(paper.getView());
             }
 
             if (nav_space.getVisibility() == View.VISIBLE) {
-                nav_space.setVisibility(View.GONE);
+//                nav_space.setVisibility(View.GONE);
+                ad_space.setVisibility(View.GONE);
             }
 
             if (getItemCount() - 1 == holder.getAdapterPosition()) {
                 Log.d("Nav Spacer", "inflated");
-                nav_space.setVisibility(View.VISIBLE);
+//                nav_space.setVisibility(View.VISIBLE);      //TODO: Turn it on when there is no ads
+                ad_space.setVisibility(View.VISIBLE);
             }
         } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
             Log.e("Exception", e.toString());
@@ -113,6 +121,7 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
         public TextView mNameTV;
         public TextView mYearTV;
         public TextView mCountTv;
+        public View ad_spacer;
         public View spacer;
 
         public ViewHolder(View itemView) {
@@ -120,6 +129,7 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
             mNameTV = (TextView) itemView.findViewById(R.id.tv_name);
             mYearTV = (TextView) itemView.findViewById(R.id.tv_num);
             spacer = (View) itemView.findViewById(R.id.nav_spacer);
+            ad_spacer = (View) itemView.findViewById(R.id.nav_spacer_ad);
 
             if (select == 1)
                 mCountTv = (TextView) itemView.findViewById(R.id.counter_tv);

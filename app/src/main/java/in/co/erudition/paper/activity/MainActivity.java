@@ -4,37 +4,15 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-
-import com.erudition.polygonprogressbar.NSidedProgressBar;
-import com.google.android.material.appbar.AppBarLayout;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.navigation.NavigationView;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.viewpager.widget.ViewPager;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.core.widget.NestedScrollView;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
+import android.os.CountDownTimer;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.TextAppearanceSpan;
@@ -45,17 +23,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.erudition.polygonprogressbar.NSidedProgressBar;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.navigation.NavigationView;
 import com.rd.PageIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.widget.NestedScrollView;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 import iammert.com.view.scalinglib.ProgressOutlineProvider;
 import iammert.com.view.scalinglib.ScalingLayout;
 import iammert.com.view.scalinglib.ScalingLayoutBehavior;
@@ -85,6 +83,9 @@ public class MainActivity extends AppCompatActivity
     private BackendService mService;
     private Call<List<University>> call;
     private NetworkUtils mNetworkUtils = new NetworkUtils();
+
+    private InterstitialAd mInterstitialAd;
+    private AdCountDownTimer timer;
 
     private NSidedProgressBar mProgressBar;
     private LinearLayout mUniversityList;
@@ -116,14 +117,33 @@ public class MainActivity extends AppCompatActivity
 
         final View space = (View) findViewById(R.id.spacer_top);
 
+//        Setup Interstitial Ads --> only once at startup
+//        Interstitial video ads
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.admob_interstitial_ad_id));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        //load ads in advance
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                //Set the timer Again
+                timer = new AdCountDownTimer(600000, 1000);
+                timer.start();
+            }
+
+        });
+
+        //Set a timer for 10 min
+        timer = new AdCountDownTimer(600000, 1000);
+        timer.start();
+
+
         //Search view
         ScalingLayout search_view = (ScalingLayout) findViewById(R.id.scalingLayout);
-        search_view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSearchActivity();
-            }
-        });
+        search_view.setOnClickListener(v -> openSearchActivity());
         search_view.setListener(new ScalingLayoutListener() {
             @Override
             public void onCollapsed() {
@@ -131,7 +151,8 @@ public class MainActivity extends AppCompatActivity
             }
 
             @Override
-            public void onExpanded() {Log.d("layout", "Expanded");
+            public void onExpanded() {
+                Log.d("layout", "Expanded");
             }
 
             @Override
@@ -140,7 +161,9 @@ public class MainActivity extends AppCompatActivity
                 space.setScaleY(2 + Math.abs(progress));
 
                 // Workaround for a BUG in android 9 (behavior change)
-                if(pop != null) { pop.updateProgress(search_view.getSettings().getMaxRadius(), progress); }
+                if (pop != null) {
+                    pop.updateProgress(search_view.getSettings().getMaxRadius(), progress);
+                }
             }
         });
 
@@ -150,13 +173,9 @@ public class MainActivity extends AppCompatActivity
             search_view.setOutlineProvider(pop);
             search_view.setClipToOutline(true);
 
-            search_view.post(new Runnable() {
-                @TargetApi(Build.VERSION_CODES.P)
-                @Override
-                public void run() {
-                    pop.updateProgress(search_view.getSettings().getMaxRadius(), 1);
-                    search_view.invalidateOutline();
-                }
+            search_view.post(() -> {
+                pop.updateProgress(search_view.getSettings().getMaxRadius(), 1);
+                search_view.invalidateOutline();
             });
         }
 
@@ -216,29 +235,20 @@ public class MainActivity extends AppCompatActivity
         intent = new Intent(this, PaperActivity.class);
         intent.putExtra("FROM", "action_fab");
 
-        fab_recent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.putExtra("Title", "Recent Papers");
-                fab.close(true);
-                startActivity(intent);
-            }
+        fab_recent.setOnClickListener(v -> {
+            intent.putExtra("Title", "Recent Papers");
+            fab.close(true);
+            startActivity(intent);
         });
-        fab_offline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.putExtra("Title", "Offline");
-                fab.close(true);
-                startActivity(intent);
-            }
+        fab_offline.setOnClickListener(v -> {
+            intent.putExtra("Title", "Offline");
+            fab.close(true);
+            startActivity(intent);
         });
-        fab_bookmark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.putExtra("Title", "Bookmarks");
-                fab.close(true);
-                startActivity(intent);
-            }
+        fab_bookmark.setOnClickListener(v -> {
+            intent.putExtra("Title", "Bookmarks");
+            fab.close(true);
+            startActivity(intent);
         });
 
         setUpCustomFabMenuAnimation();
@@ -321,7 +331,7 @@ public class MainActivity extends AppCompatActivity
                 View fake_status_bar = (View) findViewById(R.id.fake_status_bar);
 
                 if (name_tv != null && email_tv != null) {
-                    if (name_tv.getText().length() == 0 || email_tv.getText().length() == 0) {
+                    if (name_tv.getText().length() == 0 || email_tv.getText().length() == 0 || mPrefs.getBoolean("Avatar Updated", false)) {
                         String name = mPrefs.getString("FirstName", "Android") + " " + mPrefs.getString("LastName", "Studio");
                         name_tv.setText(name);
 
@@ -334,6 +344,15 @@ public class MainActivity extends AppCompatActivity
 
                         AvatarGlideLoader imageLoader = new AvatarGlideLoader(getInitials(name));
                         imageLoader.loadImage(avatar, placeholder, image_uri);
+
+                        mPrefsEdit = mPrefs.edit();
+                        mPrefsEdit.putBoolean("Avatar Updated", false);
+                        mPrefsEdit.apply();
+
+                        avatar.setOnClickListener(v -> {
+                            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                            startActivity(intent);
+                        });
 
                         Log.d("On Drawer Opened: ", "Method called");
                     }
@@ -385,12 +404,7 @@ public class MainActivity extends AppCompatActivity
 
         mService = ApiUtils.getBackendService();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_universities);
-        mAdapter = new UniversityAdapter(this, new ArrayList<University>(), new UniversityAdapter.UniversityItemListener() {
-            @Override
-            public void onUniversityClick(String id) {
-                Toast.makeText(MainActivity.this, "Post id is" + id, Toast.LENGTH_SHORT).show();
-            }
-        });
+        mAdapter = new UniversityAdapter(this, new ArrayList<University>(), id -> Toast.makeText(MainActivity.this, "Post id is" + id, Toast.LENGTH_SHORT).show());
 
         int span = getResources().getInteger(R.integer.grid_span_count);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, span);
@@ -404,16 +418,13 @@ public class MainActivity extends AppCompatActivity
         Log.d("MainActivity", "done adapter");
 
         NestedScrollView nestedScrollView = (NestedScrollView) findViewById(R.id.nested_scroll_main);
-        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY > oldScrollY && !fab.isMenuButtonHidden()) {
-                    //DOWN SCROLL
-                    fab.hideMenuButton(true);
-                }
-                if (scrollY < oldScrollY && fab.isMenuButtonHidden()) {
-                    fab.showMenuButton(true);
-                }
+        nestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if (scrollY > oldScrollY && !fab.isMenuButtonHidden()) {
+                //DOWN SCROLL
+                fab.hideMenuButton(true);
+            }
+            if (scrollY < oldScrollY && fab.isMenuButtonHidden()) {
+                fab.showMenuButton(true);
             }
         });
 
@@ -444,9 +455,9 @@ public class MainActivity extends AppCompatActivity
     private String getProfileAvatar() {
 
         String uri_profile_img = mPrefs.getString("ProfileImage", "");
-        if(!uri_profile_img.contentEquals("")){
+        if (!uri_profile_img.contentEquals("")) {
             return uri_profile_img;
-        }else{
+        } else {
             uri_profile_img = mPrefs.getString("Avatar", "");
         }
 
@@ -627,10 +638,13 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_tos) {
             Intent intent = new Intent(MainActivity.this, WebviewActivity.class);
             intent.putExtra("Webview.Title", getString(R.string.terms_of_service));
-            intent.putExtra("Webview.Address",getString(R.string.tos_url));
+            intent.putExtra("Webview.Address", getString(R.string.tos_url));
             startActivity(intent);
         } else if (id == R.id.nav_about) {
-            //launch the dialog
+            Intent intent = new Intent(MainActivity.this, WebviewActivity.class);
+            intent.putExtra("Webview.Title", getString(R.string.about));
+            intent.putExtra("Webview.Address", getString(R.string.about_url));
+            startActivity(intent);
 
         }
 
@@ -674,16 +688,30 @@ public class MainActivity extends AppCompatActivity
         dialog.setContentView(view);
         dialog.show();
 
-        btn_go_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //retry and close dialogue
-                if (dialog.isShowing()) {
-                    dialog.cancel();
-                    onBackPressed();
-                }
+        btn_go_back.setOnClickListener(v -> {
+            //retry and close dialogue
+            if (dialog.isShowing()) {
+                dialog.cancel();
+                onBackPressed();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //restart the timer
+        if (timer != null) {
+            timer.start();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (timer != null) {
+            timer.cancel();
+        }
     }
 
     /**
@@ -733,6 +761,33 @@ public class MainActivity extends AppCompatActivity
         mCloseAnimatorSet.setDuration(ANIMATION_DURATION);
 
         fab.setIconToggleAnimatorSet(mOpenAnimatorSet);
+    }
+
+    private class AdCountDownTimer extends CountDownTimer {
+        /**
+         * @param millisInFuture    The number of millis in the future from the call
+         *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
+         *                          is called.
+         * @param countDownInterval The interval along the way to receive
+         *                          {@link #onTick(long)} callbacks.
+         */
+        public AdCountDownTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+
+        }
+
+        @Override
+        public void onFinish() {
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+            } else {
+                Log.d("MainActivity", "The interstitial wasn't loaded yet.");
+            }
+        }
     }
 
 }

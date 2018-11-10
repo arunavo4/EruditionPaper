@@ -1,23 +1,17 @@
 package in.co.erudition.paper.activity;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,22 +19,43 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.auth.AuthUI;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.File;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import in.co.erudition.avatar.AvatarPlaceholder;
+import in.co.erudition.avatar.AvatarView;
 import in.co.erudition.paper.Erudition;
 import in.co.erudition.paper.LoginActivity;
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.data.model.Person;
+import in.co.erudition.paper.data.model.PresetResponseCode;
 import in.co.erudition.paper.data.remote.BackendService;
 import in.co.erudition.paper.util.ApiUtils;
+import in.co.erudition.paper.util.AvatarGlideLoader;
 import in.co.erudition.paper.util.GlideApp;
 import in.co.erudition.paper.util.PreferenceUtils;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,6 +67,9 @@ public class ProfileActivity extends AppCompatActivity {
     private BackendService mService;
     CollapsingToolbarLayout collapsingToolbarLayout;
     private static SharedPreferences mPrefs;
+    private static SharedPreferences.Editor mPrefsEdit;
+    private Uri mCropImageUri;
+    private AvatarView img_profile_pic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +79,16 @@ public class ProfileActivity extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_container);
 //        TextView profile_name = (TextView) findViewById(R.id.profile_name_tv);        //old version
-        ImageView img_profile_pic = (ImageView) findViewById(R.id.img_profile_pic);
+        img_profile_pic = (AvatarView) findViewById(R.id.profile_avatar);
+
+        img_profile_pic.setOnClickListener(v -> {
+            //Call the picker activity
+            CropImage.startPickImageActivity(this);
+        });
 
         //Shared Preferences
         mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
                 Context.MODE_PRIVATE);
-
         //Read existing data from prefs
         showPersonalDataFrmPrefs();
 
@@ -140,7 +162,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-
         /*
             Set the Display Picture
             If there is an avatar URL then display it
@@ -148,8 +169,92 @@ public class ProfileActivity extends AppCompatActivity {
          */
         setProfilePicture(img_profile_pic);
 
+        loadPersonDetails(mPrefs.getString("EId", ""), mPrefs.getString("Email", ""));
+    }
 
-        loadPersonDetails(mPrefs.getString("EId",""),mPrefs.getString("Email",""));
+    @Override
+    @SuppressLint("NewApi")
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // handle result of pick image chooser
+        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            Uri imageUri = CropImage.getPickImageResultUri(this, data);
+            // For API >= 23 we need to check specifically that we have permissions to read external storage.
+            if (CropImage.isReadExternalStoragePermissionsRequired(this, imageUri)) {
+                // request permissions and handle the result in onRequestPermissionsResult()
+                mCropImageUri = imageUri;
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
+            } else {
+                // no permissions required or already granted, can start crop image activity
+                startCropImageActivity(imageUri);
+            }
+        }
+
+        // handle result of CropImageActivity
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                if (result != null) {
+                    img_profile_pic.setImageURI(result.getUri());
+                    Log.d("Cropping success Sample", String.valueOf(result.getSampleSize()));
+                    //Upload the file
+                    uploadAvatar(result.getUri().getPath());
+                }
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Log.d("Cropping failed", String.valueOf(result.getError()));
+                Toast.makeText(this, "Cropping failed", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void uploadAvatar(String  filePath) {
+        File file = new File(filePath);
+        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("Avatar", file.getName(), reqFile);
+
+        Call<PresetResponseCode> uploadAvatarCall = mService.uploadAvatar(mPrefs.getString("EId", ""),body);
+
+        uploadAvatarCall.enqueue(new Callback<PresetResponseCode>() {
+            @Override
+            public void onResponse(Call<PresetResponseCode> call, Response<PresetResponseCode> response) {
+                //make the person call again and then Toast
+                loadPersonDetails(mPrefs.getString("EId", ""), mPrefs.getString("Email", ""));
+                mPrefsEdit = mPrefs.edit();
+                mPrefsEdit.putBoolean("Avatar Updated",true);
+                mPrefsEdit.apply();
+                //Toast
+                Toast.makeText(getApplicationContext(),getString(R.string.avatar_updated_msg),Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<PresetResponseCode> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),getString(R.string.avatar_update_fail_msg),Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if (requestCode == CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE) {
+            if (mCropImageUri != null && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // required permissions granted, start crop image activity
+                startCropImageActivity(mCropImageUri);
+            } else {
+                Toast.makeText(this, "Cancelling, required permissions are not granted", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void startCropImageActivity(Uri imageUri) {
+        CropImage.activity(imageUri)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setAspectRatio(1,1)
+                .setRequestedSize(500, 500)
+                .start(this);
+
+//                    .setActivityTitle("My Crop")
+//                    .setCropShape(CropImageView.CropShape.OVAL)
+//                    .setCropMenuCropButtonTitle("Done")
+//                    .setCropMenuCropButtonIcon(R.drawable.ic_launcher)
     }
 
     private void loadPersonDetails(String Eid, String Email) {
@@ -159,7 +264,7 @@ public class ProfileActivity extends AppCompatActivity {
         if (Eid.contentEquals("")) {
             id = Eid;
             personCall = mService.getPersonDetailsEid(id);
-        } else{
+        } else {
             id = Email;
             personCall = mService.getPersonDetailsEmail(id);
         }
@@ -205,24 +310,24 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    private void setProfilePicture(ImageView imageView){
+    private void setProfilePicture(ImageView imageView) {
         String image_uri = getProfileAvatar();
         AvatarPlaceholder placeholder = new AvatarPlaceholder(this, getInitials(PreferenceUtils.readName()));
 
-//        AvatarGlideLoader imageLoader = new AvatarGlideLoader(getInitials(name));
-//        imageLoader.loadImage(img_profile_pic, placeholder, image_uri);
-        GlideApp
-                .with(this)
-                .load(image_uri)
-                .apply(RequestOptions.placeholderOf(placeholder)
-                        .fitCenter())
-                .transition(withCrossFade())
-                .error(placeholder)
-                .circleCrop()
-                .into(imageView);
+        AvatarGlideLoader imageLoader = new AvatarGlideLoader(getInitials(PreferenceUtils.readName()));
+        imageLoader.loadImage(img_profile_pic, placeholder, image_uri);
+//        GlideApp
+//                .with(this)
+//                .load(image_uri)
+//                .apply(RequestOptions.placeholderOf(placeholder)
+//                        .fitCenter())
+//                .transition(withCrossFade())
+//                .error(placeholder)
+//                .circleCrop()
+//                .into(imageView);
     }
 
-    private void setPersonalDetails(){
+    private void setPersonalDetails() {
         TextView first_name = (TextView) findViewById(R.id.first_name_tv_p);
         TextView last_name = (TextView) findViewById(R.id.last_name_tv_p);
         TextView phone = (TextView) findViewById(R.id.phone_tv_p);
@@ -231,7 +336,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    private void showPersonalDataFrmPrefs(){
+    private void showPersonalDataFrmPrefs() {
         TextView first_name = (TextView) findViewById(R.id.first_name_tv_p);
         TextView last_name = (TextView) findViewById(R.id.last_name_tv_p);
         TextView phone = (TextView) findViewById(R.id.phone_tv_p);
@@ -241,11 +346,31 @@ public class ProfileActivity extends AppCompatActivity {
 
         person_details = PreferenceUtils.readPersonalDetails(person_details);
 
-        first_name.setText(person_details[0]);
-        last_name.setText(person_details[1]);
-        phone.setText(person_details[2]);
-        gender.setText(person_details[3]);
-        dob.setText(person_details[4]);
+        if (!person_details[0].contentEquals("")) {
+            first_name.setText(person_details[0]);
+            first_name.setTextColor(getResources().getColor(R.color.colorPrimary));
+        }
+
+        if (!person_details[1].contentEquals("")) {
+            last_name.setText(person_details[1]);
+            last_name.setTextColor(getResources().getColor(R.color.colorPrimary));
+        }
+
+        if (!person_details[2].contentEquals("")) {
+            phone.setText(person_details[2]);
+            phone.setTextColor(getResources().getColor(R.color.colorPrimary));
+        }
+
+        if (!person_details[3].contentEquals("")) {
+            gender.setText(person_details[3]);
+            gender.setTextColor(getResources().getColor(R.color.colorPrimary));
+        }
+
+        if (!person_details[4].contentEquals("")) {
+            dob.setText(person_details[4]);
+            dob.setTextColor(getResources().getColor(R.color.colorPrimary));
+        }
+
         email.setText(PreferenceUtils.readEmail());
 
     }
@@ -253,9 +378,9 @@ public class ProfileActivity extends AppCompatActivity {
     private String getProfileAvatar() {
 
         String uri_profile_img = mPrefs.getString("ProfileImage", "");
-        if(!uri_profile_img.contentEquals("")){
+        if (!uri_profile_img.contentEquals("")) {
             return uri_profile_img;
-        }else{
+        } else {
             uri_profile_img = mPrefs.getString("Avatar", "");
         }
         Log.d("Avatar: ", uri_profile_img);

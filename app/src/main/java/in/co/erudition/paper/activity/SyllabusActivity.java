@@ -56,7 +56,7 @@ public class SyllabusActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 21) {
 //            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorBlack25alpha));
-//            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorBlack75alpha));
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
         }
 
         TextView title = (TextView) findViewById(R.id.university_name_tv);

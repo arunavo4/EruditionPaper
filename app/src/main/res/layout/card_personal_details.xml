@@ -67,8 +67,8 @@
                         android:id="@+id/first_name_tv_p"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/ProfileCardTextViewBold"
-                        android:text="@string/first_name"/>
+                        style="@style/ProfileCardTextViewBold.Red"
+                        android:text="@string/not_set"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -113,8 +113,8 @@
                         android:id="@+id/last_name_tv_p"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/ProfileCardTextViewBold"
-                        android:text="@string/last_name"/>
+                        style="@style/ProfileCardTextViewBold.Red"
+                        android:text="@string/not_set"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -159,8 +159,8 @@
                         android:id="@+id/phone_tv_p"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/ProfileCardTextViewBold"
-                        android:text="@string/phone"/>
+                        style="@style/ProfileCardTextViewBold.Red"
+                        android:text="@string/not_set"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -205,8 +205,8 @@
                         android:id="@+id/gender_tv_p"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/ProfileCardTextViewBold"
-                        android:text="@string/gender"/>
+                        style="@style/ProfileCardTextViewBold.Red"
+                        android:text="@string/not_set"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -251,8 +251,8 @@
                         android:id="@+id/date_of_birth_tv_p"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/ProfileCardTextViewBold"
-                        android:text="@string/dob"/>
+                        style="@style/ProfileCardTextViewBold.Red"
+                        android:text="@string/not_set"/>
 
                     <TextView
                         android:layout_width="wrap_content"

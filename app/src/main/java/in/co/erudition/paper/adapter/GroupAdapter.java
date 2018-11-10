@@ -53,7 +53,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> 
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View mCardView = inflater.inflate(R.layout.recycler_view_ques, parent, false);
+        View mCardView = inflater.inflate(R.layout.recycler_view_ques_new, parent, false);
 
         // Return a new holder instance
         GroupAdapter.ViewHolder viewHolder = new GroupAdapter.ViewHolder(mCardView);
@@ -72,6 +72,8 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> 
         PaperGroup group = paperGroups.get(holder.getAdapterPosition());
         TextView group_tv = holder.mGroupTV;
         RecyclerView mRecyclerView = holder.recyclerView;
+        View nav_space = holder.spacer;
+        View ad_space = holder.ad_spacer;
 
         // Set item views based on your views and data model
         try {
@@ -93,6 +95,17 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> 
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
             Log.d("GroupAdapter", "done adapter" + String.valueOf(holder.getAdapterPosition()));
 
+            if (nav_space.getVisibility() == View.VISIBLE) {
+//                nav_space.setVisibility(View.GONE);
+                ad_space.setVisibility(View.GONE);
+            }
+
+            if (getItemCount() - 1 == holder.getAdapterPosition()) {
+                Log.d("Nav Spacer", "inflated");
+//                nav_space.setVisibility(View.VISIBLE);      //TODO: Turn it on when there is no ads
+                ad_space.setVisibility(View.VISIBLE);
+            }
+
             //fixed content no need to update adapter
 //            mAdapter[pos].updateQues(group.getPaperQuestion());
         } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
@@ -109,13 +122,16 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> 
         public TextView mGroupTV;
         public RecyclerView recyclerView;
         public ImageView button_info;
+        public View ad_spacer;
+        public View spacer;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mGroupTV = (TextView) itemView.findViewById(R.id.group_tv);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.recycler_view_questions);
             button_info = (ImageView) itemView.findViewById(R.id.btn_info);
-
+            spacer = (View) itemView.findViewById(R.id.nav_spacer);
+            ad_spacer = (View) itemView.findViewById(R.id.nav_spacer_ad);
 
             button_info.setOnClickListener(this);
         }

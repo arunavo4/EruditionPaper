@@ -15,9 +15,11 @@ import android.view.ViewGroup;
 import com.erudition.morphingbutton.R;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+@Keep
 public class MorphingButton extends androidx.appcompat.widget.AppCompatButton {
 
     private Padding mPadding;

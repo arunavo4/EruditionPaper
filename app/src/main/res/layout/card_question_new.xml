@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <include layout="@layout/paper_card_new"/>
+    <TextView
+        android:id="@+id/result_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/spacer_8dp"
+        android:layout_gravity="center_horizontal"
+        android:textAppearance="@style/CodeFullTextView"
+        android:visibility="gone"/>
+
+    <include layout="@layout/card_question"/>
 
     <View
         android:id="@+id/nav_spacer"

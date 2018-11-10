@@ -86,6 +86,9 @@
     public *;
 }
 
+#Android-Image-Cropper  at https://github.com/ArthurHub/Android-Image-Cropper
+-keep class android.support.v7.widget.** { *; }
+
 ##app
 #-dontobfuscate
 #-dontoptimize

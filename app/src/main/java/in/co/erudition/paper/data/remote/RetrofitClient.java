@@ -64,7 +64,10 @@ public class RetrofitClient {
                             else{
                                 //probably the first time
                                 Log.d("Interceptor->", "NoToken");
-                                newRequest.header("Authorization", generateToken());
+                                while(!hasToken()){
+                                    AccessToken = generateToken();
+                                }
+                                newRequest.header("Authorization", AccessToken);
                             }
                             okhttp3.Response response = chain.proceed(newRequest.build());
 
@@ -130,7 +133,9 @@ public class RetrofitClient {
 
             Log.d("Jwt Token ",String.valueOf(jwtTokenResponse.body()));
 
-            AccessToken = jwtToken.getAccessToken();
+            if (jwtToken != null) {
+                AccessToken = jwtToken.getAccessToken();
+            }
             Log.d("Access Token->",String.valueOf(AccessToken));
         }
         catch (IOException e) {

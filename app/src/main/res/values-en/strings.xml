@@ -35,6 +35,13 @@
 
     <string name="notify_msg">You will be notified!</string>
 
+    <string name="avatar_updated_msg">Avatar Updated!</string>
+    <string name="avatar_update_fail_msg">Update Failed!</string>
+
+    <string name="Search_no_records">That\'s all Folks!</string>
+
+    <string name="not_set">(Not Set)</string>
+
     <!--Books-->
     <string name="book_top">Coming Soon</string>
     <string name="book_bottom">Paperback Editions of Erudition Paper will be Available really soon.</string>

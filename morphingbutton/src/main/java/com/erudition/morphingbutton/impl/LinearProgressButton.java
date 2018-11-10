@@ -6,8 +6,10 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
+@Keep
 public class LinearProgressButton extends MorphingButton implements IProgress {
     public static final int MAX_PROGRESS = 100;
     public static final int MIN_PROGRESS = 0;

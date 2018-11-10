@@ -1,44 +1,39 @@
 package in.co.erudition.paper.activity;
 
-import android.app.Dialog;
-import android.app.SearchManager;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-
-import com.erudition.polygonprogressbar.NSidedProgressBar;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.erudition.polygonprogressbar.NSidedProgressBar;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.adapter.SearchAdapter;
 import in.co.erudition.paper.data.model.SearchResult;
@@ -56,7 +51,8 @@ public class SearchActivity extends AppCompatActivity {
     private Call<List<SearchResult>> searchCall;
     private NSidedProgressBar progressBar;
     private LinearLayout searchList;
-    private TextView result_count;
+//    private TextView result_count;
+//    private TextView end_msg;
     private AdView adView;
     private NetworkUtils mNetworkUtils = new NetworkUtils();
 
@@ -75,8 +71,9 @@ public class SearchActivity extends AppCompatActivity {
 
         progressBar = (NSidedProgressBar) findViewById(R.id.progressBar_search);
         searchList = (LinearLayout) findViewById(R.id.search_linear_layout);
-        result_count = (TextView) findViewById(R.id.result_count);
-        View nav_space = (View) findViewById(R.id.nav_spacer_ad);
+//        result_count = (TextView) findViewById(R.id.result_count);
+//        end_msg = (TextView) findViewById(R.id.empty_view);
+//        View nav_space = (View) findViewById(R.id.nav_spacer_ad);
 
         progressBar.setVisibility(View.INVISIBLE);
 
@@ -86,9 +83,9 @@ public class SearchActivity extends AppCompatActivity {
                         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+//            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorBlack25alpha));
-            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorBlack75alpha));
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorMaterialBlack_no_alpha));
         }
 
         /*
@@ -111,10 +108,10 @@ public class SearchActivity extends AppCompatActivity {
                 adView.invalidate();
                 adView.requestLayout();
 
-                params = (ViewGroup.MarginLayoutParams) nav_space.getLayoutParams();
-                params.bottomMargin = insets.getSystemWindowInsetBottom();
-                nav_space.invalidate();
-                nav_space.requestLayout();
+//                params = (ViewGroup.MarginLayoutParams) nav_space.getLayoutParams();
+//                params.bottomMargin = insets.getSystemWindowInsetBottom();
+//                nav_space.invalidate();
+//                nav_space.requestLayout();
 
                 return insets.consumeSystemWindowInsets();
             });
@@ -142,17 +139,14 @@ public class SearchActivity extends AppCompatActivity {
 
         mService = ApiUtils.getBackendService();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_search);
-        mAdapter = new SearchAdapter(this, new ArrayList<SearchResult>(), getIntent(), new SearchAdapter.SearchItemListener() {
-            @Override
-            public void onQuesClick(String id) {
-
-            }
+        mAdapter = new SearchAdapter(this, new ArrayList<SearchResult>(), getIntent(), id -> {
         });
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
         mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setAdapter(mAdapter);
 
+        mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         Log.d("Search", "done adapter");
 
@@ -168,66 +162,68 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-    private void search(String query){
+    private void search(String query) {
 
-          double start = System.currentTimeMillis();
-            searchCall = mService.search(query);
+        double start = System.currentTimeMillis();
+        searchCall = mService.search(query);
 
-            searchCall.enqueue(new Callback<List<SearchResult>>() {
-                @Override
-                public void onResponse(Call<List<SearchResult>> call, Response<List<SearchResult>> response) {
-                    //If successful just display that update was successful
-                    Log.d("Call", call.request().toString());
-                    if (response.isSuccessful()) {
-                        Log.d("Search:","Successful!");
-                        double end = System.currentTimeMillis();
-                        double responseTime = (end-start)/1000.0;
-                        int size = 0;
-                        if (response.body() != null) {
-                            size = response.body().size();
-                        }
-                        String str = "About " + String.valueOf(size) + " Results" + " (" + String.valueOf(responseTime) + ") seconds";
-                        result_count.setText(str);
-                        mAdapter.updateResults(response.body());
-                        searchList.setVisibility(View.VISIBLE);
-                        progressBar.setVisibility(View.INVISIBLE);
-                    } else {
-                        int statusCode = response.code();
-                        if (statusCode == 401) {
-                            Log.d("StatusCode", "Unauthorized");
-                        }
-                        if (statusCode == 200) {
-                            Log.d("StatusCode", "OK");
-                        } else {
-                            Log.d("StatusCode", String.valueOf(statusCode));
-                        }
-                        // handle request errors depending on status code
+        searchCall.enqueue(new Callback<List<SearchResult>>() {
+            @Override
+            public void onResponse(Call<List<SearchResult>> call, Response<List<SearchResult>> response) {
+                //If successful just display that update was successful
+                Log.d("Call", call.request().toString());
+                if (response.isSuccessful()) {
+                    Log.d("Search:", "Successful!");
+                    double end = System.currentTimeMillis();
+                    double responseTime = (end - start) / 1000.0;
+                    int size = 0;
+                    if (response.body() != null) {
+                        size = response.body().size();
                     }
-                }
-
-                @Override
-                public void onFailure(Call<List<SearchResult>> call, Throwable t) {
+                    String str = "About " + String.valueOf(size) + " Results" + " (" + String.valueOf(responseTime) + ") seconds";
+//                    result_count.setText(str);
+                    mAdapter.setSearchTime(str);
+                    mAdapter.updateResults(response.body());
+                    searchList.setVisibility(View.VISIBLE);
+//                    end_msg.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.INVISIBLE);
-                    if (call.isCanceled()) {
-                        Log.d("SearchActivity", "call is cancelled");
-
-                    } else if (mNetworkUtils.isOnline(SearchActivity.this)) {
-                        Log.d("SearchActivity", "error loading from API");
-                        Snackbar.make((CoordinatorLayout) findViewById(R.id.search_layout_main), getString(R.string.error_occurred), Snackbar.LENGTH_LONG)
-                                .show();
-                    } else {
-                        Log.d("SearchActivity", "Check your network connection");
-                        Snackbar.make((CoordinatorLayout) findViewById(R.id.search_layout_main), getString(R.string.no_internet_top), Snackbar.LENGTH_LONG)
-                                .show();
+                } else {
+                    int statusCode = response.code();
+                    if (statusCode == 401) {
+                        Log.d("StatusCode", "Unauthorized");
                     }
+                    if (statusCode == 200) {
+                        Log.d("StatusCode", "OK");
+                    } else {
+                        Log.d("StatusCode", String.valueOf(statusCode));
+                    }
+                    // handle request errors depending on status code
                 }
-            });
+            }
+
+            @Override
+            public void onFailure(Call<List<SearchResult>> call, Throwable t) {
+                progressBar.setVisibility(View.INVISIBLE);
+                if (call.isCanceled()) {
+                    Log.d("SearchActivity", "call is cancelled");
+
+                } else if (mNetworkUtils.isOnline(SearchActivity.this)) {
+                    Log.d("SearchActivity", "error loading from API");
+                    Snackbar.make((CoordinatorLayout) findViewById(R.id.search_layout_main), getString(R.string.error_occurred), Snackbar.LENGTH_LONG)
+                            .show();
+                } else {
+                    Log.d("SearchActivity", "Check your network connection");
+                    Snackbar.make((CoordinatorLayout) findViewById(R.id.search_layout_main), getString(R.string.no_internet_top), Snackbar.LENGTH_LONG)
+                            .show();
+                }
+            }
+        });
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (searchCall!=null) {
+        if (searchCall != null) {
             if (!searchCall.isExecuted()) {
                 searchCall.cancel();
             }
@@ -246,7 +242,7 @@ public class SearchActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_search, menu);
 
-        MenuItem searchMenuItem = menu.findItem( R.id.search ); // get my MenuItem with placeholder submenu
+        MenuItem searchMenuItem = menu.findItem(R.id.search); // get my MenuItem with placeholder submenu
         searchMenuItem.expandActionView(); // Expand the search menu item in order to show by default the query
         searchMenuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
@@ -266,8 +262,9 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Log.d("Search: ",query);
+                Log.d("Search: ", query);
                 searchList.setVisibility(View.GONE);
+//                end_msg.setVisibility(View.INVISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
                 search(query);
                 return false;
@@ -280,7 +277,6 @@ public class SearchActivity extends AppCompatActivity {
         });
         return true;
     }
-
 
 
 }

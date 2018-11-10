@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.AppCompatImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/loader_img"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:srcCompat="@drawable/ic_logo_small"
-    android:layout_gravity="center"/>
+    android:orientation="vertical">
+
+    <com.erudition.polygonprogressbar.NSidedProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="@dimen/progress_bar_size"
+        android:layout_height="@dimen/progress_bar_size"
+        android:layout_gravity="center"
+        app:nsidedProg_baseSpeed="5"
+        app:nsidedProg_sideCount="3"
+        app:nsidedProg_clockwise="true" />
+
+</LinearLayout>

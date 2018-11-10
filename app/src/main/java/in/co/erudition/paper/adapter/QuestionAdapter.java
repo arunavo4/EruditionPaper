@@ -89,18 +89,20 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
         // Set item views based on your views and data model
         try {
             //q_tv.loadData(getHtmlData(ques.getQuestion()), "text/html", null);
-            q_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(ques.getQuestion()), "text/html", "UTF-8", null);
+            q_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(ques.getQuestion(),ques.getQuestionNo()), "text/html", "UTF-8", null);
             m_tv.setText(ques.getMarks());
-            q_no_tv.setText(ques.getQuestionNo() + ".");
+//            q_no_tv.setText(ques.getQuestionNo() + ".");
             r_tv.setText(ques.getRepeat());
+
 
         } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
             Log.e("Exception", e.toString());
         }
     }
 
-    private String getHtmlData(String data) {
-        return str.toString() + data + "</body>\n</html>";
+    private String getHtmlData(String data, String no) {
+        data = data.substring(3);
+        return str.toString() + "<p><strong>" + no + ". </strong>" + data + "</body>\n</html>";
     }
 
     @Override

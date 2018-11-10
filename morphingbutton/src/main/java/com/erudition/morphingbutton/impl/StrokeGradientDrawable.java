@@ -2,6 +2,9 @@ package com.erudition.morphingbutton.impl;
 
 import android.graphics.drawable.GradientDrawable;
 
+import androidx.annotation.Keep;
+
+@Keep
 public class StrokeGradientDrawable {
 
     private int mStrokeWidth;

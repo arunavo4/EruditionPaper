@@ -8,8 +8,10 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.view.ViewGroup;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
+@Keep
 public class MorphingAnimation {
     public interface Listener {
         void onAnimationEnd();

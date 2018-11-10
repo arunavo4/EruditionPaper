@@ -43,7 +43,8 @@
         android:layout_gravity="bottom|end"
         app:backgroundTint="@color/fab_blue"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_chat_black_24dp" />
+        app:srcCompat="@drawable/ic_chat_black_24dp"
+        android:visibility="invisible"/>
 
     <com.erudition.polygonprogressbar.NSidedProgressBar
         android:id="@+id/progressBar_Ques"
@@ -53,6 +54,16 @@
         app:nsidedProg_baseSpeed="5"
         app:nsidedProg_sideCount="4"
         app:nsidedProg_clockwise="true"/>
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/admob_smart_banner_id">
+    </com.google.android.gms.ads.AdView>
 
     <!--<include layout="card_info"/>-->
 

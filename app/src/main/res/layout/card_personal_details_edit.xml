@@ -62,6 +62,7 @@
                         android:id="@+id/first_name_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextViewProfile"
                         android:hint="@string/first_name" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -90,6 +91,7 @@
                         android:id="@+id/last_name_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextViewProfile"
                         android:hint="@string/last_name" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -118,6 +120,7 @@
                         android:id="@+id/phone_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextViewProfile"
                         android:hint="@string/phone" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -146,6 +149,7 @@
                         android:id="@+id/gender_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextViewProfile"
                         android:hint="@string/gender" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -176,6 +180,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusableInTouchMode="false"
+                        android:textAppearance="@style/TextViewProfile"
                         android:hint="@string/dob" />
 
                 </com.google.android.material.textfield.TextInputLayout>

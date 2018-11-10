@@ -19,23 +19,20 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import in.co.erudition.paper.R;
-import in.co.erudition.paper.activity.SearchActivity;
 import in.co.erudition.paper.activity.SingleAnswerActivity;
-import in.co.erudition.paper.data.model.PaperGroup;
-import in.co.erudition.paper.data.model.PaperQuestion;
 import in.co.erudition.paper.data.model.QuesAnsSearch;
-import in.co.erudition.paper.data.model.QuestionAnswer;
 import in.co.erudition.paper.data.model.SearchResult;
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder>{
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
     private List<SearchResult> searchResults;
     private ArrayList<QuesAnsSearch> data;
     private Context mContext;
     private Intent mIntent;
+    private String searchTime;
     private StringBuilder str;
     private SearchAdapter.SearchItemListener mItemListener;
 
-    public SearchAdapter(Context context,  ArrayList<SearchResult> searchResult, Intent intent, SearchAdapter.SearchItemListener itemListener){
+    public SearchAdapter(Context context, ArrayList<SearchResult> searchResult, Intent intent, SearchAdapter.SearchItemListener itemListener) {
         mContext = context;
         searchResults = searchResult;
         mIntent = intent;
@@ -66,7 +63,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View mCardView = inflater.inflate(R.layout.card_question, parent, false);
+        View mCardView = inflater.inflate(R.layout.card_question_new, parent, false);
 
         // Return a new holder instance
         SearchAdapter.ViewHolder viewHolder = new SearchAdapter.ViewHolder(mCardView);
@@ -76,10 +73,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull SearchAdapter.ViewHolder holder, int position) {
         SearchResult ques = searchResults.get(holder.getAdapterPosition());
+        Log.d("Adapter pos", String.valueOf(holder.getAdapterPosition()));
         final WebView q_tv = holder.ques_tv;
         TextView m_tv = holder.marks_tv;
         TextView q_no_tv = holder.ques_no_tv;
         TextView r_tv = holder.repeated_tv;
+        View nav_space = holder.spacer;
 
         // Set item views based on your views and data model
         try {
@@ -88,6 +87,21 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             m_tv.setText(ques.getMarks());
 //            q_no_tv.setText(ques.getQuestionNo() + ".");
 //            r_tv.setText(ques.getRepeat());
+
+            if (nav_space.getVisibility() == View.VISIBLE || holder.result_count.getVisibility()==View.VISIBLE) {
+                nav_space.setVisibility(View.GONE);
+                holder.result_count.setVisibility(View.GONE);
+            }
+
+            if (getItemCount() - 1 == holder.getAdapterPosition()) {
+                Log.d("Nav Spacer", "inflated");
+                nav_space.setVisibility(View.VISIBLE);    //TODO: Turn it on when there is no ads
+            }
+
+            if (holder.getAdapterPosition()==0){
+                holder.result_count.setText(getSearchTime());
+                holder.result_count.setVisibility(View.VISIBLE);
+            }
 
         } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
             Log.e("Exception", e.toString());
@@ -108,6 +122,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         public TextView marks_tv;
         public TextView repeated_tv;
         public TextView ques_no_tv;
+        public TextView result_count;
+        public View spacer;
 
         @SuppressLint("SetJavaScriptEnabled")
         public ViewHolder(@NonNull View itemView) {
@@ -117,12 +133,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             marks_tv = (TextView) itemView.findViewById(R.id.marks_tv);
             ques_no_tv = (TextView) itemView.findViewById(R.id.ques_num);
             repeated_tv = (TextView) itemView.findViewById(R.id.ques_repeat);
+            spacer = (View) itemView.findViewById(R.id.nav_spacer_ad);
+            result_count = (TextView) itemView.findViewById(R.id.result_count);
 
             //Optimizations
             ques_tv.getSettings().setJavaScriptEnabled(true);
             ques_tv.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
             ques_tv.getSettings().setAppCacheEnabled(true);
-            ques_tv.setLayerType(View.LAYER_TYPE_HARDWARE,null);
+            ques_tv.setLayerType(View.LAYER_TYPE_HARDWARE, null);
             ques_tv.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -181,7 +199,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 parcelData(position);
                 Intent intent = new Intent(mContext, SingleAnswerActivity.class);
                 intent.putExtra("Search_ADAPTER.parcelData", data);
-                intent.putExtra("Search_ADAPTER.position",position);
+                intent.putExtra("Search_ADAPTER.position", position);
                 intent.putExtras(mIntent);
                 mContext.startActivity(intent);
             }
@@ -209,6 +227,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public void updateResults(List<SearchResult> searchResultList) {
         searchResults = searchResultList;
         notifyDataSetChanged();
+    }
+
+
+    public String getSearchTime() {
+        return searchTime;
+    }
+
+    public void setSearchTime(String searchTime) {
+        this.searchTime = searchTime;
     }
 
     public interface SearchItemListener {

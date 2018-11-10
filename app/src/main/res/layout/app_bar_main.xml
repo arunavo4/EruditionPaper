@@ -69,6 +69,7 @@
                 android:layout_marginTop="@dimen/status_bar_height"
                 android:theme="@style/ToolBarStyle.bold"
                 android:title="@string/app_name"
+                app:titleTextAppearance="@style/Toolbar.TitleText.Bold"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 

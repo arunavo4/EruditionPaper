@@ -81,12 +81,11 @@
                     android:layout_marginEnd="@dimen/spacer_16dp"
                     app:srcCompat="@drawable/ic_outline_announcement_24px"/>
 
-
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/issue_feedback_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:textColorHint="@color/colorMaterialBlack_no_alpha"
                     app:hintTextAppearance="@style/HintTextViewProfile">
 

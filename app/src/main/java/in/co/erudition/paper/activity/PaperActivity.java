@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 
 import com.erudition.polygonprogressbar.NSidedProgressBar;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
@@ -77,8 +78,9 @@ public class PaperActivity extends AppCompatActivity {
     private FloatingActionMenu fab;
     private Intent intent;
 
-    private InterstitialAd mInterstitialAd;
-    private AdCountDownTimer timer;
+    private AdView mAdView;
+//    private InterstitialAd mInterstitialAd;
+//    private AdCountDownTimer timer;
 
     private TextView mTextView;
     private CollapsingToolbarLayout collapsingToolbarLayout;
@@ -107,28 +109,33 @@ public class PaperActivity extends AppCompatActivity {
             mPaperList.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
         }
 
+        //Load Ads
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         //Setup Interstitial Ads --> only once at startup
         //Interstitial ads
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-        //load ads in advance
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                // Load the next interstitial.
-                mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                //Set the timer Again
-                timer = new AdCountDownTimer(600000, 1000);
-                timer.start();
-            }
-
-        });
-
-        //Set a timer for 1 min
-        timer = new AdCountDownTimer(600000, 1000);
-        timer.start();
+//        mInterstitialAd = new InterstitialAd(this);
+//        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//
+//        //load ads in advance
+//        mInterstitialAd.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdClosed() {
+//                // Load the next interstitial.
+//                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//                //Set the timer Again
+//                timer = new AdCountDownTimer(600000, 1000);
+//                timer.start();
+//            }
+//
+//        });
+//
+//        //Set a timer for 1 min
+//        timer = new AdCountDownTimer(600000, 1000);
+//        timer.start();
 
         /**
          * instantiate the floating action buttons
@@ -149,7 +156,7 @@ public class PaperActivity extends AppCompatActivity {
                 intent.putExtra("Title", "Recent Papers");
                 fab.close(true);
                 startActivity(intent);
-                timer.cancel();
+//                timer.cancel();
                 finish();
             }
         });
@@ -159,7 +166,7 @@ public class PaperActivity extends AppCompatActivity {
                 intent.putExtra("Title", "Offline");
                 fab.close(true);
                 startActivity(intent);
-                timer.cancel();
+//                timer.cancel();
                 finish();
             }
         });
@@ -169,7 +176,7 @@ public class PaperActivity extends AppCompatActivity {
                 intent.putExtra("Title", "Bookmarks");
                 fab.close(true);
                 startActivity(intent);
-                timer.cancel();
+//                timer.cancel();
                 finish();
             }
         });
@@ -183,9 +190,9 @@ public class PaperActivity extends AppCompatActivity {
                         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+//            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorBlack25alpha));
-            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorBlack75alpha));
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
         }
 
         Drawable bg;
@@ -514,20 +521,27 @@ public class PaperActivity extends AppCompatActivity {
         }
 
         super.onBackPressed();
-        timer.cancel();
+//        timer.cancel();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        timer.cancel();
+//        timer.cancel();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         //restart the timer
-        timer.start();
+//        timer.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mAdView.removeAllViews();
+        mAdView.destroy();
+        super.onDestroy();
     }
 
     /**
@@ -566,24 +580,18 @@ public class PaperActivity extends AppCompatActivity {
         dialog.setContentView(view);
         dialog.show();
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dialog.isShowing()) {
-                    dialog.cancel();
-                    onBackPressed();
-                }
+        btn_back.setOnClickListener(v -> {
+            if (dialog.isShowing()) {
+                dialog.cancel();
+                onBackPressed();
             }
         });
 
-        btn_go_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //retry and close dialogue
-                if (dialog.isShowing()) {
-                    dialog.cancel();
-                    onBackPressed();
-                }
+        btn_go_back.setOnClickListener(v -> {
+            //retry and close dialogue
+            if (dialog.isShowing()) {
+                dialog.cancel();
+                onBackPressed();
             }
         });
     }
@@ -661,30 +669,30 @@ public class PaperActivity extends AppCompatActivity {
         fab.setIconToggleAnimatorSet(mOpenAnimatorSet);
     }
 
-    private class AdCountDownTimer extends CountDownTimer {
-        /**
-         * @param millisInFuture    The number of millis in the future from the call
-         *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
-         *                          is called.
-         * @param countDownInterval The interval along the way to receive
-         *                          {@link #onTick(long)} callbacks.
-         */
-        public AdCountDownTimer(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-
-        }
-
-        @Override
-        public void onFinish() {
-            if (mInterstitialAd.isLoaded()) {
-                mInterstitialAd.show();
-            } else {
-                Log.d("PaperActivity", "The interstitial wasn't loaded yet.");
-            }
-        }
-    }
+//    private class AdCountDownTimer extends CountDownTimer {
+//        /**
+//         * @param millisInFuture    The number of millis in the future from the call
+//         *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
+//         *                          is called.
+//         * @param countDownInterval The interval along the way to receive
+//         *                          {@link #onTick(long)} callbacks.
+//         */
+//        public AdCountDownTimer(long millisInFuture, long countDownInterval) {
+//            super(millisInFuture, countDownInterval);
+//        }
+//
+//        @Override
+//        public void onTick(long millisUntilFinished) {
+//
+//        }
+//
+//        @Override
+//        public void onFinish() {
+//            if (mInterstitialAd.isLoaded()) {
+//                mInterstitialAd.show();
+//            } else {
+//                Log.d("PaperActivity", "The interstitial wasn't loaded yet.");
+//            }
+//        }
+//    }
 }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 
 import com.erudition.polygonprogressbar.NSidedProgressBar;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.appbar.AppBarLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -69,9 +70,10 @@ public class QuestionActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     private String TAG = "QuestionActivity";
+    private AdView mAdView;
 
-    private InterstitialAd mInterstitialAd;
-    private AdCountDownTimer timer;
+//    private InterstitialAd mInterstitialAd;
+//    private AdCountDownTimer timer;
 
     private boolean isChecked_offline = false;
     private boolean isChecked_bookmark = false;
@@ -88,28 +90,33 @@ public class QuestionActivity extends AppCompatActivity {
         appBarLayout = (AppBarLayout) findViewById(R.id.my_appbar_container); //Changed
         appBarLayout.bringToFront();
 
+        //Load Ads
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         //Setup Interstitial Ads --> only once at startup
         //Interstitial video ads
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/8691691433");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-        //load ads in advance
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                // Load the next interstitial.
-                mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                //Set the timer Again
-                timer = new AdCountDownTimer(600000,1000);
-                timer.start();
-            }
-
-        });
-
-        //Set a timer for 1 min
-        timer = new AdCountDownTimer(600000,1000);
-        timer.start();
+//        mInterstitialAd = new InterstitialAd(this);
+//        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/8691691433");
+//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//
+//        //load ads in advance
+//        mInterstitialAd.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdClosed() {
+//                // Load the next interstitial.
+//                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//                //Set the timer Again
+//                timer = new AdCountDownTimer(600000,1000);
+//                timer.start();
+//            }
+//
+//        });
+//
+//        //Set a timer for 1 min
+//        timer = new AdCountDownTimer(600000,1000);
+//        timer.start();
 
         ViewGroup linearLayout = (ViewGroup) findViewById(R.id.ques_linear_layout);
         int select = getIntent().getIntExtra("PaperActivity.EXTRA_Select", -1);
@@ -128,7 +135,7 @@ public class QuestionActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 21) {
 //            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorBlack25alpha));
-//            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorBlack75alpha));
+            getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
         }
 
         /*
@@ -271,6 +278,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         call = mService.getPaper(getIntent().getStringExtra("PaperActivity.EXTRA_Paper_Code"));
 //        call = mService.getPaper("214");
+        Log.d("Paper Code",getIntent().getStringExtra("PaperActivity.EXTRA_Paper_Code"));
         call.enqueue(new Callback<Paper>() {
 
             @Override
@@ -392,20 +400,27 @@ public class QuestionActivity extends AppCompatActivity {
             call.cancel();
         }
         super.onBackPressed();
-        timer.cancel();
+//        timer.cancel();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        timer.cancel();
+//        timer.cancel();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         //restart the timer
-        timer.start();
+//        timer.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mAdView.removeAllViews();
+        mAdView.destroy();
+        super.onDestroy();
     }
 
     /**
@@ -455,33 +470,33 @@ public class QuestionActivity extends AppCompatActivity {
         });
     }
 
-    private class AdCountDownTimer extends CountDownTimer{
-
-        /**
-         * @param millisInFuture    The number of millis in the future from the call
-         *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
-         *                          is called.
-         * @param countDownInterval The interval along the way to receive
-         *                          {@link #onTick(long)} callbacks.
-         */
-        public AdCountDownTimer(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-            //callback for every tick interval
-        }
-
-        @Override
-        public void onFinish() {
-            if (mInterstitialAd.isLoaded()) {
-                mInterstitialAd.show();
-            } else {
-                Log.d(TAG, "The interstitial wasn't loaded yet.");
-            }
-        }
-    }
+//    private class AdCountDownTimer extends CountDownTimer{
+//
+//        /**
+//         * @param millisInFuture    The number of millis in the future from the call
+//         *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
+//         *                          is called.
+//         * @param countDownInterval The interval along the way to receive
+//         *                          {@link #onTick(long)} callbacks.
+//         */
+//        public AdCountDownTimer(long millisInFuture, long countDownInterval) {
+//            super(millisInFuture, countDownInterval);
+//        }
+//
+//        @Override
+//        public void onTick(long millisUntilFinished) {
+//            //callback for every tick interval
+//        }
+//
+//        @Override
+//        public void onFinish() {
+//            if (mInterstitialAd.isLoaded()) {
+//                mInterstitialAd.show();
+//            } else {
+//                Log.d(TAG, "The interstitial wasn't loaded yet.");
+//            }
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

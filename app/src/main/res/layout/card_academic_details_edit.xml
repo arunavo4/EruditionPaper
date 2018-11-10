@@ -61,6 +61,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextViewProfile"
                         android:hint="@string/university_p" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -88,6 +89,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextViewProfile"
                         android:hint="@string/college" />
                     <!--@dimen/edit_text_width_profile-->
                 </com.google.android.material.textfield.TextInputLayout>
@@ -115,6 +117,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextViewProfile"
                         android:hint="@string/department" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -142,6 +145,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextViewProfile"
                         android:hint="@string/semester_p" />
 
                 </com.google.android.material.textfield.TextInputLayout>

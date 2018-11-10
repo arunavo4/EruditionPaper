@@ -79,7 +79,7 @@
         android:layout_height="wrap_content"
         android:tint="@color/greyDark_alpha80"
         android:layout_marginStart="@dimen/spacer_16dp"
-        android:layout_marginTop="@dimen/app_bar_height"
+        android:layout_marginTop="@dimen/nav_bar_height"
         android:layout_gravity="top|start"
         app:srcCompat="@drawable/ic_arrow_back_black_24dp"/>
 
