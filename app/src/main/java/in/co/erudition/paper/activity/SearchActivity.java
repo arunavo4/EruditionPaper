@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -51,6 +52,7 @@ public class SearchActivity extends AppCompatActivity {
     private Call<List<SearchResult>> searchCall;
     private NSidedProgressBar progressBar;
     private LinearLayout searchList;
+    private ImageView no_results;
 //    private TextView result_count;
 //    private TextView end_msg;
     private AdView adView;
@@ -71,6 +73,7 @@ public class SearchActivity extends AppCompatActivity {
 
         progressBar = (NSidedProgressBar) findViewById(R.id.progressBar_search);
         searchList = (LinearLayout) findViewById(R.id.search_linear_layout);
+        no_results = (ImageView) findViewById(R.id.no_results_img);
 //        result_count = (TextView) findViewById(R.id.result_count);
 //        end_msg = (TextView) findViewById(R.id.empty_view);
 //        View nav_space = (View) findViewById(R.id.nav_spacer_ad);
@@ -185,6 +188,7 @@ public class SearchActivity extends AppCompatActivity {
                     mAdapter.setSearchTime(str);
                     mAdapter.updateResults(response.body());
                     searchList.setVisibility(View.VISIBLE);
+                    no_results.setVisibility(View.GONE);
 //                    end_msg.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.INVISIBLE);
                 } else {
@@ -209,7 +213,8 @@ public class SearchActivity extends AppCompatActivity {
 
                 } else if (mNetworkUtils.isOnline(SearchActivity.this)) {
                     Log.d("SearchActivity", "error loading from API");
-                    Snackbar.make((CoordinatorLayout) findViewById(R.id.search_layout_main), getString(R.string.error_occurred), Snackbar.LENGTH_LONG)
+                    no_results.setVisibility(View.VISIBLE);
+                    Snackbar.make((CoordinatorLayout) findViewById(R.id.search_layout_main), getString(R.string.Search_no_records), Snackbar.LENGTH_LONG)
                             .show();
                 } else {
                     Log.d("SearchActivity", "Check your network connection");
@@ -231,10 +236,32 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onPause() {
+        if (adView != null) {
+            adView.pause();
+        }
+        super.onPause();
+    }
+    @Override
+    public void onResume() {
+        if (adView != null) {
+            adView.resume();
+        }
+        super.onResume();
+    }
+
+    @Override
     protected void onDestroy() {
-        adView.removeAllViews();
-        adView.destroy();
         super.onDestroy();
+        if (adView!=null) {
+            final ViewGroup viewGroup = (ViewGroup) adView.getParent();
+            if (viewGroup != null)
+            {
+                viewGroup.removeView(adView);
+            }
+            adView.removeAllViews();
+            adView.destroy();
+        }
     }
 
     @Override
@@ -264,6 +291,7 @@ public class SearchActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 Log.d("Search: ", query);
                 searchList.setVisibility(View.GONE);
+                no_results.setVisibility(View.GONE);
 //                end_msg.setVisibility(View.INVISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
                 search(query);

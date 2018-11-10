@@ -138,15 +138,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
             //Optimizations
             ques_tv.getSettings().setJavaScriptEnabled(true);
-            ques_tv.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-            ques_tv.getSettings().setAppCacheEnabled(true);
+            ques_tv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+            ques_tv.getSettings().setAppCacheEnabled(false);
             ques_tv.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-            ques_tv.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    return true;
-                }
-            });
+            ques_tv.setOnLongClickListener(v -> true);
             ques_tv.setLongClickable(false);
 
             //Setting click events on both webview and the card

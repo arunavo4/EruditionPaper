@@ -153,14 +153,14 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                 mCodeFullTV.setText(mCodeFullStr);
             }
 
-            if (nav_space.getVisibility() == View.VISIBLE) {
-                nav_space.setVisibility(View.GONE);
+            if (nav_space.getVisibility() == View.VISIBLE || ad_space.getVisibility() == View.VISIBLE) {
+//                nav_space.setVisibility(View.GONE);
                 ad_space.setVisibility(View.GONE);
             }
 
             if (getItemCount() - 1 == holder.getAdapterPosition()) {
                 Log.d("Nav Spacer", "inflated");
-                nav_space.setVisibility(View.VISIBLE);    //TODO: Turn it on when there is no ads
+//                nav_space.setVisibility(View.VISIBLE);    //TODO: Turn it on when there is no ads
                 ad_space.setVisibility(View.VISIBLE);
             }
 

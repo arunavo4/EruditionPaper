@@ -440,9 +440,31 @@ public class CourseActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onPause() {
+        if (adView != null) {
+            adView.pause();
+        }
+        super.onPause();
+    }
+    @Override
+    public void onResume() {
+        if (adView != null) {
+            adView.resume();
+        }
+        super.onResume();
+    }
+
+    @Override
     protected void onDestroy() {
-        adView.removeAllViews();
-        adView.destroy();
+        if (adView!=null) {
+            final ViewGroup viewGroup = (ViewGroup) adView.getParent();
+            if (viewGroup != null)
+            {
+                viewGroup.removeView(adView);
+            }
+            adView.removeAllViews();
+            adView.destroy();
+        }
         super.onDestroy();
     }
 

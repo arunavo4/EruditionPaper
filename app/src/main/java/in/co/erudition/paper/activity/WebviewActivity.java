@@ -48,8 +48,8 @@ public class WebviewActivity extends AppCompatActivity {
             }
         });
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        webView.getSettings().setAppCacheEnabled(true);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webView.getSettings().setAppCacheEnabled(false);
         webView.setLayerType(View.LAYER_TYPE_HARDWARE,null);
         webView.loadUrl(getIntent().getStringExtra("Webview.Address"));
 

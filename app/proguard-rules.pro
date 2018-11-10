@@ -20,6 +20,16 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+#Crashlytics
+-keepattributes *Annotation*
+-keepattributes SourceFile,LineNumberTable
+-keep public class * extends java.lang.Exception
+#To let Crashlytics automatically upload the ProGuard or DexGuard mapping file
+-printmapping mapping.txt
+#Exclude Crashlytics
+-keep class com.crashlytics.** { *; }
+-dontwarn com.crashlytics.**
+
 #RenderScript
 -keep class android.support.v8.renderscript.** { *; }
 
@@ -89,6 +99,9 @@
 #Android-Image-Cropper  at https://github.com/ArthurHub/Android-Image-Cropper
 -keep class android.support.v7.widget.** { *; }
 
+#Apache Legacy Lib
+-keep class org.apache.http.legacy.** { *; }
+
 ##app
 #-dontobfuscate
 #-dontoptimize
@@ -114,3 +127,4 @@
 -dontwarn com.github.clans.fab.**
 -dontwarn com.firebase.ui.auth.**
 -dontwarn in.co.erudition.avatar.**
+-dontwarn org.apache.http.legacy.**

@@ -38,7 +38,7 @@
     <string name="avatar_updated_msg">Avatar Updated!</string>
     <string name="avatar_update_fail_msg">Update Failed!</string>
 
-    <string name="Search_no_records">That\'s all Folks!</string>
+    <string name="Search_no_records">No Results Found</string>
 
     <string name="not_set">(Not Set)</string>
 
@@ -85,8 +85,8 @@
     <!--Help and Feedback-->
     <string name="like_erudition">Like Erudition Paper?</string>
     <string name="faq">F.A.Q.</string>
-    <string name="submit_btn">Submit</string>
     <string name="feedback_success">Feedback Submitted!</string>
+    <string name="submit_btn">Submit</string>
     <string name="submit_a_prob">Contact Support</string>
     <string name="subject_help">Subject</string>
     <string name="issues_faced">Issue Faced</string>
@@ -179,12 +179,14 @@
     <string name="facebook_login_protocol_scheme" translatable="false">fb1830176010527608</string>
 
     <!--AdMob-->
-    <string name="admob_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="admob_app_id" translatable="false">ca-app-pub-5088140684773836~3500871325</string>
+    <string name="admob_smart_banner_id" translatable="false">ca-app-pub-5088140684773836/8817825614</string>
+    <string name="admob_interstitial_ad_id" translatable="false">ca-app-pub-5088140684773836/9561304916</string>
 
     <!--Tos and Pp-->
     <string name="tos_url" translatable="false">https://paper.erudition.co.in/terms-and-conditions</string>
     <string name="pp_url" translatable="false">https://paper.erudition.co.in/privacy-policy</string>
-
+    <string name="about_url" translatable="false">https://paper.erudition.co.in/about</string>
     <string name="faq_url" translatable="false">https://paper.erudition.co.in/faq</string>
 
     <!--Symbols-->
@@ -210,5 +212,6 @@
     <string name="title_activity_profile_edit">ProfileEditActivity</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_syllabus">SyllabusActivity</string>
+
 
 </resources>

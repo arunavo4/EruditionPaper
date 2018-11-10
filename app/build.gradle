@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
 
 android {
     signingConfigs {
@@ -18,8 +19,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
 //        multiDexEnabled true
-        versionCode 191000408
-        versionName "0.4.8-alpha"
+        versionCode 191000409
+        versionName "0.4.9-alpha"
         resConfigs "en"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -68,6 +69,8 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     //Firebase
     implementation 'com.google.firebase:firebase-core:16.0.4'
+    //Crashlytics
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.6'
     //Facebook login
     implementation 'com.facebook.android:facebook-login:4.35.0'
     //Retrofit

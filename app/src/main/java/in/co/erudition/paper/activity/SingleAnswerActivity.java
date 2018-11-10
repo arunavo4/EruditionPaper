@@ -119,27 +119,17 @@ public class SingleAnswerActivity extends AppCompatActivity {
 
         //HAndle the webviews
         ques_tv.getSettings().setJavaScriptEnabled(true);
-        ques_tv.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        ques_tv.getSettings().setAppCacheEnabled(true);
+        ques_tv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        ques_tv.getSettings().setAppCacheEnabled(false);
         ques_tv.setLayerType(View.LAYER_TYPE_HARDWARE,null);
-        ques_tv.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return true;
-            }
-        });
+        ques_tv.setOnLongClickListener(v -> true);
         ques_tv.setLongClickable(false);
 
         ans_tv.getSettings().setJavaScriptEnabled(true);
-        ans_tv.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        ans_tv.getSettings().setAppCacheEnabled(true);
+        ans_tv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        ans_tv.getSettings().setAppCacheEnabled(false);
         ans_tv.setLayerType(View.LAYER_TYPE_HARDWARE,null);
-        ans_tv.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                return true;
-            }
-        });
+        ans_tv.setOnLongClickListener(v -> true);
         ans_tv.setLongClickable(false);
 
         ques_tv.setOnTouchListener(new View.OnTouchListener() {
@@ -235,9 +225,31 @@ public class SingleAnswerActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onPause() {
+        if (adView != null) {
+            adView.pause();
+        }
+        super.onPause();
+    }
+    @Override
+    public void onResume() {
+        if (adView != null) {
+            adView.resume();
+        }
+        super.onResume();
+    }
+
+    @Override
     protected void onDestroy() {
-        adView.removeAllViews();
-        adView.destroy();
+        if (adView!=null) {
+            final ViewGroup viewGroup = (ViewGroup) adView.getParent();
+            if (viewGroup != null)
+            {
+                viewGroup.removeView(adView);
+            }
+            adView.removeAllViews();
+            adView.destroy();
+        }
         super.onDestroy();
     }
 

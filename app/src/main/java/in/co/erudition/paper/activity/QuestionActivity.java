@@ -405,12 +405,18 @@ public class QuestionActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
         super.onPause();
 //        timer.cancel();
     }
 
     @Override
     protected void onResume() {
+        if (mAdView != null) {
+            mAdView.resume();
+        }
         super.onResume();
         //restart the timer
 //        timer.start();
@@ -418,9 +424,16 @@ public class QuestionActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        mAdView.removeAllViews();
-        mAdView.destroy();
         super.onDestroy();
+        if (mAdView!=null) {
+            final ViewGroup viewGroup = (ViewGroup) mAdView.getParent();
+            if (viewGroup != null)
+            {
+                viewGroup.removeView(mAdView);
+            }
+            mAdView.removeAllViews();
+            mAdView.destroy();
+        }
     }
 
     /**

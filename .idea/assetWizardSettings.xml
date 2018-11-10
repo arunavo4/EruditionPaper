@@ -81,9 +81,11 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_lock_black_24dp" />
+                            <entry key="height" value="36" />
+                            <entry key="outputName" value="ic_camera_icon" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="G:\Programming\E-commerce\erudition\outline-lock-24px.svg" />
+                            <entry key="sourceFile" value="G:\Programming\E-commerce\erudition\camera_icon.svg" />
+                            <entry key="width" value="36" />
                           </map>
                         </option>
                       </PersistentState>

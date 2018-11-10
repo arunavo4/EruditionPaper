@@ -127,8 +127,8 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
             adView = (AdView) itemView.findViewById(R.id.adView);
 
             ques_tv.getSettings().setJavaScriptEnabled(true);
-            ques_tv.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-            ques_tv.getSettings().setAppCacheEnabled(true);
+            ques_tv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+            ques_tv.getSettings().setAppCacheEnabled(false);
             ques_tv.setLayerType(View.LAYER_TYPE_HARDWARE,null);
             ques_tv.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -139,8 +139,8 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
             ques_tv.setLongClickable(false);
 
             ans_tv.getSettings().setJavaScriptEnabled(true);
-            ans_tv.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-            ans_tv.getSettings().setAppCacheEnabled(true);
+            ans_tv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+            ans_tv.getSettings().setAppCacheEnabled(false);
             ans_tv.setLayerType(View.LAYER_TYPE_HARDWARE,null);
             ans_tv.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
