@@ -49,7 +49,7 @@ public class SettingsActivity extends AppCompatActivity {
         LinearLayout sign_out_btn = (LinearLayout) findViewById(R.id.sign_out_btn);
         LinearLayout change_pass_btn = (LinearLayout) findViewById(R.id.change_password_btn);
         LinearLayout delete_acc_btn = (LinearLayout) findViewById(R.id.delete_acc_btn);
-        SwitchCompat ad_btn = (SwitchCompat) findViewById(R.id.ad_btn_toggle);
+//        SwitchCompat ad_btn = (SwitchCompat) findViewById(R.id.ad_btn_toggle);
 
         mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
                 Context.MODE_PRIVATE);
@@ -130,19 +130,19 @@ public class SettingsActivity extends AppCompatActivity {
 
         });
 
-        ad_btn.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            mPrefsEdit = mPrefs.edit();
-
-            if (isChecked){
-                //Turn on all adMob Ads
-                mPrefsEdit.putBoolean("AdMob",true);
-            }
-            else {
-                mPrefsEdit.putBoolean("AdMob",false);
-            }
-            mPrefsEdit.apply();
-            Log.d("AdMob State:", String.valueOf(isChecked));
-        });
+//        ad_btn.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            mPrefsEdit = mPrefs.edit();
+//
+//            if (isChecked){
+//                //Turn on all adMob Ads
+//                mPrefsEdit.putBoolean("AdMob",true);
+//            }
+//            else {
+//                mPrefsEdit.putBoolean("AdMob",false);
+//            }
+//            mPrefsEdit.apply();
+//            Log.d("AdMob State:", String.valueOf(isChecked));
+//        });
 
     }
 

@@ -67,14 +67,16 @@
                 android:layout_height="@dimen/spacer_1dp"
                 android:layout_marginStart="@dimen/spacer_20dp"
                 android:layout_marginEnd="@dimen/spacer_0dp"
-                android:background="@color/colorBlack34alpha"/>
+                android:background="@color/colorBlack34alpha"
+                android:visibility="invisible"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/app_bar_height"
                 android:paddingStart="@dimen/spacer_16dp"
                 android:paddingEnd="@dimen/spacer_16dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"

@@ -52,7 +52,7 @@
             style="@style/TopTextView"
             android:textColor="@color/colorWhite"
             android:textSize="24sp"
-            android:text="@string/no_papers"/>
+            android:text="@string/upcoming_feature"/>
 
     </LinearLayout>
 

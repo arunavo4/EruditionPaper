@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/set_sem_btn"
+    android:layout_width="300dp"
+    android:layout_height="63dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_margin="@dimen/spacer_20dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardUseCompatPadding="false"
+    app:cardElevation="6dp"
+    app:cardCornerRadius="6dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/ic_set_sem"/>
+
+</com.google.android.material.card.MaterialCardView>

@@ -41,6 +41,7 @@
     <string name="Search_no_records">No Results Found</string>
 
     <string name="not_set">(Not Set)</string>
+    <string name="upcoming_feature">Upcoming Feature!</string>
 
     <!--Books-->
     <string name="book_top">Coming Soon</string>

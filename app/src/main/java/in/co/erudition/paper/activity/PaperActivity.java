@@ -247,12 +247,7 @@ public class PaperActivity extends AppCompatActivity {
                 toolbar_textView.setTitle(getIntent().getStringExtra("UniversityActivity.EXTRA_Subject_NAME"));
                 setSupportActionBar(toolbar_textView);
 
-                toolbar_textView.setNavigationOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        onBackPressed();
-                    }
-                });
+                toolbar_textView.setNavigationOnClickListener(v -> onBackPressed());
 
                 String str = getIntent().getStringExtra("Title");
                 if (collapsingToolbarLayout.getVisibility() == View.VISIBLE) {

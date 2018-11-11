@@ -43,6 +43,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
@@ -130,14 +131,14 @@ public class MainActivity extends AppCompatActivity
                 // Load the next interstitial.
                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
                 //Set the timer Again
-                timer = new AdCountDownTimer(60000, 1000);
+                timer = new AdCountDownTimer(600000, 1000);
                 timer.start();
             }
 
         });
 
-        //Set a timer for 1 min
-        timer = new AdCountDownTimer(60000, 1000);
+        //Set a timer for 10 min
+        timer = new AdCountDownTimer(600000, 1000);
         timer.start();
 
 
@@ -179,47 +180,54 @@ public class MainActivity extends AppCompatActivity
             });
         }
 
+        CardView set_sem_btn = (CardView) findViewById(R.id.set_sem_btn);
+
+        set_sem_btn.setOnClickListener(v -> {
+            //Toast
+            Toast.makeText(MainActivity.this,getString(R.string.upcoming_feature),Toast.LENGTH_LONG).show();
+        });
+
         /**
          * Set up the Carousel
          */
-        CarouselPicker carouselPicker = (CarouselPicker) findViewById(R.id.carousel);
-        // Case 1 : To populate the picker with images
-        List<CarouselPicker.PickerItem> imageItems = new ArrayList<>();
-        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.img_2));
-        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.img_1));
-        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.img_3));
-        //Create an adapter
-        CarouselPicker.CarouselViewAdapter imageAdapter = new CarouselPicker.CarouselViewAdapter(this, imageItems, 0);
-        //Set the adapter
-        carouselPicker.setAdapter(imageAdapter);
-
-        carouselPicker.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-        //To set item
-        carouselPicker.setCurrentItem(1, true);
-
-
-        /**
-         * Setup the pager indicator
-         */
-        PageIndicatorView pageIndicatorView = (PageIndicatorView) findViewById(R.id.pageIndicatorView);
-        pageIndicatorView.setViewPager(carouselPicker);
-        pageIndicatorView.setSelection(1);
+//        CarouselPicker carouselPicker = (CarouselPicker) findViewById(R.id.carousel);
+//        // Case 1 : To populate the picker with images
+//        List<CarouselPicker.PickerItem> imageItems = new ArrayList<>();
+//        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.img_2));
+//        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.img_1));
+//        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.img_3));
+//        //Create an adapter
+//        CarouselPicker.CarouselViewAdapter imageAdapter = new CarouselPicker.CarouselViewAdapter(this, imageItems, 0);
+//        //Set the adapter
+//        carouselPicker.setAdapter(imageAdapter);
+//
+//        carouselPicker.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
+//
+//        //To set item
+//        carouselPicker.setCurrentItem(1, true);
+//
+//
+//        /**
+//         * Setup the pager indicator
+//         */
+//        PageIndicatorView pageIndicatorView = (PageIndicatorView) findViewById(R.id.pageIndicatorView);
+//        pageIndicatorView.setViewPager(carouselPicker);
+//        pageIndicatorView.setSelection(1);
 
 
         /**

@@ -25,9 +25,12 @@
             <View
                 android:id="@+id/spacer_top"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/status_bar_height"/>
+                android:layout_height="@dimen/status_bar_height_plus_16dp"/>
 
-            <include layout="@layout/carousel" />
+            <!--TODO: Turn it on in phase 2 -->
+            <!--<include layout="@layout/carousel" />-->
+
+            <include layout="@layout/card_set_semester"/>
 
             <TextView
                 android:id="@+id/choose_tv"

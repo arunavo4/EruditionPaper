@@ -36,6 +36,6 @@
         android:layout_gravity="center"
         android:layout_marginBottom="@dimen/ad_view_height"
         app:srcCompat="@drawable/ic_no_results_book"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -116,7 +116,7 @@
                     android:layout_gravity="center"
                     android:layout_marginEnd="@dimen/spacer_16dp"
                     app:tint="@color/colorPrimary"
-                    app:srcCompat="@drawable/ic_close_black"/>
+                    app:srcCompat="@drawable/ic_close_black_56alpha"/>
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -240,9 +240,11 @@ public class QuestionActivity extends AppCompatActivity {
             nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
                 @Override
                 public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    if (scrollY > oldScrollY && fab.getVisibility() == View.VISIBLE) {
+//                    if (scrollY > oldScrollY && fab.getVisibility() == View.VISIBLE) {
+                        if (scrollY > oldScrollY) {
                         //DOWN SCROLL
-                        fab.hide();
+                        //TODO: Turn on later
+//                        fab.hide();
                         if (transparent) {
                             appBarLayout.setBackground(getResources().getDrawable(R.drawable.bg_white));
                             transparent = false;
@@ -251,8 +253,10 @@ public class QuestionActivity extends AppCompatActivity {
                             toolbar.setTitle(str);
                         }
                     }
-                    if (scrollY < oldScrollY && fab.getVisibility() != View.VISIBLE) {
-                        fab.show();
+//                    if (scrollY < oldScrollY && fab.getVisibility() != View.VISIBLE) {
+                        if (scrollY < oldScrollY) {
+                        //TODO: Turn on later
+//                        fab.show();
                     }
                     if (scrollY == 0) {
                         //TOP SCROLL

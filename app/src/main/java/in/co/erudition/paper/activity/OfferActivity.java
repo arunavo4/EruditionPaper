@@ -91,9 +91,9 @@ public class OfferActivity extends AppCompatActivity {
         CarouselPicker carouselPicker = (CarouselPicker) findViewById(R.id.carousel);
         // Case 1 : To populate the picker with images
         List<CarouselPicker.PickerItem> imageItems = new ArrayList<>();
-        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.img_2));
-        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.img_1));
-        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.img_3));
+        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.bg_white));
+        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.bg_white));
+        imageItems.add(new CarouselPicker.DrawableItem(R.drawable.bg_white));
         //Create an adapter
         CarouselPicker.CarouselViewAdapter imageAdapter = new CarouselPicker.CarouselViewAdapter(this, imageItems, 0);
         //Set the adapter
