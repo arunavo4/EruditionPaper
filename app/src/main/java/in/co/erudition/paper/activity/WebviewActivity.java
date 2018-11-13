@@ -22,6 +22,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import in.co.erudition.paper.R;
+import in.co.erudition.paper.util.PreferenceUtils;
 
 public class WebviewActivity extends AppCompatActivity {
 
@@ -47,7 +48,7 @@ public class WebviewActivity extends AppCompatActivity {
                 }
             }
         });
-        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setJavaScriptEnabled(PreferenceUtils.getJS());
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         webView.getSettings().setAppCacheEnabled(false);
         webView.setLayerType(View.LAYER_TYPE_HARDWARE,null);

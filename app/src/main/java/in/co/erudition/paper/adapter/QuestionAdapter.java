@@ -24,6 +24,7 @@ import in.co.erudition.paper.activity.AnswerActivity;
 import in.co.erudition.paper.data.model.PaperGroup;
 import in.co.erudition.paper.data.model.PaperQuestion;
 import in.co.erudition.paper.data.model.QuestionAnswer;
+import in.co.erudition.paper.util.PreferenceUtils;
 
 /**
  * Created by Arunavo Ray on 09-06-2018.
@@ -126,7 +127,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
             repeated_tv = (TextView) itemView.findViewById(R.id.ques_repeat);
 
             //optimizations
-            ques_tv.getSettings().setJavaScriptEnabled(true);
+            ques_tv.getSettings().setJavaScriptEnabled(PreferenceUtils.getJS());
             ques_tv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
             ques_tv.getSettings().setAppCacheEnabled(false);
             ques_tv.setLayerType(View.LAYER_TYPE_HARDWARE,null);

@@ -287,7 +287,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                             }
                         }
                         NameStr[selector] = boardSessions.get(position).getFullName();
-                        NameStrFull[selector] = boardCourses.get(position).getFullName();
+                        NameStrFull[selector] = boardSessions.get(position).getFullName();
                         mItemListener.onUniversityClick("0");
                         break;
 

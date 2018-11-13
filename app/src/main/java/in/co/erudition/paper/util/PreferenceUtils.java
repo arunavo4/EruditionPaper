@@ -83,5 +83,11 @@ public class PreferenceUtils {
         return mPrefs.getString("EId",null);
     }
 
+    public static boolean getJS(){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+        return mPrefs.getBoolean("JavaScript",false);
+    }
+
 }
 

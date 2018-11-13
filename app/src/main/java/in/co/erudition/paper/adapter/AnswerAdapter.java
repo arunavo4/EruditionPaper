@@ -25,6 +25,7 @@ import in.co.erudition.paper.data.model.Paper;
 import in.co.erudition.paper.data.model.PaperGroup;
 import in.co.erudition.paper.data.model.PaperQuestion;
 import in.co.erudition.paper.data.model.QuestionAnswer;
+import in.co.erudition.paper.util.PreferenceUtils;
 
 /**
  * Created by Arunavo Ray on 13-06-2018.
@@ -126,7 +127,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
             //Load Ads
             adView = (AdView) itemView.findViewById(R.id.adView);
 
-            ques_tv.getSettings().setJavaScriptEnabled(true);
+            ques_tv.getSettings().setJavaScriptEnabled(PreferenceUtils.getJS());
             ques_tv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
             ques_tv.getSettings().setAppCacheEnabled(false);
             ques_tv.setLayerType(View.LAYER_TYPE_HARDWARE,null);
@@ -138,7 +139,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
             });
             ques_tv.setLongClickable(false);
 
-            ans_tv.getSettings().setJavaScriptEnabled(true);
+            ans_tv.getSettings().setJavaScriptEnabled(PreferenceUtils.getJS());
             ans_tv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
             ans_tv.getSettings().setAppCacheEnabled(false);
             ans_tv.setLayerType(View.LAYER_TYPE_HARDWARE,null);

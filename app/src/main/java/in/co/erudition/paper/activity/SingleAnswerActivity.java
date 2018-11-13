@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.data.model.QuesAnsSearch;
+import in.co.erudition.paper.util.PreferenceUtils;
 
 import android.annotation.SuppressLint;
 import android.graphics.PorterDuff;
@@ -118,14 +119,14 @@ public class SingleAnswerActivity extends AppCompatActivity {
         int pos = getIntent().getIntExtra("Search_ADAPTER.position",0);
 
         //HAndle the webviews
-        ques_tv.getSettings().setJavaScriptEnabled(true);
+        ques_tv.getSettings().setJavaScriptEnabled(PreferenceUtils.getJS());
         ques_tv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         ques_tv.getSettings().setAppCacheEnabled(false);
         ques_tv.setLayerType(View.LAYER_TYPE_HARDWARE,null);
         ques_tv.setOnLongClickListener(v -> true);
         ques_tv.setLongClickable(false);
 
-        ans_tv.getSettings().setJavaScriptEnabled(true);
+        ans_tv.getSettings().setJavaScriptEnabled(PreferenceUtils.getJS());
         ans_tv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         ans_tv.getSettings().setAppCacheEnabled(false);
         ans_tv.setLayerType(View.LAYER_TYPE_HARDWARE,null);

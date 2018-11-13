@@ -22,6 +22,7 @@ import in.co.erudition.paper.R;
 import in.co.erudition.paper.activity.SingleAnswerActivity;
 import in.co.erudition.paper.data.model.QuesAnsSearch;
 import in.co.erudition.paper.data.model.SearchResult;
+import in.co.erudition.paper.util.PreferenceUtils;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
     private List<SearchResult> searchResults;
@@ -137,7 +138,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             result_count = (TextView) itemView.findViewById(R.id.result_count);
 
             //Optimizations
-            ques_tv.getSettings().setJavaScriptEnabled(true);
+            ques_tv.getSettings().setJavaScriptEnabled(PreferenceUtils.getJS());
             ques_tv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
             ques_tv.getSettings().setAppCacheEnabled(false);
             ques_tv.setLayerType(View.LAYER_TYPE_HARDWARE, null);

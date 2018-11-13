@@ -34,6 +34,7 @@ import in.co.erudition.paper.Erudition;
 import in.co.erudition.paper.LoginActivity;
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.util.CacheUtils;
+import in.co.erudition.paper.util.PreferenceUtils;
 
 public class SettingsActivity extends AppCompatActivity {
     private static SharedPreferences mPrefs;
@@ -49,10 +50,12 @@ public class SettingsActivity extends AppCompatActivity {
         LinearLayout sign_out_btn = (LinearLayout) findViewById(R.id.sign_out_btn);
         LinearLayout change_pass_btn = (LinearLayout) findViewById(R.id.change_password_btn);
         LinearLayout delete_acc_btn = (LinearLayout) findViewById(R.id.delete_acc_btn);
-//        SwitchCompat ad_btn = (SwitchCompat) findViewById(R.id.ad_btn_toggle);
+        SwitchCompat js_btn = (SwitchCompat) findViewById(R.id.js_btn_toggle);
 
         mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
                 Context.MODE_PRIVATE);
+
+        js_btn.setChecked(PreferenceUtils.getJS());
 
         // To set the background of the activity go below the StatusBar
         getWindow().getDecorView().setSystemUiVisibility(
@@ -130,19 +133,21 @@ public class SettingsActivity extends AppCompatActivity {
 
         });
 
-//        ad_btn.setOnCheckedChangeListener((buttonView, isChecked) -> {
-//            mPrefsEdit = mPrefs.edit();
-//
-//            if (isChecked){
-//                //Turn on all adMob Ads
-//                mPrefsEdit.putBoolean("AdMob",true);
-//            }
-//            else {
-//                mPrefsEdit.putBoolean("AdMob",false);
-//            }
-//            mPrefsEdit.apply();
-//            Log.d("AdMob State:", String.valueOf(isChecked));
-//        });
+        js_btn.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            mPrefsEdit = mPrefs.edit();
+
+            if (isChecked){
+                //Turn on all javaScript
+                mPrefsEdit.putBoolean("JavaScript",true);
+                Snackbar.make((CoordinatorLayout) findViewById(R.id.settings_main), getString(R.string.javascript_true), Snackbar.LENGTH_LONG).show();
+            }
+            else {
+                mPrefsEdit.putBoolean("JavaScript",false);
+                Snackbar.make((CoordinatorLayout) findViewById(R.id.settings_main), getString(R.string.javascript_false), Snackbar.LENGTH_LONG).show();
+            }
+            mPrefsEdit.apply();
+            Log.d("JavaScript State:", String.valueOf(isChecked));
+        });
 
     }
 

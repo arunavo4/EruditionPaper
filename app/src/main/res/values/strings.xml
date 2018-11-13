@@ -43,6 +43,11 @@
     <string name="not_set">(Not Set)</string>
     <string name="upcoming_feature">Upcoming Feature!</string>
 
+    <!--JavaScript-->
+    <string name="javascript">JavaScript</string>
+    <string name="javascript_true">JavaScript Enabled</string>
+    <string name="javascript_false">JavaScript Disabled</string>
+
     <!--Books-->
     <string name="book_top">Coming Soon</string>
     <string name="book_bottom">Paperback Editions of Erudition Paper will be Available really soon.</string>

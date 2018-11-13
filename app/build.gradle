@@ -19,8 +19,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
 //        multiDexEnabled true
-        versionCode 191000500
-        versionName "0.5.0-alpha"
+        versionCode 191000502
+        versionName "0.5.2-alpha"
         resConfigs "en"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
