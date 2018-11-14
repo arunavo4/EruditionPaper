@@ -31,6 +31,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private Intent mIntent;
     private String searchTime;
     private StringBuilder str;
+    private StringBuilder css_js;
     private SearchAdapter.SearchItemListener mItemListener;
 
     public SearchAdapter(Context context, ArrayList<SearchResult> searchResult, Intent intent, SearchAdapter.SearchItemListener itemListener) {
@@ -45,13 +46,22 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
          * https://www.erudition.co.in/resources/public/js/prism.js
          */
 
+        css_js = new StringBuilder("<html>");
+
+        css_js.append("<head>\n    <link rel=\"stylesheet\" href=\"prism.css\">\n");
+        css_js.append("    <style>\n    img {height: auto!important;  width: 100%!important; overflow-x: auto!important; overflow-y: hidden!important;\n");
+        css_js.append("            border: none!important;\n max-width: fit-content;\n vertical-align: middle;\n");
+        css_js.append("        }\n  table { width: 100%!important; background-color: transparent; border-spacing: 0; border-collapse: collapse;}\n");
+        css_js.append("    </style>\n <script src=\"prism.js\"></script>\n</head>");
+        css_js.append("<body>\n");
+
         str = new StringBuilder("<html>");
 
-        str.append("<head>\n    <link rel=\"stylesheet\" href=\"prism.css\">\n");
+        str.append("<head>\n");
         str.append("    <style>\n    img {height: auto!important;  width: 100%!important; overflow-x: auto!important; overflow-y: hidden!important;\n");
         str.append("            border: none!important;\n max-width: fit-content;\n vertical-align: middle;\n");
         str.append("        }\n  table { width: 100%!important; background-color: transparent; border-spacing: 0; border-collapse: collapse;}\n");
-        str.append("    </style>\n <script src=\"prism.js\"></script>\n</head>");
+        str.append("    </style>\n</head>");
         str.append("<body>\n");
 
         Log.d("QuestionAdapter", "Total Ques:" + String.valueOf(searchResults.size()));
@@ -84,8 +94,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         // Set item views based on your views and data model
         try {
             //q_tv.loadData(getHtmlData(ques.getQuestion()), "text/html", null);
-            q_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(ques.getQuestion()), "text/html", "UTF-8", null);
+            if (ques.getJavascript().contentEquals("10") || ques.getJavascript().contentEquals("11")) {
+                q_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlDataWithJs(ques.getQuestion()), "text/html", "UTF-8", null);
+            }else {
+                q_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(ques.getQuestion()), "text/html", "UTF-8", null);
+            }
             m_tv.setText(ques.getMarks());
+
+            //override javascript
+            q_tv.getSettings().setJavaScriptEnabled(ques.getJavascript().contentEquals("10") || ques.getJavascript().contentEquals("11"));
+
 //            q_no_tv.setText(ques.getQuestionNo() + ".");
 //            r_tv.setText(ques.getRepeat());
 
@@ -112,6 +130,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private String getHtmlData(String data) {
         return str.toString() + data + "</body>\n</html>";
     }
+
+    private String getHtmlDataWithJs(String data) { return css_js.toString() + data + "</body>\n</html>"; }
 
     @Override
     public int getItemCount() {
@@ -208,7 +228,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 SearchResult searchResult = getQues(i);
                 data.add(new QuesAnsSearch(searchResult));
             }
-            //Single mode
+//            Single mode
 //            data.add(new QuesAnsSearch(getQues(pos)));
 
         } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {

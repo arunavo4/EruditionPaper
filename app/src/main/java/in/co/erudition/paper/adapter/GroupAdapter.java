@@ -95,7 +95,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> 
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
             Log.d("GroupAdapter", "done adapter" + String.valueOf(holder.getAdapterPosition()));
 
-            if (nav_space.getVisibility() == View.VISIBLE) {
+            if (nav_space.getVisibility() == View.VISIBLE || ad_space.getVisibility() == View.VISIBLE) {
 //                nav_space.setVisibility(View.GONE);
                 ad_space.setVisibility(View.GONE);
             }

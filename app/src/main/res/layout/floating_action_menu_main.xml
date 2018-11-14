@@ -17,7 +17,7 @@
     fab:menu_shadowYOffset="3dp"
     fab:menu_colorNormal="#212121"
     fab:menu_colorPressed="#000000"
-    fab:menu_colorRipple="#99FFFFFF"
+    fab:menu_colorRipple="#33FFFFFF"
     fab:menu_icon="@drawable/ic_outline_widgets_24px"
     fab:menu_buttonSpacing="0dp"
     fab:menu_labels_margin="8dp"
@@ -39,7 +39,7 @@
         fab:fab_label="@string/recent_papers"
         fab:fab_colorNormal="@color/colorPrimary"
         fab:fab_colorPressed="@color/colorPrimaryDark"
-        fab:fab_colorRipple="#99FFFFFF"
+        fab:fab_colorRipple="#33FFFFFF"
         fab:fab_shadowColor="@color/colorPrimaryShadow"/>
 
     <com.github.clans.fab.FloatingActionButton
@@ -52,7 +52,7 @@
         fab:fab_label="@string/bookmarks"
         fab:fab_colorNormal="@color/colorPrimary"
         fab:fab_colorPressed="@color/colorPrimaryDark"
-        fab:fab_colorRipple="#99FFFFFF"
+        fab:fab_colorRipple="#33FFFFFF"
         fab:fab_shadowColor="@color/colorPrimaryShadow"/>
 
     <com.github.clans.fab.FloatingActionButton
@@ -65,7 +65,7 @@
         fab:fab_label="@string/offline_paper"
         fab:fab_colorNormal="@color/colorPrimary"
         fab:fab_colorPressed="@color/colorPrimaryDark"
-        fab:fab_colorRipple="#99FFFFFF"
+        fab:fab_colorRipple="#33FFFFFF"
         fab:fab_shadowColor="@color/colorPrimaryShadow"/>
 
 </com.github.clans.fab.FloatingActionMenu>

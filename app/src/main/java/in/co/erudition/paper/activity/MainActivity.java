@@ -745,7 +745,7 @@ public class MainActivity extends AppCompatActivity
         });
 
         final Drawable mapDrawable = ContextCompat.getDrawable(MainActivity.this,
-                R.drawable.ic_info);
+                R.drawable.ic_outline_widgets_24px);
         collapseAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {

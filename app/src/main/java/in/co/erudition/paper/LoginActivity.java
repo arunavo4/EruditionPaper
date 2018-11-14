@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                                             new AuthUI.IdpConfig.FacebookBuilder().build(),
                                             new AuthUI.IdpConfig.EmailBuilder().build()))
                             .setTheme(R.style.AuthUI_Theme)
-                            .setIsSmartLockEnabled(!BuildConfig.DEBUG, true)
+                            .setIsSmartLockEnabled(true, true)
                             .build(),
                     RC_SIGN_IN);
             // Can also add the Privacy Policy and Terms of Service

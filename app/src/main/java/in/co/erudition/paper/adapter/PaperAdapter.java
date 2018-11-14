@@ -92,7 +92,7 @@ public class PaperAdapter extends RecyclerView.Adapter<PaperAdapter.ViewHolder> 
                 mPNameTV.setText(str);
             }
 
-            if (nav_space.getVisibility() == View.VISIBLE) {
+            if (nav_space.getVisibility() == View.VISIBLE || ad_space.getVisibility() == View.VISIBLE) {
 //                nav_space.setVisibility(View.GONE);
                 ad_space.setVisibility(View.GONE);
             }

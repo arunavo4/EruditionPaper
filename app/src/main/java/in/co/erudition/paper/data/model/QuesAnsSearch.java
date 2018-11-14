@@ -10,6 +10,7 @@ public class QuesAnsSearch implements Parcelable {
     private String answer;
     private String marks;
     private String status;
+    private String javascript;
 
     public QuesAnsSearch(SearchResult searchResult){
         questionCode = searchResult.getCode();
@@ -17,6 +18,7 @@ public class QuesAnsSearch implements Parcelable {
         answer = searchResult.getAnswer();
         marks = searchResult.getMarks();
         status = searchResult.getStatus();
+        javascript = searchResult.getJavascript();
     }
 
     protected QuesAnsSearch(Parcel in) {
@@ -25,6 +27,7 @@ public class QuesAnsSearch implements Parcelable {
         answer = in.readString();
         marks = in.readString();
         status = in.readString();
+        javascript = in.readString();
     }
 
     public static final Creator<QuesAnsSearch> CREATOR = new Creator<QuesAnsSearch>() {
@@ -51,6 +54,7 @@ public class QuesAnsSearch implements Parcelable {
         dest.writeString(answer);
         dest.writeString(marks);
         dest.writeString(status);
+        dest.writeString(javascript);
     }
 
     public String getQuestionCode() {
@@ -91,5 +95,13 @@ public class QuesAnsSearch implements Parcelable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getJavascript() {
+        return javascript;
+    }
+
+    public void setJavascript(String javascript) {
+        this.javascript = javascript;
     }
 }

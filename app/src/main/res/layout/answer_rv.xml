@@ -5,6 +5,20 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <include layout="@layout/answer_rv_item"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/answer_rv_item"/>
+
+        <View
+            android:id="@+id/nav_spacer_ad"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ad_view_height"
+            android:layout_gravity="bottom"
+            android:visibility="gone"/>
+
+    </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

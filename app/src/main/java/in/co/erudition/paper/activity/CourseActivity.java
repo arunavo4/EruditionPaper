@@ -71,6 +71,7 @@ public class CourseActivity extends AppCompatActivity {
     private String params[];
     private AdView adView;
     private Dialog dialog;
+    private boolean insetsApplied = false;
 
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private TextView title;
@@ -129,23 +130,27 @@ public class CourseActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= 20) {
             ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) -> {
-                v.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
-                v.getLayoutParams().height += insets.getSystemWindowInsetTop();
+                if (!insetsApplied) {
+                    v.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
+                    v.getLayoutParams().height += insets.getSystemWindowInsetTop();
 
-                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
-                params.topMargin = insets.getSystemWindowInsetTop();
-                v.invalidate();
-                v.requestLayout();
+                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
+                    params.topMargin = insets.getSystemWindowInsetTop();
+                    v.invalidate();
+                    v.requestLayout();
 
-                params = (ViewGroup.MarginLayoutParams) fab.getLayoutParams();
-                params.bottomMargin = insets.getSystemWindowInsetBottom();
-                fab.invalidate();
-                fab.requestLayout();
+                    params = (ViewGroup.MarginLayoutParams) fab.getLayoutParams();
+                    params.bottomMargin = insets.getSystemWindowInsetBottom();
+                    fab.invalidate();
+                    fab.requestLayout();
 
-                params = (ViewGroup.MarginLayoutParams) adView.getLayoutParams();
-                params.bottomMargin = insets.getSystemWindowInsetBottom();
-                adView.invalidate();
-                adView.requestLayout();
+                    params = (ViewGroup.MarginLayoutParams) adView.getLayoutParams();
+                    params.bottomMargin = insets.getSystemWindowInsetBottom();
+                    adView.invalidate();
+                    adView.requestLayout();
+
+                    insetsApplied = true;
+                }
 
 //                params = (ViewGroup.MarginLayoutParams) ad_spacer.getLayoutParams();
 //                params.bottomMargin = insets.getSystemWindowInsetBottom();

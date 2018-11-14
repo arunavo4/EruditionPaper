@@ -35,6 +35,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
 
     private List<QuestionAnswer> data;
     private StringBuilder str;
+    private StringBuilder css_js;
     private Context mContext;
     private Toolbar mToolbar;
     private GroupAdapter.GroupItemListener mItemListener;
@@ -50,13 +51,23 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
          * https://www.erudition.co.in/resources/public/js/prism.js
          */
 
-        str = new StringBuilder("<html>\n");
 
-        str.append("<head>\n    <link rel=\"stylesheet\" href=\"prism.css\">\n");
+        css_js = new StringBuilder("<html>");
+
+        css_js.append("<head>\n    <link rel=\"stylesheet\" href=\"prism.css\">\n");
+        css_js.append("    <style>\n    img {height: auto!important;  width: 100%!important; overflow-x: auto!important; overflow-y: hidden!important;\n");
+        css_js.append("            border: none!important;\n max-width: fit-content;\n vertical-align: middle;\n");
+        css_js.append("        }\n  table { width: 100%!important; background-color: transparent; border-spacing: 0; border-collapse: collapse;}\n");
+        css_js.append("    </style>\n <script src=\"prism.js\"></script>\n</head>");
+        css_js.append("<body>\n");
+
+        str = new StringBuilder("<html>");
+
+        str.append("<head>\n");
         str.append("    <style>\n    img {height: auto!important;  width: 100%!important; overflow-x: auto!important; overflow-y: hidden!important;\n");
         str.append("            border: none!important;\n max-width: fit-content;\n vertical-align: middle;\n");
         str.append("        }\n  table { width: 100%!important; background-color: transparent; border-spacing: 0; border-collapse: collapse;}\n");
-        str.append("    </style>\n <script src=\"prism.js\"></script>\n</head>");
+        str.append("    </style>\n</head>");
         str.append("<body>\n");
     }
 
@@ -80,18 +91,31 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
         WebView answer_tv = holder.ans_tv;
         TextView mark_tv = holder.marks_tv;
         TextView ques_num_tv = holder.ques_no_tv;
+        View ad_space = holder.ad_spacer;
 
         try {
             mToolbar.setTitle(questionAnswer.getGroupName());
             //q_tv.loadData(getHtmlData(ques.getQuestion()), "text/html", null);
-            question_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(questionAnswer.getQuestion()), "text/html", "UTF-8", null);
-            answer_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(questionAnswer.getAnswer()), "text/html", "UTF-8", null);
+            if (questionAnswer.getJavascript().contentEquals("10") || questionAnswer.getJavascript().contentEquals("11")) {
+                question_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlDataWithJs(questionAnswer.getQuestion()), "text/html", "UTF-8", null);
+            }else {
+                question_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(questionAnswer.getQuestion()), "text/html", "UTF-8", null);
+            }
+
+            if (questionAnswer.getJavascript().contentEquals("01") || questionAnswer.getJavascript().contentEquals("11")) {
+                answer_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlDataWithJs(questionAnswer.getAnswer()), "text/html", "UTF-8", null);
+            }else {
+                answer_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(questionAnswer.getAnswer()), "text/html", "UTF-8", null);
+            }
+
+            //Override JavaScript
+            question_tv.getSettings().setJavaScriptEnabled(questionAnswer.getJavascript().contentEquals("10") || questionAnswer.getJavascript().contentEquals("11"));
+            answer_tv.getSettings().setJavaScriptEnabled(questionAnswer.getJavascript().contentEquals("01") || questionAnswer.getJavascript().contentEquals("11"));
 
             mark_tv.setText(questionAnswer.getMarks());
             ques_num_tv.setText(questionAnswer.getQuestionNo() + ".");
 
-            AdRequest adRequest = new AdRequest.Builder().build();
-            holder.adView.loadAd(adRequest);
+            ad_space.setVisibility(View.VISIBLE);
 
         } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
             Log.e("Exception", e.toString());
@@ -107,13 +131,15 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
         return str.toString() + data + "</body>\n</html>";
     }
 
+    private String getHtmlDataWithJs(String data) { return css_js.toString() + data + "</body>\n</html>"; }
+
     @SuppressLint("SetJavaScriptEnabled")
     public class ViewHolder extends RecyclerView.ViewHolder {
         public WebView ques_tv;
         public WebView ans_tv;
         public TextView marks_tv;
         public TextView ques_no_tv;
-        public AdView adView;
+        public View ad_spacer;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -124,8 +150,16 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.ViewHolder
             marks_tv = (TextView) itemView.findViewById(R.id.marks_tv);
             ques_no_tv = (TextView) itemView.findViewById(R.id.ques_num);
 
-            //Load Ads
-            adView = (AdView) itemView.findViewById(R.id.adView);
+            ad_spacer = (View) itemView.findViewById(R.id.nav_spacer_ad);
+
+            //Setup Zoom Controls
+            ques_tv.getSettings().setSupportZoom(true);
+            ques_tv.getSettings().setBuiltInZoomControls(true);
+            ques_tv.getSettings().setDisplayZoomControls(false);
+
+            ans_tv.getSettings().setSupportZoom(true);
+            ans_tv.getSettings().setBuiltInZoomControls(true);
+            ans_tv.getSettings().setDisplayZoomControls(false);
 
             ques_tv.getSettings().setJavaScriptEnabled(PreferenceUtils.getJS());
             ques_tv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);

@@ -6,6 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.appbar.AppBarLayout;
 
 import androidx.annotation.Keep;
@@ -59,6 +61,7 @@ public class AnswerActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private BackendService mService;
     private Call<Paper> call;
+    private AdView adView;
     private NetworkUtils mNetworkUtils = new NetworkUtils();
     private String TAG = "AnswerActivity";
 
@@ -87,6 +90,11 @@ public class AnswerActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorBlack25alpha));
             getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
         }
+
+        //Load Ads
+        adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         //Setup Interstitial Ads --> only once at startup
         //Interstitial video ads
@@ -274,17 +282,37 @@ public class AnswerActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
+        if (adView != null) {
+            adView.pause();
+        }
+        //        timer.cancel();
         super.onPause();
-//        timer.cancel();
+    }
+    @Override
+    public void onResume() {
+        if (adView != null) {
+            adView.resume();
+        }
+        //restart the timer
+//        timer.start();
+        super.onResume();
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        //restart the timer
-//        timer.start();
+    protected void onDestroy() {
+        if (adView!=null) {
+            final ViewGroup viewGroup = (ViewGroup) adView.getParent();
+            if (viewGroup != null)
+            {
+                viewGroup.removeView(adView);
+            }
+            adView.removeAllViews();
+            adView.destroy();
+        }
+        super.onDestroy();
     }
+
 
 
     /**

@@ -32,6 +32,9 @@ public class PaperQuestion {
     @SerializedName("Status")
     @Expose
     private String status;
+    @SerializedName("Javascript")
+    @Expose
+    private String javascript;
 
     public String getQuestion() {
         return question;
@@ -95,5 +98,13 @@ public class PaperQuestion {
 
     public void setRepeat(String repeat) {
         this.repeat = repeat;
+    }
+
+    public String getJavascript() {
+        return javascript;
+    }
+
+    public void setJavascript(String javascript) {
+        this.javascript = javascript;
     }
 }

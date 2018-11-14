@@ -39,6 +39,7 @@ import in.co.erudition.paper.util.PreferenceUtils;
 public class SettingsActivity extends AppCompatActivity {
     private static SharedPreferences mPrefs;
     private static SharedPreferences.Editor mPrefsEdit;
+    private boolean insetsApplied = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,17 +73,21 @@ public class SettingsActivity extends AppCompatActivity {
             Adjusting the Status bar margin for Different notches
          */
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        //Make sure you only do it once
 
         if (Build.VERSION.SDK_INT >= 20) {
             ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) -> {
-                v.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
-                v.getLayoutParams().height += insets.getSystemWindowInsetTop();
+                if (!insetsApplied) {
+                    v.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
+                    v.getLayoutParams().height += insets.getSystemWindowInsetTop();
 
-                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
-                params.topMargin = insets.getSystemWindowInsetTop();
-                v.invalidate();
-                v.requestLayout();
+                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
+                    params.topMargin = insets.getSystemWindowInsetTop();
+                    v.invalidate();
+                    v.requestLayout();
 
+                    insetsApplied = true;
+                }
                 return insets.consumeSystemWindowInsets();
             });
         }

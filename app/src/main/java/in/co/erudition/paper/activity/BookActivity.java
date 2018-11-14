@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import in.co.erudition.paper.R;
 
 public class BookActivity extends AppCompatActivity {
+    private boolean insetsApplied = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +44,18 @@ public class BookActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= 20) {
             ViewCompat.setOnApplyWindowInsetsListener(appBarLayout, (View v, WindowInsetsCompat insets) -> {
+
+                if (!insetsApplied) {
 //                v.getLayoutParams().height -= getResources().getDimensionPixelSize(R.dimen.status_bar_height);
 //                v.getLayoutParams().height += insets.getSystemWindowInsetTop();
 
-                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
-                params.topMargin = insets.getSystemWindowInsetTop();
-                v.invalidate();
-                v.requestLayout();
+                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
+                    params.topMargin = insets.getSystemWindowInsetTop();
+                    v.invalidate();
+                    v.requestLayout();
+
+                    insetsApplied = true;
+                }
 
                 return insets.consumeSystemWindowInsets();
             });

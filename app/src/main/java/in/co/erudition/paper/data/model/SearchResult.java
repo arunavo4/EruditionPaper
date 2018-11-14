@@ -34,6 +34,9 @@ public class SearchResult {
     @SerializedName("Marks")
     @Expose
     private String marks;
+    @SerializedName("Javascript")
+    @Expose
+    private String javascript;
     @SerializedName("Status")
     @Expose
     private String status;
@@ -129,4 +132,11 @@ public class SearchResult {
         this.paperCode = paperCode;
     }
 
+    public String getJavascript() {
+        return javascript;
+    }
+
+    public void setJavascript(String javascript) {
+        this.javascript = javascript;
+    }
 }

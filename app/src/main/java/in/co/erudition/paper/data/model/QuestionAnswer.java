@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by Arunavo Ray on 13-06-2018.
  */
 
-public class QuestionAnswer implements Parcelable{
+public class QuestionAnswer implements Parcelable {
 
     private String groupName;
     private String groupDesc1;
@@ -17,8 +17,9 @@ public class QuestionAnswer implements Parcelable{
     private String question;
     private String answer;
     private String marks;
+    private String javascript;
 
-    public QuestionAnswer(PaperGroup paperGroup,PaperQuestion paperQuestion){
+    public QuestionAnswer(PaperGroup paperGroup, PaperQuestion paperQuestion) {
         groupName = paperGroup.getGroupName();
         groupDesc1 = paperGroup.getGroupDesc1();
         groupDesc2 = paperGroup.getGroupDesc2();
@@ -27,6 +28,7 @@ public class QuestionAnswer implements Parcelable{
         question = paperQuestion.getQuestion();
         answer = paperQuestion.getAnswer();
         marks = paperQuestion.getMarks();
+        javascript = paperQuestion.getJavascript();
     }
 
     protected QuestionAnswer(Parcel in) {
@@ -38,6 +40,7 @@ public class QuestionAnswer implements Parcelable{
         question = in.readString();
         answer = in.readString();
         marks = in.readString();
+        javascript = in.readString();
     }
 
     public static final Creator<QuestionAnswer> CREATOR = new Creator<QuestionAnswer>() {
@@ -116,6 +119,14 @@ public class QuestionAnswer implements Parcelable{
         this.marks = marks;
     }
 
+    public String getJavascript() {
+        return javascript;
+    }
+
+    public void setJavascript(String javascript) {
+        this.javascript = javascript;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -131,5 +142,6 @@ public class QuestionAnswer implements Parcelable{
         dest.writeString(question);
         dest.writeString(answer);
         dest.writeString(marks);
+        dest.writeString(javascript);
     }
 }
