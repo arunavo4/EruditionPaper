@@ -58,8 +58,9 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 
         css_js = new StringBuilder("<html>");
 
-        css_js.append("<head>\n    <link rel=\"stylesheet\" href=\"prism.css\">\n");
-        css_js.append("    <style>\n    img {height: auto!important;  width: 100%!important; overflow-x: auto!important; overflow-y: hidden!important;\n");
+        css_js.append("<head>\n    <link rel=\"stylesheet\" href=\"prism.css\"> <link rel=\"stylesheet\" href=\"font.css\">\n");
+        css_js.append("    <style>\n body{font-size:14px;font-family:'Source Sans Pro',sans-serif}p{margin-top:0;margin-bottom:.4rem}");
+        css_js.append("   img {height: auto!important;  width: 100%!important; overflow-x: auto!important; overflow-y: hidden!important;\n");
         css_js.append("            border: none!important;\n max-width: fit-content;\n vertical-align: middle;\n");
         css_js.append("        }\n  table { width: 100%!important; background-color: transparent; border-spacing: 0; border-collapse: collapse;}\n");
         css_js.append("    </style>\n <script src=\"prism.js\"></script>\n</head>");
@@ -67,8 +68,9 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 
         str = new StringBuilder("<html>");
 
-        str.append("<head>\n");
-        str.append("    <style>\n    img {height: auto!important;  width: 100%!important; overflow-x: auto!important; overflow-y: hidden!important;\n");
+        str.append("<head>\n<link rel=\"stylesheet\" href=\"font.css\">\n");
+        str.append("    <style>\n body{font-size:14px;font-family:'Source Sans Pro',sans-serif}p{margin-top:0;margin-bottom:.4rem}");
+        str.append("   img {height: auto!important;  width: 100%!important; overflow-x: auto!important; overflow-y: hidden!important;\n");
         str.append("            border: none!important;\n max-width: fit-content;\n vertical-align: middle;\n");
         str.append("        }\n  table { width: 100%!important; background-color: transparent; border-spacing: 0; border-collapse: collapse;}\n");
         str.append("    </style>\n</head>");

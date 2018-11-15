@@ -46,14 +46,16 @@ public class SingleAnswerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_single_answer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        str = new StringBuilder("<html>\n");
+        str = new StringBuilder("<html>");
 
-        str.append("<head>\n    <link rel=\"stylesheet\" href=\"prism.css\">\n");
-        str.append("    <style>\n    img {height: auto!important;  width: 100%!important; overflow-x: auto!important; overflow-y: hidden!important;\n");
+        str.append("<head>\n    <link rel=\"stylesheet\" href=\"prism.css\"> <link rel=\"stylesheet\" href=\"font.css\">\n");
+        str.append("    <style>\n body{font-size:14px;font-family:'Source Sans Pro',sans-serif}p{margin-top:0;margin-bottom:.4rem}");
+        str.append("   img {height: auto!important;  width: 100%!important; overflow-x: auto!important; overflow-y: hidden!important;\n");
         str.append("            border: none!important;\n max-width: fit-content;\n vertical-align: middle;\n");
         str.append("        }\n  table { width: 100%!important; background-color: transparent; border-spacing: 0; border-collapse: collapse;}\n");
         str.append("    </style>\n <script src=\"prism.js\"></script>\n</head>");
         str.append("<body>\n");
+
 
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.my_appbar_container);
         appBarLayout.bringToFront();
