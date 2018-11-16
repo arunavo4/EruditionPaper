@@ -6,27 +6,31 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import com.github.clans.fab.FloatingActionButton;
 import com.google.android.material.appbar.AppBarLayout;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
+
+import org.angmarch.views.NiceSpinner;
+
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.DatePicker;
-import android.widget.LinearLayout;
-
-import com.github.clans.fab.FloatingActionButton;
-
-import java.util.Calendar;
-
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.data.model.PresetResponseCode;
 import in.co.erudition.paper.data.remote.BackendService;
@@ -103,22 +107,14 @@ public class ProfileEditActivity extends AppCompatActivity {
         toolbar.setTitle(getResources().getString(R.string.edit_profile));
         setSupportActionBar(toolbar);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Check if data has been entered in any input
-                //and make the api calls
+        fab.setOnClickListener(view -> {
+            //Check if data has been entered in any input
+            //and make the api calls
 //                fab.show
-                getPersonalData();
-                updatePerson();
-            }
+            getPersonalData();
+            updatePerson();
         });
 
         eid = PreferenceUtils.getEid();
@@ -126,37 +122,47 @@ public class ProfileEditActivity extends AppCompatActivity {
         //Show already saved data from prefs
         showPersonalDataFrmPrefs();
 
+        //Setup the Spinners
+        NiceSpinner uniSpinner = (NiceSpinner) findViewById(R.id.uni_drop);
+        NiceSpinner collSpinner = (NiceSpinner) findViewById(R.id.college_drop);
+        NiceSpinner deptSpinner = (NiceSpinner) findViewById(R.id.dept_drop);
+        NiceSpinner semSpinner = (NiceSpinner) findViewById(R.id.sem_drop);
+        List<String> dataset = new LinkedList<>(Arrays.asList("University", "College", "Department", "Semester"));
+        uniSpinner.attachDataSource(dataset);
+        uniSpinner.setSelectedIndex(0);
+        collSpinner.attachDataSource(dataset);
+        collSpinner.setSelectedIndex(1);
+        deptSpinner.attachDataSource(dataset);
+        deptSpinner.setSelectedIndex(2);
+        semSpinner.attachDataSource(dataset);
+        semSpinner.setSelectedIndex(3);
+//        DropDownView uni_drop = (DropDownView) findViewById(R.id.uni_drop);
+//        uni_drop.setDropDownItemList(Arrays.asList("MAKAUT","WBSTCE","CU"));
+//        uni_drop.setOnSelectionListener((dropDownView, position) -> {
+//            Snackbar.make((CoordinatorLayout) findViewById(R.id.edit_activity_main_layout), "Position: " + position, Snackbar.LENGTH_LONG)
+//                    .show();
+//        });
+
         //Date picker
         final TextInputEditText inputLayout = (TextInputEditText) findViewById(R.id.date_of_birth_tv);
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.date_of_birth);
 
-        inputLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
+        inputLayout.setOnClickListener(view -> {
+            Calendar cal = Calendar.getInstance();
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(ProfileEditActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-
-                                inputLayout.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                            }
-                        }, year, month, day);
-                datePickerDialog.show();
-            }
+            DatePickerDialog datePickerDialog = new DatePickerDialog(ProfileEditActivity.this,
+                    (view1, year1, monthOfYear, dayOfMonth) -> inputLayout.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year1), year, month, day);
+            datePickerDialog.show();
         });
 
         mService = ApiUtils.getBackendService();
 
     }
 
-    private void showPersonalDataFrmPrefs(){
+    private void showPersonalDataFrmPrefs() {
         TextInputEditText first_name = (TextInputEditText) findViewById(R.id.first_name_tv);
         TextInputEditText last_name = (TextInputEditText) findViewById(R.id.last_name_tv);
         TextInputEditText phone = (TextInputEditText) findViewById(R.id.phone_tv);
@@ -188,8 +194,8 @@ public class ProfileEditActivity extends AppCompatActivity {
             person_details[3] = gender.getText().toString();
             person_details[4] = dob.getText().toString();
 
-            for (int i=0;i<5;i++){
-                if(!person_details[i].contentEquals("")){
+            for (int i = 0; i < 5; i++) {
+                if (!person_details[i].contentEquals("")) {
                     selector++;
                 }
             }
@@ -201,11 +207,7 @@ public class ProfileEditActivity extends AppCompatActivity {
 
     private void updatePerson() {
 
-//        switch (selector){
-//            case 2:
-//
-//        }
-        personCall = mService.updatePerson(eid,person_details[0],person_details[1],person_details[2],person_details[3],person_details[4]);
+        personCall = mService.updatePerson(eid, person_details[0], person_details[1], person_details[2], person_details[3], person_details[4]);
 
         personCall.enqueue(new Callback<PresetResponseCode>() {
             @Override
@@ -213,14 +215,14 @@ public class ProfileEditActivity extends AppCompatActivity {
                 //If successful just display that update was successful
                 Log.d("Call", call.request().toString());
                 if (response.isSuccessful()) {
-                    Log.d("EditDetails:","Successful!");
+                    Log.d("EditDetails:", "Successful!");
                     if (response.body() != null) {
-                        Log.d("Message:",response.body().getMsg());
+                        Log.d("Message:", response.body().getMsg());
                     }
                     // showPersonalDataFrmPrefs();
 
                     Snackbar.make((CoordinatorLayout) findViewById(R.id.edit_activity_main_layout), getString(R.string.successfully_updated), Snackbar.LENGTH_LONG)
-                    .show();
+                            .show();
 
 
                 } else {

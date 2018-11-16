@@ -1,6 +1,7 @@
 package in.co.erudition.paper.activity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -541,6 +542,11 @@ public class QuestionActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_share) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, getResources().getText(R.string.share_msg));
+            shareIntent.setType("text/plain");
+            startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_header)));
             return true;
         } else if (id == R.id.action_offline) {
             isChecked_offline = !item.isChecked();

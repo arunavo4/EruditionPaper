@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:padding="@dimen/card_padding"
+    android:layout_margin="@dimen/spacer_8dp"
+    android:layout_gravity="center_horizontal"
+    app:cardCornerRadius="5dp"
+    app:cardUseCompatPadding="false"
+    app:cardElevation="6dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/linear_layout_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/offer_des_tv_margin"
+            style="@style/ProfileCardTextViewBold"
+            android:text="@string/academic_details"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacer_1dp"
+            android:layout_marginStart="@dimen/spacer_12dp"
+            android:layout_marginEnd="@dimen/spacer_12dp"
+            android:background="@color/colorBlack34alpha"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacer_4dp"
+            android:paddingStart="@dimen/spacer_16dp"
+            android:paddingEnd="@dimen/spacer_16dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacer_16dp"
+                    app:srcCompat="@drawable/ic_outline_university_24px"/>
+
+                <org.angmarch.views.NiceSpinner
+                    android:id="@+id/uni_drop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacer_1dp"
+                android:layout_marginStart="@dimen/spacer_40dp"
+                android:layout_marginEnd="@dimen/spacer_4dp"
+                android:layout_marginTop="@dimen/spacer_4dp"
+                android:layout_marginBottom="@dimen/spacer_4dp"
+                android:background="@color/colorBlack34alpha"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacer_16dp"
+                    app:srcCompat="@drawable/ic_outline_college_24px"/>
+
+                <org.angmarch.views.NiceSpinner
+                    android:id="@+id/college_drop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacer_1dp"
+                android:layout_marginStart="@dimen/spacer_40dp"
+                android:layout_marginEnd="@dimen/spacer_4dp"
+                android:layout_marginTop="@dimen/spacer_4dp"
+                android:layout_marginBottom="@dimen/spacer_4dp"
+                android:background="@color/colorBlack34alpha"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacer_16dp"
+                    app:srcCompat="@drawable/ic_dept_24px"/>
+
+                <org.angmarch.views.NiceSpinner
+                    android:id="@+id/dept_drop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacer_1dp"
+                android:layout_marginStart="@dimen/spacer_40dp"
+                android:layout_marginEnd="@dimen/spacer_4dp"
+                android:layout_marginTop="@dimen/spacer_4dp"
+                android:layout_marginBottom="@dimen/spacer_4dp"
+                android:background="@color/colorBlack34alpha"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacer_16dp"
+                    app:srcCompat="@drawable/ic_outline_semester_24px"/>
+
+                <org.angmarch.views.NiceSpinner
+                    android:id="@+id/sem_drop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacer_1dp"
+                android:layout_marginStart="@dimen/spacer_40dp"
+                android:layout_marginEnd="@dimen/spacer_4dp"
+                android:layout_marginTop="@dimen/spacer_4dp"
+                android:layout_marginBottom="@dimen/spacer_4dp"
+                android:background="@color/colorBlack34alpha"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

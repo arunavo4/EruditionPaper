@@ -43,6 +43,10 @@
     <string name="not_set">(Not Set)</string>
     <string name="upcoming_feature">Upcoming Feature!</string>
 
+    <string name="share_header">Share link</string>
+    <string name="share_msg">To Try Erudition Paper App Visit http://play.google.com/store/apps/details?id=in.co.erudition.paper</string>
+    <string name="play_store_url">http://play.google.com/store/apps/details?id=in.co.erudition.paper</string>
+
     <!--JavaScript-->
     <string name="javascript">JavaScript</string>
     <string name="javascript_true">JavaScript Enabled</string>

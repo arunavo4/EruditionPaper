@@ -1,5 +1,6 @@
 package in.co.erudition.paper.activity;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -80,11 +81,15 @@ public class RewardHistoryActivity extends AppCompatActivity {
         toolbar.setTitle("Share");
         setSupportActionBar(toolbar);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+
+        //Relating to activity share
+        fab.setOnClickListener(v -> {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, getResources().getText(R.string.share_msg));
+            shareIntent.setType("text/plain");
+            startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_header)));
         });
 
     }

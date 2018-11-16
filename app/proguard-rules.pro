@@ -119,6 +119,10 @@
 -keep class in.co.erudition.paper.util.LoginUtils
 -dontnote in.co.erudition.paper.util.LoginUtils
 
+#Spinner
+-keep class com.github.arcadefire.** { *; }
+-dontwarn com.github.arcadefire.**
+
 #dont warn
 -dontwarn in.co.erudition.paper.**
 -dontwarn iammert.com.view.scalinglib.**

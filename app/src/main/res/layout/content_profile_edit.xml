@@ -21,7 +21,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true">
 
-            <include layout="@layout/card_academic_details_edit"/>
+            <include layout="@layout/card_academic_details_edit_new"/>
 
             <include layout="@layout/card_personal_details_edit" />
 

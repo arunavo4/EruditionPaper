@@ -7,6 +7,7 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -308,19 +309,27 @@ public class HelpActivity extends AppCompatActivity {
         view.startAnimation(view_anim);
 
         Button btn_later = (Button) view.findViewById(R.id.btn_later);
+        Button btn_cont = (Button) view.findViewById(R.id.btn_cont);
 
         builder.setView(view);
         final AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
 
-        btn_later.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //cancel the dialogue
-                if (alertDialog.isShowing()) {
-                    alertDialog.cancel();
-                }
+        btn_cont.setOnClickListener(v -> {
+            String appPackage = "in.co.erudition.paper";
+            String url = "market://details?id=" + appPackage;
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            } catch (android.content.ActivityNotFoundException anfe) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appPackage)));
+            }
+        });
+
+        btn_later.setOnClickListener(v -> {
+            //cancel the dialogue
+            if (alertDialog.isShowing()) {
+                alertDialog.cancel();
             }
         });
     }

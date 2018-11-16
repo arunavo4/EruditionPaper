@@ -145,21 +145,13 @@ public class ProfileActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //profile_name.setText(name);       //No more required (old version_)
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //fab on click
-                Intent intent = new Intent(ProfileActivity.this, ProfileEditActivity.class);
-                startActivity(intent);
-            }
+        fab.setOnClickListener(view -> {
+            //fab on click
+            Intent intent = new Intent(ProfileActivity.this, ProfileEditActivity.class);
+            startActivity(intent);
         });
 
         /*
@@ -346,27 +338,27 @@ public class ProfileActivity extends AppCompatActivity {
 
         person_details = PreferenceUtils.readPersonalDetails(person_details);
 
-        if (!person_details[0].contentEquals("")) {
+        if (!person_details[0].contentEquals("First Name")) {
             first_name.setText(person_details[0]);
             first_name.setTextColor(getResources().getColor(R.color.colorPrimary));
         }
 
-        if (!person_details[1].contentEquals("")) {
+        if (!person_details[1].contentEquals("Last Name")) {
             last_name.setText(person_details[1]);
             last_name.setTextColor(getResources().getColor(R.color.colorPrimary));
         }
 
-        if (!person_details[2].contentEquals("")) {
+        if (!person_details[2].contentEquals("Phone")) {
             phone.setText(person_details[2]);
             phone.setTextColor(getResources().getColor(R.color.colorPrimary));
         }
 
-        if (!person_details[3].contentEquals("")) {
+        if (!person_details[3].contentEquals("Gender")) {
             gender.setText(person_details[3]);
             gender.setTextColor(getResources().getColor(R.color.colorPrimary));
         }
 
-        if (!person_details[4].contentEquals("")) {
+        if (!person_details[4].contentEquals("Date of Birth")) {
             dob.setText(person_details[4]);
             dob.setTextColor(getResources().getColor(R.color.colorPrimary));
         }
