@@ -46,7 +46,7 @@ public class PreferenceUtils {
         person_details[0] = mPrefs.getString("FirstName", "First Name");
         person_details[1] = mPrefs.getString("LastName", "Last Name");
         person_details[2] = mPrefs.getString("Phone", "Phone");
-        person_details[3] = mPrefs.getString("Gender", "Gender");
+        person_details[3] = mPrefs.getString("Gender", "Unspecified");
         person_details[4] = mPrefs.getString("DOB", "Date of Birth");
 
         return person_details;

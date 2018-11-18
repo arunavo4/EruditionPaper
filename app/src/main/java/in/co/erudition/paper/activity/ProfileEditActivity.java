@@ -166,15 +166,18 @@ public class ProfileEditActivity extends AppCompatActivity {
         TextInputEditText first_name = (TextInputEditText) findViewById(R.id.first_name_tv);
         TextInputEditText last_name = (TextInputEditText) findViewById(R.id.last_name_tv);
         TextInputEditText phone = (TextInputEditText) findViewById(R.id.phone_tv);
-        TextInputEditText gender = (TextInputEditText) findViewById(R.id.gender_tv);
+        NiceSpinner gender = (NiceSpinner) findViewById(R.id.gender_tv);
         TextInputEditText dob = (TextInputEditText) findViewById(R.id.date_of_birth_tv);
+
+        List<String> gender_set = new LinkedList<>(Arrays.asList("Male", "Female", "Unspecified"));
+        gender.attachDataSource(gender_set);
 
         person_details = PreferenceUtils.readPersonalDetails(person_details);
 
         first_name.setText(person_details[0]);
         last_name.setText(person_details[1]);
         phone.setText(person_details[2]);
-        gender.setText(person_details[3]);
+        gender.setSelectedIndex(gender_set.indexOf(person_details[3]));
         dob.setText(person_details[4]);
 
     }
@@ -185,7 +188,7 @@ public class ProfileEditActivity extends AppCompatActivity {
             TextInputEditText first_name = (TextInputEditText) findViewById(R.id.first_name_tv);
             TextInputEditText last_name = (TextInputEditText) findViewById(R.id.last_name_tv);
             TextInputEditText phone = (TextInputEditText) findViewById(R.id.phone_tv);
-            TextInputEditText gender = (TextInputEditText) findViewById(R.id.gender_tv);
+            NiceSpinner gender = (NiceSpinner) findViewById(R.id.gender_tv);
             TextInputEditText dob = (TextInputEditText) findViewById(R.id.date_of_birth_tv);
 
             person_details[0] = first_name.getText().toString();

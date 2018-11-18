@@ -16,6 +16,9 @@ public class SearchResult {
     @SerializedName("AuthorEId")
     @Expose
     private String authorEId;
+    @SerializedName("Repeat")
+    @Expose
+    private String repeat;
     @SerializedName("AuthorEmail")
     @Expose
     private String authorEmail;
@@ -139,4 +142,8 @@ public class SearchResult {
     public void setJavascript(String javascript) {
         this.javascript = javascript;
     }
+
+    public String getRepeat() { return repeat; }
+
+    public void setRepeat(String repeat) {  this.repeat = repeat;  }
 }

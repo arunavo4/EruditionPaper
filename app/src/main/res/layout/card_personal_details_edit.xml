@@ -139,22 +139,22 @@
                     android:layout_marginEnd="@dimen/spacer_16dp"
                     app:srcCompat="@drawable/ic_outline_gender_24px"/>
 
-                <com.google.android.material.textfield.TextInputLayout
+                <org.angmarch.views.NiceSpinner
+                    android:id="@+id/gender_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColorHint="@color/colorMaterialBlack_no_alpha"
-                    app:hintTextAppearance="@style/HintTextViewProfile">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/gender_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextViewProfile"
-                        android:hint="@string/gender" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacer_1dp"
+                android:layout_marginStart="44dp"
+                android:layout_marginEnd="@dimen/spacer_4dp"
+                android:layout_marginTop="@dimen/spacer_0dp"
+                android:layout_marginBottom="@dimen/spacer_8dp"
+                android:background="@color/colorBlack34alpha"/>
 
             <LinearLayout
                 android:id="@+id/date_of_birth"

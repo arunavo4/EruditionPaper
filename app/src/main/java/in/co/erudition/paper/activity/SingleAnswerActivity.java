@@ -1,17 +1,5 @@
 package in.co.erudition.paper.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
-import in.co.erudition.paper.R;
-import in.co.erudition.paper.adapter.GroupAdapter;
-import in.co.erudition.paper.data.model.QuesAnsSearch;
-import in.co.erudition.paper.util.PreferenceUtils;
-
 import android.annotation.SuppressLint;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -22,9 +10,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
-import android.webkit.WebView;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -33,11 +23,30 @@ import com.google.android.material.appbar.AppBarLayout;
 
 import java.util.ArrayList;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.widget.NestedScrollView;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
+import in.co.erudition.paper.R;
+import in.co.erudition.paper.data.model.QuesAnsSearch;
+import in.co.erudition.paper.misc.NestedScrollWebView;
+
 public class SingleAnswerActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ArrayList<QuesAnsSearch> data;
     private AdView adView;
     private StringBuilder str;
+    private NestedScrollWebView ques_tv;
+    private NestedScrollWebView ans_tv;
+    private int pos;
+    private ImageView left_btn;
+    private ImageView right_btn;
+    private TextView marks_tv;
+    TextView ques_no_tv;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -60,11 +69,11 @@ public class SingleAnswerActivity extends AppCompatActivity {
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.my_appbar_container);
         appBarLayout.bringToFront();
 
-        WebView ques_tv = (WebView) findViewById(R.id.question_tv);
-        WebView ans_tv = (WebView) findViewById(R.id.answer_tv);
+        ques_tv = (NestedScrollWebView) findViewById(R.id.question_tv);
+        ans_tv = (NestedScrollWebView) findViewById(R.id.answer_tv);
 
-        TextView marks_tv = (TextView) findViewById(R.id.marks_tv);
-        TextView ques_no_tv = (TextView) findViewById(R.id.ques_num);
+        marks_tv = (TextView) findViewById(R.id.marks_tv);
+        ques_no_tv = (TextView) findViewById(R.id.ques_num);
 
         //Load Ads
         adView = (AdView) findViewById(R.id.adView);
@@ -122,20 +131,21 @@ public class SingleAnswerActivity extends AppCompatActivity {
         });
 
         data = getIntent().getParcelableArrayListExtra("Search_ADAPTER.parcelData");
-        int pos = getIntent().getIntExtra("Search_ADAPTER.position",0);
+        pos = getIntent().getIntExtra("Search_ADAPTER.position", 0);
+        final int size = getIntent().getIntExtra("Search_ADAPTER.size", 0);
 
         //HAndle the webviews
         ques_tv.getSettings().setJavaScriptEnabled(true);
         ques_tv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         ques_tv.getSettings().setAppCacheEnabled(false);
-        ques_tv.setLayerType(View.LAYER_TYPE_HARDWARE,null);
+        ques_tv.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         ques_tv.setOnLongClickListener(v -> true);
         ques_tv.setLongClickable(false);
 
         ans_tv.getSettings().setJavaScriptEnabled(true);
         ans_tv.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         ans_tv.getSettings().setAppCacheEnabled(false);
-        ans_tv.setLayerType(View.LAYER_TYPE_HARDWARE,null);
+        ans_tv.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         ans_tv.setOnLongClickListener(v -> true);
         ans_tv.setLongClickable(false);
 
@@ -148,113 +158,141 @@ public class SingleAnswerActivity extends AppCompatActivity {
         ans_tv.getSettings().setBuiltInZoomControls(true);
         ans_tv.getSettings().setDisplayZoomControls(false);
 
+        LoadDataInWebView();
+
+        marks_tv.setText(data.get(pos).getMarks());
+        int no = pos + 1;
+        ques_no_tv.setText(no + ".");
+
+        //Setup btn
+        left_btn = (ImageView) findViewById(R.id.btn_left);
+        right_btn = (ImageView) findViewById(R.id.btn_right);
+
+        left_btn.setOnClickListener(v -> {
+            //Change the data
+            if (pos!=0) {
+                pos -=1;
+                LoadDataInWebView();
+            }
+        });
+
+        right_btn.setOnClickListener(v -> {
+            if (pos<size-1) {
+                pos +=1;
+                LoadDataInWebView();
+            }
+        });
+
+        //Setup Nested Scroll view
+        NestedScrollView nestedScroll = (NestedScrollView) findViewById(R.id.nested_scroll_answer);
+        nestedScroll.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if (scrollY > oldScrollY && left_btn.getVisibility() == View.VISIBLE && right_btn.getVisibility() == View.VISIBLE) {
+//                if (scrollY > oldScrollY) {
+                    //DOWN SCROLL
+                left_btn.setVisibility(View.INVISIBLE);
+                right_btn.setVisibility(View.INVISIBLE);
+                }
+                if (scrollY < oldScrollY && left_btn.getVisibility() != View.VISIBLE && right_btn.getVisibility() != View.VISIBLE) {
+//                if (scrollY < oldScrollY) {
+                    //UP SCROLL
+                        left_btn.setVisibility(View.VISIBLE);
+                        right_btn.setVisibility(View.VISIBLE);
+                }
+                if (scrollY == 0) {
+                    //TOP SCROLL
+                }
+            });
+
+        //Setup Click Listeners to hide and show buttons
         ques_tv.setOnTouchListener(new View.OnTouchListener() {
 
-            private int mTouchSlop = 150;
-            private float x1;
-            private float x2;
+            private int mTouchSlop = ViewConfiguration.get(SingleAnswerActivity.this).getScaledTouchSlop();
+            private float startX;
+            private float startY;
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        x1 = event.getX();
+                        startX = event.getX();
+                        startY = event.getY();
                         break;
                     case MotionEvent.ACTION_UP:
-                        x2 = event.getX();
-                        float deltaX = x2 - x1;
-
-                        if (Math.abs(deltaX) > mTouchSlop) {
-                            // Left to Right swipe action
-                            if (x2 > x1) {
-                                Log.d("WebView", "left to right Swipe");
-                                if (ques_tv.canScrollHorizontally(1)) {
-                                    Log.d("Horizontal Scroll", "left to right");
-                                    return true;
-                                }
-                            }
-
-                            // Right to left swipe action
-                            else {
-                                Log.d("WebView", "Right to left Swipe");
-                                if (ques_tv.canScrollHorizontally(-1)) {
-                                    Log.d("Horizontal Scroll", "Right to left");
-                                    return true;
-                                }
-                            }
-
-                        } else {
-                            // consider as something else - a screen tap for example
+                        float endX = event.getX();
+                        float endY = event.getY();
+                        if (isAClick(startX, endX, startY, endY)) {
+                            callOnClick();     // WE HAVE A CLICK!!
+                            Log.d("WebView", "Click");
                         }
                         break;
-                    case MotionEvent.ACTION_MOVE:
-                        Log.d("ques_tv", "Moved");
-                        if (ques_tv.canScrollHorizontally(-1)) {
-                            Log.d("Horizontal Scroll", "left to right");
-                            return true;
-                        }
                 }
-                Log.d("ques_tv", "Touched!");
+                Log.d("itemView", "Touched!");
+                //Let the other functions work as intended
                 return false;
             }
-        });
 
+            private boolean isAClick(float startX, float endX, float startY, float endY) {
+                float differenceX = Math.abs(startX - endX);
+                float differenceY = Math.abs(startY - endY);
+                return !(differenceX > mTouchSlop || differenceY > mTouchSlop);
+            }
+        });
         ans_tv.setOnTouchListener(new View.OnTouchListener() {
 
-            private int mTouchSlop = 150;
-            private float x1;
-            private float x2;
+            private int mTouchSlop = ViewConfiguration.get(SingleAnswerActivity.this).getScaledTouchSlop();
+            private float startX;
+            private float startY;
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        x1 = event.getX();
+                        startX = event.getX();
+                        startY = event.getY();
                         break;
                     case MotionEvent.ACTION_UP:
-                        x2 = event.getX();
-                        float deltaX = x2 - x1;
-
-                        if (Math.abs(deltaX) > mTouchSlop) {
-                            // Left to Right swipe action
-                            if (x2 > x1) {
-                                Log.d("WebView", "left to right Swipe");
-                                if (ques_tv.canScrollHorizontally(1)) {
-                                    Log.d("Horizontal Scroll", "left to right");
-                                    return true;
-                                }
-                            }
-
-                            // Right to left swipe action
-                            else {
-                                Log.d("WebView", "Right to left Swipe");
-                                if (ques_tv.canScrollHorizontally(-1)) {
-                                    Log.d("Horizontal Scroll", "Right to left");
-                                    return true;
-                                }
-                            }
-
-                        } else {
-                            // consider as something else - a screen tap for example
+                        float endX = event.getX();
+                        float endY = event.getY();
+                        if (isAClick(startX, endX, startY, endY)) {
+                            callOnClick();     // WE HAVE A CLICK!!
+                            Log.d("WebView", "Click");
                         }
                         break;
-                    case MotionEvent.ACTION_MOVE:
-                        Log.d("ques_tv", "Moved");
-                        if (ques_tv.canScrollHorizontally(-1)) {
-                            Log.d("Horizontal Scroll", "left to right");
-                            return true;
-                        }
                 }
-                Log.d("ques_tv", "Touched!");
+                Log.d("itemView", "Touched!");
+                //Let the other functions work as intended
                 return false;
             }
+
+            private boolean isAClick(float startX, float endX, float startY, float endY) {
+                float differenceX = Math.abs(startX - endX);
+                float differenceY = Math.abs(startY - endY);
+                return !(differenceX > mTouchSlop || differenceY > mTouchSlop);
+            }
         });
+
+    }
+
+    private void callOnClick() {
+        //Show and hide buttons
+        if (left_btn.getVisibility() == View.VISIBLE && right_btn.getVisibility() == View.VISIBLE){
+            left_btn.setVisibility(View.INVISIBLE);
+            right_btn.setVisibility(View.INVISIBLE);
+        }
+        else if (left_btn.getVisibility() != View.VISIBLE && right_btn.getVisibility() != View.VISIBLE){
+            left_btn.setVisibility(View.VISIBLE);
+            right_btn.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void LoadDataInWebView(){
+
+        marks_tv.setText(data.get(pos).getMarks());
+        int no = pos + 1;
+        ques_no_tv.setText(no + ".");
 
         ques_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(data.get(pos).getQuestion()), "text/html", "UTF-8", null);
         ans_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(data.get(pos).getAnswer()), "text/html", "UTF-8", null);
-
-        marks_tv.setText(data.get(pos).getMarks());
-//        ques_no_tv.setText(questionAnswer.getQuestionNo() + ".");
 
     }
 
@@ -297,6 +335,7 @@ public class SingleAnswerActivity extends AppCompatActivity {
         }
         super.onPause();
     }
+
     @Override
     public void onResume() {
         if (adView != null) {
@@ -307,10 +346,9 @@ public class SingleAnswerActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (adView!=null) {
+        if (adView != null) {
             final ViewGroup viewGroup = (ViewGroup) adView.getParent();
-            if (viewGroup != null)
-            {
+            if (viewGroup != null) {
                 viewGroup.removeView(adView);
             }
             adView.removeAllViews();

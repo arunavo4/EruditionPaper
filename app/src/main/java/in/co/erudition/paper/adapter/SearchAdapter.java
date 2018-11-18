@@ -22,6 +22,7 @@ import in.co.erudition.paper.R;
 import in.co.erudition.paper.activity.SingleAnswerActivity;
 import in.co.erudition.paper.data.model.QuesAnsSearch;
 import in.co.erudition.paper.data.model.SearchResult;
+import in.co.erudition.paper.misc.NestedScrollWebView;
 import in.co.erudition.paper.util.PreferenceUtils;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
@@ -87,9 +88,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public void onBindViewHolder(@NonNull SearchAdapter.ViewHolder holder, int position) {
         SearchResult ques = searchResults.get(holder.getAdapterPosition());
         Log.d("Adapter pos", String.valueOf(holder.getAdapterPosition()));
-        final WebView q_tv = holder.ques_tv;
+        final NestedScrollWebView q_tv = holder.ques_tv;
         TextView m_tv = holder.marks_tv;
-        TextView q_no_tv = holder.ques_no_tv;
+//        TextView q_no_tv = holder.ques_no_tv;
         TextView r_tv = holder.repeated_tv;
         View nav_space = holder.spacer;
 
@@ -107,7 +108,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             q_tv.getSettings().setJavaScriptEnabled(ques.getJavascript().contentEquals("10") || ques.getJavascript().contentEquals("11"));
 
 //            q_no_tv.setText(ques.getQuestionNo() + ".");
-//            r_tv.setText(ques.getRepeat());
+            if (!ques.getRepeat().contentEquals("")) {
+                r_tv.setText(ques.getRepeat());
+            }
 
             if (nav_space.getVisibility() == View.VISIBLE || holder.result_count.getVisibility()==View.VISIBLE) {
                 nav_space.setVisibility(View.GONE);
@@ -141,10 +144,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public WebView ques_tv;
+        public NestedScrollWebView ques_tv;
         public TextView marks_tv;
         public TextView repeated_tv;
-        public TextView ques_no_tv;
+//        public TextView ques_no_tv;
         public TextView result_count;
         public View spacer;
 
@@ -152,9 +155,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            ques_tv = (WebView) itemView.findViewById(R.id.question_tv);
+            ques_tv = (NestedScrollWebView) itemView.findViewById(R.id.question_tv);
             marks_tv = (TextView) itemView.findViewById(R.id.marks_tv);
-            ques_no_tv = (TextView) itemView.findViewById(R.id.ques_num);
+//            ques_no_tv = (TextView) itemView.findViewById(R.id.ques_num);
             repeated_tv = (TextView) itemView.findViewById(R.id.ques_repeat);
             spacer = (View) itemView.findViewById(R.id.nav_spacer_ad);
             result_count = (TextView) itemView.findViewById(R.id.result_count);
@@ -218,6 +221,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 Intent intent = new Intent(mContext, SingleAnswerActivity.class);
                 intent.putExtra("Search_ADAPTER.parcelData", data);
                 intent.putExtra("Search_ADAPTER.position", position);
+                intent.putExtra("Search_ADAPTER.size",getItemCount());
                 intent.putExtras(mIntent);
                 mContext.startActivity(intent);
             }
@@ -226,6 +230,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     private void parcelData(int pos) {
         try {
+            data.clear();
+            //All data
             for (int i = 0; i < searchResults.size(); i++) {
                 SearchResult searchResult = getQues(i);
                 data.add(new QuesAnsSearch(searchResult));

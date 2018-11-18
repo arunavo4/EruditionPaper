@@ -25,6 +25,7 @@ import in.co.erudition.paper.activity.AnswerActivity;
 import in.co.erudition.paper.data.model.PaperGroup;
 import in.co.erudition.paper.data.model.PaperQuestion;
 import in.co.erudition.paper.data.model.QuestionAnswer;
+import in.co.erudition.paper.misc.NestedScrollWebView;
 import in.co.erudition.paper.util.PreferenceUtils;
 
 /**
@@ -95,9 +96,9 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
     @Override
     public void onBindViewHolder(final QuestionAdapter.ViewHolder holder, int position) {
         PaperQuestion ques = paperQuestions.get(holder.getAdapterPosition());
-        final WebView q_tv = holder.ques_tv;
+        final NestedScrollWebView q_tv = holder.ques_tv;
         TextView m_tv = holder.marks_tv;
-        TextView q_no_tv = holder.ques_no_tv;
+//        TextView q_no_tv = holder.ques_no_tv;
         TextView r_tv = holder.repeated_tv;
 
         // Set item views based on your views and data model
@@ -138,17 +139,17 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 
     @SuppressLint("SetJavaScriptEnabled")
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public WebView ques_tv;
+        public NestedScrollWebView ques_tv;
         public TextView marks_tv;
         public TextView repeated_tv;
-        public TextView ques_no_tv;
+//        public TextView ques_no_tv;
 
         public ViewHolder(final View itemView) {
             super(itemView);
 
-            ques_tv = (WebView) itemView.findViewById(R.id.question_tv);
+            ques_tv = (NestedScrollWebView) itemView.findViewById(R.id.question_tv);
             marks_tv = (TextView) itemView.findViewById(R.id.marks_tv);
-            ques_no_tv = (TextView) itemView.findViewById(R.id.ques_num);
+//            ques_no_tv = (TextView) itemView.findViewById(R.id.ques_num);
             repeated_tv = (TextView) itemView.findViewById(R.id.ques_repeat);
 
             //optimizations
@@ -159,8 +160,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
             ques_tv.setOnLongClickListener(v -> true);
             ques_tv.setLongClickable(false);
 
-
-            //Setting click events on both webview and the card
             ques_tv.setOnTouchListener(new View.OnTouchListener() {
 
                 private int mTouchSlop = ViewConfiguration.get(mContext).getScaledTouchSlop();

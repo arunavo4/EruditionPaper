@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import in.co.erudition.paper.data.model.JwtToken;
 import in.co.erudition.paper.util.ApiUtils;
+import in.co.erudition.paper.util.PreferenceUtils;
 import okhttp3.Dispatcher;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -34,7 +35,8 @@ public class RetrofitClient {
     /*
     DOnt encrypt just temporary
      */
-    private static final String eid = "Android";
+    private static final String eid = PreferenceUtils.getEid();
+//    private static final String eid = "Android";
     private static final String password = "Password";
 
     private RetrofitClient(){

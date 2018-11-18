@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/spacer_6dp"
             android:layout_marginBottom="@dimen/spacer_4dp"
             android:layout_gravity="center_horizontal">
 
@@ -110,18 +110,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacer_8dp"
                 android:layout_marginTop="@dimen/spacer_12dp"
-                android:layout_gravity="top|start" />
+                android:layout_gravity="top|start"
+                android:visibility="gone"/>
 
-            <WebView
+            <in.co.erudition.paper.misc.NestedScrollWebView
                 android:id="@+id/question_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="false"
-                android:focusable="false"
-                android:layout_marginTop="@dimen/spacer_4dp"
-                android:layout_marginEnd="@dimen/spacer_4dp"
+                android:layout_marginTop="@dimen/spacer_2dp"
+                android:layout_marginBottom="@dimen/spacer_2dp"
                 android:padding="@dimen/spacer_12dp"
-                android:layout_gravity="center_vertical|start" />
+                android:layout_gravity="center_vertical|start"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         </LinearLayout>
 

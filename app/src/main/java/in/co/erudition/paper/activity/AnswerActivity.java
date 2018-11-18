@@ -178,24 +178,24 @@ public class AnswerActivity extends AppCompatActivity {
          * Custom Touch Behaviour
          */
 
-        recyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (v.onTouchEvent(event)) {
-                    return true;
-                }
-                Log.d("RecyclerView", "Touched");
-                return false;
-            }
-
-        });
+//        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if (v.onTouchEvent(event)) {
+//                    return true;
+//                }
+//                Log.d("RecyclerView", "Touched");
+//                return false;
+//            }
+//
+//        });
 
 //        Log.d(TAG,"loading paper groups");
 //        loadPaperAnswers();
 
 
         //TODO: Need to fix the inner scroll problem by using the Nested prescroll
-        recyclerView.setNestedScrollingEnabled(true);
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.scrollToPosition(getIntent().getIntExtra("QUESTION_ADAPTER.position", 0));
 
     }

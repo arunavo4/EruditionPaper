@@ -353,7 +353,7 @@ public class ProfileActivity extends AppCompatActivity {
             phone.setTextColor(getResources().getColor(R.color.colorPrimary));
         }
 
-        if (!person_details[3].contentEquals("Gender")) {
+        if (!person_details[3].contentEquals("Unspecified")) {
             gender.setText(person_details[3]);
             gender.setTextColor(getResources().getColor(R.color.colorPrimary));
         }

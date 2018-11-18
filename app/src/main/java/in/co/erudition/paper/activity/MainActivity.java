@@ -120,26 +120,26 @@ public class MainActivity extends AppCompatActivity
 
 //        Setup Interstitial Ads --> only once at startup
 //        Interstitial video ads
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.admob_interstitial_ad_id));
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-        //load ads in advance
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                // Load the next interstitial.
-                mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                //Set the timer Again
-                timer = new AdCountDownTimer(600000, 1000);
-                timer.start();
-            }
-
-        });
-
-        //Set a timer for 10 min
-        timer = new AdCountDownTimer(600000, 1000);
-        timer.start();
+//        mInterstitialAd = new InterstitialAd(this);
+//        mInterstitialAd.setAdUnitId(getString(R.string.admob_interstitial_ad_id));
+//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//
+//        //load ads in advance
+//        mInterstitialAd.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdClosed() {
+//                // Load the next interstitial.
+//                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//                //Set the timer Again
+//                timer = new AdCountDownTimer(600000, 1000);
+//                timer.start();
+//            }
+//
+//        });
+//
+//        //Set a timer for 10 min
+//        timer = new AdCountDownTimer(600000, 1000);
+//        timer.start();
 
 
         //Search view

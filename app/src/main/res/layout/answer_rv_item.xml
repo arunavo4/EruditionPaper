@@ -78,7 +78,7 @@
 
             </LinearLayout>
 
-            <WebView
+            <in.co.erudition.paper.misc.NestedScrollWebView
                 android:id="@+id/question_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,7 +86,10 @@
                 android:layout_marginStart="@dimen/spacer_4dp"
                 android:layout_marginEnd="@dimen/spacer_4dp"
                 android:padding="@dimen/spacer_12dp"
-                android:layout_gravity="center_vertical|start"/>
+                android:layout_gravity="center_vertical|start"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         </LinearLayout>
 
@@ -120,13 +123,16 @@
                 android:layout_height="@dimen/spacer_1dp"
                 android:background="@color/colorBlack34alpha"/>
 
-            <WebView
+            <in.co.erudition.paper.misc.NestedScrollWebView
                 android:id="@+id/answer_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacer_6dp"
                 android:padding="@dimen/spacer_0dp"
-                android:layout_gravity="center_vertical|start"/>
+                android:layout_gravity="center_vertical|start"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         </LinearLayout>
 
