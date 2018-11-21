@@ -36,7 +36,8 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_answer" />
+    <!--<include layout="@layout/content_answer" />-->
+    <include layout="@layout/content_single_activity" />
 
     <ProgressBar
         android:id="@+id/progressBar_Ques"
@@ -51,6 +52,7 @@
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/nav_bar_height"
         android:layout_gravity="center_horizontal|bottom"
         ads:adSize="SMART_BANNER"
         ads:adUnitId="@string/admob_smart_banner_id">

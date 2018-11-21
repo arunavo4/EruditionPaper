@@ -386,7 +386,7 @@ public class QuestionActivity extends AppCompatActivity {
             sub_name_tv.setText(body.getSubjectFullName());
             String str = "Chapter " + body.getChapterName();
             chap_num_tv.setText(str);
-            counter_tv.setText("999");
+            counter_tv.setText(body.getView());
         } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
             Log.e("Exception", e.toString());
         }

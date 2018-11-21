@@ -29,6 +29,9 @@ public class Chapter {
     @SerializedName("Solved")
     @Expose
     private String solved;
+    @SerializedName("View")
+    @Expose
+    private String view;
 
     public String getId() {
         return id;
@@ -92,5 +95,13 @@ public class Chapter {
 
     public void setSolved(String solved) {
         this.solved = solved;
+    }
+
+    public String getView() {
+        return view;
+    }
+
+    public void setView(String view) {
+        this.view = view;
     }
 }

@@ -108,8 +108,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             q_tv.getSettings().setJavaScriptEnabled(ques.getJavascript().contentEquals("10") || ques.getJavascript().contentEquals("11"));
 
 //            q_no_tv.setText(ques.getQuestionNo() + ".");
-            if (!ques.getRepeat().contentEquals("")) {
-                r_tv.setText(ques.getRepeat());
+            if (ques.getRepeat()!=null) {
+                if (!ques.getRepeat().contentEquals("")) {
+                    r_tv.setText(ques.getRepeat());
+                }
             }
 
             if (nav_space.getVisibility() == View.VISIBLE || holder.result_count.getVisibility()==View.VISIBLE) {

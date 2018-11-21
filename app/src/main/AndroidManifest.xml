@@ -116,6 +116,11 @@
             android:label="@string/blank"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".activity.AnswerActivityNew"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/blank"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".activity.SelectionActivity"
             android:label="@string/blank"
             android:theme="@style/AppTheme.NoActionBar" />

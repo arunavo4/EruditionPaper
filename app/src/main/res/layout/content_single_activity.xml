@@ -8,18 +8,6 @@
 
     <include layout="@layout/answer_rv"/>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/btn_left"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        app:srcCompat="@drawable/ic_btn_left"
-        android:layout_gravity="center_vertical|start"/>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/btn_right"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        app:srcCompat="@drawable/ic_btn_right"
-        android:layout_gravity="center_vertical|end"/>
+    <include layout="@layout/nav_bar_new"/>
 
 </FrameLayout>

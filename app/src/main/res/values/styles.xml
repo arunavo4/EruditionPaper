@@ -540,5 +540,12 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+
+    <!--Answer NAv-->
+    <style name="AnswerCountTextView">
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>
 

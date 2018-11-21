@@ -8,12 +8,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.WebSettings;
-import android.widget.FrameLayout;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,22 +23,22 @@ import com.google.android.material.appbar.AppBarLayout;
 
 import java.util.ArrayList;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.data.model.QuesAnsSearch;
+import in.co.erudition.paper.data.model.QuestionAnswer;
 import in.co.erudition.paper.misc.NestedScrollWebView;
+import in.co.erudition.paper.network.NetworkUtils;
 
-public class SingleAnswerActivity extends AppCompatActivity {
-    private Toolbar toolbar;
-    private ArrayList<QuesAnsSearch> data;
-    private AdView adView;
+public class AnswerActivityNew extends AppCompatActivity {
+
     private StringBuilder str;
     private NestedScrollWebView ques_tv;
     private NestedScrollWebView ans_tv;
@@ -50,11 +50,21 @@ public class SingleAnswerActivity extends AppCompatActivity {
     private TextView ans_count;
     private TextView ques_no_tv;
 
+    private AdView adView;
+    private NetworkUtils mNetworkUtils = new NetworkUtils();
+    private String TAG = "AnswerActivity";
+
+//    private InterstitialAd mInterstitialAd;
+//    private AdCountDownTimer timer;
+
+    private ArrayList<QuestionAnswer> data;
+    private Toolbar toolbar;
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_single_answer);
+        setContentView(R.layout.activity_answer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         str = new StringBuilder("<html>");
@@ -67,7 +77,6 @@ public class SingleAnswerActivity extends AppCompatActivity {
         str.append("    </style>\n <script src=\"prism.js\"></script>\n</head>");
         str.append("<body>\n");
 
-
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.my_appbar_container);
         appBarLayout.bringToFront();
 
@@ -77,16 +86,6 @@ public class SingleAnswerActivity extends AppCompatActivity {
         marks_tv = (TextView) findViewById(R.id.marks_tv);
         ques_no_tv = (TextView) findViewById(R.id.ques_num);
         ans_count = (TextView) findViewById(R.id.tv_count);
-
-        //Load Ads
-        adView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
-
-        View ad_spacer = (View) findViewById(R.id.nav_spacer_ad);
-        View nav_spacer = (View) findViewById(R.id.nav_spacer);
-        ad_spacer.setVisibility(View.VISIBLE);
-        nav_spacer.setVisibility(View.VISIBLE);
 
         // To set the background of the activity go below the StatusBar
         getWindow().getDecorView().setSystemUiVisibility(
@@ -101,6 +100,38 @@ public class SingleAnswerActivity extends AppCompatActivity {
 
         toggleImmersive();
 
+        //Load Ads
+        adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
+        View ad_spacer = (View) findViewById(R.id.nav_spacer_ad);
+        View nav_spacer = (View) findViewById(R.id.nav_spacer);
+        ad_spacer.setVisibility(View.VISIBLE);
+        nav_spacer.setVisibility(View.VISIBLE);
+
+        //Setup Interstitial Ads --> only once at startup
+        //Interstitial video ads
+//        mInterstitialAd = new InterstitialAd(this);
+//        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/8691691433");
+//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//
+//        //load ads in advance
+//        mInterstitialAd.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdClosed() {
+//                // Load the next interstitial.
+//                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//                //Set the timer Again
+//                timer = new AdCountDownTimer(600000, 1000);
+//                timer.start();
+//            }
+//
+//        });
+//
+//        //Set a timer for 1 min
+//        timer = new AdCountDownTimer(600000, 1000);
+//        timer.start();
 
         /*
             Adjusting the Status bar margin for Different notches
@@ -127,14 +158,14 @@ public class SingleAnswerActivity extends AppCompatActivity {
         }
 
         toolbar.setNavigationIcon(bg);
-//        toolbar.setTitle("");
+        toolbar.setTitle(getIntent().getStringExtra("QUESTION_ADAPTER.group_name"));
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
-        data = getIntent().getParcelableArrayListExtra("Search_ADAPTER.parcelData");
-        pos = getIntent().getIntExtra("Search_ADAPTER.position", 0);
-        size = getIntent().getIntExtra("Search_ADAPTER.size", 0);
+        data = getIntent().getParcelableArrayListExtra("QUESTION_ADAPTER.parcelData");
+        pos = getIntent().getIntExtra("QUESTION_ADAPTER.position", 0);
+        size = data.size();
 
         //HAndle the webviews
         ques_tv.getSettings().setJavaScriptEnabled(true);
@@ -162,16 +193,9 @@ public class SingleAnswerActivity extends AppCompatActivity {
 
         LoadDataInWebView();
 
-        marks_tv.setText(data.get(pos).getMarks());
-        int no = pos + 1;
-        ques_no_tv.setText(no + ".");
-
         //Setup btn
         left_btn = (ImageView) findViewById(R.id.btn_left);
         right_btn = (ImageView) findViewById(R.id.btn_right);
-
-        String str = no + " of " + size;
-        ans_count.setText(str);
 
         left_btn.setOnClickListener(v -> {
             //Change the data
@@ -188,9 +212,28 @@ public class SingleAnswerActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+
+    private void LoadDataInWebView(){
+        toolbar.setTitle(data.get(pos).getGroupName());
+
+        marks_tv.setText(data.get(pos).getMarks());
+        ques_no_tv.setText(data.get(pos).getQuestionNo() + ".");
+        int no = pos + 1;
+        String str = no + " of " + size;
+        ans_count.setText(str);
+
+        ques_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(data.get(pos).getQuestion()), "text/html", "UTF-8", null);
+        ans_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(data.get(pos).getAnswer()), "text/html", "UTF-8", null);
 
     }
+
+
+    private String getHtmlData(String data) {
+        return str.toString() + data + "</body>\n</html>";
+    }
+
 
     /**
      * Detects and toggles immersive mode.
@@ -224,35 +267,46 @@ public class SingleAnswerActivity extends AppCompatActivity {
         //END_INCLUDE (set_ui_flags)
     }
 
-    private void callOnClick() {
-        //Show and hide buttons
-        if (left_btn.getVisibility() == View.VISIBLE && right_btn.getVisibility() == View.VISIBLE){
-            left_btn.setVisibility(View.INVISIBLE);
-            right_btn.setVisibility(View.INVISIBLE);
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+//        timer.cancel();
+    }
+
+    @Override
+    public void onPause() {
+        if (adView != null) {
+            adView.pause();
         }
-        else if (left_btn.getVisibility() != View.VISIBLE && right_btn.getVisibility() != View.VISIBLE){
-            left_btn.setVisibility(View.VISIBLE);
-            right_btn.setVisibility(View.VISIBLE);
+        //        timer.cancel();
+        super.onPause();
+    }
+    @Override
+    public void onResume() {
+        if (adView != null) {
+            adView.resume();
         }
+        //restart the timer
+//        timer.start();
+        super.onResume();
     }
 
-    private void LoadDataInWebView(){
-
-        marks_tv.setText(data.get(pos).getMarks());
-        int no = pos + 1;
-        ques_no_tv.setText(no + ".");
-        String str = no + " of " + size;
-        ans_count.setText(str);
-
-        ques_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(data.get(pos).getQuestion()), "text/html", "UTF-8", null);
-        ans_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(data.get(pos).getAnswer()), "text/html", "UTF-8", null);
-
+    @Override
+    protected void onDestroy() {
+        if (adView!=null) {
+            final ViewGroup viewGroup = (ViewGroup) adView.getParent();
+            if (viewGroup != null)
+            {
+                viewGroup.removeView(adView);
+            }
+            adView.removeAllViews();
+            adView.destroy();
+        }
+        super.onDestroy();
     }
 
 
-    private String getHtmlData(String data) {
-        return str.toString() + data + "</body>\n</html>";
-    }
 
     /**
      * Menu Handling
@@ -260,7 +314,7 @@ public class SingleAnswerActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_search_ans, menu);
+        getMenuInflater().inflate(R.menu.menu_answers, menu);
         return true;
     }
 
@@ -272,42 +326,65 @@ public class SingleAnswerActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_close) {
-            //close the current Activity
-            finish();
-            return true;
+        if (id == R.id.action_info) {
+            showDialogInfo();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onPause() {
-        if (adView != null) {
-            adView.pause();
-        }
-        super.onPause();
-    }
+    /**
+     * Method to inflate the dialog and show it.
+     */
+    private void showDialogInfo() {
 
-    @Override
-    public void onResume() {
-        if (adView != null) {
-            adView.resume();
-        }
-        super.onResume();
-    }
+        AlertDialog.Builder builder = new AlertDialog.Builder(AnswerActivityNew.this);
+        View view = getLayoutInflater().inflate(R.layout.dialog_info, null);
 
-    @Override
-    protected void onDestroy() {
-        if (adView != null) {
-            final ViewGroup viewGroup = (ViewGroup) adView.getParent();
-            if (viewGroup != null) {
-                viewGroup.removeView(adView);
+        Animation view_anim = AnimationUtils.loadAnimation(AnswerActivityNew.this, R.anim.zoom_in);
+        view.startAnimation(view_anim);
+
+        //set all the details
+        TextView g_tv = (TextView) view.findViewById(R.id.dialogue_group_tv);
+        TextView g_desc_tv_1 = (TextView) view.findViewById(R.id.dialogue_group_desc_1);
+        TextView g_desc_tv_2 = (TextView) view.findViewById(R.id.dialogue_group_desc_2);
+        Button btn_contd = (Button) view.findViewById(R.id.btn_cont);
+
+        //check for the current title of the toolbar
+        String title = toolbar.getTitle().toString();
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).getGroupName().contentEquals(title)) {
+                //now update all the views
+                if (!data.get(i).getGroupName().contentEquals(" ")) {
+                    if (g_tv.getVisibility() == View.GONE)
+                        g_tv.setVisibility(View.VISIBLE);
+                    g_tv.setText(data.get(i).getGroupName());
+                }
+                if (!data.get(i).getGroupDesc1().contentEquals(" ")) {
+                    if (g_desc_tv_1.getVisibility() == View.GONE)
+                        g_desc_tv_1.setVisibility(View.VISIBLE);
+                    g_desc_tv_1.setText(data.get(i).getGroupDesc1());
+                }
+                if (!data.get(i).getGroupDesc2().contentEquals(" ")) {
+                    if (g_desc_tv_2.getVisibility() == View.GONE)
+                        g_desc_tv_2.setVisibility(View.VISIBLE);
+                    g_desc_tv_2.setText(data.get(i).getGroupDesc2());
+                }
+                break;
             }
-            adView.removeAllViews();
-            adView.destroy();
         }
-        super.onDestroy();
+        builder.setView(view);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(true);
+        alertDialog.show();
+
+        btn_contd.setOnClickListener(v -> {
+            //cancel the dialogue
+            if (alertDialog.isShowing()) {
+                alertDialog.cancel();
+            }
+        });
     }
+
 
 }

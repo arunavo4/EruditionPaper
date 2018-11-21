@@ -22,6 +22,7 @@ import java.util.List;
 
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.activity.AnswerActivity;
+import in.co.erudition.paper.activity.AnswerActivityNew;
 import in.co.erudition.paper.data.model.PaperGroup;
 import in.co.erudition.paper.data.model.PaperQuestion;
 import in.co.erudition.paper.data.model.QuestionAnswer;
@@ -207,12 +208,13 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
             if (position != RecyclerView.NO_POSITION) {
                 //Now call the function to parcel the whole data and pass it along.
                 parcelData();
-                Intent intent = new Intent(mContext, AnswerActivity.class);
+                Intent intent = new Intent(mContext, AnswerActivityNew.class);
                 intent.putExtra("QUESTION_ADAPTER.parcelData", data);
                 intent.putExtras(mIntent);
                 int pos = Integer.parseInt(paperQuestion.getCode()) - 1;
                 pos = getQues_pos(group_pos, pos);
                 intent.putExtra("QUESTION_ADAPTER.position", pos);
+                intent.putExtra("QUESTION_ADAPTER.group_name",data.get(pos).getGroupName());
                 mContext.startActivity(intent);
             }
         }

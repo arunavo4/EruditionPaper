@@ -147,12 +147,7 @@ public class AnswerActivity extends AppCompatActivity {
 //        toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         data = getIntent().getParcelableArrayListExtra("QUESTION_ADAPTER.parcelData");
 
@@ -385,13 +380,10 @@ public class AnswerActivity extends AppCompatActivity {
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
 
-        btn_contd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //cancel the dialogue
-                if (alertDialog.isShowing()) {
-                    alertDialog.cancel();
-                }
+        btn_contd.setOnClickListener(v -> {
+            //cancel the dialogue
+            if (alertDialog.isShowing()) {
+                alertDialog.cancel();
             }
         });
     }
@@ -406,14 +398,11 @@ public class AnswerActivity extends AppCompatActivity {
         dialog.setContentView(view);
         dialog.show();
 
-        btn_retry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //retry and close dialogue
-                if (dialog.isShowing()) {
-                    dialog.cancel();
-                    onRetryLoadPaperGroups();
-                }
+        btn_retry.setOnClickListener(v -> {
+            //retry and close dialogue
+            if (dialog.isShowing()) {
+                dialog.cancel();
+                onRetryLoadPaperGroups();
             }
         });
     }
@@ -428,14 +417,11 @@ public class AnswerActivity extends AppCompatActivity {
         dialog.setContentView(view);
         dialog.show();
 
-        btn_go_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //retry and close dialogue
-                if (dialog.isShowing()) {
-                    dialog.cancel();
-                    onBackPressed();
-                }
+        btn_go_back.setOnClickListener(v -> {
+            //retry and close dialogue
+            if (dialog.isShowing()) {
+                dialog.cancel();
+                onBackPressed();
             }
         });
     }

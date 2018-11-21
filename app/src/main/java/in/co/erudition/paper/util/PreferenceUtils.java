@@ -80,7 +80,7 @@ public class PreferenceUtils {
     public static String getEid(){
         mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
                 Context.MODE_PRIVATE);
-        return mPrefs.getString("EId",null);
+        return mPrefs.getString("EId","Android");
     }
 
     public static boolean getJS(){
