@@ -353,14 +353,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         dialog.setContentView(view);
         dialog.show();
 
-        btn_notify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //retry and close dialogue
-                if (dialog.isShowing()) {
-                    dialog.cancel();
+        btn_notify.setOnClickListener(v -> {
+            //retry and close dialogue
+            if (dialog.isShowing()) {
+                dialog.cancel();
 //                    onBackPressed();
-                }
             }
         });
     }

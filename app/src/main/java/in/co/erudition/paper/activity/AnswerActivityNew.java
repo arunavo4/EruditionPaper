@@ -1,6 +1,7 @@
 package in.co.erudition.paper.activity;
 
 import android.annotation.SuppressLint;
+import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -98,7 +99,7 @@ public class AnswerActivityNew extends AppCompatActivity {
             getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
         }
 
-        toggleImmersive();
+//        toggleImmersive();
 
         //Load Ads
         adView = (AdView) findViewById(R.id.adView);
@@ -191,7 +192,6 @@ public class AnswerActivityNew extends AppCompatActivity {
         ans_tv.getSettings().setBuiltInZoomControls(true);
         ans_tv.getSettings().setDisplayZoomControls(false);
 
-        LoadDataInWebView();
 
         //Setup btn
         left_btn = (ImageView) findViewById(R.id.btn_left);
@@ -212,10 +212,25 @@ public class AnswerActivityNew extends AppCompatActivity {
             }
         });
 
+        LoadDataInWebView();
+
     }
 
 
     private void LoadDataInWebView(){
+        //Make the left right btn visible and invisible
+        if (pos==0 && left_btn.getVisibility()==View.VISIBLE){
+            left_btn.setVisibility(View.INVISIBLE);
+        }
+        else if (pos==1 && left_btn.getVisibility()==View.INVISIBLE){
+            left_btn.setVisibility(View.VISIBLE);
+        }
+        else if (pos==size-1 && right_btn.getVisibility()==View.VISIBLE){
+            right_btn.setVisibility(View.INVISIBLE);
+        }else if (pos==size-2 && right_btn.getVisibility()==View.INVISIBLE){
+            right_btn.setVisibility(View.VISIBLE);
+        }
+
         toolbar.setTitle(data.get(pos).getGroupName());
 
         marks_tv.setText(data.get(pos).getMarks());
@@ -253,7 +268,6 @@ public class AnswerActivityNew extends AppCompatActivity {
         } else {
             Log.i("SingleAnswer", "Turning immersive mode mode on.");
         }
-
         // Immersive mode: Backward compatible to KitKat (API 19).
         // Note that this flag doesn't do anything by itself, it only augments the behavior
         // of HIDE_NAVIGATION and FLAG_FULLSCREEN.  For the purposes of this sample
@@ -289,6 +303,9 @@ public class AnswerActivityNew extends AppCompatActivity {
         }
         //restart the timer
 //        timer.start();
+
+        //Turn immersive if not already done
+        toggleImmersive();
         super.onResume();
     }
 
@@ -338,52 +355,56 @@ public class AnswerActivityNew extends AppCompatActivity {
      */
     private void showDialogInfo() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(AnswerActivityNew.this);
-        View view = getLayoutInflater().inflate(R.layout.dialog_info, null);
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(AnswerActivityNew.this);
+            View view = getLayoutInflater().inflate(R.layout.dialog_info, null);
 
-        Animation view_anim = AnimationUtils.loadAnimation(AnswerActivityNew.this, R.anim.zoom_in);
-        view.startAnimation(view_anim);
+            Animation view_anim = AnimationUtils.loadAnimation(AnswerActivityNew.this, R.anim.zoom_in);
+            view.startAnimation(view_anim);
 
-        //set all the details
-        TextView g_tv = (TextView) view.findViewById(R.id.dialogue_group_tv);
-        TextView g_desc_tv_1 = (TextView) view.findViewById(R.id.dialogue_group_desc_1);
-        TextView g_desc_tv_2 = (TextView) view.findViewById(R.id.dialogue_group_desc_2);
-        Button btn_contd = (Button) view.findViewById(R.id.btn_cont);
+            //set all the details
+            TextView g_tv = (TextView) view.findViewById(R.id.dialogue_group_tv);
+            TextView g_desc_tv_1 = (TextView) view.findViewById(R.id.dialogue_group_desc_1);
+            TextView g_desc_tv_2 = (TextView) view.findViewById(R.id.dialogue_group_desc_2);
+            Button btn_contd = (Button) view.findViewById(R.id.btn_cont);
 
-        //check for the current title of the toolbar
-        String title = toolbar.getTitle().toString();
-        for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).getGroupName().contentEquals(title)) {
-                //now update all the views
-                if (!data.get(i).getGroupName().contentEquals(" ")) {
-                    if (g_tv.getVisibility() == View.GONE)
-                        g_tv.setVisibility(View.VISIBLE);
-                    g_tv.setText(data.get(i).getGroupName());
+            //check for the current title of the toolbar
+            String title = toolbar.getTitle().toString();
+            for (int i = 0; i < data.size(); i++) {
+                if (data.get(i).getGroupName().contentEquals(title)) {
+                    //now update all the views
+                    if (!data.get(i).getGroupName().contentEquals(" ")) {
+                        if (g_tv.getVisibility() == View.GONE)
+                            g_tv.setVisibility(View.VISIBLE);
+                        g_tv.setText(data.get(i).getGroupName());
+                    }
+                    if (!data.get(i).getGroupDesc1().contentEquals(" ")) {
+                        if (g_desc_tv_1.getVisibility() == View.GONE)
+                            g_desc_tv_1.setVisibility(View.VISIBLE);
+                        g_desc_tv_1.setText(data.get(i).getGroupDesc1());
+                    }
+                    if (!data.get(i).getGroupDesc2().contentEquals(" ")) {
+                        if (g_desc_tv_2.getVisibility() == View.GONE)
+                            g_desc_tv_2.setVisibility(View.VISIBLE);
+                        g_desc_tv_2.setText(data.get(i).getGroupDesc2());
+                    }
+                    break;
                 }
-                if (!data.get(i).getGroupDesc1().contentEquals(" ")) {
-                    if (g_desc_tv_1.getVisibility() == View.GONE)
-                        g_desc_tv_1.setVisibility(View.VISIBLE);
-                    g_desc_tv_1.setText(data.get(i).getGroupDesc1());
-                }
-                if (!data.get(i).getGroupDesc2().contentEquals(" ")) {
-                    if (g_desc_tv_2.getVisibility() == View.GONE)
-                        g_desc_tv_2.setVisibility(View.VISIBLE);
-                    g_desc_tv_2.setText(data.get(i).getGroupDesc2());
-                }
-                break;
             }
+            builder.setView(view);
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.setCanceledOnTouchOutside(true);
+            alertDialog.show();
+
+            btn_contd.setOnClickListener(v -> {
+                //cancel the dialogue
+                if (alertDialog.isShowing()) {
+                    alertDialog.cancel();
+                }
+            });
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
         }
-        builder.setView(view);
-        final AlertDialog alertDialog = builder.create();
-        alertDialog.setCanceledOnTouchOutside(true);
-        alertDialog.show();
-
-        btn_contd.setOnClickListener(v -> {
-            //cancel the dialogue
-            if (alertDialog.isShowing()) {
-                alertDialog.cancel();
-            }
-        });
     }
 
 

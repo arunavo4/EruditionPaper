@@ -1,6 +1,7 @@
 package in.co.erudition.paper.activity;
 
 import android.app.Dialog;
+import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -156,7 +157,7 @@ public class AnswerActivity extends AppCompatActivity {
 
         mService = ApiUtils.getBackendService();
         recyclerView = (RecyclerView) findViewById(R.id.answers_rv);
-        mAdapter = new AnswerAdapter(this, data, toolbar, id -> Toast.makeText(AnswerActivity.this, "Post id is" + id, Toast.LENGTH_SHORT).show());
+        mAdapter = new AnswerAdapter(this, data, toolbar, id -> Toast.makeText(getApplicationContext(), "Post id is" + id, Toast.LENGTH_SHORT).show());
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false));
@@ -236,7 +237,7 @@ public class AnswerActivity extends AppCompatActivity {
                 if (call.isCanceled()) {
                     Log.d(TAG, "call is cancelled");
 
-                } else if (mNetworkUtils.isOnline(AnswerActivity.this)) {
+                } else if (mNetworkUtils.isOnline(getApplicationContext())) {
                     Log.d("MainActivity", "error loading from API");
                     str = "error loading from API";
                     showDialogError();
@@ -248,12 +249,7 @@ public class AnswerActivity extends AppCompatActivity {
 
 //                mProgressBar.setVisibility(View.GONE);
                 Snackbar.make((CoordinatorLayout) findViewById(R.id.app_bar_main4_layout), str, Snackbar.LENGTH_INDEFINITE)
-                        .setAction("Retry", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                onRetryLoadPaperGroups();
-                            }
-                        }).show();
+                        .setAction("Retry", v -> onRetryLoadPaperGroups()).show();
             }
         });
     }
@@ -340,52 +336,56 @@ public class AnswerActivity extends AppCompatActivity {
      */
     private void showDialogInfo() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(AnswerActivity.this);
-        View view = getLayoutInflater().inflate(R.layout.dialog_info, null);
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(AnswerActivity.this);
+            View view = getLayoutInflater().inflate(R.layout.dialog_info, null);
 
-        Animation view_anim = AnimationUtils.loadAnimation(AnswerActivity.this, R.anim.zoom_in);
-        view.startAnimation(view_anim);
+            Animation view_anim = AnimationUtils.loadAnimation(AnswerActivity.this, R.anim.zoom_in);
+            view.startAnimation(view_anim);
 
-        //set all the details
-        TextView g_tv = (TextView) view.findViewById(R.id.dialogue_group_tv);
-        TextView g_desc_tv_1 = (TextView) view.findViewById(R.id.dialogue_group_desc_1);
-        TextView g_desc_tv_2 = (TextView) view.findViewById(R.id.dialogue_group_desc_2);
-        Button btn_contd = (Button) view.findViewById(R.id.btn_cont);
+            //set all the details
+            TextView g_tv = (TextView) view.findViewById(R.id.dialogue_group_tv);
+            TextView g_desc_tv_1 = (TextView) view.findViewById(R.id.dialogue_group_desc_1);
+            TextView g_desc_tv_2 = (TextView) view.findViewById(R.id.dialogue_group_desc_2);
+            Button btn_contd = (Button) view.findViewById(R.id.btn_cont);
 
-        //check for the current title of the toolbar
-        String title = toolbar.getTitle().toString();
-        for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).getGroupName().contentEquals(title)) {
-                //now update all the views
-                if (!data.get(i).getGroupName().contentEquals(" ")) {
-                    if (g_tv.getVisibility() == View.GONE)
-                        g_tv.setVisibility(View.VISIBLE);
-                    g_tv.setText(data.get(i).getGroupName());
+            //check for the current title of the toolbar
+            String title = toolbar.getTitle().toString();
+            for (int i = 0; i < data.size(); i++) {
+                if (data.get(i).getGroupName().contentEquals(title)) {
+                    //now update all the views
+                    if (!data.get(i).getGroupName().contentEquals(" ")) {
+                        if (g_tv.getVisibility() == View.GONE)
+                            g_tv.setVisibility(View.VISIBLE);
+                        g_tv.setText(data.get(i).getGroupName());
+                    }
+                    if (!data.get(i).getGroupDesc1().contentEquals(" ")) {
+                        if (g_desc_tv_1.getVisibility() == View.GONE)
+                            g_desc_tv_1.setVisibility(View.VISIBLE);
+                        g_desc_tv_1.setText(data.get(i).getGroupDesc1());
+                    }
+                    if (!data.get(i).getGroupDesc2().contentEquals(" ")) {
+                        if (g_desc_tv_2.getVisibility() == View.GONE)
+                            g_desc_tv_2.setVisibility(View.VISIBLE);
+                        g_desc_tv_2.setText(data.get(i).getGroupDesc2());
+                    }
+                    break;
                 }
-                if (!data.get(i).getGroupDesc1().contentEquals(" ")) {
-                    if (g_desc_tv_1.getVisibility() == View.GONE)
-                        g_desc_tv_1.setVisibility(View.VISIBLE);
-                    g_desc_tv_1.setText(data.get(i).getGroupDesc1());
-                }
-                if (!data.get(i).getGroupDesc2().contentEquals(" ")) {
-                    if (g_desc_tv_2.getVisibility() == View.GONE)
-                        g_desc_tv_2.setVisibility(View.VISIBLE);
-                    g_desc_tv_2.setText(data.get(i).getGroupDesc2());
-                }
-                break;
             }
+            builder.setView(view);
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.setCanceledOnTouchOutside(true);
+            alertDialog.show();
+
+            btn_contd.setOnClickListener(v -> {
+                //cancel the dialogue
+                if (alertDialog.isShowing()) {
+                    alertDialog.cancel();
+                }
+            });
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
         }
-        builder.setView(view);
-        final AlertDialog alertDialog = builder.create();
-        alertDialog.setCanceledOnTouchOutside(true);
-        alertDialog.show();
-
-        btn_contd.setOnClickListener(v -> {
-            //cancel the dialogue
-            if (alertDialog.isShowing()) {
-                alertDialog.cancel();
-            }
-        });
     }
 
     private void showDialogNoNet() {
@@ -393,7 +393,7 @@ public class AnswerActivity extends AppCompatActivity {
 
         Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
 
-        final Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar);
+        final Dialog dialog = new Dialog(getApplicationContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -412,7 +412,7 @@ public class AnswerActivity extends AppCompatActivity {
 
         Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
 
-        final Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar);
+        final Dialog dialog = new Dialog(getApplicationContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();

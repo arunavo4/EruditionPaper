@@ -313,7 +313,7 @@ public class PaperActivity extends AppCompatActivity {
         mAdapter = new PaperAdapter(this, new ArrayList<Year>(), new ArrayList<Chapter>(), select, getIntent(), new PaperAdapter.PaperItemListener() {
             @Override
             public void onPaperClick(String id) {
-                Toast.makeText(PaperActivity.this, "Post id is" + id, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Post id is" + id, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -413,7 +413,7 @@ public class PaperActivity extends AppCompatActivity {
                 if (call.isCanceled()) {
                     Log.d("PaperActivity", "call is cancelled");
 
-                } else if (mNetworkUtils.isOnline(PaperActivity.this)) {
+                } else if (mNetworkUtils.isOnline(getApplicationContext())) {
                     Log.d("PaperActivity", "error loading from API");
                     showDialogError();
                 } else {
@@ -466,7 +466,7 @@ public class PaperActivity extends AppCompatActivity {
                 if (call.isCanceled()) {
                     Log.d("PaperActivity", "call is cancelled");
 
-                } else if (mNetworkUtils.isOnline(PaperActivity.this)) {
+                } else if (mNetworkUtils.isOnline(getApplicationContext())) {
                     Log.d("PaperActivity", "error loading from API");
                     showDialogError();
                 } else {
@@ -560,19 +560,16 @@ public class PaperActivity extends AppCompatActivity {
 
         Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
 
-        dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog = new Dialog(getApplicationContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
 
-        btn_retry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //retry and close dialogue
-                if (dialog.isShowing()) {
-                    dialog.cancel();
-                    onRetryLoadPapers();
-                }
+        btn_retry.setOnClickListener(v -> {
+            //retry and close dialogue
+            if (dialog.isShowing()) {
+                dialog.cancel();
+                onRetryLoadPapers();
             }
         });
     }
@@ -583,7 +580,7 @@ public class PaperActivity extends AppCompatActivity {
         Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
         ImageView btn_back = (ImageView) view.findViewById(R.id.btn_back);
 
-        dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog = new Dialog(getApplicationContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();

@@ -279,31 +279,25 @@ public class SelectionActivity extends AppCompatActivity {
         Button btn_notify = (Button) view.findViewById(R.id.btn_notify);
         ImageView btn_go_back = (ImageView) view.findViewById(R.id.btn_go_back);
 
-        dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog = new Dialog(getApplicationContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
 
-        btn_go_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dialog.isShowing()) {
-                    dialog.cancel();
-                    onBackPressed();
-                }
+        btn_go_back.setOnClickListener(v -> {
+            if (dialog.isShowing()) {
+                dialog.cancel();
+                onBackPressed();
             }
         });
 
-        btn_notify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //call notify
-                notifyMeCall();
+        btn_notify.setOnClickListener(v -> {
+            //call notify
+            notifyMeCall();
 //                onBackPressed();
-                if (dialog.isShowing()) {
-                    dialog.cancel();
-                    onBackPressed();
-                }
+            if (dialog.isShowing()) {
+                dialog.cancel();
+                onBackPressed();
             }
         });
     }

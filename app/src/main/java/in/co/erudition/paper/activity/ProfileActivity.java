@@ -194,7 +194,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Log.d("Cropping failed", String.valueOf(result.getError()));
-                Toast.makeText(this, "Cropping failed", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Cropping failed", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -231,7 +231,7 @@ public class ProfileActivity extends AppCompatActivity {
                 // required permissions granted, start crop image activity
                 startCropImageActivity(mCropImageUri);
             } else {
-                Toast.makeText(this, "Cancelling, required permissions are not granted", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Cancelling, required permissions are not granted", Toast.LENGTH_LONG).show();
             }
         }
     }

@@ -10,7 +10,7 @@ import in.co.erudition.paper.data.remote.RetrofitClient;
 @Keep
 public class ApiUtils {
     //TODO: encrypt this address
-    public static final String BASE_URL = "https://www.erudition.co.in/api/v1/";
+    private static final String BASE_URL = "https://www.erudition.co.in/";
 
     public static BackendService getBackendService() {
         return RetrofitClient.getClient(BASE_URL).create(BackendService.class);

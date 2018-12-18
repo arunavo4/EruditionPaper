@@ -2,6 +2,7 @@ package in.co.erudition.paper.data.remote;
 
 import java.util.List;
 
+import in.co.erudition.paper.data.model.BoardCollege;
 import in.co.erudition.paper.data.model.Chapter;
 import in.co.erudition.paper.data.model.JwtToken;
 import in.co.erudition.paper.data.model.Login;
@@ -32,50 +33,50 @@ public interface BackendService {
     */
 
     //jwt Token
-    @POST("oauth4")
+    @POST("api/v1/oauth4")
     @FormUrlEncoded
     Call<JwtToken> getToken(@Field("EId") String eid,
                             @Field("Password") String password);
 
     //Email, Google, Facebook Login
-    @POST("login")
+    @POST("api/v1/login")
     @FormUrlEncoded
     Call<Login> signIn_idp(@Field("Social") String social,
                            @Field("Email") String email,
                            @Field("Password") String password);
 
     //SignUp via Email
-    @POST("register")
+    @POST("api/v1/register")
     @FormUrlEncoded
     Call<Login> signUp_email(@Field("FirstName") String first_name,
                              @Field("LastName") String last_name,
                              @Field("Email") String email);
 
     //Confirm Email/ Password Update
-    @POST("password")
+    @POST("api/v1/password")
     @FormUrlEncoded
     Call<Login> password_update_email(@Field("Email") String email,
                                       @Field("SecretCode") String code,
                                       @Field("Password") String password);
 
     //Forgot Password
-    @POST("forgotpassword")
+    @POST("api/v1/forgotpassword")
     @FormUrlEncoded
     Call<Login> forgot_password(@Field("Email") String email);
 
 
     //Get User Detail By EId or Email
-    @POST("person")
+    @POST("api/v1/person")
     @FormUrlEncoded
     Call<Person> getPersonDetailsEid(@Field("EId") String eid);
 
-    @POST("person")
+    @POST("api/v1/person")
     @FormUrlEncoded
     Call<Person> getPersonDetailsEmail(@Field("Email") String email);
 
 
     //Update User Detail By EId
-    @POST("person/{EId}")
+    @POST("api/v1/person/{EId}")
     @FormUrlEncoded
     Call<PresetResponseCode> updatePerson(@Path("EId") String eid,
                                           @Field("FirstName") String first_name,
@@ -84,13 +85,13 @@ public interface BackendService {
                                           @Field("Gender") String gender,
                                           @Field("DOB")String dob);
 
-    @POST("person/{EId}")
+    @POST("api/v1/person/{EId}")
     @FormUrlEncoded
     Call<PresetResponseCode> updatePerson(@Path("EId") String eid,
                                           @Field("FirstName") String first_name,
                                           @Field("LastName") String last_name);
 
-    @POST("person/{EId}")
+    @POST("api/v1/person/{EId}")
     @FormUrlEncoded
     Call<PresetResponseCode> updatePerson(@Path("EId") String eid,
                                           @Field("Phone") String phone,
@@ -98,7 +99,7 @@ public interface BackendService {
                                           @Field("DOB") String dob);
 
     //Upload the Avatar
-    @POST("person/{EId}/profileimage")
+    @POST("api/v1/person/{EId}/profileimage")
     @Multipart
     Call<PresetResponseCode> uploadAvatar(@Path("EId") String eid,
                                           @Part MultipartBody.Part image);
@@ -109,32 +110,32 @@ public interface BackendService {
     Backend API Calls
      */
 
-    @POST("board")
+    @POST("api/v1/board")
     Call<List<University>> getUniversity();
 
-    @POST("board/course")
+    @POST("api/v1/board/course")
     @FormUrlEncoded
     Call<UniversityCourse> getCourses(@Field("BoardCode") String boardCode);
 
-    @POST("board/course/session")
+    @POST("api/v1/board/course/session")
     @FormUrlEncoded
     Call<UniversityCourse> getCourses(@Field("BoardCode") String boardCode,
                                       @Field("CourseCode") String courseCode);
 
-    @POST("board/course/session/subject")
+    @POST("api/v1/board/course/session/subject")
     @FormUrlEncoded
     Call<UniversityCourse> getCourses(@Field("BoardCode") String boardCode,
                                       @Field("CourseCode") String courseCode,
                                       @Field("SessionCode") String sessionCode);
 
-    @POST("board/course/session/subject/year")
+    @POST("api/v1/board/course/session/subject/year")
     @FormUrlEncoded
     Call<List<Year>> getYear(@Field("BoardCode") String boardCode,
                              @Field("CourseCode") String courseCode,
                              @Field("SessionCode") String sessionCode,
                              @Field("SubjectCode") String subjectCode);
 
-    @POST("board/course/session/subject/chapter")
+    @POST("api/v1/board/course/session/subject/chapter")
     @FormUrlEncoded
     Call<List<Chapter>> getChapter(@Field("BoardCode") String boardCode,
                                    @Field("CourseCode") String courseCode,
@@ -142,7 +143,7 @@ public interface BackendService {
                                    @Field("SubjectCode") String subjectCode);
 
 
-    @POST("paper")
+    @POST("api/v1/paper")
     @FormUrlEncoded
     Call<Paper> getPaper(@Field("PaperCode") String paperCode);
 
@@ -150,25 +151,25 @@ public interface BackendService {
     /*
         Notify me Call
      */
-    @POST("person/{EId}/notifyme")
+    @POST("api/v1/person/{EId}/notifyme")
     @FormUrlEncoded
     Call<PresetResponseCode> notifyMe(@Path("EId") String eid,
                                       @Field("BoardCode") String boardCode);
 
-    @POST("person/{EId}/notifyme")
+    @POST("api/v1/person/{EId}/notifyme")
     @FormUrlEncoded
     Call<PresetResponseCode> notifyMe(@Path("EId") String eid,
                                       @Field("BoardCode") String boardCode,
                                       @Field("CourseCode") String courseCode);
 
-    @POST("person/{EId}/notifyme")
+    @POST("api/v1/person/{EId}/notifyme")
     @FormUrlEncoded
     Call<PresetResponseCode> notifyMe(@Path("EId") String eid,
                                       @Field("BoardCode") String boardCode,
                                       @Field("CourseCode") String courseCode,
                                       @Field("SessionCode") String sessionCode);
 
-    @POST("person/{EId}/notifyme")
+    @POST("api/v1/person/{EId}/notifyme")
     @FormUrlEncoded
     Call<PresetResponseCode> notifyMe(@Path("EId") String eid,
                                       @Field("BoardCode") String boardCode,
@@ -180,41 +181,48 @@ public interface BackendService {
     /*
         Set Favourite or Semester Carousel
      */
-    @POST("person/{EId}/favorite")
+    @POST("alpha/api/v1/person/{EId}/favorite")
     @FormUrlEncoded
     Call<PresetResponseCode> setFavourite(@Path("EId") String eid,
                                           @Field("BoardCode") String boardCode);
 
-    @POST("person/{EId}/favorite")
+    @POST("alpha/api/v1/person/{EId}/favorite")
     @FormUrlEncoded
     Call<PresetResponseCode> setFavourite(@Path("EId") String eid,
                                           @Field("BoardCode") String boardCode,
                                           @Field("CourseCode") String courseCode);
 
-    @POST("person/{EId}/favorite")
+    @POST("alpha/api/v1/person/{EId}/favorite")
     @FormUrlEncoded
     Call<PresetResponseCode> setFavourite(@Path("EId") String eid,
                                           @Field("BoardCode") String boardCode,
                                           @Field("CourseCode") String courseCode,
                                           @Field("SessionCode") String sessionCode);
 
-    @POST("person/{EId}/favorite")
+    @POST("alpha/api/v1/person/{EId}/favorite")
     @FormUrlEncoded
     Call<PresetResponseCode> setFavourite(@Path("EId") String eid,
                                           @Field("BoardCode") String boardCode,
                                           @Field("CourseCode") String courseCode,
                                           @Field("SessionCode") String sessionCode,
-                                          @Field("SubjectCode") String subjectCode);
+                                          @Field("CollegeCode") String CollegeCode);
+
+    //College Call
+    @POST("alpha/api/v1/institute")
+    @FormUrlEncoded
+    Call<List<BoardCollege>> getCollege(@Field("BoardCode") String boardCode);
 
 
-    @POST("question/search")
+    @POST("api/v1/question/search")
     @FormUrlEncoded
     Call<List<SearchResult>> search(@Field("Search") String query);
 
-    @POST("feedback")
+    @POST("api/v1/feedback")
     @FormUrlEncoded
     Call<PresetResponseCode> submitFeedback(@Field("Subject") String subject,
                                             @Field("MsgBody") String msgBody);
+
+
 
 //    @GET("/database/university/{id}")
 //    Call<List<UniversityFull>> getCourses(@Path("id") String id);

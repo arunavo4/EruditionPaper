@@ -99,7 +99,7 @@ public class SingleAnswerActivity extends AppCompatActivity {
             getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
         }
 
-        toggleImmersive();
+//        toggleImmersive();
 
 
         /*
@@ -160,7 +160,6 @@ public class SingleAnswerActivity extends AppCompatActivity {
         ans_tv.getSettings().setBuiltInZoomControls(true);
         ans_tv.getSettings().setDisplayZoomControls(false);
 
-        LoadDataInWebView();
 
         marks_tv.setText(data.get(pos).getMarks());
         int no = pos + 1;
@@ -188,7 +187,7 @@ public class SingleAnswerActivity extends AppCompatActivity {
             }
         });
 
-
+        LoadDataInWebView();
 
     }
 
@@ -237,6 +236,18 @@ public class SingleAnswerActivity extends AppCompatActivity {
     }
 
     private void LoadDataInWebView(){
+        //Make the left right btn visible and invisible
+        if (pos==0 && left_btn.getVisibility()==View.VISIBLE){
+            left_btn.setVisibility(View.INVISIBLE);
+        }
+        else if (pos==1 && left_btn.getVisibility()==View.INVISIBLE){
+            left_btn.setVisibility(View.VISIBLE);
+        }
+        else if (pos==size-1 && right_btn.getVisibility()==View.VISIBLE){
+            right_btn.setVisibility(View.INVISIBLE);
+        }else if (pos==size-2 && right_btn.getVisibility()==View.INVISIBLE){
+            right_btn.setVisibility(View.VISIBLE);
+        }
 
         marks_tv.setText(data.get(pos).getMarks());
         int no = pos + 1;
@@ -294,6 +305,9 @@ public class SingleAnswerActivity extends AppCompatActivity {
         if (adView != null) {
             adView.resume();
         }
+
+        //Toggle immersive
+        toggleImmersive();
         super.onResume();
     }
 

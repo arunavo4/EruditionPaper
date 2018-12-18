@@ -143,6 +143,7 @@
                     android:id="@+id/gender_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:popupTextAlignment="center"
                     app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
 
             </LinearLayout>

@@ -98,12 +98,7 @@ public class WebviewActivity extends AppCompatActivity {
         toolbar.setTitle(getIntent().getStringExtra("Webview.Title"));
         setSupportActionBar(toolbar);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
     }
 }

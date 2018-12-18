@@ -66,6 +66,7 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Vi
 
         try {
             Log.d("UnivesityImage", mUniversity.getLogo());
+            Log.d("UnivesityCode", mUniversity.getCode());
             Log.d("UnivesityName", mUniversity.getName());
         } catch (Exception e) {
             Log.e("Exception", e.toString());

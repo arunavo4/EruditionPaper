@@ -225,7 +225,7 @@ public class QuestionActivity extends AppCompatActivity {
         mAdapter = new GroupAdapter(this, new ArrayList<PaperGroup>(), getIntent(), new GroupAdapter.GroupItemListener() {
             @Override
             public void onGroupClick(String id) {
-                Toast.makeText(QuestionActivity.this, "Post id is" + id, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Post id is" + id, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -322,7 +322,7 @@ public class QuestionActivity extends AppCompatActivity {
                 if (call.isCanceled()) {
                     Log.d(TAG, "call is cancelled");
 
-                } else if (mNetworkUtils.isOnline(QuestionActivity.this)) {
+                } else if (mNetworkUtils.isOnline(getApplicationContext())) {
                     Log.d("MainActivity", "error loading from API");
                     str = "error loading from API";
                     showDialogError();
@@ -449,19 +449,16 @@ public class QuestionActivity extends AppCompatActivity {
 
         Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
 
-        final Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        final Dialog dialog = new Dialog(getApplicationContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
 
-        btn_retry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //retry and close dialogue
-                if (dialog.isShowing()) {
-                    dialog.cancel();
-                    onRetryLoadPaperGroups();
-                }
+        btn_retry.setOnClickListener(v -> {
+            //retry and close dialogue
+            if (dialog.isShowing()) {
+                dialog.cancel();
+                onRetryLoadPaperGroups();
             }
         });
     }
@@ -471,19 +468,16 @@ public class QuestionActivity extends AppCompatActivity {
 
         Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
 
-        final Dialog dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        final Dialog dialog = new Dialog(getApplicationContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
 
-        btn_go_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //retry and close dialogue
-                if (dialog.isShowing()) {
-                    dialog.cancel();
-                    onBackPressed();
-                }
+        btn_go_back.setOnClickListener(v -> {
+            //retry and close dialogue
+            if (dialog.isShowing()) {
+                dialog.cancel();
+                onBackPressed();
             }
         });
     }

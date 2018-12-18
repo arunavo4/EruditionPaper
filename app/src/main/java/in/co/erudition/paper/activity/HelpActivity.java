@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -186,7 +187,7 @@ public class HelpActivity extends AppCompatActivity {
                         Log.d("Message:",response.body().getMsg());
                     }
                     morphToSuccess(submit_btn);
-                    Toast.makeText(HelpActivity.this,getString(R.string.feedback_success),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),getString(R.string.feedback_success),Toast.LENGTH_LONG).show();
 
                 } else {
                     int statusCode = response.code();
@@ -205,7 +206,7 @@ public class HelpActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<PresetResponseCode> call, Throwable t) {
                 morphToFailure(submit_btn);
-                Toast.makeText(HelpActivity.this,getString(R.string.error_occurred),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),getString(R.string.error_occurred),Toast.LENGTH_LONG).show();
             }
         });
 
@@ -302,36 +303,40 @@ public class HelpActivity extends AppCompatActivity {
      */
     private void showDialogPlay() {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(HelpActivity.this);
-        View view = LayoutInflater.from(HelpActivity.this).inflate(R.layout.dialog_google_play, null);
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(HelpActivity.this);
+            View view = LayoutInflater.from(HelpActivity.this).inflate(R.layout.dialog_google_play, null);
 
-        Animation view_anim = AnimationUtils.loadAnimation(HelpActivity.this, R.anim.zoom_in);
-        view.startAnimation(view_anim);
+            Animation view_anim = AnimationUtils.loadAnimation(HelpActivity.this, R.anim.zoom_in);
+            view.startAnimation(view_anim);
 
-        Button btn_later = (Button) view.findViewById(R.id.btn_later);
-        Button btn_cont = (Button) view.findViewById(R.id.btn_cont);
+            Button btn_later = (Button) view.findViewById(R.id.btn_later);
+            Button btn_cont = (Button) view.findViewById(R.id.btn_cont);
 
-        builder.setView(view);
-        final AlertDialog alertDialog = builder.create();
-        alertDialog.setCanceledOnTouchOutside(true);
-        alertDialog.show();
+            builder.setView(view);
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.setCanceledOnTouchOutside(true);
+            alertDialog.show();
 
-        btn_cont.setOnClickListener(v -> {
-            String appPackage = "in.co.erudition.paper";
-            String url = "market://details?id=" + appPackage;
-            try {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-            } catch (android.content.ActivityNotFoundException anfe) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appPackage)));
-            }
-        });
+            btn_cont.setOnClickListener(v -> {
+                String appPackage = "in.co.erudition.paper";
+                String url = "market://details?id=" + appPackage;
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appPackage)));
+                }
+            });
 
-        btn_later.setOnClickListener(v -> {
-            //cancel the dialogue
-            if (alertDialog.isShowing()) {
-                alertDialog.cancel();
-            }
-        });
+            btn_later.setOnClickListener(v -> {
+                //cancel the dialogue
+                if (alertDialog.isShowing()) {
+                    alertDialog.cancel();
+                }
+            });
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 }

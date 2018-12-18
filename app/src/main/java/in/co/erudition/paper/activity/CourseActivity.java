@@ -181,29 +181,20 @@ public class CourseActivity extends AppCompatActivity {
         intent = new Intent(this, PaperActivity.class);
         intent.putExtra("FROM", "action_fab");
 
-        fab_recent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.putExtra("Title", "Recent Papers");
-                fab.close(true);
-                startActivity(intent);
-            }
+        fab_recent.setOnClickListener(v -> {
+            intent.putExtra("Title", "Recent Papers");
+            fab.close(true);
+            startActivity(intent);
         });
-        fab_offline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.putExtra("Title", "Offline");
-                fab.close(true);
-                startActivity(intent);
-            }
+        fab_offline.setOnClickListener(v -> {
+            intent.putExtra("Title", "Offline");
+            fab.close(true);
+            startActivity(intent);
         });
-        fab_bookmark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.putExtra("Title", "Bookmarks");
-                fab.close(true);
-                startActivity(intent);
-            }
+        fab_bookmark.setOnClickListener(v -> {
+            intent.putExtra("Title", "Bookmarks");
+            fab.close(true);
+            startActivity(intent);
         });
 
         setUpCustomFabMenuAnimation();
@@ -352,7 +343,7 @@ public class CourseActivity extends AppCompatActivity {
                 if (call.isCanceled()) {
                     Log.d("CourseActivity", "call is cancelled");
 
-                } else if (mNetworkUtils.isOnline(CourseActivity.this)) {
+                } else if (mNetworkUtils.isOnline(getApplicationContext())) {
                     Log.d("MainActivity", "error loading from API");
                     showDialogError();
                 } else {
@@ -397,7 +388,7 @@ public class CourseActivity extends AppCompatActivity {
                     Log.d("CourseActivity", "API success");
 
                     //Toast
-                    Toast.makeText(CourseActivity.this,getString(R.string.notify_msg),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),getString(R.string.notify_msg),Toast.LENGTH_LONG).show();
                 } else {
                     int statusCode = response.code();
                     if (statusCode == 401) {
@@ -416,7 +407,7 @@ public class CourseActivity extends AppCompatActivity {
                 if (call.isCanceled()) {
                     Log.d("CourseActivity", "call is cancelled");
 
-                } else if (mNetworkUtils.isOnline(CourseActivity.this)) {
+                } else if (mNetworkUtils.isOnline(getApplicationContext())) {
                     Log.d("MainActivity", "error loading from API");
                     showDialogError();
                 } else {
@@ -490,19 +481,16 @@ public class CourseActivity extends AppCompatActivity {
 
         Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
 
-        dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog = new Dialog(getApplicationContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
 
-        btn_retry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //retry and close dialogue
-                if (dialog.isShowing()) {
-                    dialog.cancel();
-                    onRetryLoadCourses();
-                }
+        btn_retry.setOnClickListener(v -> {
+            //retry and close dialogue
+            if (dialog.isShowing()) {
+                dialog.cancel();
+                onRetryLoadCourses();
             }
         });
     }
@@ -513,29 +501,23 @@ public class CourseActivity extends AppCompatActivity {
         Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
         ImageView btn_back = (ImageView) view.findViewById(R.id.btn_back);
 
-        dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog = new Dialog(getApplicationContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dialog.isShowing()) {
-                    dialog.cancel();
-                    onBackPressed();
-                }
+        btn_back.setOnClickListener(v -> {
+            if (dialog.isShowing()) {
+                dialog.cancel();
+                onBackPressed();
             }
         });
 
-        btn_go_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //retry and close dialogue
-                if (dialog.isShowing()) {
-                    dialog.cancel();
-                    onBackPressed();
-                }
+        btn_go_back.setOnClickListener(v -> {
+            //retry and close dialogue
+            if (dialog.isShowing()) {
+                dialog.cancel();
+                onBackPressed();
             }
         });
     }
@@ -546,28 +528,22 @@ public class CourseActivity extends AppCompatActivity {
         Button btn_notify = (Button) view.findViewById(R.id.btn_notify);
         ImageView btn_go_back = (ImageView) view.findViewById(R.id.btn_go_back);
 
-        dialog = new Dialog(this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog = new Dialog(getApplicationContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
 
-        btn_go_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (dialog.isShowing()) {
-                    dialog.cancel();
-                    onBackPressed();
-                }
+        btn_go_back.setOnClickListener(v -> {
+            if (dialog.isShowing()) {
+                dialog.cancel();
+                onBackPressed();
             }
         });
 
-        btn_notify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //call notify
-                notifyMeCall();
-                onBackPressed();
-            }
+        btn_notify.setOnClickListener(v -> {
+            //call notify
+            notifyMeCall();
+            onBackPressed();
         });
     }
 

@@ -20,7 +20,7 @@ import retrofit2.Response;
 public class LoginUtils {
     private BackendService mService;
     private NetworkUtils mNetworkUtils = new NetworkUtils();
-    public static String eid = "Android";
+    public static String eid = "0";
     private String message = "";
 
     public LoginUtils() {
