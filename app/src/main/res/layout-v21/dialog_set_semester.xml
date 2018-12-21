@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/bg_white"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:background="@color/colorMaterialBlack_no_alpha"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="@dimen/icon_24dp"
+            android:paddingEnd="@dimen/icon_24dp"
+            android:text="@string/dialog_setSemester_title"
+            android:textAppearance="@style/ChooseTextViewPaper"
+            android:drawableStart="@drawable/ic_edit_white_24dp"
+            android:drawablePadding="@dimen/icon_24dp"/>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/icon_24dp"
+            app:srcCompat="@drawable/ic_info_white_24dp"
+            android:visibility="invisible"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/linear_layout_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/offer_des_tv_margin"
+            style="@style/ProfileCardTextViewBold"
+            android:text="@string/academic_details"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacer_1dp"
+            android:layout_marginStart="@dimen/spacer_12dp"
+            android:layout_marginEnd="@dimen/spacer_12dp"
+            android:background="@color/colorBlack34alpha"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacer_4dp"
+            android:paddingStart="@dimen/spacer_16dp"
+            android:paddingEnd="@dimen/spacer_16dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacer_16dp"
+                    app:srcCompat="@drawable/ic_outline_university_24px"/>
+
+                <org.angmarch.views.NiceSpinner
+                    android:id="@+id/uni_drop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:popupTextAlignment="center"
+                    app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacer_1dp"
+                android:layout_marginStart="@dimen/spacer_40dp"
+                android:layout_marginEnd="@dimen/spacer_4dp"
+                android:layout_marginTop="@dimen/spacer_4dp"
+                android:layout_marginBottom="@dimen/spacer_4dp"
+                android:background="@color/colorBlack34alpha"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacer_16dp"
+                    app:srcCompat="@drawable/ic_outline_college_24px"/>
+
+                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                    android:id="@+id/coll_drop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorTransparent"
+                    android:layout_marginStart="@dimen/spacer_20dp"
+                    android:text="@string/college"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacer_1dp"
+                android:layout_marginStart="@dimen/spacer_40dp"
+                android:layout_marginEnd="@dimen/spacer_4dp"
+                android:layout_marginTop="@dimen/spacer_4dp"
+                android:layout_marginBottom="@dimen/spacer_4dp"
+                android:background="@color/colorBlack34alpha"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacer_16dp"
+                    app:srcCompat="@drawable/ic_dept_24px"/>
+
+                <org.angmarch.views.NiceSpinner
+                    android:id="@+id/dept_drop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:popupTextAlignment="center"
+                    app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacer_1dp"
+                android:layout_marginStart="@dimen/spacer_40dp"
+                android:layout_marginEnd="@dimen/spacer_4dp"
+                android:layout_marginTop="@dimen/spacer_4dp"
+                android:layout_marginBottom="@dimen/spacer_4dp"
+                android:background="@color/colorBlack34alpha"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacer_16dp"
+                    app:srcCompat="@drawable/ic_outline_semester_24px"/>
+
+                <org.angmarch.views.NiceSpinner
+                    android:id="@+id/sem_drop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:popupTextAlignment="center"
+                    app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacer_1dp"
+                android:layout_marginStart="@dimen/spacer_40dp"
+                android:layout_marginEnd="@dimen/spacer_4dp"
+                android:layout_marginTop="@dimen/spacer_4dp"
+                android:layout_marginBottom="@dimen/spacer_4dp"
+                android:background="@color/colorBlack34alpha"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            style="@style/SaveFlatButton"
+            android:layout_marginEnd="@dimen/spacer_8dp"
+            android:layout_marginBottom="@dimen/spacer_8dp"
+            android:text="@string/fui_button_text_save"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/spacer_8dp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/icon_24dp"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/ic_info_black_24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingEnd="@dimen/icon_24dp"
+            android:text="@string/dialog_setSemester_info"
+            android:textAlignment="center"/>
+
+    </LinearLayout>
+
+</LinearLayout>

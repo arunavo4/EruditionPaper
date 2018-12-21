@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/semester_carousel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:scrollbars="none"
+        android:padding="@dimen/item_offset"/>
+
+    <!--<com.rd.PageIndicatorView-->
+        <!--android:id="@+id/pageIndicatorView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:layout_anchor="@id/semester_carousel"-->
+        <!--app:layout_anchorGravity="center_horizontal|top"-->
+        <!--app:piv_animationType="worm"-->
+        <!--app:piv_dynamicCount="true"-->
+        <!--app:piv_interactiveAnimation="true"-->
+        <!--app:piv_viewPager="@id/intro_pager"-->
+        <!--app:piv_padding="12dp"-->
+        <!--app:piv_radius="6dp"-->
+        <!--app:piv_strokeWidth="2dp"-->
+        <!--app:piv_selectedColor="@color/fui_colorMaterialBlack"-->
+        <!--app:piv_unselectedColor="@color/fui_colorBlack34alpha"/>-->
+
+</LinearLayout>

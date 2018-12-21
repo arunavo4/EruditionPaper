@@ -164,29 +164,20 @@ public class SelectionActivity extends AppCompatActivity {
         final Intent intent_fab = new Intent(this, PaperActivity.class);
         intent_fab.putExtra("FROM", "action_fab");
 
-        fab_recent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent_fab.putExtra("Title", "Recent Papers");
-                fab.close(true);
-                startActivity(intent_fab);
-            }
+        fab_recent.setOnClickListener(v -> {
+            intent_fab.putExtra("Title", "Recent Papers");
+            fab.close(true);
+            startActivity(intent_fab);
         });
-        fab_offline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent_fab.putExtra("Title", "Offline");
-                fab.close(true);
-                startActivity(intent_fab);
-            }
+        fab_offline.setOnClickListener(v -> {
+            intent_fab.putExtra("Title", "Offline");
+            fab.close(true);
+            startActivity(intent_fab);
         });
-        fab_bookmark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent_fab.putExtra("Title", "Bookmarks");
-                fab.close(true);
-                startActivity(intent_fab);
-            }
+        fab_bookmark.setOnClickListener(v -> {
+            intent_fab.putExtra("Title", "Bookmarks");
+            fab.close(true);
+            startActivity(intent_fab);
         });
 
         setUpCustomFabMenuAnimation();
@@ -204,28 +195,17 @@ public class SelectionActivity extends AppCompatActivity {
         syllabusIntent.putExtras(getIntent());
         intent.putExtras(getIntent());
 
-        chapBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.putExtra("Selection Activity: Selection", 0);
-                startActivity(intent);
-            }
+        chapBtn.setOnClickListener(v -> {
+            intent.putExtra("Selection Activity: Selection", 0);
+            startActivity(intent);
         });
 
-        yearBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.putExtra("Selection Activity: Selection", 1);
-                startActivity(intent);
-            }
+        yearBtn.setOnClickListener(v -> {
+            intent.putExtra("Selection Activity: Selection", 1);
+            startActivity(intent);
         });
 
-        syllabusBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(syllabusIntent);
-            }
-        });
+        syllabusBtn.setOnClickListener(v -> startActivity(syllabusIntent));
 
     }
 
@@ -279,7 +259,7 @@ public class SelectionActivity extends AppCompatActivity {
         Button btn_notify = (Button) view.findViewById(R.id.btn_notify);
         ImageView btn_go_back = (ImageView) view.findViewById(R.id.btn_go_back);
 
-        dialog = new Dialog(getApplicationContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog = new Dialog(SelectionActivity.this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();

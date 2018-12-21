@@ -72,6 +72,7 @@ public class CourseActivity extends AppCompatActivity {
     private AdView adView;
     private Dialog dialog;
     private boolean insetsApplied = false;
+    private int state_selector;
 
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private TextView title;
@@ -161,7 +162,7 @@ public class CourseActivity extends AppCompatActivity {
         }
 
         //Check if its in not active state
-        int state_selector = 0;
+        state_selector = 0;
         String state = getIntent().getStringExtra("UniversityActivity.EXTRA_State");
         if (state!=null) {
             if (state.contentEquals("Not Active")) {
@@ -247,13 +248,13 @@ public class CourseActivity extends AppCompatActivity {
         mAdapter = new CourseAdapter(this, new UniversityCourse(), params, mChooseTV, title, collapsingToolbarLayout, new CourseAdapter.CourseItemListener() {
             @Override
             public void onUniversityClick(String id) {
-                mProgressBar.setVisibility(View.VISIBLE);
-                mCourseList.setVisibility(View.INVISIBLE);
                 if (mAdapter.getState()!=1){
+                    mProgressBar.setVisibility(View.VISIBLE);
+                    mCourseList.setVisibility(View.INVISIBLE);
                     loadCourses();
                 }else {
                     showDialogSoon();
-                    loadCourses();
+//                    loadCourses();
                 }
                 if (fab.isMenuButtonHidden()) {
                     fab.showMenuButton(true);
@@ -267,8 +268,8 @@ public class CourseActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
         //mRecyclerView.setHasFixedSize(true);
-        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset2);
-        mRecyclerView.addItemDecoration(itemDecoration);
+//        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset2);
+//        mRecyclerView.addItemDecoration(itemDecoration);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         Log.d("CourseActivity", "done adapter");
 
@@ -287,7 +288,7 @@ public class CourseActivity extends AppCompatActivity {
         Log.d("CourseActivity", "loading Courses");
         if (mAdapter.getState()==1 || state_selector==1){
             showDialogSoon();
-            loadCourses();
+//            loadCourses();
         }else {
             loadCourses();
         }
@@ -420,10 +421,12 @@ public class CourseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (mAdapter.getSelector() == 0) {
-            super.onBackPressed();
-        } else {
-            mAdapter.setSelectorOnBackPressed();
+        if (state_selector==0) {
+            if (mAdapter.getSelector() == 0) {
+                super.onBackPressed();
+            } else {
+                mAdapter.setSelectorOnBackPressed();
+            }
         }
         if (!call.isExecuted()) {
             call.cancel();
@@ -481,7 +484,7 @@ public class CourseActivity extends AppCompatActivity {
 
         Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
 
-        dialog = new Dialog(getApplicationContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog = new Dialog(CourseActivity.this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -501,7 +504,7 @@ public class CourseActivity extends AppCompatActivity {
         Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
         ImageView btn_back = (ImageView) view.findViewById(R.id.btn_back);
 
-        dialog = new Dialog(getApplicationContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog = new Dialog(CourseActivity.this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -528,7 +531,7 @@ public class CourseActivity extends AppCompatActivity {
         Button btn_notify = (Button) view.findViewById(R.id.btn_notify);
         ImageView btn_go_back = (ImageView) view.findViewById(R.id.btn_go_back);
 
-        dialog = new Dialog(getApplicationContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog = new Dialog(CourseActivity.this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -536,14 +539,17 @@ public class CourseActivity extends AppCompatActivity {
         btn_go_back.setOnClickListener(v -> {
             if (dialog.isShowing()) {
                 dialog.cancel();
-                onBackPressed();
+//                onBackPressed();
             }
         });
 
         btn_notify.setOnClickListener(v -> {
             //call notify
             notifyMeCall();
-            onBackPressed();
+            if (dialog.isShowing()) {
+                dialog.cancel();
+            }
+//            onBackPressed();
         });
     }
 

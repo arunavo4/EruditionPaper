@@ -28,11 +28,6 @@ public class ItemOffsetDecoration extends RecyclerView.ItemDecoration {
                                RecyclerView.State state) {
             super.getItemOffsets(outRect, view, parent, state);
 
-            if(mItemOffset<=10){
-                outRect.set(mItemOffset, mItemOffset, mItemOffset, mItemOffset);
-            }
-            else{
-                outRect.set(mItemOffset, mItemOffset, mItemOffset, mItemOffset);
-            }
+            outRect.set(mItemOffset, mItemOffset, mItemOffset, mItemOffset);
     }
 }

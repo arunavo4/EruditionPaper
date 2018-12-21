@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <FrameLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:padding="@dimen/spacer_6dp">
+        android:paddingStart="@dimen/spacer_6dp"
+        android:paddingEnd="@dimen/spacer_6dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="@dimen/spacer_8dp">
 
-        <include layout="@layout/course_card"/>
+        <include layout="@layout/card_semester"/>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/coming_soon_overlay"
@@ -21,23 +24,10 @@
             android:layout_gravity="top|start"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
-            android:elevation="@dimen/spacer_4dp"
             app:srcCompat="@drawable/ic_coming_soon_left"
             android:visibility="invisible"/>
 
     </FrameLayout>
 
-    <View
-        android:id="@+id/nav_spacer_2"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/nav_bar_height"
-        android:visibility="gone"/>
-
-    <View
-        android:id="@+id/nav_spacer_ad"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/ad_view_height"
-        android:layout_gravity="bottom"
-        android:visibility="gone"/>
 
 </LinearLayout>

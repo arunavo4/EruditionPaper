@@ -104,7 +104,10 @@ public class PreferenceUtils {
 
     //Getter and setter for university
     public static HashMap<String,String> getUniversitiesList(){
-        return mUniList;
+        if (mUniList!=null)
+            return mUniList;
+        else
+            return new LinkedHashMap<String, String>();
     }
 
     public static void setUniversitiesList(List<University> universities){

@@ -133,13 +133,17 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Vi
 
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION) {
-                Intent intent = new Intent(mContext, CourseActivity.class);
-                intent.putExtra("UniversityActivity.EXTRA_PHOTO_URL", mUniversity.getLogo());
-                intent.putExtra("UniversityActivity.EXTRA_University_NAME", mUniversity.getName());
-                intent.putExtra("UniversityActivity.EXTRA_University_FULL_NAME", mUniversity.getFullName());
-                intent.putExtra("UniversityActivity.EXTRA_BoardCode", mUniversity.getCode());
-                intent.putExtra("UniversityActivity.EXTRA_State",mUniversity.getState());
-                mContext.startActivity(intent);
+                if (mUniversity.getState().contentEquals("Active")) {
+                    Intent intent = new Intent(mContext, CourseActivity.class);
+                    intent.putExtra("UniversityActivity.EXTRA_PHOTO_URL", mUniversity.getLogo());
+                    intent.putExtra("UniversityActivity.EXTRA_University_NAME", mUniversity.getName());
+                    intent.putExtra("UniversityActivity.EXTRA_University_FULL_NAME", mUniversity.getFullName());
+                    intent.putExtra("UniversityActivity.EXTRA_BoardCode", mUniversity.getCode());
+                    intent.putExtra("UniversityActivity.EXTRA_State",mUniversity.getState());
+                    mContext.startActivity(intent);
+                }else {
+                    mItemListener.onUniversityClick(mUniversity.getCode());
+                }
             }
 
             //Toast.makeText(mContext, "Clicked", Toast.LENGTH_SHORT).show();
@@ -156,7 +160,7 @@ public class UniversityAdapter extends RecyclerView.Adapter<UniversityAdapter.Vi
     }
 
     public interface UniversityItemListener {
-        void onUniversityClick(String id);
+        void onUniversityClick(String Code);
     }
 
 }

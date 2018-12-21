@@ -118,7 +118,14 @@
         <item name="colorAccent">@color/colorPrimaryLight</item>
     </style>
 
+    <style name="SaveFlatButton" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimaryLight</item>
+    </style>
+
     <style name="FlatButton_purple" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textColor">@color/purple</item>
         <item name="colorControlHighlight">@color/purple</item>
         <item name="colorAccent">@color/colorPrimaryLight</item>
     </style>

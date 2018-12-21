@@ -264,44 +264,56 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             if (position != RecyclerView.NO_POSITION) {
                 switch (selector) {
                     case 0:
-                        setParams(boardCourses.get(position).getCode());
-                        selector += 1;
                         state = boardCourses.get(position).getState();
                         if (state!=null) {
                             if (state.contentEquals("Not Active")) {
                                 state_selector = 1;
+                            }else{
+                                setParams(boardCourses.get(position).getCode());
+                                selector += 1;
+                                NameStr[selector] = boardCourses.get(position).getName();
+                                NameStrFull[selector] = boardCourses.get(position).getFullName();
                             }
                         }
-                        NameStr[selector] = boardCourses.get(position).getName();
-                        NameStrFull[selector] = boardCourses.get(position).getFullName();
                         mItemListener.onUniversityClick("0");
                         break;
 
                     case 1:
-                        setParams(boardSessions.get(position).getCode());
-                        selector += 1;
+
                         state = boardSessions.get(position).getState();
                         if (state!=null) {
                             if (state.contentEquals("Not Active")) {
                                 state_selector = 1;
+                            }else{
+                                setParams(boardSessions.get(position).getCode());
+                                selector += 1;
+                                NameStr[selector] = boardSessions.get(position).getFullName();
+                                NameStrFull[selector] = boardSessions.get(position).getFullName();
                             }
                         }
-                        NameStr[selector] = boardSessions.get(position).getFullName();
-                        NameStrFull[selector] = boardSessions.get(position).getFullName();
                         mItemListener.onUniversityClick("0");
                         break;
 
                     case 2:
-                        intent.putExtra("CourseActivity.EXTRA_Subject_NAME", boardSubjects.get(position).getName());
-                        intent.putExtra("CourseActivity.EXTRA_Subject_FULL_NAME", boardSubjects.get(position).getFullName());
-                        setParams(boardSubjects.get(position).getCode());
-                        intent.putExtra("CourseActivity.EXTRA_Subject_State", boardSubjects.get(position).getState());
-                        intent.putExtra("CourseActivity.EXTRA_Subject_Syllabus",boardSubjects.get(position).getSyllabus());
-                        intent.putExtra("CourseActivity.EXTRA_Subject_YearView",boardSubjects.get(position).getYearView());
-                        intent.putExtra("CourseActivity.EXTRA_Subject_ChapView",boardSubjects.get(position).getChapterView());
-                        intent.putExtra("CourseActivity.EXTRA_params", paramsStore);
-                        intent.putExtra("FROM", "Course");
-                        mContext.startActivity(intent);
+                        state =  boardSubjects.get(position).getState();
+                        if (state!=null) {
+                            if (state.contentEquals("Not Active")) {
+                                state_selector = 1;
+                                mItemListener.onUniversityClick("0");
+                            } else {
+                                intent.putExtra("CourseActivity.EXTRA_Subject_NAME", boardSubjects.get(position).getName());
+                                intent.putExtra("CourseActivity.EXTRA_Subject_FULL_NAME", boardSubjects.get(position).getFullName());
+                                setParams(boardSubjects.get(position).getCode());
+                                intent.putExtra("CourseActivity.EXTRA_Subject_State", boardSubjects.get(position).getState());
+                                intent.putExtra("CourseActivity.EXTRA_Subject_Syllabus",boardSubjects.get(position).getSyllabus());
+                                intent.putExtra("CourseActivity.EXTRA_Subject_YearView",boardSubjects.get(position).getYearView());
+                                intent.putExtra("CourseActivity.EXTRA_Subject_ChapView",boardSubjects.get(position).getChapterView());
+                                intent.putExtra("CourseActivity.EXTRA_params", paramsStore);
+                                intent.putExtra("FROM", "Course");
+                                mContext.startActivity(intent);
+                            }
+                        }
+
                 }
                 setTextView(selector);
             }
@@ -325,6 +337,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     }
 
     public void setSelectorOnBackPressed() {
+        Log.d("CourseAdapter","setSelectorOnBackPressed()");
         selector -= 1;
         setTextView(selector);
         notifyDataSetChanged();

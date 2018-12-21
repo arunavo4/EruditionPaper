@@ -27,6 +27,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,6 +66,7 @@ import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import iammert.com.view.scalinglib.ProgressOutlineProvider;
@@ -75,11 +77,13 @@ import in.co.erudition.avatar.AvatarPlaceholder;
 import in.co.erudition.avatar.AvatarView;
 import in.co.erudition.paper.Erudition;
 import in.co.erudition.paper.R;
+import in.co.erudition.paper.adapter.SemesterAdapter;
 import in.co.erudition.paper.adapter.UniversityAdapter;
 import in.co.erudition.paper.carousel.CarouselPicker;
 import in.co.erudition.paper.data.model.BoardCollege;
 import in.co.erudition.paper.data.model.BoardCourse;
 import in.co.erudition.paper.data.model.BoardSession;
+import in.co.erudition.paper.data.model.BoardSubject;
 import in.co.erudition.paper.data.model.PresetResponseCode;
 import in.co.erudition.paper.data.model.University;
 import in.co.erudition.paper.data.model.UniversityCourse;
@@ -111,6 +115,7 @@ public class MainActivity extends AppCompatActivity
     private Call<UniversityCourse> CourseCall;
     private Call<PresetResponseCode> favCall;
     private Call<List<BoardCollege>> CollCall;
+    private Dialog dialog;
 
     private InterstitialAd mInterstitialAd;
     private AdCountDownTimer timer;
@@ -216,11 +221,11 @@ public class MainActivity extends AppCompatActivity
             listCodePair.add(new HashMap<String, String>());
         }
 
-        CardView set_sem_btn = (CardView) findViewById(R.id.set_sem_btn);
+        final CardView set_sem_btn = (CardView) findViewById(R.id.set_sem_btn);
 
         set_sem_btn.setOnClickListener(v -> {
             //Open the Set sem dialog
-            showDialogAcademicDetails();
+            showDialogAcademicDetails(set_sem_btn);
             //now setup the dialog
 
         });
@@ -450,7 +455,7 @@ public class MainActivity extends AppCompatActivity
 
         mService = ApiUtils.getBackendService();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_universities);
-        mAdapter = new UniversityAdapter(this, new ArrayList<University>(), id -> Toast.makeText(MainActivity.this, "Post id is" + id, Toast.LENGTH_SHORT).show());
+        mAdapter = new UniversityAdapter(this, new ArrayList<University>(), Code -> showDialogSoon(Code));
 
         int span = getResources().getInteger(R.integer.grid_span_count);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, span);
@@ -555,7 +560,7 @@ public class MainActivity extends AppCompatActivity
             public void onResponse(Call<List<University>> call, Response<List<University>> response) {
                 Log.d("Call", call.request().toString());
                 if (response.isSuccessful()) {
-                    Log.d("MainActivity", "issuccess");
+                    Log.d("MainActivity", "isSuccess");
 
                     mProgressBar.setVisibility(View.INVISIBLE);
 
@@ -618,6 +623,11 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.END);
         } else {
             super.onBackPressed();
+        }
+        if (dialog!=null){
+            if (dialog.isShowing()){
+                dialog.cancel();
+            }
         }
     }
 
@@ -705,11 +715,11 @@ public class MainActivity extends AppCompatActivity
      * Method to inflate the dialog and show it.
      */
 
-    private void showDialogAcademicDetails() {
+    private void showDialogAcademicDetails(CardView SemBtn) {
 
         try {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            View view = getLayoutInflater().inflate(R.layout.card_academic_details_edit_new, null);
+            View view = getLayoutInflater().inflate(R.layout.dialog_set_semester, null);
 
             Animation view_anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
             view.startAnimation(view_anim);
@@ -718,6 +728,8 @@ public class MainActivity extends AppCompatActivity
             AutoCompleteTextView collSpinner = (AutoCompleteTextView) view.findViewById(R.id.coll_drop);
             NiceSpinner deptSpinner = (NiceSpinner) view.findViewById(R.id.dept_drop);
             NiceSpinner semSpinner = (NiceSpinner) view.findViewById(R.id.sem_drop);
+
+            Button btn_save = (Button) view.findViewById(R.id.btn_save);
 
             HashMap<String,String> unisMap = PreferenceUtils.getUniversitiesList();
             Log.d("HashMAp",unisMap.toString());
@@ -827,6 +839,72 @@ public class MainActivity extends AppCompatActivity
             alertDialog.setCanceledOnTouchOutside(true);
             alertDialog.show();
 
+            btn_save.setOnClickListener(v -> {
+                // MAKE THE FAV API CALL
+                params = PreferenceUtils.getAcademicDetails(params);
+                updateFavourite();
+                if (alertDialog.isShowing()){
+                    alertDialog.cancel();
+                }
+                /*
+                    Make the button invisible and then set the recycler view
+                 */
+                LinearLayout carousel = (LinearLayout) findViewById(R.id.carousel_layout);
+                PageIndicatorView pageIndicatorView = (PageIndicatorView) findViewById(R.id.pageIndicatorView);
+                if (SemBtn.getVisibility()==View.VISIBLE){
+                    SemBtn.setVisibility(View.GONE);
+                    carousel.setVisibility(View.VISIBLE);
+
+                    RecyclerView semester_carousel = (RecyclerView) findViewById(R.id.semester_carousel);
+                    SemesterAdapter semesterAdapter = new SemesterAdapter(MainActivity.this, new ArrayList<BoardSubject>());
+
+                    semester_carousel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+                    semester_carousel.setAdapter(semesterAdapter);
+
+                    semester_carousel.setHasFixedSize(true);
+                    semester_carousel.setItemAnimator(new DefaultItemAnimator());
+//                    ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset);
+//                    semester_carousel.addItemDecoration(itemDecoration);
+                    //Make the subject call
+                    loadSubjects(semesterAdapter);
+
+                    //Setup the page indicator
+//                    final int[] thismidPos = {0};
+//                    final int[] scrollX = {0};
+
+//                    semester_carousel.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//                        @Override
+//                        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                            super.onScrollStateChanged(recyclerView, newState);
+//                        }
+//
+//                        @Override
+//                        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                            super.onScrolled(recyclerView, dx, dy);
+//
+//                            scrollX[0] += dx;
+//                            int w = recyclerView.getChildAt(0).getWidth();
+//                            int midPos = (int) Math.floor((float)((scrollX[0] + w / 2f) / w));
+//                                if (thismidPos[0] != midPos) {
+//                                    if (thismidPos[0] < midPos){
+//                                        setCurrentItem((thismidPos[0] +1), true);
+//                                    }
+//                                    else {
+//                                        setCurrentItem((thismidPos[0] -1), true);
+//                                    }
+//                                }
+//                                thismidPos[0] = midPos;
+//                        }
+//
+//                        private void setCurrentItem(int i, boolean b) {
+//                            pageIndicatorView.setSelection(i);
+//                        }
+//                    });
+
+                }
+
+            });
+
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
         }
@@ -834,7 +912,7 @@ public class MainActivity extends AppCompatActivity
 
     private void updateFavourite() {
 
-        Log.d("ProfileEditActivity", "updateFavMethod");
+        Log.d("MainActivity", "updateFavMethod");
 
         favCall = mService.setFavourite(PreferenceUtils.getEid(), params[0], params[2], params[3], params[1]);
 
@@ -870,15 +948,15 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onFailure(Call<PresetResponseCode> call, Throwable t) {
-                Snackbar.make((CoordinatorLayout) findViewById(R.id.edit_activity_main_layout), getString(R.string.error_occurred), Snackbar.LENGTH_LONG)
-                        .show();
+                //Toast
+                Toast.makeText(getApplicationContext(),getString(R.string.error_occurred),Toast.LENGTH_LONG).show();
             }
         });
 
     }
 
     private void loadCollege(AutoCompleteTextView spinner){
-        Log.d("ProfileEditActivity", "loadCollegeMethod");
+        Log.d("MainActivity", "loadCollegeMethod");
 
         CollCall = mService.getCollege(params[0]);
 
@@ -911,8 +989,8 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onFailure(Call<List<BoardCollege>> call, Throwable t) {
-                Snackbar.make((CoordinatorLayout) findViewById(R.id.edit_activity_main_layout), getString(R.string.error_occurred), Snackbar.LENGTH_LONG)
-                        .show();
+                //Toast
+                Toast.makeText(getApplicationContext(),getString(R.string.error_occurred),Toast.LENGTH_LONG).show();
             }
         });
 
@@ -920,7 +998,7 @@ public class MainActivity extends AppCompatActivity
 
     private void loadCourses(NiceSpinner spinner) {
 
-        Log.d("ProfileEditActivity", "loadCoursesMethod");
+        Log.d("MainActivity", "loadCoursesMethod");
 
         switch (selector) {
             case 1:
@@ -989,21 +1067,110 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onFailure(Call<UniversityCourse> call, Throwable t) {
-                Snackbar.make((CoordinatorLayout) findViewById(R.id.edit_activity_main_layout), getString(R.string.error_occurred), Snackbar.LENGTH_LONG)
-                        .show();
+                //Toast
+                Toast.makeText(getApplicationContext(),getString(R.string.error_occurred),Toast.LENGTH_LONG).show();
             }
         });
 
     }
 
+    private void loadSubjects(SemesterAdapter adapter) {
 
+        Log.d("MainActivity", "loadSubjectMethod");
+
+        CourseCall = mService.getCourses(params[0], params[2], params[3]);
+
+        Log.d("Params", Arrays.toString(params));
+        CourseCall.enqueue(new Callback<UniversityCourse>() {
+
+            @Override
+            public void onResponse(Call<UniversityCourse> call, Response<UniversityCourse> response) {
+                Log.d("Call", call.request().toString());
+                if (response.isSuccessful()) {
+                    Log.d("loadSubjects", "isSuccess");
+
+                    Log.d("Response Body", response.body().toString());
+
+                    adapter.setBoardSubjects(response.body().getBoardCourse().get(0).getBoardSession().get(0).getBoardSubject());
+
+                    Log.d("MainActivity", "API success");
+                } else {
+                    int statusCode = response.code();
+                    if (statusCode == 401) {
+                        Log.d("StatusCode", "Unauthorized");
+                    }
+                    if (statusCode == 200) {
+                        Log.d("StatusCode", "OK");
+                    } else {
+                        Log.d("StatusCode", String.valueOf(statusCode));
+                    }
+                    // handle request errors depending on status code
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UniversityCourse> call, Throwable t) {
+                //Toast
+                Toast.makeText(getApplicationContext(),getString(R.string.error_occurred),Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+    private void notifyMeCall(String BoardCode){
+        Log.d("MainActivity", "notifyMeMethod");
+
+        Call<PresetResponseCode> notifyCall;
+        String eid = PreferenceUtils.getEid();
+
+        notifyCall = mService.notifyMe(eid,BoardCode);
+
+        Log.d("Call", notifyCall.request().toString());
+        notifyCall.enqueue(new Callback<PresetResponseCode>() {
+            @Override
+            public void onResponse(Call<PresetResponseCode> call, Response<PresetResponseCode> response) {
+                if (response.isSuccessful()) {
+                    Log.d("MainActivity", "isSuccess");
+                    Log.d("Response Body", response.body().toString());
+                    Log.d("MainActivity", "API success");
+
+                    //Toast
+                    Toast.makeText(getApplicationContext(),getString(R.string.notify_msg),Toast.LENGTH_LONG).show();
+                } else {
+                    int statusCode = response.code();
+                    if (statusCode == 401) {
+                        Log.d("StatusCode", "Unauthorized");
+                    }
+                    if (statusCode == 200) {
+                        Log.d("StatusCode", "OK");
+                    } else {
+                        Log.d("StatusCode", String.valueOf(statusCode));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PresetResponseCode> call, Throwable t) {
+                if (call.isCanceled()) {
+                    Log.d("MainActivity", "call is cancelled");
+
+                } else if (mNetworkUtils.isOnline(getApplicationContext())) {
+                    Log.d("MainActivity", "error loading from API");
+                    showDialogError();
+                } else {
+                    Log.d("MainActivity", "Check your network connection");
+                    showDialogNoNet();
+                }
+            }
+        });
+    }
 
     private void showDialogNoNet() {
         View view = getLayoutInflater().inflate(R.layout.dialog_no_internet, null);
 
         Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
 
-        final Dialog dialog = new Dialog(getApplicationContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog = new Dialog(MainActivity.this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -1022,7 +1189,7 @@ public class MainActivity extends AppCompatActivity
 
         Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
 
-        final Dialog dialog = new Dialog(getApplicationContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog = new Dialog(MainActivity.this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -1035,6 +1202,36 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
+
+
+    private void showDialogSoon(String BoardCode) {
+        View view = getLayoutInflater().inflate(R.layout.dialog_coming_soon, null);
+
+        Button btn_notify = (Button) view.findViewById(R.id.btn_notify);
+        ImageView btn_go_back = (ImageView) view.findViewById(R.id.btn_go_back);
+
+        dialog = new Dialog(MainActivity.this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setContentView(view);
+        dialog.show();
+
+        btn_go_back.setOnClickListener(v -> {
+            if (dialog.isShowing()) {
+                dialog.cancel();
+//                onBackPressed();
+            }
+        });
+
+        btn_notify.setOnClickListener(v -> {
+            //call notify
+            notifyMeCall(BoardCode);
+            if (dialog.isShowing()) {
+                dialog.cancel();
+            }
+//            onBackPressed();
+        });
+    }
+
 
     @Override
     protected void onDestroy() {

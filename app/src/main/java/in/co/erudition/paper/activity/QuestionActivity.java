@@ -50,6 +50,7 @@ import in.co.erudition.paper.R;
 import in.co.erudition.paper.adapter.GroupAdapter;
 import in.co.erudition.paper.data.model.Paper;
 import in.co.erudition.paper.data.model.PaperGroup;
+import in.co.erudition.paper.data.model.QuesAnsSearch;
 import in.co.erudition.paper.data.remote.BackendService;
 import in.co.erudition.paper.fragment.BottomFragment;
 import in.co.erudition.paper.network.NetworkUtils;
@@ -449,7 +450,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         Button btn_retry = (Button) view.findViewById(R.id.btn_retry);
 
-        final Dialog dialog = new Dialog(getApplicationContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        final Dialog dialog = new Dialog(QuestionActivity.this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();
@@ -468,7 +469,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         Button btn_go_back = (Button) view.findViewById(R.id.btn_go_back);
 
-        final Dialog dialog = new Dialog(getApplicationContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
+        final Dialog dialog = new Dialog(QuestionActivity.this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_TranslucentDecor);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
         dialog.show();

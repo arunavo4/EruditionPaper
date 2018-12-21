@@ -197,7 +197,7 @@ public class ProfileEditActivity extends AppCompatActivity {
             uniSpinner.attachDataSource(uniList);
             uniSpinner.setSelectedIndex(0);
 
-            String[] colleges = new String[] {"College A"};
+            String[] colleges = new String[] {"College"};
             LimitArrayAdapter<String> adapter = new LimitArrayAdapter<String>(this,
                     R.layout.drop_down_list_item, colleges,3);
             collSpinner.setDropDownVerticalOffset(getResources().getDimensionPixelOffset(R.dimen.spacer_2dp));

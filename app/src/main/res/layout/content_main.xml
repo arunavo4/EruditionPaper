@@ -32,6 +32,10 @@
 
             <include layout="@layout/card_set_semester"/>
 
+            <include layout="@layout/carousel_semester"
+                android:id="@+id/carousel_layout"
+                android:visibility="gone"/>
+
             <TextView
                 android:id="@+id/choose_tv"
                 android:layout_width="wrap_content"

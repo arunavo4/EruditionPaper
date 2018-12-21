@@ -14,7 +14,8 @@
     <string name="notify_me">NOTIFY ME</string>
     <string name="referal_sample">ER007R</string>
     <string name="referal_code">Referral Code</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="dialog_setSemester_title">Tell us more about you</string>
+    <string name="dialog_setSemester_info">The Sole Purpose of this form is to personalise your app experience with relevant contents Only</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -203,7 +204,7 @@
     <string name="Rs">\u20B9</string>
     <string name="rs">\u20A8</string>
 
-
+    <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_order">OrderActivity</string>
     <string name="title_activity_help">HelpActivity</string>
     <string name="title_activity_book">BookActivity</string>

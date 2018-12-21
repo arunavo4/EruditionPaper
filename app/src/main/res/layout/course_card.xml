@@ -10,6 +10,7 @@
     android:paddingEnd="@dimen/card_padding"
     android:paddingTop="@dimen/card_padding"
     android:paddingBottom="5dp"
+    android:clipToPadding="false"
     app:cardCornerRadius="5dp"
     app:cardUseCompatPadding="false"
     app:cardElevation="4dp">
