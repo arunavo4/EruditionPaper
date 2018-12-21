@@ -199,6 +199,16 @@
         android:layout_height="@dimen/app_bar_height"
         android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/info_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacer_32dp"
+            android:maxLength="55"
+            android:textAppearance="@style/InfoTextView"
+            android:singleLine="true"
+            android:ellipsize="marquee"/>
+
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -67,6 +67,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/ProfileCardTextViewBold"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
                         android:text="@string/university"/>
 
                     <TextView
@@ -113,6 +115,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/ProfileCardTextViewBold"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
                         android:text="@string/college"/>
 
                     <TextView
@@ -159,6 +163,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/ProfileCardTextViewBold"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
                         android:text="@string/department"/>
 
                     <TextView
@@ -205,6 +211,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/ProfileCardTextViewBold"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
                         android:text="@string/semester_p"/>
 
                     <TextView

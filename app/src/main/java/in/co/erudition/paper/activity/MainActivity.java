@@ -144,6 +144,7 @@ public class MainActivity extends AppCompatActivity
 
         mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
                 Context.MODE_PRIVATE);
+        mService = ApiUtils.getBackendService();
 
         mProgressBar = (NSidedProgressBar) findViewById(R.id.progressBar_universities);
         mUniversityList = (LinearLayout) findViewById(R.id.university_list);
@@ -223,11 +224,15 @@ public class MainActivity extends AppCompatActivity
 
         final CardView set_sem_btn = (CardView) findViewById(R.id.set_sem_btn);
 
+        if (PreferenceUtils.getFavStatus()){
+            //Setup the Carousel
+            params = PreferenceUtils.getAcademicDetails(params);
+            setUpCarousel(set_sem_btn);
+        }
         set_sem_btn.setOnClickListener(v -> {
             //Open the Set sem dialog
             showDialogAcademicDetails(set_sem_btn);
             //now setup the dialog
-
         });
 
         /**
@@ -453,7 +458,6 @@ public class MainActivity extends AppCompatActivity
         //Loading Starts
         mProgressBar.setVisibility(View.VISIBLE);
 
-        mService = ApiUtils.getBackendService();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_universities);
         mAdapter = new UniversityAdapter(this, new ArrayList<University>(), Code -> showDialogSoon(Code));
 
@@ -728,11 +732,14 @@ public class MainActivity extends AppCompatActivity
             AutoCompleteTextView collSpinner = (AutoCompleteTextView) view.findViewById(R.id.coll_drop);
             NiceSpinner deptSpinner = (NiceSpinner) view.findViewById(R.id.dept_drop);
             NiceSpinner semSpinner = (NiceSpinner) view.findViewById(R.id.sem_drop);
+            TextView info_tv = (TextView) view.findViewById(R.id.info_tv);
 
             Button btn_save = (Button) view.findViewById(R.id.btn_save);
 
+            //ReInit params
+            params = new String[]{"0", "0", "0", "0"};
+
             HashMap<String,String> unisMap = PreferenceUtils.getUniversitiesList();
-            Log.d("HashMAp",unisMap.toString());
             List<String> uniList = new ArrayList<String>(unisMap.keySet());
             List<String> dataset = new LinkedList<>(Arrays.asList("University", "College", "Department", "Semester"));
             uniList.add(0,dataset.get(0));
@@ -753,6 +760,8 @@ public class MainActivity extends AppCompatActivity
             semSpinner.attachDataSource(Arrays.asList("Semester"));
             semSpinner.setSelectedIndex(0);
 
+            info_tv.setText(getResources().getString(R.string.select_university));
+
             //Setup click listeners on the drop down arrow
             uniSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -763,9 +772,9 @@ public class MainActivity extends AppCompatActivity
                         //Now make the api call with that boardCode
                         selector = 1;
                         //send the spinner to update the data
-                        loadCourses(deptSpinner);
+                        loadCourses(deptSpinner,info_tv);
                         //Also make a getCollege() call
-                        loadCollege(collSpinner);
+                        loadCollege(collSpinner,info_tv);
                         //Save this selection in pref
                         PreferenceUtils.setBoard(unisMap.get(uniList.get(position)),uniList.get(position));
                     }
@@ -786,6 +795,7 @@ public class MainActivity extends AppCompatActivity
                     params[1] = listCodePair.get(0).get(list.get(0).get(position));
                     PreferenceUtils.setCollege(params[1],list.get(0).get(position));
 
+                    info_tv.setText(getResources().getString(R.string.select_dept));
                     Log.d("CollSpinner_params",Arrays.toString(params));
                 }
             });
@@ -800,7 +810,7 @@ public class MainActivity extends AppCompatActivity
                         //Now make the api call with that boardCode, CourseCode, DeptCode
                         selector = 2;
                         //send the spinner to update the data
-                        loadCourses(semSpinner);
+                        loadCourses(semSpinner,info_tv);
                         //Save to perf
                         PreferenceUtils.setCourse(params[2],list.get(1).get(position));
 
@@ -824,6 +834,7 @@ public class MainActivity extends AppCompatActivity
                         //Save to pref
                         PreferenceUtils.setSession(params[3],list.get(2).get(position));
 
+                        info_tv.setText(getResources().getString(R.string.save_txt));
                         Log.d("SemSpinner_params",Arrays.toString(params));
                     }
                 }
@@ -841,34 +852,68 @@ public class MainActivity extends AppCompatActivity
 
             btn_save.setOnClickListener(v -> {
                 // MAKE THE FAV API CALL
-                params = PreferenceUtils.getAcademicDetails(params);
-                updateFavourite();
-                if (alertDialog.isShowing()){
-                    alertDialog.cancel();
+                boolean state = true;
+                for (String param:params) {
+                    if (param.contentEquals("0")){
+                        state = false;
+                        break;
+                    }
                 }
-                /*
-                    Make the button invisible and then set the recycler view
-                 */
-                LinearLayout carousel = (LinearLayout) findViewById(R.id.carousel_layout);
-                PageIndicatorView pageIndicatorView = (PageIndicatorView) findViewById(R.id.pageIndicatorView);
-                if (SemBtn.getVisibility()==View.VISIBLE){
-                    SemBtn.setVisibility(View.GONE);
-                    carousel.setVisibility(View.VISIBLE);
+                if (state) {
+                    params = PreferenceUtils.getAcademicDetails(params);
+                    updateFavourite();
+                    if (alertDialog.isShowing()){
+                        alertDialog.cancel();
+                    }
 
-                    RecyclerView semester_carousel = (RecyclerView) findViewById(R.id.semester_carousel);
-                    SemesterAdapter semesterAdapter = new SemesterAdapter(MainActivity.this, new ArrayList<BoardSubject>());
+                    //Setup the Carousel
+                    setUpCarousel(SemBtn);
+                }else {
+                    info_tv.setText(getResources().getString(R.string.error_params));
+                }
 
-                    semester_carousel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
-                    semester_carousel.setAdapter(semesterAdapter);
+            });
 
-                    semester_carousel.setHasFixedSize(true);
-                    semester_carousel.setItemAnimator(new DefaultItemAnimator());
-//                    ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset);
-//                    semester_carousel.addItemDecoration(itemDecoration);
-                    //Make the subject call
-                    loadSubjects(semesterAdapter);
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
-                    //Setup the page indicator
+    private void setUpCarousel(CardView SemBtn) {
+
+        /*
+            Make the button invisible and then set the recycler view
+         */
+        LinearLayout carousel = (LinearLayout) findViewById(R.id.carousel_layout);
+        TextView semester_tv = (TextView) findViewById(R.id.semester_title);
+//                PageIndicatorView pageIndicatorView = (PageIndicatorView) findViewById(R.id.pageIndicatorView);
+        if (SemBtn.getVisibility()==View.VISIBLE) {
+            SemBtn.setVisibility(View.GONE);
+            carousel.setVisibility(View.VISIBLE);
+        }
+        RecyclerView semester_carousel = (RecyclerView) findViewById(R.id.semester_carousel);
+        //if its not active then show the coming soon
+        SemesterAdapter semesterAdapter = new SemesterAdapter(MainActivity.this, new ArrayList<BoardSubject>(), this::showDialogSoon);
+
+        semester_carousel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        semester_carousel.setAdapter(semesterAdapter);
+
+        semester_carousel.setHasFixedSize(true);
+        semester_carousel.setItemAnimator(new DefaultItemAnimator());
+//      ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset);
+//      semester_carousel.addItemDecoration(itemDecoration);
+        //Make the subject call
+        loadSubjects(semesterAdapter);
+
+        //Set the title
+        semester_tv.setText(PreferenceUtils.getSemesterTitle());
+
+        ImageView Sem_update_btn = (ImageView) findViewById(R.id.semester_update_btn);
+        Sem_update_btn.setOnClickListener(v1 -> {
+            showDialogAcademicDetails(SemBtn);
+        });
+
+        //Setup the page indicator
 //                    final int[] thismidPos = {0};
 //                    final int[] scrollX = {0};
 
@@ -900,15 +945,8 @@ public class MainActivity extends AppCompatActivity
 //                            pageIndicatorView.setSelection(i);
 //                        }
 //                    });
-
-                }
-
-            });
-
-        } catch (Resources.NotFoundException e) {
-            e.printStackTrace();
-        }
     }
+
 
     private void updateFavourite() {
 
@@ -924,9 +962,8 @@ public class MainActivity extends AppCompatActivity
                 if (response.isSuccessful()) {
                     Log.d("updateFavourite", "isSuccess");
 
+                    PreferenceUtils.setFavStatus(true);
                     Log.d("Response Body", response.body().toString());
-
-
                 } else {
                     int statusCode = response.code();
                     if (statusCode == 401) {
@@ -955,11 +992,12 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void loadCollege(AutoCompleteTextView spinner){
+    private void loadCollege(AutoCompleteTextView spinner,TextView info){
         Log.d("MainActivity", "loadCollegeMethod");
 
         CollCall = mService.getCollege(params[0]);
 
+        info.setText(getResources().getString(R.string.loading_dialog));
         CollCall.enqueue(new Callback<List<BoardCollege>>() {
             @Override
             public void onResponse(Call<List<BoardCollege>> call, Response<List<BoardCollege>> response) {
@@ -967,22 +1005,29 @@ public class MainActivity extends AppCompatActivity
                 if (response.isSuccessful()) {
                     Log.d("loadCollege", "isSuccess");
 
-                    if (response.body()!=null) {
-
-                        Log.d("Response Body", response.body().toString());
-                        for (BoardCollege college: response.body()) {
-                            if (college.getStatus()!=null) {
-                                if (college.getStatus().contentEquals("Active")) {
-                                    listCodePair.get(0).put(college.getFullName(), college.getCode());
-                                    list.get(0).add(college.getFullName());
+                    try {
+                        if (response.body()!=null) {
+                            listCodePair.get(0).clear();
+                            list.get(0).clear();
+                            Log.d("Response Body", response.body().toString());
+                            for (BoardCollege college: response.body()) {
+                                if (college.getStatus()!=null) {
+                                    if (college.getStatus().contentEquals("Active")) {
+                                        listCodePair.get(0).put(college.getFullName(), college.getCode());
+                                        list.get(0).add(college.getFullName());
+                                    }
                                 }
                             }
+                            //Display the college list with Auto Complete
+                            LimitArrayAdapter<String> adapter = new LimitArrayAdapter<String>(MainActivity.this,
+                                    R.layout.drop_down_list_item, list.get(0),3);
+                            spinner.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+
+                            info.setText(getResources().getString(R.string.enter_college));
                         }
-                        //Display the college list with Auto Complete
-                        LimitArrayAdapter<String> adapter = new LimitArrayAdapter<String>(MainActivity.this,
-                                R.layout.drop_down_list_item, list.get(0),3);
-                        spinner.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -991,12 +1036,13 @@ public class MainActivity extends AppCompatActivity
             public void onFailure(Call<List<BoardCollege>> call, Throwable t) {
                 //Toast
                 Toast.makeText(getApplicationContext(),getString(R.string.error_occurred),Toast.LENGTH_LONG).show();
+                info.setText(getResources().getString(R.string.error_dialog));
             }
         });
 
     }
 
-    private void loadCourses(NiceSpinner spinner) {
+    private void loadCourses(NiceSpinner spinner, TextView info) {
 
         Log.d("MainActivity", "loadCoursesMethod");
 
@@ -1008,6 +1054,8 @@ public class MainActivity extends AppCompatActivity
                 CourseCall = mService.getCourses(params[0], params[2]);
                 break;
         }
+        //Loading
+        info.setText(getResources().getString(R.string.loading_dialog));
         Log.d("Params", Arrays.toString(params));
         CourseCall.enqueue(new Callback<UniversityCourse>() {
 
@@ -1017,40 +1065,45 @@ public class MainActivity extends AppCompatActivity
                 if (response.isSuccessful()) {
                     Log.d("loadCourses", "isSuccess");
 
-                    Log.d("Response Body", response.body().toString());
-                    listCodePair.get(selector).clear();
-                    list.get(selector).clear();
-                    switch (selector) {
-                        case 1:
-                            list.get(1).add("Department");
-                            if (response.body().getBoardCourse()!=null) {
-                                for (BoardCourse obj: response.body().getBoardCourse()) {
-                                    if (obj.getState()!=null) {
-                                        if (obj.getState().contentEquals("Active")) {
-                                            listCodePair.get(1).put(obj.getName(), obj.getCode());
-                                            list.get(1).add(obj.getName());
+                    try {
+                        Log.d("Response Body", response.body().toString());
+                        listCodePair.get(selector).clear();
+                        list.get(selector).clear();
+                        switch (selector) {
+                            case 1:
+                                list.get(1).add("Department");
+                                if (response.body().getBoardCourse()!=null) {
+                                    for (BoardCourse obj: response.body().getBoardCourse()) {
+                                        if (obj.getState()!=null) {
+                                            if (obj.getState().contentEquals("Active")) {
+                                                listCodePair.get(1).put(obj.getName(), obj.getCode());
+                                                list.get(1).add(obj.getName());
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            break;
-                        case 2:
-                            list.get(2).add("Semester");
-                            if (response.body().getBoardCourse().get(0).getBoardSession()!=null) {
-                                for (BoardSession obj: response.body().getBoardCourse().get(0).getBoardSession()) {
-                                    if (obj.getState()!=null) {
-                                        if (obj.getState().contentEquals("Active")) {
-                                            listCodePair.get(2).put(obj.getFullName(),obj.getCode());
-                                            list.get(2).add(obj.getFullName());
+                                break;
+                            case 2:
+                                list.get(2).add("Semester");
+                                if (response.body().getBoardCourse().get(0).getBoardSession()!=null) {
+                                    for (BoardSession obj: response.body().getBoardCourse().get(0).getBoardSession()) {
+                                        if (obj.getState()!=null) {
+                                            if (obj.getState().contentEquals("Active")) {
+                                                listCodePair.get(2).put(obj.getFullName(),obj.getCode());
+                                                list.get(2).add(obj.getFullName());
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            break;
+                                info.setText(getResources().getString(R.string.select_sem));
+                                break;
+                        }
+                        spinner.attachDataSource(list.get(selector));
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    spinner.attachDataSource(list.get(selector));
 
-                    Log.d("ProfileEditActivity", "API success");
+                    Log.d("MainActivity", "API success");
                 } else {
                     int statusCode = response.code();
                     if (statusCode == 401) {
@@ -1069,6 +1122,7 @@ public class MainActivity extends AppCompatActivity
             public void onFailure(Call<UniversityCourse> call, Throwable t) {
                 //Toast
                 Toast.makeText(getApplicationContext(),getString(R.string.error_occurred),Toast.LENGTH_LONG).show();
+                info.setText(getResources().getString(R.string.error_dialog));
             }
         });
 
@@ -1091,7 +1145,11 @@ public class MainActivity extends AppCompatActivity
 
                     Log.d("Response Body", response.body().toString());
 
-                    adapter.setBoardSubjects(response.body().getBoardCourse().get(0).getBoardSession().get(0).getBoardSubject());
+                    try {
+                        adapter.setBoardSubjects(response.body().getBoardCourse().get(0).getBoardSession().get(0).getBoardSubject());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                     Log.d("MainActivity", "API success");
                 } else {

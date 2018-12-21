@@ -42,7 +42,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
                 style="@style/ChooseTextView"
-                android:layout_margin="@dimen/text_view_margin"
                 android:padding="@dimen/text_view_margin"
                 android:text="@string/choose_university"/>
 

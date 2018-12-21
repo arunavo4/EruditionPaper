@@ -57,6 +57,7 @@ import retrofit2.Response;
 public class ProfileEditActivity extends AppCompatActivity {
 
     private String person_details[] = new String[5];
+    private String academic_details[] = new String[5];
     private String eid;
     private Context context;
     private int selector = 0;
@@ -80,6 +81,7 @@ public class ProfileEditActivity extends AppCompatActivity {
 
         //init
         params = new String[]{"0", "0", "0", "0"};
+        params = PreferenceUtils.getAcademicDetails(params);
         listCodePair = new ArrayList<HashMap<String, String>>();
         list = new ArrayList<ArrayList<String>>();
         for (int i=0;i<4;i++){
@@ -189,13 +191,13 @@ public class ProfileEditActivity extends AppCompatActivity {
             NiceSpinner deptSpinner = (NiceSpinner) findViewById(R.id.dept_drop);
             NiceSpinner semSpinner = (NiceSpinner) findViewById(R.id.sem_drop);
 
+            academic_details = PreferenceUtils.getAcademicDetailsName(academic_details);
             HashMap<String,String> unisMap = PreferenceUtils.getUniversitiesList();
-            Log.d("HashMAp",unisMap.toString());
             List<String> uniList = new ArrayList<String>(unisMap.keySet());
             List<String> dataset = new LinkedList<>(Arrays.asList("University", "College", "Department", "Semester"));
             uniList.add(0,dataset.get(0));
             uniSpinner.attachDataSource(uniList);
-            uniSpinner.setSelectedIndex(0);
+            uniSpinner.setSelectedIndex(uniList.indexOf(academic_details[0]));
 
             String[] colleges = new String[] {"College"};
             LimitArrayAdapter<String> adapter = new LimitArrayAdapter<String>(this,
@@ -203,12 +205,13 @@ public class ProfileEditActivity extends AppCompatActivity {
             collSpinner.setDropDownVerticalOffset(getResources().getDimensionPixelOffset(R.dimen.spacer_2dp));
             collSpinner.setThreshold(1);//will start working from first character
             collSpinner.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
+            collSpinner.setText(academic_details[1]);
 //            collSpinner.setDropDownBackgroundDrawable(getResources().getDrawable(R.drawable.bg_white));
 //            collSpinner.setTextColor(getResources().getColor(R.color.colorMaterialBlack_no_alpha));
 
-            deptSpinner.attachDataSource(Arrays.asList("Department"));
+            deptSpinner.attachDataSource(Arrays.asList(academic_details[2]));
             deptSpinner.setSelectedIndex(0);
-            semSpinner.attachDataSource(Arrays.asList("Semester"));
+            semSpinner.attachDataSource(Arrays.asList(academic_details[3]));
             semSpinner.setSelectedIndex(0);
 
             //Setup click listeners on the drop down arrow
@@ -408,6 +411,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Log.d("updateFavourite", "isSuccess");
 
+                    PreferenceUtils.setFavStatus(true);
                     Log.d("Response Body", response.body().toString());
 
 

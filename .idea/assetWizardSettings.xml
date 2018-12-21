@@ -80,11 +80,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="16" />
-                            <entry key="outputName" value="ic_back_btn_right" />
+                            <entry key="height" value="18" />
+                            <entry key="outputName" value="ic_outline_update_24px" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="G:\Programming\E-commerce\erudition\Back.svg" />
-                            <entry key="width" value="14" />
+                            <entry key="sourceFile" value="G:\Programming\E-commerce\erudition\outline-update-24px.svg" />
+                            <entry key="width" value="18" />
                           </map>
                         </option>
                       </PersistentState>

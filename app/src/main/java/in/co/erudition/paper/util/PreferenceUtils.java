@@ -149,6 +149,50 @@ public class PreferenceUtils {
         return academic_details;
     }
 
+    public static String[] getParams(String Code){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+
+        String[] params = new String[4];
+
+        params[0] = mPrefs.getString("Fav_BoardCode", "0");
+        params[1] = mPrefs.getString("Fav_CourseCode", "0");
+        params[2] = mPrefs.getString("Fav_SessionCode", "0");
+        params[3] = Code;
+
+        return params;
+    }
+
+    public static String getSemesterTitle(){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+
+        String Course = mPrefs.getString("Fav_CourseName", "Dept");
+        String Session = mPrefs.getString("Fav_SessionName", "Semester");
+
+        return (Course + ", " + Session);
+    }
+
+    public static boolean getFavStatus(){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+
+        boolean status = mPrefs.getBoolean("FavStatus",false);
+        if (status){
+            //check if all params are non zero
+            String[] params = new String[4];
+            params = getAcademicDetails(params);
+            for (String param:params) {
+                if (param.contentEquals("0")){
+                    status = false;
+                    break;
+                }
+            }
+        }
+
+        return status;
+    }
+
     //===========Setters===============
 
     public static void setBoard(String BoardCode, String BoardName){
@@ -187,5 +231,12 @@ public class PreferenceUtils {
         mPrefsEdit.apply();
     }
 
+    public static void setFavStatus(boolean status){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+        mPrefsEdit = mPrefs.edit();
+        mPrefsEdit.putBoolean("FavStatus",status);
+        mPrefsEdit.apply();
+    }
 }
 

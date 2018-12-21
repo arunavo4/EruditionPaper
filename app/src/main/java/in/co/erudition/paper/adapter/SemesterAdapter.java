@@ -1,6 +1,7 @@
 package in.co.erudition.paper.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.util.Log;
@@ -17,18 +18,26 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import in.co.erudition.paper.R;
+import in.co.erudition.paper.activity.SelectionActivity;
 import in.co.erudition.paper.data.model.BoardSubject;
 import in.co.erudition.paper.data.model.UniversityCourse;
 import in.co.erudition.paper.util.GlideApp;
+import in.co.erudition.paper.util.PreferenceUtils;
 
 public class SemesterAdapter extends RecyclerView.Adapter<SemesterAdapter.ViewHolder> {
     private List<BoardSubject> boardSubjects;
-
+    private SemesterAdapter.SubjectItemListener mItemListener;
     private Context mContext;
+    private Intent intent;
+    private String paramsStore[];
 
-    public SemesterAdapter(Context mContext, List<BoardSubject> boardSubjects) {
+    public SemesterAdapter(Context mContext, List<BoardSubject> boardSubjects, SemesterAdapter.SubjectItemListener mItemListener) {
         this.boardSubjects = boardSubjects;
         this.mContext = mContext;
+        this.mItemListener = mItemListener;
+
+        paramsStore = new String[4];
+        intent = new Intent(mContext, SelectionActivity.class);
     }
 
     @NonNull
@@ -124,13 +133,37 @@ public class SemesterAdapter extends RecyclerView.Adapter<SemesterAdapter.ViewHo
         @Override
         public void onClick(View v) {
             Log.d("Adapter Position:", String.valueOf(getAdapterPosition()));
-
-
+            int position = getAdapterPosition();
+            String state =  boardSubjects.get(position).getState();
+            if (state!=null) {
+                if (state.contentEquals("Not Active")) {
+                    mItemListener.onSubjectClick(boardSubjects.get(position).getCode());
+                } else {
+                    intent.putExtra("CourseActivity.EXTRA_Subject_NAME", boardSubjects.get(position).getName());
+                    intent.putExtra("CourseActivity.EXTRA_Subject_FULL_NAME", boardSubjects.get(position).getFullName());
+                    setParams(boardSubjects.get(position).getCode());
+                    intent.putExtra("CourseActivity.EXTRA_Subject_State", boardSubjects.get(position).getState());
+                    intent.putExtra("CourseActivity.EXTRA_Subject_Syllabus",boardSubjects.get(position).getSyllabus());
+                    intent.putExtra("CourseActivity.EXTRA_Subject_YearView",boardSubjects.get(position).getYearView());
+                    intent.putExtra("CourseActivity.EXTRA_Subject_ChapView",boardSubjects.get(position).getChapterView());
+                    intent.putExtra("CourseActivity.EXTRA_params", paramsStore);
+                    intent.putExtra("FROM", "Course");
+                    mContext.startActivity(intent);
+                }
+            }
         }
+    }
+
+    private void setParams(String code) {
+        paramsStore = PreferenceUtils.getParams(code);
     }
 
     public void setBoardSubjects(List<BoardSubject> boardSubjects) {
         this.boardSubjects = boardSubjects;
         notifyDataSetChanged();
+    }
+
+    public interface SubjectItemListener {
+        void onSubjectClick(String code);
     }
 }

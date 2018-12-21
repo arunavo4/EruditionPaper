@@ -25,7 +25,8 @@
             android:layout_marginStart="@dimen/spacer_8dp"
             android:layout_marginEnd="@dimen/spacer_12dp"
             android:padding="@dimen/spacer_6dp"
-            app:srcCompat="@drawable/ic_outline_update_24px"/>
+            app:srcCompat="@drawable/ic_outline_update_24px"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"/>
 
     </FrameLayout>
 

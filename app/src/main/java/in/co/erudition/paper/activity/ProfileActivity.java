@@ -64,6 +64,7 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 public class ProfileActivity extends AppCompatActivity {
     private String person_details[] = new String[5];
+    private String academic_details[] = new String[5];
     private BackendService mService;
     CollapsingToolbarLayout collapsingToolbarLayout;
     private static SharedPreferences mPrefs;
@@ -319,16 +320,9 @@ public class ProfileActivity extends AppCompatActivity {
 //                .into(imageView);
     }
 
-    private void setPersonalDetails() {
-        TextView first_name = (TextView) findViewById(R.id.first_name_tv_p);
-        TextView last_name = (TextView) findViewById(R.id.last_name_tv_p);
-        TextView phone = (TextView) findViewById(R.id.phone_tv_p);
-        TextView gender = (TextView) findViewById(R.id.gender_tv_p);
-        TextView dob = (TextView) findViewById(R.id.date_of_birth_tv_p);
-
-    }
-
     private void showPersonalDataFrmPrefs() {
+
+        //=========Personal Details==========
         TextView first_name = (TextView) findViewById(R.id.first_name_tv_p);
         TextView last_name = (TextView) findViewById(R.id.last_name_tv_p);
         TextView phone = (TextView) findViewById(R.id.phone_tv_p);
@@ -364,6 +358,19 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         email.setText(PreferenceUtils.readEmail());
+
+        //=======Academic Details========
+        TextView uni = (TextView) findViewById(R.id.uni_tv_p);
+        TextView coll = (TextView) findViewById(R.id.coll_tv_p);
+        TextView dept = (TextView) findViewById(R.id.dept_tv_p);
+        TextView sem = (TextView) findViewById(R.id.sem_tv_p);
+
+        academic_details = PreferenceUtils.getAcademicDetailsName(academic_details);
+
+        uni.setText(academic_details[0]);
+        coll.setText(academic_details[1]);
+        dept.setText(academic_details[2]);
+        sem.setText(academic_details[3]);
 
     }
 

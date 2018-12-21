@@ -105,6 +105,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/ProfileCardTextViewBold"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
                     android:text="@string/email"/>
 
                 <TextView
