@@ -38,6 +38,33 @@ public class PreferenceUtils {
         mPrefsEdit = mPrefs.edit();
         mPrefsEdit.putString("Avatar", person.getAvatar());
         mPrefsEdit.putString("ProfileImage", person.getProfileImage());
+
+        String[] params = new String[4];
+        params[0] = person.getBoardCode()==null?"0":person.getBoardCode();
+        params[1] = person.getCollegeCode()==null?"0":person.getCollegeCode();
+        params[2] = person.getCourseCode()==null?"0":person.getCourseCode();
+        params[3] = person.getSessionCode()==null?"0":person.getSessionCode();
+
+        //Check if fav is set
+        boolean fav_status = true;
+        for (String param:params) {
+            if (param.contentEquals("0")){
+                fav_status = false;
+                break;
+            }
+        }
+        mPrefsEdit.putBoolean("FavStatus",fav_status);
+
+        //========Academic details========
+        mPrefsEdit.putString("Fav_BoardCode",params[0]);
+        mPrefsEdit.putString("Fav_CollegeCode",params[1]);
+        mPrefsEdit.putString("Fav_CourseCode",params[2]);
+        mPrefsEdit.putString("Fav_SessionCode",params[3]);
+        mPrefsEdit.putString("Fav_BoardName",person.getBoardName());
+        mPrefsEdit.putString("Fav_CourseName",person.getCourseName());
+        mPrefsEdit.putString("Fav_SessionName",person.getSessionFullName());
+
+        //========PErsonal Details========
         mPrefsEdit.putString("FirstName", person.getFirstName());
         mPrefsEdit.putString("LastName", person.getLastName());
         mPrefsEdit.putString("EId", person.getEId());

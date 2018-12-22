@@ -5,4 +5,7 @@
     <dimen name="recycler_view_width">370dp</dimen>
     <dimen name="recycler_view_offset_start">15dp</dimen>
     <dimen name="recycler_view_offset_end">5dp</dimen>
+
+    <dimen name="carousel_item_sem_width">170dp</dimen>
+    <dimen name="carousel_item_sem_height">100dp</dimen>
 </resources>

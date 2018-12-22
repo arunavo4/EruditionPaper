@@ -8,4 +8,8 @@
         <enum name="five" value="5" />
         <enum name="seven" value="7" />
     </attr>
+
+    <declare-styleable name="ForegroundImageView">
+        <attr name="android:foreground"/>
+    </declare-styleable>
 </resources>

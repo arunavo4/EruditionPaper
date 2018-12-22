@@ -170,4 +170,8 @@
     <dimen name="carousel_item_width">177dp</dimen>
     <dimen name="carousel_item_height">100dp</dimen>
 
+    <!--Semester Carousel-->
+    <dimen name="carousel_item_sem_width">164dp</dimen>
+    <dimen name="carousel_item_sem_height">100dp</dimen>
+
 </resources>

@@ -15,7 +15,7 @@
     app:cardUseCompatPadding="false"
     app:cardElevation="4dp">
 
-    <in.co.erudition.paper.misc.ForegroundImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/course_thumbnail_img_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

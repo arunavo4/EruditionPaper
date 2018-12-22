@@ -2,8 +2,8 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/card_size_2_height"
+    android:layout_width="@dimen/carousel_item_sem_width"
+    android:layout_height="@dimen/carousel_item_sem_height"
     android:id="@+id/card_course"
     android:foreground="?android:attr/selectableItemBackgroundBorderless"
     android:paddingStart="@dimen/card_padding"
@@ -13,9 +13,9 @@
     android:clipToPadding="false"
     app:cardCornerRadius="5dp"
     app:cardUseCompatPadding="false"
-    app:cardElevation="4dp">
+    app:cardElevation="6dp">
 
-    <in.co.erudition.paper.misc.ForegroundImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/course_thumbnail_img_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

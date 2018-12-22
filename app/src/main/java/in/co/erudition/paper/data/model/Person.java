@@ -66,12 +66,33 @@ public class Person {
     @SerializedName("SubjectCode")
     @Expose
     private String subjectCode;
+    @SerializedName("CollegeCode")
+    @Expose
+    private String collegeCode;
     @SerializedName("PreviousSession")
     @Expose
     private String previousSession;
     @SerializedName("Status")
     @Expose
     private String status;
+    @SerializedName("BoardName")
+    @Expose
+    private String boardName;
+    @SerializedName("BoardFullName")
+    @Expose
+    private String boardFullName;
+    @SerializedName("CourseName")
+    @Expose
+    private String courseName;
+    @SerializedName("CourseFullName")
+    @Expose
+    private String courseFullName;
+    @SerializedName("SessionName")
+    @Expose
+    private String sessionName;
+    @SerializedName("SessionFullName")
+    @Expose
+    private String sessionFullName;
     @SerializedName("Website")
     @Expose
     private String website;
@@ -346,5 +367,61 @@ public class Person {
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public String getBoardName() {
+        return boardName;
+    }
+
+    public void setBoardName(String boardName) {
+        this.boardName = boardName;
+    }
+
+    public String getBoardFullName() {
+        return boardFullName;
+    }
+
+    public void setBoardFullName(String boardFullName) {
+        this.boardFullName = boardFullName;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public String getCourseFullName() {
+        return courseFullName;
+    }
+
+    public void setCourseFullName(String courseFullName) {
+        this.courseFullName = courseFullName;
+    }
+
+    public String getSessionName() {
+        return sessionName;
+    }
+
+    public void setSessionName(String sessionName) {
+        this.sessionName = sessionName;
+    }
+
+    public String getSessionFullName() {
+        return sessionFullName;
+    }
+
+    public void setSessionFullName(String sessionFullName) {
+        this.sessionFullName = sessionFullName;
+    }
+
+    public String getCollegeCode() {
+        return collegeCode;
+    }
+
+    public void setCollegeCode(String collegeCode) {
+        this.collegeCode = collegeCode;
     }
 }

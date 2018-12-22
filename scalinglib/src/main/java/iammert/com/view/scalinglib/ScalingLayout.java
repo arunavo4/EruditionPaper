@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
@@ -362,6 +363,7 @@ public class ScalingLayout extends FrameLayout {
             @Override
             public void getOutline(View view, Outline outline) {
                 outline.setConvexPath(path);
+                view.setClipToOutline(true);
             }
         };
     }

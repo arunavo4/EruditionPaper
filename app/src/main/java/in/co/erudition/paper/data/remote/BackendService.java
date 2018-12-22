@@ -66,11 +66,11 @@ public interface BackendService {
 
 
     //Get User Detail By EId or Email
-    @POST("api/v1/person")
+    @POST("alpha/api/v1/person")
     @FormUrlEncoded
     Call<Person> getPersonDetailsEid(@Field("EId") String eid);
 
-    @POST("api/v1/person")
+    @POST("alpha/api/v1/person")
     @FormUrlEncoded
     Call<Person> getPersonDetailsEmail(@Field("Email") String email);
 

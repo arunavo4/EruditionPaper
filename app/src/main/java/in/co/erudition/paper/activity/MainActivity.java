@@ -195,23 +195,23 @@ public class MainActivity extends AppCompatActivity
                 space.setScaleY(2 + Math.abs(progress));
 
                 // Workaround for a BUG in android 9 (behavior change)
-                if (pop != null) {
-                    pop.updateProgress(search_view.getSettings().getMaxRadius(), progress);
-                }
+//                if (pop != null) {
+//                    pop.updateProgress(search_view.getSettings().getMaxRadius(), progress);
+//                }
             }
         });
 
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            pop = new ProgressOutlineProvider();
-            search_view.setOutlineProvider(pop);
-            search_view.setClipToOutline(true);
-
-            search_view.post(() -> {
-                pop.updateProgress(search_view.getSettings().getMaxRadius(), 1);
-                search_view.invalidateOutline();
-            });
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+//            pop = new ProgressOutlineProvider();
+//            search_view.setOutlineProvider(pop);
+//            search_view.setClipToOutline(true);
+//
+//            search_view.post(() -> {
+//                pop.updateProgress(search_view.getSettings().getMaxRadius(), 1);
+//                search_view.invalidateOutline();
+//            });
+//        }
 
         //init for set Sem
         params = new String[]{"0", "0", "0", "0"};
