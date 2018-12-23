@@ -93,6 +93,12 @@ public class Person {
     @SerializedName("SessionFullName")
     @Expose
     private String sessionFullName;
+    @SerializedName("CollegeName")
+    @Expose
+    private String collegeName;
+    @SerializedName("CollegeFullName")
+    @Expose
+    private String collegeFullName;
     @SerializedName("Website")
     @Expose
     private String website;
@@ -423,5 +429,21 @@ public class Person {
 
     public void setCollegeCode(String collegeCode) {
         this.collegeCode = collegeCode;
+    }
+
+    public String getCollegeName() {
+        return collegeName;
+    }
+
+    public void setCollegeName(String collegeName) {
+        this.collegeName = collegeName;
+    }
+
+    public String getCollegeFullName() {
+        return collegeFullName;
+    }
+
+    public void setCollegeFullName(String collegeFullName) {
+        this.collegeFullName = collegeFullName;
     }
 }

@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,8 +19,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.material.appbar.AppBarLayout;
 
 import java.util.ArrayList;
@@ -37,10 +40,12 @@ import in.co.erudition.paper.data.model.QuesAnsSearch;
 import in.co.erudition.paper.data.model.QuestionAnswer;
 import in.co.erudition.paper.misc.NestedScrollWebView;
 import in.co.erudition.paper.network.NetworkUtils;
+import in.co.erudition.paper.util.PreferenceUtils;
 
 public class AnswerActivityNew extends AppCompatActivity {
 
     private StringBuilder str;
+    private StringBuilder css_js;
     private NestedScrollWebView ques_tv;
     private NestedScrollWebView ans_tv;
     private int pos;
@@ -55,8 +60,8 @@ public class AnswerActivityNew extends AppCompatActivity {
     private NetworkUtils mNetworkUtils = new NetworkUtils();
     private String TAG = "AnswerActivity";
 
-//    private InterstitialAd mInterstitialAd;
-//    private AdCountDownTimer timer;
+    private InterstitialAd mInterstitialAd;
+    private AdCountDownTimer timer;
 
     private ArrayList<QuestionAnswer> data;
     private Toolbar toolbar;
@@ -68,14 +73,28 @@ public class AnswerActivityNew extends AppCompatActivity {
         setContentView(R.layout.activity_answer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+        css_js = new StringBuilder("<html>");
+
+        css_js.append("<head><link rel=\"stylesheet\" href=\"prism.css\"><script src=\"prism.js\"></script></head>");
+
+//        css_js.append("<head>\n    <link rel=\"stylesheet\" href=\"prism.css\"> <link rel=\"stylesheet\" href=\"font.css\">\n");
+//        css_js.append("    <style>\n body{font-size:14px;font-family:'Source Sans Pro',sans-serif}p{margin-top:0;margin-bottom:.4rem}");
+//        css_js.append("   img {height: auto!important;  width: 100%!important; overflow-x: auto!important; overflow-y: hidden!important;\n");
+//        css_js.append("            border: none!important;\n max-width: fit-content;\n vertical-align: middle;\n");
+//        css_js.append("        }\n  table { width: 100%!important; background-color: transparent; border-spacing: 0; border-collapse: collapse;}\n");
+//        css_js.append("    </style>\n <script src=\"prism.js\"></script>\n</head>");
+        css_js.append("<body>\n");
+
         str = new StringBuilder("<html>");
 
-        str.append("<head>\n    <link rel=\"stylesheet\" href=\"prism.css\"> <link rel=\"stylesheet\" href=\"font.css\">\n");
-        str.append("    <style>\n body{font-size:14px;font-family:'Source Sans Pro',sans-serif}p{margin-top:0;margin-bottom:.4rem}");
-        str.append("   img {height: auto!important;  width: 100%!important; overflow-x: auto!important; overflow-y: hidden!important;\n");
-        str.append("            border: none!important;\n max-width: fit-content;\n vertical-align: middle;\n");
-        str.append("        }\n  table { width: 100%!important; background-color: transparent; border-spacing: 0; border-collapse: collapse;}\n");
-        str.append("    </style>\n <script src=\"prism.js\"></script>\n</head>");
+        str.append("<head><link rel=\"stylesheet\" href=\"font.css\"><link rel=\"stylesheet\" href=\"https://s3.ap-south-1.amazonaws.com/in.co.erudition/test.css\"></head>");
+
+//        str.append("<head>\n<link rel=\"stylesheet\" href=\"font.css\">\n");
+//        str.append("    <style>\n body{font-size:14px;font-family:'Source Sans Pro',sans-serif}p{margin-top:0;margin-bottom:.4rem}");
+//        str.append("   img {height: auto!important;  width: 100%!important; overflow-x: auto!important; overflow-y: hidden!important;\n");
+//        str.append("            border: none!important;\n max-width: fit-content;\n vertical-align: middle;\n");
+//        str.append("        }\n  table { width: 100%!important; background-color: transparent; border-spacing: 0; border-collapse: collapse;}\n");
+//        str.append("    </style>\n</head>");
         str.append("<body>\n");
 
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.my_appbar_container);
@@ -113,26 +132,26 @@ public class AnswerActivityNew extends AppCompatActivity {
 
         //Setup Interstitial Ads --> only once at startup
         //Interstitial video ads
-//        mInterstitialAd = new InterstitialAd(this);
-//        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/8691691433");
-//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-//
-//        //load ads in advance
-//        mInterstitialAd.setAdListener(new AdListener() {
-//            @Override
-//            public void onAdClosed() {
-//                // Load the next interstitial.
-//                mInterstitialAd.loadAd(new AdRequest.Builder().build());
-//                //Set the timer Again
-//                timer = new AdCountDownTimer(600000, 1000);
-//                timer.start();
-//            }
-//
-//        });
-//
-//        //Set a timer for 1 min
-//        timer = new AdCountDownTimer(600000, 1000);
-//        timer.start();
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/8691691433");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        //load ads in advance
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                //Set the timer Again
+                timer = new AdCountDownTimer(PreferenceUtils.getAdTime(), 1000);
+                timer.start();
+            }
+
+        });
+
+        //Set a timer for 1 min
+        timer = new AdCountDownTimer(PreferenceUtils.getAdTime(), 1000);
+        timer.start();
 
         /*
             Adjusting the Status bar margin for Different notches
@@ -239,16 +258,30 @@ public class AnswerActivityNew extends AppCompatActivity {
         String str = no + " of " + size;
         ans_count.setText(str);
 
-        ques_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(data.get(pos).getQuestion()), "text/html", "UTF-8", null);
-        ans_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(data.get(pos).getAnswer()), "text/html", "UTF-8", null);
+//        ques_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(data.get(pos).getQuestion()), "text/html", "UTF-8", null);
+//        ans_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(data.get(pos).getAnswer()), "text/html", "UTF-8", null);
+
+        if (data.get(pos).getJavascript().contentEquals("10") || data.get(pos).getJavascript().contentEquals("11")) {
+            ques_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlDataWithJs(data.get(pos).getQuestion()), "text/html", "UTF-8", null);
+        } else {
+            ques_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(data.get(pos).getQuestion()), "text/html", "UTF-8", null);
+        }
+
+        if (data.get(pos).getJavascript().contentEquals("01") || data.get(pos).getJavascript().contentEquals("11")) {
+            ans_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlDataWithJs(data.get(pos).getAnswer()), "text/html", "UTF-8", null);
+        } else {
+            ans_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(data.get(pos).getAnswer()), "text/html", "UTF-8", null);
+        }
 
     }
-
 
     private String getHtmlData(String data) {
         return str.toString() + data + "</body>\n</html>";
     }
 
+    private String getHtmlDataWithJs(String data) {
+        return css_js.toString() + data + "</body>\n</html>";
+    }
 
     /**
      * Detects and toggles immersive mode.
@@ -285,28 +318,30 @@ public class AnswerActivityNew extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-//        timer.cancel();
+        timer.cancel();
     }
 
     @Override
     public void onPause() {
+        super.onPause();
         if (adView != null) {
             adView.pause();
         }
-        //        timer.cancel();
-        super.onPause();
+        timer.cancel();
     }
     @Override
     public void onResume() {
+        super.onResume();
         if (adView != null) {
             adView.resume();
         }
+        //retrieve the remaining time
+        timer = new AdCountDownTimer(PreferenceUtils.getAdTime(),1000);
         //restart the timer
-//        timer.start();
+        timer.start();
 
         //Turn immersive if not already done
         toggleImmersive();
-        super.onResume();
     }
 
     @Override
@@ -407,5 +442,31 @@ public class AnswerActivityNew extends AppCompatActivity {
         }
     }
 
+    private class AdCountDownTimer extends CountDownTimer {
+        /**
+         * @param millisInFuture    The number of millis in the future from the call
+         *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
+         *                          is called.
+         * @param countDownInterval The interval along the way to receive
+         *                          {@link #onTick(long)} callbacks.
+         */
+        public AdCountDownTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            PreferenceUtils.setAdTime(millisUntilFinished);
+        }
+
+        @Override
+        public void onFinish() {
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+            } else {
+                Log.d(TAG, "The interstitial wasn't loaded yet.");
+            }
+        }
+    }
 
 }

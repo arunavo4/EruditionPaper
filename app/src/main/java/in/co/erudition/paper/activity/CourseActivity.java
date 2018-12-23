@@ -76,6 +76,7 @@ public class CourseActivity extends AppCompatActivity {
 
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private TextView title;
+    private String TAG = "CourseActivity";
 //    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
@@ -271,7 +272,7 @@ public class CourseActivity extends AppCompatActivity {
 //        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset2);
 //        mRecyclerView.addItemDecoration(itemDecoration);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        Log.d("CourseActivity", "done adapter");
+        Log.d(TAG, "done adapter");
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -285,7 +286,7 @@ public class CourseActivity extends AppCompatActivity {
             }
         });
 
-        Log.d("CourseActivity", "loading Courses");
+        Log.d(TAG, "loading Courses");
         if (mAdapter.getState()==1 || state_selector==1){
             showDialogSoon();
 //            loadCourses();
@@ -296,7 +297,7 @@ public class CourseActivity extends AppCompatActivity {
 
     private void loadCourses() {
 
-        Log.d("CourseActivity", "loadCoursesMethod");
+        Log.d(TAG, "loadCoursesMethod");
 
         switch (mAdapter.getSelector()) {
             case 0:
@@ -316,7 +317,7 @@ public class CourseActivity extends AppCompatActivity {
             public void onResponse(Call<UniversityCourse> call, Response<UniversityCourse> response) {
                 Log.d("Call", call.request().toString());
                 if (response.isSuccessful()) {
-                    Log.d("CourseActivity", "issuccess");
+                    Log.d(TAG, "issuccess");
 
                     mProgressBar.setVisibility(View.GONE);
                     mCourseList.setVisibility(View.VISIBLE);
@@ -324,7 +325,7 @@ public class CourseActivity extends AppCompatActivity {
 
                     Log.d("Response Body", response.body().toString());
                     mAdapter.updateUniversitiesFull(response.body());
-                    Log.d("CourseActivity", "API success");
+                    Log.d(TAG, "API success");
                 } else {
                     int statusCode = response.code();
                     if (statusCode == 401) {
@@ -342,7 +343,7 @@ public class CourseActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<UniversityCourse> call, Throwable t) {
                 if (call.isCanceled()) {
-                    Log.d("CourseActivity", "call is cancelled");
+                    Log.d(TAG, "call is cancelled");
 
                 } else if (mNetworkUtils.isOnline(getApplicationContext())) {
                     Log.d("MainActivity", "error loading from API");
@@ -361,7 +362,7 @@ public class CourseActivity extends AppCompatActivity {
     }
 
     private void notifyMeCall(){
-        Log.d("CourseActivity", "notifyMeMethod");
+        Log.d(TAG, "notifyMeMethod");
 
         Call<PresetResponseCode> notifyCall;
         String eid = PreferenceUtils.getEid();
@@ -384,9 +385,9 @@ public class CourseActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<PresetResponseCode> call, Response<PresetResponseCode> response) {
                 if (response.isSuccessful()) {
-                    Log.d("CourseActivity", "issuccess");
+                    Log.d(TAG, "issuccess");
                     Log.d("Response Body", response.body().toString());
-                    Log.d("CourseActivity", "API success");
+                    Log.d(TAG, "API success");
 
                     //Toast
                     Toast.makeText(getApplicationContext(),getString(R.string.notify_msg),Toast.LENGTH_LONG).show();
@@ -406,7 +407,7 @@ public class CourseActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<PresetResponseCode> call, Throwable t) {
                 if (call.isCanceled()) {
-                    Log.d("CourseActivity", "call is cancelled");
+                    Log.d(TAG, "call is cancelled");
 
                 } else if (mNetworkUtils.isOnline(getApplicationContext())) {
                     Log.d("MainActivity", "error loading from API");
@@ -471,7 +472,7 @@ public class CourseActivity extends AppCompatActivity {
         //call load Courses
         mProgressBar.setVisibility(View.VISIBLE);
         mCourseList.setVisibility(View.VISIBLE);
-        Log.d("CourseActivity", "retrying loading Courses");
+        Log.d(TAG, "retrying loading Courses");
         loadCourses();
     }
 

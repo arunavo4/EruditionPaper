@@ -448,7 +448,7 @@ public class AnswerActivity extends AppCompatActivity {
 //            if (mInterstitialAd.isLoaded()) {
 //                mInterstitialAd.show();
 //            } else {
-//                Log.d("PaperActivity", "The interstitial wasn't loaded yet.");
+//                Log.d(TAG, "The interstitial wasn't loaded yet.");
 //            }
 //        }
 //    }

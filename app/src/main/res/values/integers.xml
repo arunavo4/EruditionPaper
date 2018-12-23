@@ -3,4 +3,5 @@
     <integer name="grid_span_count">2</integer>
     <integer name="mb_animation">500</integer>
 
+    <integer name="ad_time">600000</integer>
 </resources>

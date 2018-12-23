@@ -40,7 +40,7 @@ dependencies {
     implementation 'androidx.viewpager:viewpager:1.0.0'
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0"
 
-    api "com.google.firebase:firebase-auth:16.0.5"
+    api "com.google.firebase:firebase-auth:16.1.0"
     api "com.google.android.gms:play-services-auth:16.0.1"
 
     compileOnly 'com.facebook.android:facebook-login:4.35.0'

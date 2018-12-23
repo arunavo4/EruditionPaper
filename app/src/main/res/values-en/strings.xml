@@ -57,6 +57,11 @@
     <string name="error_params">Enter all details to proceed</string>
     <string name="save_txt">Now SAVE!</string>
 
+    <!--Update App-->
+    <string name="update_title">Update Available</string>
+    <string name="update_msg">A new version of this app is available. Please update it</string>
+    <string name="update_btn">Update</string>
+
     <!--JavaScript-->
     <string name="javascript">JavaScript</string>
     <string name="javascript_true">JavaScript Enabled</string>

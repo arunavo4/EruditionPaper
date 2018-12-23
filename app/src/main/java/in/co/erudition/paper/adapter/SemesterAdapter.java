@@ -72,7 +72,7 @@ public class SemesterAdapter extends RecyclerView.Adapter<SemesterAdapter.ViewHo
                 GlideApp
                         .with(mContext)
                         .load(mImgStr)
-                        .apply(RequestOptions.placeholderOf(R.drawable.ic_foreground))
+                        .apply(RequestOptions.placeholderOf(R.drawable.ic_foreground_40_alpha))
                         .thumbnail(0.1f)
                         .into(mImgView);
     //                mImgView.setForeground(ContextCompat.getDrawable(mContext,R.drawable.ic_foreground));

@@ -89,6 +89,8 @@ public class PaperActivity extends AppCompatActivity {
     private boolean papers = true;
     private int select = 0;
 
+    private String TAG = "PaperActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -335,7 +337,7 @@ public class PaperActivity extends AppCompatActivity {
 
         //mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        Log.d("PaperActivity", "done adapter");
+        Log.d(TAG, "done adapter");
 
         NestedScrollView nestedScrollView = (NestedScrollView) findViewById(R.id.nested_scroll_paper);
         nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -351,7 +353,7 @@ public class PaperActivity extends AppCompatActivity {
             }
         });
 
-        Log.d("PaperActivity", "loading papers");
+        Log.d(TAG, "loading papers");
         if (papers) {
             if (select == 0) {
                 mProgressBar.setVisibility(View.VISIBLE);
@@ -366,7 +368,7 @@ public class PaperActivity extends AppCompatActivity {
     }
 
     private void loadNoPapers() {
-        Log.d("PaperActivity", "loadNoPapersMethod");
+        Log.d(TAG, "loadNoPapersMethod");
 
         mProgressBar.setVisibility(View.GONE);
         if (mPaperList.getVisibility() == View.VISIBLE) {
@@ -377,7 +379,7 @@ public class PaperActivity extends AppCompatActivity {
 
     private void loadChaps() {
 
-        Log.d("PaperActivity", "loadChaptersMethod");
+        Log.d(TAG, "loadChaptersMethod");
         String params[] = getIntent().getStringArrayExtra("CourseActivity.EXTRA_params");
 
         Log.d("Params", Arrays.toString(params));
@@ -387,13 +389,13 @@ public class PaperActivity extends AppCompatActivity {
             public void onResponse(Call<List<Chapter>> call, Response<List<Chapter>> response) {
                 Log.d("Call", call.request().toString());
                 if (response.isSuccessful()) {
-                    Log.d("PaperActivity", "issuccess");
+                    Log.d(TAG, "issuccess");
 
                     mProgressBar.setVisibility(View.GONE);
 
                     Log.d("Response Body", response.body().toString());
                     mAdapter.updateChapters(response.body(), select);
-                    Log.d("PaperActivity", "API success");
+                    Log.d(TAG, "API success");
                 } else {
                     int statusCode = response.code();
                     if (statusCode == 401) {
@@ -411,13 +413,13 @@ public class PaperActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Chapter>> call, Throwable t) {
                 if (call.isCanceled()) {
-                    Log.d("PaperActivity", "call is cancelled");
+                    Log.d(TAG, "call is cancelled");
 
                 } else if (mNetworkUtils.isOnline(getApplicationContext())) {
-                    Log.d("PaperActivity", "error loading from API");
+                    Log.d(TAG, "error loading from API");
                     showDialogError();
                 } else {
-                    Log.d("PaperActivity", "Check your network connection");
+                    Log.d(TAG, "Check your network connection");
                     showDialogNoNet();
                 }
 
@@ -429,7 +431,7 @@ public class PaperActivity extends AppCompatActivity {
 
     private void loadYears() {
 
-        Log.d("PaperActivity", "loadYearsMethod");
+        Log.d(TAG, "loadYearsMethod");
         String params[] = getIntent().getStringArrayExtra("CourseActivity.EXTRA_params");
         Log.d("Params", Arrays.toString(params));
 
@@ -440,13 +442,13 @@ public class PaperActivity extends AppCompatActivity {
             public void onResponse(Call<List<Year>> call, Response<List<Year>> response) {
                 Log.d("Call", call.request().toString());
                 if (response.isSuccessful()) {
-                    Log.d("PaperActivity", "issuccess");
+                    Log.d(TAG, "issuccess");
 
                     mProgressBar.setVisibility(View.GONE);
 
                     Log.d("Response Body", response.body().toString());
                     mAdapter.updateYears(response.body(), select);
-                    Log.d("PaperActivity", "API success");
+                    Log.d(TAG, "API success");
                 } else {
                     int statusCode = response.code();
                     if (statusCode == 401) {
@@ -464,13 +466,13 @@ public class PaperActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Year>> call, Throwable t) {
                 if (call.isCanceled()) {
-                    Log.d("PaperActivity", "call is cancelled");
+                    Log.d(TAG, "call is cancelled");
 
                 } else if (mNetworkUtils.isOnline(getApplicationContext())) {
-                    Log.d("PaperActivity", "error loading from API");
+                    Log.d(TAG, "error loading from API");
                     showDialogError();
                 } else {
-                    Log.d("PaperActivity", "Check your network connection");
+                    Log.d(TAG, "Check your network connection");
                     showDialogNoNet();
                 }
 
@@ -484,7 +486,7 @@ public class PaperActivity extends AppCompatActivity {
         //call load Papers
         mProgressBar.setVisibility(View.VISIBLE);
         mPaperList.setVisibility(View.VISIBLE);
-        Log.d("PaperActivity", "retrying loading Papers");
+        Log.d(TAG, "retrying loading Papers");
         if (select == 0) {
             loadChaps();
         } else if (select == 1) {
@@ -696,7 +698,7 @@ public class PaperActivity extends AppCompatActivity {
 //            if (mInterstitialAd.isLoaded()) {
 //                mInterstitialAd.show();
 //            } else {
-//                Log.d("PaperActivity", "The interstitial wasn't loaded yet.");
+//                Log.d(TAG, "The interstitial wasn't loaded yet.");
 //            }
 //        }
 //    }

@@ -61,6 +61,7 @@ public class PreferenceUtils {
         mPrefsEdit.putString("Fav_CourseCode",params[2]);
         mPrefsEdit.putString("Fav_SessionCode",params[3]);
         mPrefsEdit.putString("Fav_BoardName",person.getBoardName());
+        mPrefsEdit.putString("Fav_CollegeName",person.getCollegeFullName());
         mPrefsEdit.putString("Fav_CourseName",person.getCourseName());
         mPrefsEdit.putString("Fav_SessionName",person.getSessionFullName());
 
@@ -264,6 +265,24 @@ public class PreferenceUtils {
         mPrefsEdit = mPrefs.edit();
         mPrefsEdit.putBoolean("FavStatus",status);
         mPrefsEdit.apply();
+    }
+
+
+    //========Ad Time===========
+
+    public static void setAdTime(long AdTime){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+        mPrefsEdit = mPrefs.edit();
+        mPrefsEdit.putLong("AdTime",AdTime);
+        mPrefsEdit.apply();
+    }
+
+    public static Long getAdTime(){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+
+        return mPrefs.getLong("AdTime",600000);
     }
 }
 

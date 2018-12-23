@@ -5,6 +5,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,8 +18,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.material.appbar.AppBarLayout;
 
 import java.util.ArrayList;
@@ -34,12 +37,14 @@ import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.data.model.QuesAnsSearch;
 import in.co.erudition.paper.misc.NestedScrollWebView;
+import in.co.erudition.paper.util.PreferenceUtils;
 
 public class SingleAnswerActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ArrayList<QuesAnsSearch> data;
     private AdView adView;
     private StringBuilder str;
+    private StringBuilder css_js;
     private NestedScrollWebView ques_tv;
     private NestedScrollWebView ans_tv;
     private int pos;
@@ -50,6 +55,11 @@ public class SingleAnswerActivity extends AppCompatActivity {
     private TextView ans_count;
     private TextView ques_no_tv;
 
+    private InterstitialAd mInterstitialAd;
+    private AdCountDownTimer timer;
+
+    private String TAG = "SingleAnswer";
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +67,28 @@ public class SingleAnswerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_single_answer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
+        css_js = new StringBuilder("<html>");
+
+        css_js.append("<head><link rel=\"stylesheet\" href=\"prism.css\"><script src=\"prism.js\"></script></head>");
+
+//        css_js.append("<head>\n    <link rel=\"stylesheet\" href=\"prism.css\"> <link rel=\"stylesheet\" href=\"font.css\">\n");
+//        css_js.append("    <style>\n body{font-size:14px;font-family:'Source Sans Pro',sans-serif}p{margin-top:0;margin-bottom:.4rem}");
+//        css_js.append("   img {height: auto!important;  width: 100%!important; overflow-x: auto!important; overflow-y: hidden!important;\n");
+//        css_js.append("            border: none!important;\n max-width: fit-content;\n vertical-align: middle;\n");
+//        css_js.append("        }\n  table { width: 100%!important; background-color: transparent; border-spacing: 0; border-collapse: collapse;}\n");
+//        css_js.append("    </style>\n <script src=\"prism.js\"></script>\n</head>");
+        css_js.append("<body>\n");
+
         str = new StringBuilder("<html>");
 
-        str.append("<head>\n    <link rel=\"stylesheet\" href=\"prism.css\"> <link rel=\"stylesheet\" href=\"font.css\">\n");
-        str.append("    <style>\n body{font-size:14px;font-family:'Source Sans Pro',sans-serif}p{margin-top:0;margin-bottom:.4rem}");
-        str.append("   img {height: auto!important;  width: 100%!important; overflow-x: auto!important; overflow-y: hidden!important;\n");
-        str.append("            border: none!important;\n max-width: fit-content;\n vertical-align: middle;\n");
-        str.append("        }\n  table { width: 100%!important; background-color: transparent; border-spacing: 0; border-collapse: collapse;}\n");
-        str.append("    </style>\n <script src=\"prism.js\"></script>\n</head>");
+        str.append("<head><link rel=\"stylesheet\" href=\"font.css\"><link rel=\"stylesheet\" href=\"https://s3.ap-south-1.amazonaws.com/in.co.erudition/test.css\"></head>");
+
+//        str.append("<head>\n<link rel=\"stylesheet\" href=\"font.css\">\n");
+//        str.append("    <style>\n body{font-size:14px;font-family:'Source Sans Pro',sans-serif}p{margin-top:0;margin-bottom:.4rem}");
+//        str.append("   img {height: auto!important;  width: 100%!important; overflow-x: auto!important; overflow-y: hidden!important;\n");
+//        str.append("            border: none!important;\n max-width: fit-content;\n vertical-align: middle;\n");
+//        str.append("        }\n  table { width: 100%!important; background-color: transparent; border-spacing: 0; border-collapse: collapse;}\n");
+//        str.append("    </style>\n</head>");
         str.append("<body>\n");
 
 
@@ -82,6 +106,29 @@ public class SingleAnswerActivity extends AppCompatActivity {
         adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
+
+        //Setup Interstitial Ads --> only once at startup
+        //Interstitial video ads
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/8691691433");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        //load ads in advance
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                //Set the timer Again
+                timer = new AdCountDownTimer(PreferenceUtils.getAdTime(),1000);
+                timer.start();
+            }
+
+        });
+
+        //Set a timer for 1 min
+        timer = new AdCountDownTimer(PreferenceUtils.getAdTime(),1000);
+        timer.start();
 
         View ad_spacer = (View) findViewById(R.id.nav_spacer_ad);
         View nav_spacer = (View) findViewById(R.id.nav_spacer);
@@ -205,9 +252,9 @@ public class SingleAnswerActivity extends AppCompatActivity {
         boolean isImmersiveModeEnabled =
                 ((uiOptions | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY) == uiOptions);
         if (isImmersiveModeEnabled) {
-            Log.i("SingleAnswer", "Turning immersive mode mode off. ");
+            Log.i(TAG, "Turning immersive mode mode off. ");
         } else {
-            Log.i("SingleAnswer", "Turning immersive mode mode on.");
+            Log.i(TAG, "Turning immersive mode mode on.");
         }
 
         // Immersive mode: Backward compatible to KitKat (API 19).
@@ -255,15 +302,31 @@ public class SingleAnswerActivity extends AppCompatActivity {
         String str = no + " of " + size;
         ans_count.setText(str);
 
-        ques_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(data.get(pos).getQuestion()), "text/html", "UTF-8", null);
-        ans_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(data.get(pos).getAnswer()), "text/html", "UTF-8", null);
+//        ques_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(data.get(pos).getQuestion()), "text/html", "UTF-8", null);
+//        ans_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(data.get(pos).getAnswer()), "text/html", "UTF-8", null);
 
+        if (data.get(pos).getJavascript().contentEquals("10") || data.get(pos).getJavascript().contentEquals("11")) {
+            ques_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlDataWithJs(data.get(pos).getQuestion()), "text/html", "UTF-8", null);
+        } else {
+            ques_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(data.get(pos).getQuestion()), "text/html", "UTF-8", null);
+        }
+
+        if (data.get(pos).getJavascript().contentEquals("01") || data.get(pos).getJavascript().contentEquals("11")) {
+            ans_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlDataWithJs(data.get(pos).getAnswer()), "text/html", "UTF-8", null);
+        } else {
+            ans_tv.loadDataWithBaseURL("file:///android_asset/", getHtmlData(data.get(pos).getAnswer()), "text/html", "UTF-8", null);
+        }
     }
 
 
     private String getHtmlData(String data) {
         return str.toString() + data + "</body>\n</html>";
     }
+
+    private String getHtmlDataWithJs(String data) {
+        return css_js.toString() + data + "</body>\n</html>";
+    }
+
 
     /**
      * Menu Handling
@@ -293,11 +356,20 @@ public class SingleAnswerActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //cancel the timer
+        timer.cancel();
+    }
+
+    @Override
     public void onPause() {
         if (adView != null) {
             adView.pause();
         }
         super.onPause();
+        //cancel the timer
+        timer.cancel();
     }
 
     @Override
@@ -305,6 +377,10 @@ public class SingleAnswerActivity extends AppCompatActivity {
         if (adView != null) {
             adView.resume();
         }
+        //retrieve the remaining time
+        timer = new AdCountDownTimer(PreferenceUtils.getAdTime(),1000);
+        //restart the timer
+        timer.start();
 
         //Toggle immersive
         toggleImmersive();
@@ -322,6 +398,35 @@ public class SingleAnswerActivity extends AppCompatActivity {
             adView.destroy();
         }
         super.onDestroy();
+    }
+
+    private class AdCountDownTimer extends CountDownTimer {
+
+        /**
+         * @param millisInFuture    The number of millis in the future from the call
+         *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
+         *                          is called.
+         * @param countDownInterval The interval along the way to receive
+         *                          {@link #onTick(long)} callbacks.
+         */
+        public AdCountDownTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            //callback for every tick interval
+            PreferenceUtils.setAdTime(millisUntilFinished);
+        }
+
+        @Override
+        public void onFinish() {
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+            } else {
+                Log.d(TAG, "The interstitial wasn't loaded yet.");
+            }
+        }
     }
 
 }

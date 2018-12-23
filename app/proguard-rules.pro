@@ -23,12 +23,41 @@
 #Crashlytics
 -keepattributes *Annotation*
 -keepattributes SourceFile,LineNumberTable
+-keepattributes LocalVariableTable, LocalVariableTypeTable
 -keep public class * extends java.lang.Exception
 #To let Crashlytics automatically upload the ProGuard or DexGuard mapping file
 -printmapping mapping.txt
 #Exclude Crashlytics
 -keep class com.crashlytics.** { *; }
 -dontwarn com.crashlytics.**
+
+#Firebase Config
+-dontwarn com.google.firebase.remoteconfig.**
+-keep class com.google.firebase.remoteconfig.** { *; }
+
+#-keep class com.google.android.gms.internal.** { *; }
+#-dontwarn com.google.android.gms.internal.zzhu
+
+-keep public class com.google.android.gms.* { public *; }
+-dontwarn com.google.android.gms.**
+
+#Google play
+-keep class * extends java.util.ListResourceBundle {
+    protected Object[][] getContents();
+}
+
+-keep public class com.google.android.gms.common.internal.safeparcel.SafeParcelable {
+    public static final *** NULL;
+}
+
+-keepnames @com.google.android.gms.common.annotation.KeepName class *
+-keepclassmembernames class * {
+    @com.google.android.gms.common.annotation.KeepName *;
+}
+
+-keepnames class * implements android.os.Parcelable {
+    public static final ** CREATOR;
+}
 
 #RenderScript
 -keep class android.support.v8.renderscript.** { *; }
@@ -132,3 +161,5 @@
 -dontwarn com.firebase.ui.auth.**
 -dontwarn in.co.erudition.avatar.**
 -dontwarn org.apache.http.legacy.**
+
+#Finally

@@ -4,6 +4,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,8 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.erudition.polygonprogressbar.NSidedProgressBar;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -41,6 +44,7 @@ import in.co.erudition.paper.data.model.SearchResult;
 import in.co.erudition.paper.data.remote.BackendService;
 import in.co.erudition.paper.network.NetworkUtils;
 import in.co.erudition.paper.util.ApiUtils;
+import in.co.erudition.paper.util.PreferenceUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,6 +62,11 @@ public class SearchActivity extends AppCompatActivity {
     private AdView adView;
     private NetworkUtils mNetworkUtils = new NetworkUtils();
 
+    private InterstitialAd mInterstitialAd;
+    private AdCountDownTimer timer;
+
+    private String TAG = "SearchActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +79,29 @@ public class SearchActivity extends AppCompatActivity {
         adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
+
+        //Setup Interstitial Ads --> only once at startup
+        //Interstitial video ads
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/8691691433");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        //load ads in advance
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                //Set the timer Again
+                timer = new AdCountDownTimer(PreferenceUtils.getAdTime(),1000);
+                timer.start();
+            }
+
+        });
+
+        //Set a timer
+        timer = new AdCountDownTimer(PreferenceUtils.getAdTime(),1000);
+        timer.start();
 
         progressBar = (NSidedProgressBar) findViewById(R.id.progressBar_search);
         searchList = (LinearLayout) findViewById(R.id.search_linear_layout);
@@ -133,12 +165,7 @@ public class SearchActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(bg);
         setSupportActionBar(toolbar);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         mService = ApiUtils.getBackendService();
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_search);
@@ -209,15 +236,15 @@ public class SearchActivity extends AppCompatActivity {
             public void onFailure(Call<List<SearchResult>> call, Throwable t) {
                 progressBar.setVisibility(View.INVISIBLE);
                 if (call.isCanceled()) {
-                    Log.d("SearchActivity", "call is cancelled");
+                    Log.d(TAG, "call is cancelled");
 
                 } else if (mNetworkUtils.isOnline(SearchActivity.this)) {
-                    Log.d("SearchActivity", "error loading from API");
+                    Log.d(TAG, "error loading from API");
                     no_results.setVisibility(View.VISIBLE);
                     Snackbar.make((CoordinatorLayout) findViewById(R.id.search_layout_main), getString(R.string.Search_no_records), Snackbar.LENGTH_LONG)
                             .show();
                 } else {
-                    Log.d("SearchActivity", "Check your network connection");
+                    Log.d(TAG, "Check your network connection");
                     Snackbar.make((CoordinatorLayout) findViewById(R.id.search_layout_main), getString(R.string.no_internet_top), Snackbar.LENGTH_LONG)
                             .show();
                 }
@@ -233,6 +260,8 @@ public class SearchActivity extends AppCompatActivity {
                 searchCall.cancel();
             }
         }
+        //cancel the timer
+        timer.cancel();
     }
 
     @Override
@@ -241,6 +270,8 @@ public class SearchActivity extends AppCompatActivity {
             adView.pause();
         }
         super.onPause();
+        //cancel the timer
+        timer.cancel();
     }
     @Override
     public void onResume() {
@@ -248,6 +279,10 @@ public class SearchActivity extends AppCompatActivity {
             adView.resume();
         }
         super.onResume();
+        //retrieve the remaining time
+        timer = new AdCountDownTimer(PreferenceUtils.getAdTime(),1000);
+        //restart the timer
+        timer.start();
     }
 
     @Override
@@ -306,5 +341,34 @@ public class SearchActivity extends AppCompatActivity {
         return true;
     }
 
+
+    private class AdCountDownTimer extends CountDownTimer {
+
+        /**
+         * @param millisInFuture    The number of millis in the future from the call
+         *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
+         *                          is called.
+         * @param countDownInterval The interval along the way to receive
+         *                          {@link #onTick(long)} callbacks.
+         */
+        public AdCountDownTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            //callback for every tick interval
+            PreferenceUtils.setAdTime(millisUntilFinished);
+        }
+
+        @Override
+        public void onFinish() {
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+            } else {
+                Log.d(TAG, "The interstitial wasn't loaded yet.");
+            }
+        }
+    }
 
 }

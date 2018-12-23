@@ -6,11 +6,14 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -38,9 +41,13 @@ import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.rd.PageIndicatorView;
 
 import org.angmarch.views.NiceSpinner;
@@ -75,6 +82,7 @@ import iammert.com.view.scalinglib.ScalingLayoutBehavior;
 import iammert.com.view.scalinglib.ScalingLayoutListener;
 import in.co.erudition.avatar.AvatarPlaceholder;
 import in.co.erudition.avatar.AvatarView;
+import in.co.erudition.paper.BuildConfig;
 import in.co.erudition.paper.Erudition;
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.adapter.SemesterAdapter;
@@ -120,6 +128,9 @@ public class MainActivity extends AppCompatActivity
     private InterstitialAd mInterstitialAd;
     private AdCountDownTimer timer;
 
+    private FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+    private HashMap<String, Object> firebaseDefaultMap;
+
     private NSidedProgressBar mProgressBar;
     private LinearLayout mUniversityList;
     private FloatingActionMenu fab;
@@ -130,6 +141,7 @@ public class MainActivity extends AppCompatActivity
     private static SharedPreferences.Editor mPrefsEdit;
 
     private ProgressOutlineProvider pop;        //Bug in android pie
+    private String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +153,39 @@ public class MainActivity extends AppCompatActivity
 //        setUpCustomText(getResources().getString(R.string.app_name), tv);
 //        toolbar.setTitle("Erudition Paper");
         setSupportActionBar(toolbar);
+
+        //Firebase Remote Config Latest Version Check
+        //This is default Map
+        //Setting the Default Map Value with the current version code
+        firebaseDefaultMap = new HashMap<>();
+        firebaseDefaultMap.put(getResources().getString(R.string.LATEST_VERSION_KEY), getCurrentVersionCode());
+        firebaseDefaultMap.put(getResources().getString(R.string.AD_TIME),getResources().getInteger(R.integer.ad_time));
+        firebaseRemoteConfig.setDefaults(firebaseDefaultMap);
+
+        //Setting that default Map to Firebase Remote Config
+
+        //Setting Developer Mode enabled to fast retrieve the values
+//        firebaseRemoteConfig.setConfigSettings(
+//                new FirebaseRemoteConfigSettings.Builder().setDeveloperModeEnabled(BuildConfig.DEBUG)
+//                        .build());
+
+        //Fetching the values here
+        firebaseRemoteConfig.fetch().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                firebaseRemoteConfig.activateFetched();
+                Log.d("Update Version", "Fetched value: " + firebaseRemoteConfig.getString(getResources().getString(R.string.LATEST_VERSION_KEY)));
+                Log.d("AdTime", "Fetched value: " + firebaseRemoteConfig.getString(getResources().getString(R.string.AD_TIME)));
+                //calling function to check if new version is available or not
+                checkForUpdate();
+                updateAdTime();
+            } else {
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.error_occurred),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Log.d(TAG, "Default value: " + firebaseRemoteConfig.getString(getResources().getString(R.string.LATEST_VERSION_KEY)));
+
 
         mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
                 Context.MODE_PRIVATE);
@@ -470,7 +515,7 @@ public class MainActivity extends AppCompatActivity
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset);
         mRecyclerView.addItemDecoration(itemDecoration);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        Log.d("MainActivity", "done adapter");
+        Log.d(TAG, "done adapter");
 
         NestedScrollView nestedScrollView = (NestedScrollView) findViewById(R.id.nested_scroll_main);
         nestedScrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
@@ -483,11 +528,53 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        Log.d("MainActivity", "loading Universities");
+        Log.d(TAG, "loading Universities");
         if (mNetworkUtils.isOnline(getApplicationContext())) {
             loadUniversities();
         } else {
             showDialogNoNet();
+        }
+
+    }
+
+    /*
+     *  Functions for Update
+     */
+
+    private void checkForUpdate() {
+        int latestAppVersion = (int) firebaseRemoteConfig.getDouble(getResources().getString(R.string.LATEST_VERSION_KEY));
+        if (latestAppVersion > getCurrentVersionCode()) {
+            new AlertDialog.Builder(this).setTitle(getResources().getString(R.string.update_title))
+                    .setMessage(getResources().getString(R.string.update_msg)).setPositiveButton(
+                    getResources().getString(R.string.update_btn), (dialog, which) -> {
+                        String appPackage = "in.co.erudition.paper";
+                        String url = "market://details?id=" + appPackage;
+                        try {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                        } catch (android.content.ActivityNotFoundException anfe) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appPackage)));
+                        }
+                    }).setCancelable(false).show();
+        } else {
+            Log.d("App Updater","This app is already up to date");
+        }
+    }
+
+    private int getCurrentVersionCode() {
+        try {
+            return getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    private void updateAdTime(){
+        int AdTime = (int) firebaseRemoteConfig.getDouble(getResources().getString(R.string.AD_TIME));
+
+        if (AdTime != PreferenceUtils.getAdTime()){
+            //Set new AdTime
+            PreferenceUtils.setAdTime(AdTime);
         }
 
     }
@@ -555,7 +642,7 @@ public class MainActivity extends AppCompatActivity
 
     private void loadUniversities() {
 
-        Log.d("MainActivity", "loadUniversitiesMethod");
+        Log.d(TAG, "loadUniversitiesMethod");
 
         call = mService.getUniversity();
         call.enqueue(new Callback<List<University>>() {
@@ -564,7 +651,7 @@ public class MainActivity extends AppCompatActivity
             public void onResponse(Call<List<University>> call, Response<List<University>> response) {
                 Log.d("Call", call.request().toString());
                 if (response.isSuccessful()) {
-                    Log.d("MainActivity", "isSuccess");
+                    Log.d(TAG, "isSuccess");
 
                     mProgressBar.setVisibility(View.INVISIBLE);
 
@@ -572,7 +659,7 @@ public class MainActivity extends AppCompatActivity
                     //Update the preference
                     PreferenceUtils.setUniversitiesList(response.body());
                     mAdapter.updateUniversities(response.body());
-                    Log.d("MainActivity", "API success");
+                    Log.d(TAG, "API success");
                 } else {
                     int statusCode = response.code();
                     if (statusCode == 401) {
@@ -590,13 +677,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onFailure(Call<List<University>> call, Throwable t) {
                 if (call.isCanceled()) {
-                    Log.d("MainActivity", "call is cancelled");
+                    Log.d(TAG, "call is cancelled");
 
                 } else if (mNetworkUtils.isOnline(getApplicationContext())) {
-                    Log.d("MainActivity", "error loading from API");
+                    Log.d(TAG, "error loading from API");
                     showDialogError();
                 } else {
-                    Log.d("MainActivity", "Check your network connection");
+                    Log.d(TAG, "Check your network connection");
                     showDialogNoNet();
                 }
                 mProgressBar.setVisibility(View.INVISIBLE);
@@ -610,7 +697,7 @@ public class MainActivity extends AppCompatActivity
         //call load Universities
         mProgressBar.setVisibility(View.VISIBLE);
         mUniversityList.setVisibility(View.VISIBLE);
-        Log.d("MainActivity", "retrying loading universities");
+        Log.d(TAG, "retrying loading universities");
         if (mNetworkUtils.isOnline(getApplicationContext())) {
             loadUniversities();
         } else {
@@ -787,6 +874,12 @@ public class MainActivity extends AppCompatActivity
                 }
             });
 
+            collSpinner.setOnFocusChangeListener((v, hasFocus) -> {
+                if (hasFocus){
+                    collSpinner.getText().clear();
+                }
+            });
+
             collSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -950,7 +1043,7 @@ public class MainActivity extends AppCompatActivity
 
     private void updateFavourite() {
 
-        Log.d("MainActivity", "updateFavMethod");
+        Log.d(TAG, "updateFavMethod");
 
         favCall = mService.setFavourite(PreferenceUtils.getEid(), params[0], params[2], params[3], params[1]);
 
@@ -993,7 +1086,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void loadCollege(AutoCompleteTextView spinner,TextView info){
-        Log.d("MainActivity", "loadCollegeMethod");
+        Log.d(TAG, "loadCollegeMethod");
 
         CollCall = mService.getCollege(params[0]);
 
@@ -1044,7 +1137,7 @@ public class MainActivity extends AppCompatActivity
 
     private void loadCourses(NiceSpinner spinner, TextView info) {
 
-        Log.d("MainActivity", "loadCoursesMethod");
+        Log.d(TAG, "loadCoursesMethod");
 
         switch (selector) {
             case 1:
@@ -1103,7 +1196,7 @@ public class MainActivity extends AppCompatActivity
                         e.printStackTrace();
                     }
 
-                    Log.d("MainActivity", "API success");
+                    Log.d(TAG, "API success");
                 } else {
                     int statusCode = response.code();
                     if (statusCode == 401) {
@@ -1130,7 +1223,7 @@ public class MainActivity extends AppCompatActivity
 
     private void loadSubjects(SemesterAdapter adapter) {
 
-        Log.d("MainActivity", "loadSubjectMethod");
+        Log.d(TAG, "loadSubjectMethod");
 
         CourseCall = mService.getCourses(params[0], params[2], params[3]);
 
@@ -1151,7 +1244,7 @@ public class MainActivity extends AppCompatActivity
                         e.printStackTrace();
                     }
 
-                    Log.d("MainActivity", "API success");
+                    Log.d(TAG, "API success");
                 } else {
                     int statusCode = response.code();
                     if (statusCode == 401) {
@@ -1176,7 +1269,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void notifyMeCall(String BoardCode){
-        Log.d("MainActivity", "notifyMeMethod");
+        Log.d(TAG, "notifyMeMethod");
 
         Call<PresetResponseCode> notifyCall;
         String eid = PreferenceUtils.getEid();
@@ -1188,9 +1281,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<PresetResponseCode> call, Response<PresetResponseCode> response) {
                 if (response.isSuccessful()) {
-                    Log.d("MainActivity", "isSuccess");
+                    Log.d(TAG, "isSuccess");
                     Log.d("Response Body", response.body().toString());
-                    Log.d("MainActivity", "API success");
+                    Log.d(TAG, "API success");
 
                     //Toast
                     Toast.makeText(getApplicationContext(),getString(R.string.notify_msg),Toast.LENGTH_LONG).show();
@@ -1210,13 +1303,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onFailure(Call<PresetResponseCode> call, Throwable t) {
                 if (call.isCanceled()) {
-                    Log.d("MainActivity", "call is cancelled");
+                    Log.d(TAG, "call is cancelled");
 
                 } else if (mNetworkUtils.isOnline(getApplicationContext())) {
-                    Log.d("MainActivity", "error loading from API");
+                    Log.d(TAG, "error loading from API");
                     showDialogError();
                 } else {
-                    Log.d("MainActivity", "Check your network connection");
+                    Log.d(TAG, "Check your network connection");
                     showDialogNoNet();
                 }
             }
@@ -1371,7 +1464,7 @@ public class MainActivity extends AppCompatActivity
             if (mInterstitialAd.isLoaded()) {
                 mInterstitialAd.show();
             } else {
-                Log.d("MainActivity", "The interstitial wasn't loaded yet.");
+                Log.d(TAG, "The interstitial wasn't loaded yet.");
             }
         }
     }
