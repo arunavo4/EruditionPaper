@@ -58,29 +58,17 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
          * https://www.erudition.co.in/resources/public/js/prism.js
          */
 
-        css_js = new StringBuilder("<html>");
-
-        css_js.append("<head><link rel=\"stylesheet\" href=\"prism.css\"><script src=\"prism.js\"></script></head>");
-
-//        css_js.append("<head>\n    <link rel=\"stylesheet\" href=\"prism.css\"> <link rel=\"stylesheet\" href=\"font.css\">\n");
-//        css_js.append("    <style>\n body{font-size:14px;font-family:'Source Sans Pro',sans-serif}p{margin-top:0;margin-bottom:.4rem}");
-//        css_js.append("   img {height: auto!important;  width: 100%!important; overflow-x: auto!important; overflow-y: hidden!important;\n");
-//        css_js.append("            border: none!important;\n max-width: fit-content;\n vertical-align: middle;\n");
-//        css_js.append("        }\n  table { width: 100%!important; background-color: transparent; border-spacing: 0; border-collapse: collapse;}\n");
-//        css_js.append("    </style>\n <script src=\"prism.js\"></script>\n</head>");
-        css_js.append("<body>\n");
-
         str = new StringBuilder("<html>");
 
-        str.append("<head><link rel=\"stylesheet\" href=\"font.css\"><link rel=\"stylesheet\" href=\"https://s3.ap-south-1.amazonaws.com/in.co.erudition/test.css\"></head>");
+        str.append("<head>\n <link rel=\"stylesheet\" href=\"font.css\"><style>body{font-size:14px;font-family:'Source Sans Pro',sans-serif}p{margin-top:0;");
+        str.append("    margin-bottom:.4rem}img{height:auto!important;overflow-x:auto!important;overflow-y:hidden!important;border:none!important;");
+        str.append("   max-width:fit-content;vertical-align:middle}table{width:100%!important;background-color:transparent;border-spacing:0;border-collapse:collapse}</style>");
 
-//        str.append("<head>\n<link rel=\"stylesheet\" href=\"font.css\">\n");
-//        str.append("    <style>\n body{font-size:14px;font-family:'Source Sans Pro',sans-serif}p{margin-top:0;margin-bottom:.4rem}");
-//        str.append("   img {height: auto!important;  width: 100%!important; overflow-x: auto!important; overflow-y: hidden!important;\n");
-//        str.append("            border: none!important;\n max-width: fit-content;\n vertical-align: middle;\n");
-//        str.append("        }\n  table { width: 100%!important; background-color: transparent; border-spacing: 0; border-collapse: collapse;}\n");
-//        str.append("    </style>\n</head>");
-        str.append("<body>\n");
+        css_js = str;
+        css_js.append("<link rel=\"stylesheet\" href=\"prism.css\"><script src=\"prism.js\"></script>");
+        css_js.append("</head><body>\n");
+
+        str.append("</head><body>\n");
 
         Log.d("QuestionAdapter", "Total Ques:" + String.valueOf(paperQuestions.size()));
     }
