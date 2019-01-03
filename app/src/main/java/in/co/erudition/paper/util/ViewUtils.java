@@ -1,16 +1,20 @@
 package in.co.erudition.paper.util;
 
+import android.app.Activity;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DimenRes;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.TextView;
 
 import static androidx.core.view.ViewCompat.LAYER_TYPE_SOFTWARE;
 /**
@@ -75,5 +79,22 @@ public class ViewUtils {
 
         return drawable;
 
+    }
+
+    public static void changeToolbarFont(Toolbar toolbar, Activity context) {
+        for (int i = 0; i < toolbar.getChildCount(); i++) {
+            View view = toolbar.getChildAt(i);
+            if (view instanceof TextView) {
+                TextView tv = (TextView) view;
+                if (tv.getText().equals(toolbar.getTitle())) {
+                    applyFont(tv, context);
+                    break;
+                }
+            }
+        }
+    }
+
+    public static void applyFont(TextView tv, Activity context) {
+        tv.setTypeface(Typeface.createFromAsset(context.getAssets(), "font/source_sans_pro_semibold.ttf"));
     }
 }

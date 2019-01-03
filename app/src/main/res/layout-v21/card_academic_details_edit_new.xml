@@ -57,6 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:popupTextAlignment="center"
+                    android:textAppearance="@font/source_sans_pro_semibold"
                     app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
 
             </LinearLayout>
@@ -89,7 +90,8 @@
                     android:layout_marginStart="@dimen/spacer_20dp"
                     android:backgroundTint="@color/colorTransparent"
                     android:text="@string/college"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:textAppearance="@font/source_sans_pro_semibold"/>
 
             </LinearLayout>
 
@@ -119,6 +121,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:popupTextAlignment="center"
+                    android:textAppearance="@font/source_sans_pro_semibold"
                     app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
 
             </LinearLayout>
@@ -149,6 +152,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:popupTextAlignment="center"
+                    android:textAppearance="@font/source_sans_pro_semibold"
                     app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
 
             </LinearLayout>

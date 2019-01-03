@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import com.google.android.material.appbar.AppBarLayout;
 
 import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import androidx.core.content.ContextCompat;
@@ -46,6 +49,10 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_container);
+        collapsingToolbarLayout.setCollapsedTitleTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
+        collapsingToolbarLayout.setExpandedTitleTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
 
         LinearLayout clear_cache_btn = (LinearLayout) findViewById(R.id.clear_cache_btn);
         LinearLayout sign_out_btn = (LinearLayout) findViewById(R.id.sign_out_btn);

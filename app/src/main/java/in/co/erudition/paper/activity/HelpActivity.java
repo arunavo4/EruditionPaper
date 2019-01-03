@@ -7,6 +7,7 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -36,6 +37,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -62,6 +64,10 @@ public class HelpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_container);
+        collapsingToolbarLayout.setCollapsedTitleTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
+        collapsingToolbarLayout.setExpandedTitleTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
 
         CardView like_btn = (CardView) findViewById(R.id.like_erudition_paper);
         CardView faq_btn = (CardView) findViewById(R.id.faq_btn);

@@ -101,7 +101,7 @@ public class QuestionActivity extends AppCompatActivity {
         //Setup Interstitial Ads --> only once at startup
         //Interstitial video ads
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/8691691433");
+        mInterstitialAd.setAdUnitId(getString(R.string.admob_interstitial_ad_id));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         //load ads in advance

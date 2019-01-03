@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -79,6 +80,8 @@ public class ProfileActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_container);
+        collapsingToolbarLayout.setCollapsedTitleTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
+        collapsingToolbarLayout.setExpandedTitleTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
 //        TextView profile_name = (TextView) findViewById(R.id.profile_name_tv);        //old version
         img_profile_pic = (AvatarView) findViewById(R.id.profile_avatar);
 

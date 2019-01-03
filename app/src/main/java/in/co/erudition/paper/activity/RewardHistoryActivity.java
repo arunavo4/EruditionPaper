@@ -2,6 +2,7 @@ package in.co.erudition.paper.activity;
 
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.clans.fab.FloatingActionButton;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import in.co.erudition.paper.R;
 
@@ -28,6 +30,10 @@ public class RewardHistoryActivity extends AppCompatActivity {
 //        setContentView(R.layout.activity_reward_history);
         setContentView(R.layout.activity_share);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_container);
+        collapsingToolbarLayout.setCollapsedTitleTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
+        collapsingToolbarLayout.setExpandedTitleTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
 
         // To set the background of the activity go below the StatusBar
         getWindow().getDecorView().setSystemUiVisibility(

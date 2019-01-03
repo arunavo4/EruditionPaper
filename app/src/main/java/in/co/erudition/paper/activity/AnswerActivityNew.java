@@ -41,6 +41,7 @@ import in.co.erudition.paper.data.model.QuestionAnswer;
 import in.co.erudition.paper.misc.NestedScrollWebView;
 import in.co.erudition.paper.network.NetworkUtils;
 import in.co.erudition.paper.util.PreferenceUtils;
+import in.co.erudition.paper.util.ViewUtils;
 
 public class AnswerActivityNew extends AppCompatActivity {
 
@@ -72,6 +73,7 @@ public class AnswerActivityNew extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ViewUtils.changeToolbarFont(toolbar,this);
 
         str = new StringBuilder("<html>");
 
@@ -121,7 +123,7 @@ public class AnswerActivityNew extends AppCompatActivity {
         //Setup Interstitial Ads --> only once at startup
         //Interstitial video ads
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/8691691433");
+        mInterstitialAd.setAdUnitId(getString(R.string.admob_interstitial_ad_id));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         //load ads in advance
@@ -450,6 +452,7 @@ public class AnswerActivityNew extends AppCompatActivity {
         @Override
         public void onFinish() {
             if (mInterstitialAd.isLoaded()) {
+                Log.d(TAG, "The interstitial Ad loaded.");
                 mInterstitialAd.show();
             } else {
                 Log.d(TAG, "The interstitial wasn't loaded yet.");

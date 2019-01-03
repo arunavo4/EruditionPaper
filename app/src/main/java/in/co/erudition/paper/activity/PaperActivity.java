@@ -7,6 +7,7 @@ import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -240,7 +241,8 @@ public class PaperActivity extends AppCompatActivity {
 
         mTextView = (TextView) findViewById(R.id.paper_name_tv);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_container);
-
+        collapsingToolbarLayout.setCollapsedTitleTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
+        collapsingToolbarLayout.setExpandedTitleTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
         try {
             String from = getIntent().getStringExtra("FROM");
 

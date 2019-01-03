@@ -50,6 +50,7 @@ import in.co.erudition.paper.network.NetworkUtils;
 import in.co.erudition.paper.util.ApiUtils;
 import in.co.erudition.paper.util.LimitArrayAdapter;
 import in.co.erudition.paper.util.PreferenceUtils;
+import in.co.erudition.paper.util.ViewUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -76,6 +77,7 @@ public class ProfileEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_edit);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ViewUtils.changeToolbarFont(toolbar,this);
 
         context = this;
 

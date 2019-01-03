@@ -23,6 +23,7 @@ import android.webkit.WebView;
 
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.util.PreferenceUtils;
+import in.co.erudition.paper.util.ViewUtils;
 
 public class WebviewActivity extends AppCompatActivity {
 
@@ -32,6 +33,8 @@ public class WebviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ViewUtils.changeToolbarFont(toolbar,this);
+
         WebView webView = (WebView) findViewById(R.id.web_view);
         NSidedProgressBar progressBar = (NSidedProgressBar) findViewById(R.id.progressBar);
 

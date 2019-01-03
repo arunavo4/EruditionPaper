@@ -24,7 +24,8 @@
     fab:menu_labels_colorRipple="@color/colorBlack25alpha"
     fab:menu_labels_shadowColor="@color/colorBlack10alpha"
     fab:menu_labels_showShadow="true"
-    fab:menu_labels_textSize="14sp">
+    fab:menu_labels_textSize="14sp"
+    fab:menu_labels_customFont="font/source_sans_pro_semibold.ttf">
 
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/menu_item_whatsapp"

@@ -51,6 +51,7 @@
                 android:theme="@style/ToolBarStyle.one"
                 android:layout_marginTop="@dimen/status_bar_height"
                 android:title="@string/app_name"
+                app:titleTextAppearance="@style/Toolbar.TitleTextCourse.Collapsed"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 

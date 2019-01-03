@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -44,6 +45,7 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -125,8 +127,8 @@ public class MainActivity extends AppCompatActivity
     private Call<List<BoardCollege>> CollCall;
     private Dialog dialog;
 
-    private InterstitialAd mInterstitialAd;
-    private AdCountDownTimer timer;
+//    private InterstitialAd mInterstitialAd;
+//    private AdCountDownTimer timer;
 
     private FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
     private HashMap<String, Object> firebaseDefaultMap;
@@ -193,6 +195,10 @@ public class MainActivity extends AppCompatActivity
 
         mProgressBar = (NSidedProgressBar) findViewById(R.id.progressBar_universities);
         mUniversityList = (LinearLayout) findViewById(R.id.university_list);
+
+        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsing_container);
+        collapsingToolbarLayout.setCollapsedTitleTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
+        collapsingToolbarLayout.setExpandedTitleTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
 
         final View space = (View) findViewById(R.id.spacer_top);
 
@@ -1386,10 +1392,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onDestroy() {
-        if (timer != null) {
-            timer.cancel();
-            Log.d("Timer","cancelled");
-        }
+//        if (timer != null) {
+//            timer.cancel();
+//            Log.d("Timer","cancelled");
+//        }
         super.onDestroy();
     }
 
@@ -1442,31 +1448,31 @@ public class MainActivity extends AppCompatActivity
         fab.setIconToggleAnimatorSet(mOpenAnimatorSet);
     }
 
-    private class AdCountDownTimer extends CountDownTimer {
-        /**
-         * @param millisInFuture    The number of millis in the future from the call
-         *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
-         *                          is called.
-         * @param countDownInterval The interval along the way to receive
-         *                          {@link #onTick(long)} callbacks.
-         */
-        public AdCountDownTimer(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-
-        }
-
-        @Override
-        public void onFinish() {
-            if (mInterstitialAd.isLoaded()) {
-                mInterstitialAd.show();
-            } else {
-                Log.d(TAG, "The interstitial wasn't loaded yet.");
-            }
-        }
-    }
+//    private class AdCountDownTimer extends CountDownTimer {
+//        /**
+//         * @param millisInFuture    The number of millis in the future from the call
+//         *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
+//         *                          is called.
+//         * @param countDownInterval The interval along the way to receive
+//         *                          {@link #onTick(long)} callbacks.
+//         */
+//        public AdCountDownTimer(long millisInFuture, long countDownInterval) {
+//            super(millisInFuture, countDownInterval);
+//        }
+//
+//        @Override
+//        public void onTick(long millisUntilFinished) {
+//
+//        }
+//
+//        @Override
+//        public void onFinish() {
+//            if (mInterstitialAd.isLoaded()) {
+//                mInterstitialAd.show();
+//            } else {
+//                Log.d(TAG, "The interstitial wasn't loaded yet.");
+//            }
+//        }
+//    }
 
 }

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import in.co.erudition.paper.R;
+import in.co.erudition.paper.util.ViewUtils;
 
 public class BookActivity extends AppCompatActivity {
     private boolean insetsApplied = false;
@@ -25,7 +26,7 @@ public class BookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        ViewUtils.changeToolbarFont(toolbar,this);
         // To set the background of the activity go below the StatusBar
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE |

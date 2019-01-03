@@ -7,6 +7,7 @@ import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -218,12 +219,7 @@ public class CourseActivity extends AppCompatActivity {
         title.setText(getIntent().getStringExtra("UniversityActivity.EXTRA_University_FULL_NAME"));
         setSupportActionBar(toolbar);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
 
         try {
@@ -237,6 +233,7 @@ public class CourseActivity extends AppCompatActivity {
         try {
 //            collapsingToolbarLayout.setTitle(getIntent().getStringExtra("UniversityActivity.EXTRA_University_FULL_NAME"));
             collapsingToolbarLayout.setTitle(getIntent().getStringExtra("UniversityActivity.EXTRA_University_NAME"));
+            collapsingToolbarLayout.setCollapsedTitleTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
         } catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e) {
             Log.e("Exception", e.toString());
         }

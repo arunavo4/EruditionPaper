@@ -25,10 +25,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.view.animation.Animation;
-import android.widget.TextView;
+import androidx.appcompat.widget.AppCompatTextView;
 
 
-public class Label extends TextView {
+public class Label extends AppCompatTextView {
 
     private static final Xfermode PORTER_DUFF_CLEAR = new PorterDuffXfermode(PorterDuff.Mode.CLEAR);
 

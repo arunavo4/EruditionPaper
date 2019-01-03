@@ -85,6 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:popupTextAlignment="center"
+                    android:textAppearance="@font/source_sans_pro_semibold"
                     app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
 
             </LinearLayout>
@@ -116,7 +117,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacer_20dp"
                     android:text="@string/college"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:textAppearance="@font/source_sans_pro_semibold"/>
 
             </LinearLayout>
 
@@ -146,6 +148,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:popupTextAlignment="center"
+                    android:textAppearance="@font/source_sans_pro_semibold"
                     app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
 
             </LinearLayout>
@@ -176,6 +179,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:popupTextAlignment="center"
+                    android:textAppearance="@font/source_sans_pro_semibold"
                     app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
 
             </LinearLayout>
@@ -221,7 +225,8 @@
             style="@style/SaveFlatButton"
             android:layout_marginEnd="@dimen/spacer_8dp"
             android:layout_marginBottom="@dimen/spacer_8dp"
-            android:text="@string/fui_button_text_save"/>
+            android:text="@string/fui_button_text_save"
+            android:textAppearance="@font/source_sans_pro_semibold"/>
 
     </LinearLayout>
 
@@ -247,7 +252,8 @@
             android:paddingEnd="@dimen/icon_24dp"
             android:text="@string/dialog_setSemester_info"
             android:textAlignment="center"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:textAppearance="@font/source_sans_pro_semibold"/>
 
     </LinearLayout>
 

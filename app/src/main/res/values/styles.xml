@@ -67,6 +67,7 @@
         <item name="actionMenuTextColor">@color/colorWhite</item>
         <!--color of the other icons in toolbar-->
         <item name="android:tint">@color/colorWhite</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
     </style>
 
     <style name="ToolBarStyle.bold" parent="AppTheme">
@@ -89,6 +90,7 @@
         <item name="actionMenuTextColor">@color/colorWhite</item>
         <!--color of the other icons in toolbar-->
         <!--<item name="android:tint">@color/colorWhite</item>-->
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
     </style>
 
     <!--Toolbar Profile-->
@@ -100,10 +102,12 @@
         <item name="actionMenuTextColor">@color/colorMaterialBlack_no_alpha</item>
         <!--color of the other icons in toolbar-->
         <item name="android:tint">@color/colorMaterialBlack_no_alpha</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
     </style>
 
 
     <style name="Toolbar.TitleText.Bold" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -233,6 +237,15 @@
 
 
     <!--Text Styles-->
+    <style name="FabStyle">
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
+    </style>
+
+    <!--<style name="SearchViewText">-->
+        <!--<item name="android:fontFamily">@font/source_sans_pro_semibold</item>-->
+        <!--<item name="android:textColor">@color/colorWhite</item>-->
+    <!--</style>-->
+
     <style name="ProfileTextViewName">
         <item name="android:fontFamily">@font/source_sans_pro_regular</item>
         <item name="android:textColor">@color/colorWhite</item>
@@ -337,7 +350,7 @@
     </style>
 
     <style name="AppNameTextViewBold" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
-        <item name="android:fontFamily">@font/source_sans_bold</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">30sp</item>
         <item name="android:textStyle">bold</item>
@@ -377,8 +390,14 @@
     </style>
 
     <style name="Toolbar.TitleTextCourse" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+    <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:textColor">@color/colorWhite</item>
+    <item name="android:textAlignment">textStart</item>
+    </style>
+
+    <style name="Toolbar.TitleTextCourse.Collapsed" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
-        <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textAlignment">textStart</item>
     </style>

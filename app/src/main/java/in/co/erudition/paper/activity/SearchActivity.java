@@ -1,6 +1,7 @@
 package in.co.erudition.paper.activity;
 
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -83,7 +84,7 @@ public class SearchActivity extends AppCompatActivity {
         //Setup Interstitial Ads --> only once at startup
         //Interstitial video ads
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/8691691433");
+        mInterstitialAd.setAdUnitId(getString(R.string.admob_interstitial_ad_id));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         //load ads in advance
@@ -320,6 +321,9 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        //int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        TextView searchText = (TextView) searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+        searchText.setTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
         searchView.setQueryHint(getResources().getString(R.string.search_text));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

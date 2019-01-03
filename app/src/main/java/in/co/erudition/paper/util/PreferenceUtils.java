@@ -281,7 +281,7 @@ public class PreferenceUtils {
     public static Long getAdTime(){
         mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
                 Context.MODE_PRIVATE);
-
+//        return Long.valueOf(10000);
         return mPrefs.getLong("AdTime",600000);
     }
 }
