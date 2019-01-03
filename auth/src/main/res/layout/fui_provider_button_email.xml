@@ -5,5 +5,5 @@
     android:id="@+id/email_button"
     style="@style/FirebaseUI.Button.Email"
     android:text="@string/fui_sign_in_with_email"
-    android:visibility="invisible"
+    android:visibility="visible"
     tools:ignore="UnusedIds" /> <!-- Used in tests -->

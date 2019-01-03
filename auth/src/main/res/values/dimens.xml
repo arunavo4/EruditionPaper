@@ -2,6 +2,7 @@
 <resources>
     <dimen name="fui_auth_method_button_width">208dp</dimen>
     <dimen name="fui_auth_method_btn_margin">6dp</dimen>
+    <dimen name="fui_auth_method_button_margin">12dp</dimen>
     <dimen name="fui_auth_method_button_drawablePadding">12dp</dimen>
 
     <dimen name="fui_status_bar">24dp</dimen>
@@ -21,4 +22,9 @@
     <dimen name="fui_button_inset_bottom">4dp</dimen>
     <dimen name="fui_button_inset_left">1dp</dimen>
     <dimen name="fui_button_inset_right">2dp</dimen>
+
+    <!--Image height and width-->
+    <dimen name="fui_pager_height">320dp</dimen>
+    <dimen name="fui_pager_img_margin_bottom">8dp</dimen>
+    <dimen name="fui_pager_tv_desc_width">215dp</dimen>
 </resources>

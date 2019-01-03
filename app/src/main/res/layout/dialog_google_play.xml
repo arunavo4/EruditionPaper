@@ -50,6 +50,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="@dimen/spacer_8dp"
+        android:paddingEnd="@dimen/spacer_8dp"
         android:orientation="horizontal">
 
         <FrameLayout
@@ -57,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_later"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,7 +68,7 @@
             android:layout_margin="@dimen/spacer_8dp"
             android:text="@string/later_btn"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_cont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

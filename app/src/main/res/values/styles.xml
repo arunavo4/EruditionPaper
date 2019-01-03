@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -122,16 +122,19 @@
         <item name="colorAccent">@color/colorPrimaryLight</item>
     </style>
 
-    <style name="SaveFlatButton" parent="Widget.AppCompat.Button.Borderless.Colored">
+    <style name="SaveFlatButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
+        <item name="android:text">@string/fui_button_text_save</item>
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="colorControlHighlight">@color/colorAccent</item>
-        <item name="colorAccent">@color/colorPrimaryLight</item>
+        <item name="rippleColor">@color/colorBlack5alpha</item>
+        <item name="strokeColor">@color/colorBlack25alpha</item>
     </style>
 
-    <style name="FlatButton_purple" parent="Widget.AppCompat.Button.Borderless.Colored">
+    <style name="FlatButton_purple" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:textColor">@color/purple</item>
-        <item name="colorControlHighlight">@color/purple</item>
-        <item name="colorAccent">@color/colorPrimaryLight</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
+        <item name="rippleColor">@color/colorBlack5alpha</item>
+        <item name="strokeColor">@color/colorBlack25alpha</item>
     </style>
 
     <style name="AddText">

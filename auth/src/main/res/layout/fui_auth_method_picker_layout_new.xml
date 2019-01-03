@@ -38,8 +38,9 @@
         android:id="@+id/logo"
         style="@style/FirebaseUI.AuthMethodPicker.Logo"
         android:layout_marginTop="40dp"
+        android:layout_marginStart="18dp"
         android:layout_marginBottom="16dp"
-        android:layout_gravity="center_horizontal|top"
+        android:layout_gravity="start|top"
         android:src="@drawable/fui_logo_full"
         tools:ignore="ContentDescription" />
 

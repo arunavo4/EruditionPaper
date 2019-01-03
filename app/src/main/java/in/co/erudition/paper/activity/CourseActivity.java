@@ -25,6 +25,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,6 +54,7 @@ import in.co.erudition.paper.data.remote.BackendService;
 import in.co.erudition.paper.misc.ItemOffsetDecoration;
 import in.co.erudition.paper.network.NetworkUtils;
 import in.co.erudition.paper.util.ApiUtils;
+import in.co.erudition.paper.util.ConverterUtils;
 import in.co.erudition.paper.util.PreferenceUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -125,7 +128,11 @@ public class CourseActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorBlack25alpha));
             getWindow().setNavigationBarColor(getResources().getColor(R.color.colorPrimary));
         }
-
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+        Log.d("Width",String.valueOf(ConverterUtils.convertPxToDp(this,width)));
         /*
             Adjusting the Status bar margin for Different notches
          */

@@ -84,6 +84,8 @@
                     android:id="@+id/uni_drop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    app:fontFamily="@font/source_sans_pro_regular"
                     app:popupTextAlignment="center"
                     app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
 
@@ -117,7 +119,8 @@
                     android:backgroundTint="@color/colorTransparent"
                     android:layout_marginStart="@dimen/spacer_20dp"
                     android:text="@string/college"
-                    android:textSize="14sp"/>
+                    android:textSize="16sp"
+                    android:fontFamily="@font/source_sans_pro_regular"/>
 
             </LinearLayout>
 
@@ -146,6 +149,8 @@
                     android:id="@+id/dept_drop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    app:fontFamily="@font/source_sans_pro_regular"
                     app:popupTextAlignment="center"
                     app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
 
@@ -176,6 +181,8 @@
                     android:id="@+id/sem_drop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    app:fontFamily="@font/source_sans_pro_regular"
                     app:popupTextAlignment="center"
                     app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
 
@@ -214,15 +221,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
             style="@style/SaveFlatButton"
-            android:layout_marginEnd="@dimen/spacer_8dp"
-            android:layout_marginBottom="@dimen/spacer_8dp"
-            android:text="@string/fui_button_text_save"/>
+            android:layout_marginEnd="@dimen/spacer_20dp"
+            android:layout_marginBottom="@dimen/spacer_8dp"/>
 
     </LinearLayout>
 
@@ -246,7 +252,8 @@
             android:layout_gravity="center_vertical"
             android:paddingEnd="@dimen/icon_24dp"
             android:text="@string/dialog_setSemester_info"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:fontFamily="@font/source_sans_pro_regular"/>
 
     </LinearLayout>
 

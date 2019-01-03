@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer name="fui_one_dx">150</integer>
+    <integer name="fui_one_dy">-10</integer>
+    <integer name="fui_two_dx">60</integer>
+    <integer name="fui_two_dy">1</integer>
+    <integer name="fui_three_dx">60</integer>
+    <integer name="fui_three_dy">-160</integer>
+
+</resources>

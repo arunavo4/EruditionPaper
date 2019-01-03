@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="fui_pager_img_margin_bottom">24dp</dimen>
+    <!--Image height and width-->
+    <dimen name="fui_pager_height">460dp</dimen>
+
+</resources>

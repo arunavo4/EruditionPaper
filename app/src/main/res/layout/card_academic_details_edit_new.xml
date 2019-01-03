@@ -56,8 +56,9 @@
                     android:id="@+id/uni_drop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="16sp"
                     app:popupTextAlignment="center"
-                    android:textAppearance="@font/source_sans_pro_semibold"
+                    app:fontFamily="@font/source_sans_pro_regular"
                     app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
 
             </LinearLayout>
@@ -89,8 +90,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacer_20dp"
                     android:text="@string/college"
-                    android:textSize="14sp"
-                    android:textAppearance="@font/source_sans_pro_semibold"/>
+                    android:textSize="16sp"
+                    android:fontFamily="@font/source_sans_pro_regular"/>
 
             </LinearLayout>
 
@@ -119,8 +120,9 @@
                     android:id="@+id/dept_drop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="16sp"
                     app:popupTextAlignment="center"
-                    android:textAppearance="@font/source_sans_pro_semibold"
+                    app:fontFamily="@font/source_sans_pro_regular"
                     app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
 
             </LinearLayout>
@@ -150,8 +152,9 @@
                     android:id="@+id/sem_drop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="16sp"
                     app:popupTextAlignment="center"
-                    android:textAppearance="@font/source_sans_pro_semibold"
+                    app:fontFamily="@font/source_sans_pro_regular"
                     app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
 
             </LinearLayout>

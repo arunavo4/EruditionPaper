@@ -143,6 +143,8 @@
                     android:id="@+id/gender_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    app:fontFamily="@font/source_sans_pro_regular"
                     app:popupTextAlignment="center"
                     app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
 

@@ -8,21 +8,21 @@
     tools:context=".ui.intro.PageOne">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="50dp"
-        android:layout_gravity="center">
+        android:layout_gravity="top">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/img_error"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="45dp"
-            android:layout_gravity="center"
-            android:scaleType="fitCenter"
-            android:src="@drawable/fui_page_one"
+            android:id="@+id/img_one"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fui_pager_height"
+            android:layout_marginBottom="@dimen/fui_pager_img_margin_bottom"
+            android:layout_gravity="top|end"
+            android:scaleType="matrix"
+            app:srcCompat="@drawable/fui_solved"
+            android:adjustViewBounds="true"
             tools:ignore="ContentDescription"/>
 
         <TextView
@@ -33,7 +33,7 @@
             android:text="@string/fui_page_one_title"/>
 
         <TextView
-            android:layout_width="215dp"
+            android:layout_width="@dimen/fui_pager_tv_desc_width"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             style="@style/BottomTextView"

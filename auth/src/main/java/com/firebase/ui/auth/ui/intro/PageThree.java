@@ -1,11 +1,15 @@
 package com.firebase.ui.auth.ui.intro;
 
 
+import android.graphics.Matrix;
+import android.graphics.drawable.ClipDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.firebase.ui.auth.R;
 
@@ -24,7 +28,18 @@ public class PageThree extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fui_fragment_page_three, container, false);
+        View view = inflater.inflate(R.layout.fui_fragment_page_three, container, false);
+
+        ImageView img = (ImageView) view.findViewById(R.id.img_three);
+        Drawable drawable = (Drawable) img.getDrawable();
+
+        Matrix matrix = new Matrix();
+        float dx = ConverterUtils.convertDpToPx(getContext(),getResources().getInteger(R.integer.fui_three_dx));
+        float dy = ConverterUtils.convertDpToPx(getContext(),getResources().getInteger(R.integer.fui_three_dy));
+        matrix.postTranslate(dx,dy);
+        img.setImageMatrix(matrix);
+
+        return view;
     }
 
 }
