@@ -43,19 +43,14 @@
 
     </LinearLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         style="@style/AddButton"
-        android:layout_width="@dimen/add_btn_width"
-        android:layout_height="@dimen/add_btn_height"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/btn_add"
         android:elevation="8dp"
         android:text="@string/add"
-        android:textAlignment="center"
-        android:textAppearance="@style/AddText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.84"

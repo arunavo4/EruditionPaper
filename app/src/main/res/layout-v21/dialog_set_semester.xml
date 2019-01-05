@@ -30,12 +30,12 @@
             android:layout_weight="1"/>
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btn_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/icon_24dp"
-            app:srcCompat="@drawable/ic_info_white_24dp"
-            android:visibility="invisible"/>
+            app:srcCompat="@drawable/ic_close_black_24dp" />
 
     </LinearLayout>
 
@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     app:fontFamily="@font/source_sans_pro_regular"
-                    app:popupTextAlignment="center"
+                    app:popupTextAlignment="start"
                     app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
 
             </LinearLayout>
@@ -96,8 +96,6 @@
                 android:layout_height="@dimen/spacer_1dp"
                 android:layout_marginStart="@dimen/spacer_40dp"
                 android:layout_marginEnd="@dimen/spacer_4dp"
-                android:layout_marginTop="@dimen/spacer_4dp"
-                android:layout_marginBottom="@dimen/spacer_4dp"
                 android:background="@color/colorBlack34alpha"/>
 
             <LinearLayout
@@ -129,8 +127,6 @@
                 android:layout_height="@dimen/spacer_1dp"
                 android:layout_marginStart="@dimen/spacer_40dp"
                 android:layout_marginEnd="@dimen/spacer_4dp"
-                android:layout_marginTop="@dimen/spacer_4dp"
-                android:layout_marginBottom="@dimen/spacer_4dp"
                 android:background="@color/colorBlack34alpha"/>
 
             <LinearLayout
@@ -151,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     app:fontFamily="@font/source_sans_pro_regular"
-                    app:popupTextAlignment="center"
+                    app:popupTextAlignment="start"
                     app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
 
             </LinearLayout>
@@ -161,8 +157,6 @@
                 android:layout_height="@dimen/spacer_1dp"
                 android:layout_marginStart="@dimen/spacer_40dp"
                 android:layout_marginEnd="@dimen/spacer_4dp"
-                android:layout_marginTop="@dimen/spacer_4dp"
-                android:layout_marginBottom="@dimen/spacer_4dp"
                 android:background="@color/colorBlack34alpha"/>
 
             <LinearLayout
@@ -183,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     app:fontFamily="@font/source_sans_pro_regular"
-                    app:popupTextAlignment="center"
+                    app:popupTextAlignment="start"
                     app:arrowDrawable="@drawable/ic_outline_arrow_drop_down_24px"/>
 
             </LinearLayout>
@@ -193,8 +187,6 @@
                 android:layout_height="@dimen/spacer_1dp"
                 android:layout_marginStart="@dimen/spacer_40dp"
                 android:layout_marginEnd="@dimen/spacer_4dp"
-                android:layout_marginTop="@dimen/spacer_4dp"
-                android:layout_marginBottom="@dimen/spacer_4dp"
                 android:background="@color/colorBlack34alpha"/>
 
         </LinearLayout>
@@ -242,7 +234,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/icon_24dp"
+            android:layout_margin="@dimen/spacer_12dp"
             android:layout_gravity="center_vertical"
             app:srcCompat="@drawable/ic_info_black_24dp"/>
 
@@ -252,7 +244,6 @@
             android:layout_gravity="center_vertical"
             android:paddingEnd="@dimen/icon_24dp"
             android:text="@string/dialog_setSemester_info"
-            android:textAlignment="center"
             android:fontFamily="@font/source_sans_pro_regular"/>
 
     </LinearLayout>

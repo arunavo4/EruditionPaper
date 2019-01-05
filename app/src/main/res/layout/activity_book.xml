@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/app_bar_height"
             android:layout_marginTop="@dimen/status_bar_height"
+            android:theme="@style/ToolBarStyle.one"
             android:background="@color/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 

@@ -103,10 +103,17 @@
 
 
     <!--Intro Texts-->
-    <string name="fui_page_one_title">Solved Question Papers</string>
-    <string name="fui_page_one_desc">Get Previous 3 to 10 Years Solved Question Papers Of Various Universities Across Country</string>
-    <string name="fui_page_two_title">Answered by Top Teachers</string>
-    <string name="fui_page_two_desc">All the questions are solved &amp;  maintained by Top Professors  and IIT Scholars</string>
-    <string name="fui_page_three_title">Everything at Your Fingertips</string>
-    <string name="fui_page_three_desc">Explore all of these resources &amp; also review the solutions available right at your fingertips</string>
+    <string name="fui_page_one_title" translatable="false">Solved Question Papers</string>
+    <string name="fui_page_one_desc" translatable="false">Get Previous 3 to 10 Years Solved Question Papers Of Various Universities Across Country</string>
+    <string name="fui_page_two_title" translatable="false">Answered by Top Teachers</string>
+    <string name="fui_page_two_desc" translatable="false">All the questions are solved &amp;  maintained by Top Professors  and IIT Scholars</string>
+    <string name="fui_page_three_title" translatable="false">Everything at Your Fingertips</string>
+    <string name="fui_page_three_desc" translatable="false">Explore all of these resources &amp; also review the solutions available right at your fingertips</string>
+
+    <!--Email login flow-->
+    <string name="fui_email_text" translatable="false">Email</string>
+    <string name="fui_email_desc_text" translatable="false">Enter your Email Address.</string>
+    <string name="fui_welcome_text" translatable="false">Welcome</string>
+    <string name="fui_sign_up_text" translatable="false">Sign Up</string>
+    <string name="fui_forgot_password" translatable="false">Forgot \nPassword</string>
 </resources>

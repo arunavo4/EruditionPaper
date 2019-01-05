@@ -3,6 +3,7 @@ package in.co.erudition.paper.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -15,10 +16,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.AppBarLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -31,6 +36,9 @@ import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import in.co.erudition.paper.Erudition;
@@ -58,6 +66,8 @@ public class SettingsActivity extends AppCompatActivity {
         LinearLayout sign_out_btn = (LinearLayout) findViewById(R.id.sign_out_btn);
         LinearLayout change_pass_btn = (LinearLayout) findViewById(R.id.change_password_btn);
         LinearLayout delete_acc_btn = (LinearLayout) findViewById(R.id.delete_acc_btn);
+        LinearLayout base_url_btn = (LinearLayout) findViewById(R.id.base_url_btn);
+        CardView card_dev = (CardView) findViewById(R.id.card_dev);
         SwitchCompat js_btn = (SwitchCompat) findViewById(R.id.js_btn_toggle);
 
         mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
@@ -130,6 +140,8 @@ public class SettingsActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             // user is now signed out
                             Log.d("SettingsActivity", "Signed Out!");
+                            //Delete Shared Pref
+                            mPrefs.edit().clear().apply();
                             startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
                             finish();
                         }
@@ -161,6 +173,60 @@ public class SettingsActivity extends AppCompatActivity {
             Log.d("JavaScript State:", String.valueOf(isChecked));
         });
 
+        //check if developer
+        if (PreferenceUtils.getRole().equalsIgnoreCase("developer")){
+            card_dev.setVisibility(View.VISIBLE);
+        }else {
+            card_dev.setVisibility(View.INVISIBLE);
+        }
+
+        base_url_btn.setOnClickListener(v -> {
+            showDialogBaseUrl();
+        });
+
+    }
+
+    private void showDialogBaseUrl() {
+
+        try{
+            AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+            View view = getLayoutInflater().inflate(R.layout.dialog_base_url, null);
+
+            Animation view_anim = AnimationUtils.loadAnimation(SettingsActivity.this, R.anim.zoom_in);
+            view.startAnimation(view_anim);
+
+            TextInputEditText base_url = (TextInputEditText) view.findViewById(R.id.base_url_edit_text);
+            TextInputLayout base_url_layout = (TextInputLayout) view.findViewById(R.id.base_url_text_layout);
+            Button url_save = (Button) view.findViewById(R.id.btn_save);
+
+            //Set the base url
+            base_url.setText(PreferenceUtils.getBaseUrl());
+
+            builder.setView(view);
+            final AlertDialog alertDialog = builder.create();
+
+            url_save.setOnClickListener(v -> {
+                base_url_layout.setErrorEnabled(true);
+                base_url_layout.setError(null);
+
+                if (base_url.getText().toString().length()!=0){
+                    //Set the new Base Url
+                    PreferenceUtils.setBaseUrl(base_url.getText().toString());
+                    if (alertDialog.isShowing()) {
+                        alertDialog.cancel();
+                    }
+                }
+                else {
+                    base_url_layout.setError("Enter Base Url");
+                }
+            });
+
+            alertDialog.setCanceledOnTouchOutside(true);
+            alertDialog.show();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }

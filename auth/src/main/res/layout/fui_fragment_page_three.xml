@@ -9,9 +9,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingBottom="50dp"
+        android:paddingBottom="150dp"
         android:layout_gravity="top">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -25,20 +25,38 @@
             android:adjustViewBounds="true"
             tools:ignore="ContentDescription"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
         <TextView
+            style="@style/TopTextViewNew"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            style="@style/TopTextViewNew"
             android:text="@string/fui_page_three_title"/>
 
         <TextView
+            style="@style/BottomTextView"
             android:layout_width="@dimen/fui_pager_tv_desc_width"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            style="@style/BottomTextView"
+            android:textColor="@color/fui_colorMaterialBlack"
             android:text="@string/fui_page_three_desc"/>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
     </LinearLayout>
+
+   </LinearLayout>
 
 </FrameLayout>

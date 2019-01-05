@@ -58,18 +58,13 @@
             style="@style/BottomTextView"
             android:text="@string/coming_soon_bottom"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_notify"
             style="@style/AddButton"
-            android:layout_width="@dimen/add_btn_width"
-            android:layout_height="@dimen/add_btn_height"
-            android:background="@drawable/btn_add"
             android:layout_margin="@dimen/btn_margin"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="center"
             android:elevation="8dp"
-            android:text="@string/notify_me"
-            android:textAlignment="center"
-            android:textAppearance="@style/AddText"/>
+            android:text="@string/notify_me"/>
 
     </LinearLayout>
 
@@ -80,6 +75,8 @@
         android:tint="@color/greyDark_alpha80"
         android:layout_marginStart="@dimen/spacer_16dp"
         android:layout_marginTop="@dimen/nav_bar_height"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:padding="@dimen/spacer_6dp"
         android:layout_gravity="top|start"
         app:srcCompat="@drawable/ic_arrow_back_black_24dp"/>
 

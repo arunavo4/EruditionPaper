@@ -25,6 +25,7 @@ public class PreferenceUtils {
     private static SharedPreferences mPrefs;
     private static SharedPreferences.Editor mPrefsEdit;
     private static HashMap<String,String> mUniList;
+    private static final String BASE_URL = "https://www.erudition.co.in/api/v1/";
 
     public PreferenceUtils(){
         //Empty constructor
@@ -283,6 +284,30 @@ public class PreferenceUtils {
                 Context.MODE_PRIVATE);
 //        return Long.valueOf(10000);
         return mPrefs.getLong("AdTime",600000);
+    }
+
+    //============ BASE URL =======================
+    public static void setBaseUrl(String baseUrl){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+        mPrefsEdit = mPrefs.edit();
+        mPrefsEdit.putString("BASE_URL",baseUrl);
+        mPrefsEdit.apply();
+    }
+
+    public static String getBaseUrl(){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+
+        return mPrefs.getString("BASE_URL",BASE_URL);
+    }
+
+    //============ Role =====================
+    public static String getRole(){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+
+        return mPrefs.getString("Role","Guest");
     }
 }
 

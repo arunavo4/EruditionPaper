@@ -21,7 +21,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:itemTextAppearance="@font/source_sans_pro_semibold"
+        app:itemTextAppearance="@style/NavItemText"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/nav_main_phase_1" />
 

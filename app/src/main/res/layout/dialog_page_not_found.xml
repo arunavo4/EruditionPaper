@@ -39,18 +39,13 @@
             style="@style/BottomTextView_404"
             android:text="@string/page_not_found_bottom"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_go_back"
-            style="@style/AddButton"
-            android:layout_width="@dimen/add_btn_width"
-            android:layout_height="@dimen/add_btn_height"
-            android:background="@drawable/btn_add_white"
+            style="@style/AddButton.Dark"
             android:layout_margin="@dimen/btn_margin"
             android:layout_gravity="center_horizontal"
             android:elevation="8dp"
-            android:text="@string/go_back"
-            android:textAlignment="center"
-            android:textAppearance="@style/AddText_dark"/>
+            android:text="@string/go_back"/>
 
     </LinearLayout>
 
@@ -61,6 +56,7 @@
         android:tint="@color/colorWhite90alpha"
         android:layout_marginStart="@dimen/spacer_16dp"
         android:layout_marginTop="@dimen/nav_bar_height"
+        android:padding="@dimen/spacer_6dp"
         android:layout_gravity="top|start"
         app:srcCompat="@drawable/ic_arrow_back_black_24dp"/>
 

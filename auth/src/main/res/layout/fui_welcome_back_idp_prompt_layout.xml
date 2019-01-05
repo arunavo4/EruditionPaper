@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/fui_bg_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,6 +22,10 @@
             android:orientation="vertical">
 
             <TextView
+                style="@style/TitleText"
+                android:text="@string/fui_welcome_text"/>
+
+            <TextView
                 style="@style/FirebaseUI.Text.Heading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -34,9 +39,9 @@
                 android:textIsSelectable="false"
                 tools:text="Good news! You've already used jane.doe@example.com. Sign in with Google to continue to SuperApp" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/welcome_back_idp_button"
-                style="@style/FirebaseUI.Button"
+                style="@style/FirebaseUI.Button.Dark"
                 android:text="@string/fui_sign_in_default" />
 
             <TextView

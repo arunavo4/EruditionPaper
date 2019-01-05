@@ -412,6 +412,8 @@ public class ProfileActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             // user is now signed out
                             Log.d("ProfileActivity", "Signed Out!");
+                            //Delete Shared Pref
+                            mPrefs.edit().clear().apply();
                             startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
                             finish();
                         }

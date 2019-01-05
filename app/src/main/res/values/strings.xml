@@ -49,10 +49,10 @@
     <string name="play_store_url">http://play.google.com/store/apps/details?id=in.co.erudition.paper</string>
 
     <!--Error and info Strings for Set Semester Dialog-->
-    <string name="select_university">Select University</string>
-    <string name="enter_college">Enter College</string>
-    <string name="select_dept">Select Department</string>
-    <string name="select_sem">Select Semester</string>
+    <string name="select_university">Select University First</string>
+    <string name="enter_college">Choose College</string>
+    <string name="select_dept">Select Department Now</string>
+    <string name="select_sem">Set Semester</string>
     <string name="loading_dialog">Loading …</string>
     <string name="error_dialog">Error Occurred!</string>
     <string name="error_params">Enter all details to proceed</string>
@@ -175,7 +175,16 @@
     <string name="dismiss">Dismiss</string>
     <string name="snackBar_clear_cache">App Cache Cleared!</string>
     <string name="adMob_toggle">AdMob Toggle</string>
-
+    <string name="dev_title">Developer Options</string>
+    <string name="base_url">Base Url</string>
+    <string name="save_url">Save</string>
+    
+    <!--Update Password-->
+    <string name="change_pass_title">New \nPassword</string>
+    <string name="change_pass_desc">Enter the code received in </string>
+    <string name="Secret_code">Secret Code</string>
+    <string name="New_pass">New Password</string>
+    
     <!--Menu Actions-->
     <string name="action_logout">Sign Out</string>
     <string name="action_settings">Settings</string>

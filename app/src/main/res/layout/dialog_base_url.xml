@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:padding="@dimen/card_padding"
+    android:layout_margin="@dimen/spacer_16dp"
+    android:layout_gravity="center_horizontal"
+    app:cardCornerRadius="5dp"
+    app:cardUseCompatPadding="false"
+    app:cardElevation="6dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/linear_layout_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/offer_des_tv_margin"
+            style="@style/ProfileCardTextViewBold"
+            android:text="@string/base_url"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacer_1dp"
+            android:layout_marginStart="@dimen/spacer_12dp"
+            android:layout_marginEnd="@dimen/spacer_12dp"
+            android:background="@color/colorBlack34alpha"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacer_4dp"
+            android:paddingStart="@dimen/spacer_16dp"
+            android:paddingEnd="@dimen/spacer_16dp"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacer_8dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacer_16dp"
+                    app:srcCompat="@drawable/ic_link"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/base_url_text_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:textColorHint="@color/colorMaterialBlack_no_alpha"
+                    app:hintTextAppearance="@style/HintTextViewProfile">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/base_url_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/base_url" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/SaveFlatButton"
+            android:layout_margin="@dimen/spacer_8dp"
+            android:layout_gravity="bottom|end"
+            android:text="@string/save_url"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

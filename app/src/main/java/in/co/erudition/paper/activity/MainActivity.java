@@ -517,8 +517,8 @@ public class MainActivity extends AppCompatActivity
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
-        //mRecyclerView.setHasFixedSize(true);
-        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.item_offset);
+        //mRecyclerView.setHasFixedSize(true);R.dimen.item_offset
+        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(this, R.dimen.spacer_0dp);
         mRecyclerView.addItemDecoration(itemDecoration);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         Log.d(TAG, "done adapter");
@@ -828,6 +828,7 @@ public class MainActivity extends AppCompatActivity
             TextView info_tv = (TextView) view.findViewById(R.id.info_tv);
 
             Button btn_save = (Button) view.findViewById(R.id.btn_save);
+            ImageView btn_close = (ImageView) view.findViewById(R.id.btn_close);
 
             //ReInit params
             params = new String[]{"0", "0", "0", "0"};
@@ -948,6 +949,12 @@ public class MainActivity extends AppCompatActivity
             final AlertDialog alertDialog = builder.create();
             alertDialog.setCanceledOnTouchOutside(true);
             alertDialog.show();
+
+            btn_close.setOnClickListener(v -> {
+                if (alertDialog.isShowing()) {
+                    alertDialog.cancel();
+                }
+            });
 
             btn_save.setOnClickListener(v -> {
                 // MAKE THE FAV API CALL

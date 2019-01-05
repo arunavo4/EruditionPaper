@@ -28,4 +28,23 @@ public class RecoverPasswordHandler extends AuthViewModelBase<String> {
                     }
                 });
     }
+
+    public void forgotPassword(final String email){
+
+//        try{
+//            Class<?> loginUtilClass = Class.forName("in.co.erudition.paper.util.LoginUtils");
+//            final Object loginUtil = loginUtilClass.newInstance();
+//
+//            final Method login_idp = loginUtil.getClass().getMethod("login_via_idp",String.class,String.class,String.class);
+//            try{
+//                String message = (String) login_idp.invoke(loginUtil,response.getUser().getProviderId(),response.getEmail(),response.getIdpToken());
+//                Log.d("login_idp_method: ",message);
+//            }catch (IllegalAccessException | InvocationTargetException e) {
+//                e.printStackTrace();
+//            }
+//
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+    }
 }

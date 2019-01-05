@@ -38,7 +38,7 @@
             style="@style/BottomTextView"
             android:text="@string/error_bottom"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_go_back"
             style="@style/AddButton"
             android:layout_width="@dimen/add_btn_width"

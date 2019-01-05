@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="item_offset_paper">10dp</dimen>
-    <dimen name="recycler_view_width">380dp</dimen>
+    <dimen name="recycler_view_width">400dp</dimen>
     <dimen name="chap_name_text_view_width">250dp</dimen>
     <dimen name="recycler_view_offset_start">15dp</dimen>
     <dimen name="recycler_view_offset_end">5dp</dimen>
@@ -12,4 +12,8 @@
 
     <dimen name="carousel_item_sem_width">177dp</dimen>
     <dimen name="carousel_item_sem_height">110dp</dimen>
+
+    <dimen name="card_image_view">60dp</dimen>
+
+    <!--<dimen name="card_uni_text_size">14sp</dimen>-->
 </resources>

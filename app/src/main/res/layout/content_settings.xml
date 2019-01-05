@@ -29,6 +29,12 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacer_8dp"/>
+
+            <include layout="@layout/card_settings_dev"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacer_8dp"/>
             
         </LinearLayout>
 

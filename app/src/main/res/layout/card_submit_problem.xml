@@ -63,6 +63,7 @@
                         android:id="@+id/subject_feedback"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/source_sans_pro_regular"
                         android:hint="@string/subject_help" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -93,6 +94,7 @@
                         android:id="@+id/issue_feedback"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/source_sans_pro_regular"
                         android:hint="@string/issues_faced" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -110,7 +112,8 @@
             android:layout_marginBottom="@dimen/spacer_16dp"
             android:layout_gravity="center_vertical|end"
             android:textAlignment="center"
-            android:textColor="@color/colorWhite"/>
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/source_sans_pro_semibold"/>
 
     </LinearLayout>
 
