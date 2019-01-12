@@ -69,6 +69,12 @@ public class WelcomeBackPasswordPrompt extends AppCompatBase
                 .putExtra(ExtraConstants.IDP_RESPONSE, response);
     }
 
+    public static Intent createIntent(
+            Context context, FlowParameters flowParams, String email) {
+        return createBaseIntent(context, WelcomeBackPasswordPrompt.class, flowParams)
+                .putExtra("User_EMAIL", email);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

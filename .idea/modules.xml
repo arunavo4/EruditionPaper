@@ -15,6 +15,7 @@
       <module fileurl="file://$PROJECT_DIR$/pageindicatorview/pageindicatorview.iml" filepath="$PROJECT_DIR$/pageindicatorview/pageindicatorview.iml" />
       <module fileurl="file://$PROJECT_DIR$/polygonprogressbar/polygonprogressbar.iml" filepath="$PROJECT_DIR$/polygonprogressbar/polygonprogressbar.iml" />
       <module fileurl="file://$PROJECT_DIR$/scalinglib/scalinglib.iml" filepath="$PROJECT_DIR$/scalinglib/scalinglib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spinner/spinner.iml" filepath="$PROJECT_DIR$/spinner/spinner.iml" />
     </modules>
   </component>
 </project>

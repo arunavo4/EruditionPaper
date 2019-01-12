@@ -264,6 +264,9 @@ public class MainActivity extends AppCompatActivity
 //            });
 //        }
 
+        /*
+         * Set up the Semester Carousel
+         */
         //init for set Sem
         params = new String[]{"0", "0", "0", "0"};
         listCodePair = new ArrayList<HashMap<String, String>>();

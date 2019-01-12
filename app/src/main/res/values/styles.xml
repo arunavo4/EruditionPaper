@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
     </style>
 
     <!--FireBase AuthUI Theme-->
@@ -21,6 +22,7 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="colorControlActivated">@color/colorAccent</item>
         <item name="colorControlHighlight">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
     </style>
 
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
@@ -57,6 +59,11 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <!--Snackbar-->
+    <style name="TextAppearance.Design.Snackbar.Message" parent="android:TextAppearance" tools:override="true">
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
+    </style>
 
     <!-- ToolBar -->
     <style name="ToolBarStyle" parent="AppTheme">
@@ -377,7 +384,7 @@
     </style>
 
     <style name="SubjectCodeTextView">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/greyDark</item>
         <item name="android:textSize">16sp</item>
     </style>
@@ -403,7 +410,7 @@
     </style>
 
     <style name="TitleTextView">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">20sp</item>
         <item name="android:layout_marginTop">16dp</item>
@@ -491,7 +498,7 @@
     </style>
 
     <style name="ReferalTextView">
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textSize">17sp</item>
         <item name="android:textAlignment">center</item>

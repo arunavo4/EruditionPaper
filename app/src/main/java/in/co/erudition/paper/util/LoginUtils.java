@@ -7,6 +7,7 @@ import android.util.Log;
 import java.io.IOException;
 
 import androidx.annotation.Keep;
+import androidx.annotation.Nullable;
 import in.co.erudition.paper.Erudition;
 import in.co.erudition.paper.data.model.Login;
 import in.co.erudition.paper.data.model.Person;
@@ -22,6 +23,7 @@ public class LoginUtils {
     private NetworkUtils mNetworkUtils = new NetworkUtils();
     public static String eid = "0";
     private String message = "";
+    private String code = "-1";
 
     public LoginUtils() {
         //Empty constructor
@@ -60,6 +62,19 @@ public class LoginUtils {
         return message;
     }
 
+    public void login_via_email(String email,@Nullable String password,Callback<com.firebase.ui.auth.ui.email.Login> callback){
+        code = "-1";
+        final String provider = "Email";
+        Call<com.firebase.ui.auth.ui.email.Login> loginCall;
+        Log.d("Login Params: ", provider + "," + email + "," + password);
+        if (password!=null){
+             loginCall = mService.check_email(provider, email, password);
+        }else {
+            loginCall = mService.check_email(provider, email);
+        }
+        loginCall.enqueue(callback);
+    }
+
     //SignUp via Email
     public int signUp_via_Email(String first_name, String last_name, String userEmail) {
         int message = 0;
@@ -90,16 +105,15 @@ public class LoginUtils {
     }
 
     //Forgot Password
-    public int forgot_password(String userEmail) {
+    public void forgot_password(String userEmail, Callback<com.firebase.ui.auth.ui.email.Login> callback) {
 
         try {
-            Call<Login> call = mService.forgot_password(userEmail);
-            Response<Login> response = call.execute();
+            Call<com.firebase.ui.auth.ui.email.Login> call = mService.forgot_password(userEmail);
+            call.enqueue(callback);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return 0;
     }
 
     public int person_details(String Eid, String Email) {

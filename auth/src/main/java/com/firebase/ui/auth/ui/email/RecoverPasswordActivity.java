@@ -22,8 +22,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+
+import com.firebase.ui.auth.data.model.Resource;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.app.AlertDialog;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -51,6 +57,7 @@ public class RecoverPasswordActivity extends AppCompatBase implements View.OnCli
     private TextInputLayout mEmailInputLayout;
     private EditText mEmailEditText;
     private EmailFieldValidator mEmailFieldValidator;
+    private Callback<Login> callback;
 
     public static Intent createIntent(Context context, FlowParameters params, String email) {
         return createBaseIntent(context, RecoverPasswordActivity.class, params)
@@ -68,20 +75,20 @@ public class RecoverPasswordActivity extends AppCompatBase implements View.OnCli
                 this, R.string.fui_progress_dialog_sending) {
             @Override
             protected void onSuccess(@NonNull String email) {
-                mEmailInputLayout.setError(null);
-                showEmailSentDialog(email);
+//                mEmailInputLayout.setError(null);
+//                showEmailSentDialog(email);
             }
 
             @Override
             protected void onFailure(@NonNull Exception e) {
-                if (e instanceof FirebaseAuthInvalidUserException
-                        || e instanceof FirebaseAuthInvalidCredentialsException) {
-                    // No FirebaseUser exists with this email address, show error.
-                    mEmailInputLayout.setError(getString(R.string.fui_error_email_does_not_exist));
-                } else {
-                    // Unknown error
-                    mEmailInputLayout.setError(getString(R.string.fui_error_unknown));
-                }
+//                if (e instanceof FirebaseAuthInvalidUserException
+//                        || e instanceof FirebaseAuthInvalidCredentialsException) {
+//                    // No FirebaseUser exists with this email address, show error.
+//                    mEmailInputLayout.setError(getString(R.string.fui_error_email_does_not_exist));
+//                } else {
+//                    // Unknown error
+//                    mEmailInputLayout.setError(getString(R.string.fui_error_unknown));
+//                }
             }
         });
 
@@ -93,6 +100,31 @@ public class RecoverPasswordActivity extends AppCompatBase implements View.OnCli
         if (email != null) {
             mEmailEditText.setText(email);
         }
+
+        callback = new Callback<Login>() {
+            @Override
+            public void onResponse(Call<Login> call, Response<Login> response) {
+                if (response.isSuccessful()){
+                    mHandler.done();
+                    Login login = response.body();
+                    String code = login.getCode();
+
+                    if (code.contentEquals("0")){
+                        mEmailInputLayout.setError(getString(R.string.fui_error_email_does_not_exist));
+                    }else if (code.contentEquals("1")){
+                        mEmailInputLayout.setError(null);
+                        showEmailSentDialog();
+                    }else {
+                        mEmailInputLayout.setError(getString(R.string.fui_error_unknown));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Login> call, Throwable t) {
+                mEmailInputLayout.setError(getString(R.string.fui_error_unknown));
+            }
+        };
 
         ImeHelper.setImeOnDoneListener(mEmailEditText, this);
         findViewById(R.id.button_done).setOnClickListener(this);
@@ -111,13 +143,13 @@ public class RecoverPasswordActivity extends AppCompatBase implements View.OnCli
 
     @Override
     public void onDonePressed() {
-        mHandler.startReset(mEmailEditText.getText().toString());
+        mHandler.forgotPassword(mEmailEditText.getText().toString(),callback);
     }
 
-    private void showEmailSentDialog(String email) {
+    private void showEmailSentDialog() {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.fui_title_confirm_recover_password)
-                .setMessage(getString(R.string.fui_confirm_recovery_body, email))
+                .setMessage(getString(R.string.fui_confirm_recovery_body, mEmailEditText.getText().toString()))
                 .setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {

@@ -77,6 +77,10 @@ public abstract class ResourceObserver<T> implements Observer<Resource<T>> {
         }
     }
 
+    public void hideProgress(){
+        mProgressView.hideProgress();
+    }
+
     protected abstract void onSuccess(@NonNull T t);
 
     protected abstract void onFailure(@NonNull Exception e);

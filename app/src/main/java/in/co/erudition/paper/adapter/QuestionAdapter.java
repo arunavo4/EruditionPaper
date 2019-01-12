@@ -221,6 +221,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
 
     private void parcelData() {
         try {
+            //Clear the existing data
+            data.clear();
             //get the total data item count
             for (int i = 0; i < paperGroups.size(); i++) {
                 PaperGroup paperGroup = paperGroups.get(i);

@@ -20,7 +20,7 @@
     fab:menu_labels_margin="8dp"
     fab:menu_labels_textColor="@color/greyDark_alpha80"
     fab:menu_labels_colorNormal="@color/colorWhite"
-    fab:menu_labels_colorPressed="@color/colorWhite70alpha"
+    fab:menu_labels_colorPressed="@color/colorWhite"
     fab:menu_labels_colorRipple="@color/colorBlack25alpha"
     fab:menu_labels_shadowColor="@color/colorBlack10alpha"
     fab:menu_labels_showShadow="true"

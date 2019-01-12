@@ -68,6 +68,13 @@ public class RetrofitClient {
                                 Log.d("Interceptor->", "NoToken");
                                 while(!hasToken()){
                                     AccessToken = generateToken();
+                                    try {
+                                        if (!hasToken()) {
+                                            Thread.sleep(10000);
+                                        }
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                                 newRequest.header("Authorization", AccessToken);
                             }

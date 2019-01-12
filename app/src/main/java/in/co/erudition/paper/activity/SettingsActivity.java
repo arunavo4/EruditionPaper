@@ -3,36 +3,11 @@ package in.co.erudition.paper.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.appbar.AppBarLayout;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,11 +16,38 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.ui.ProgressView;
+import com.firebase.ui.auth.ui.email.Login;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 import in.co.erudition.paper.Erudition;
 import in.co.erudition.paper.LoginActivity;
 import in.co.erudition.paper.R;
 import in.co.erudition.paper.util.CacheUtils;
+import in.co.erudition.paper.util.LoginUtils;
 import in.co.erudition.paper.util.PreferenceUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SettingsActivity extends AppCompatActivity {
     private static SharedPreferences mPrefs;
@@ -59,8 +61,8 @@ public class SettingsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_container);
-        collapsingToolbarLayout.setCollapsedTitleTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
-        collapsingToolbarLayout.setExpandedTitleTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
+        collapsingToolbarLayout.setCollapsedTitleTypeface(Typeface.createFromAsset(getAssets(), "font/source_sans_pro_semibold.ttf"));
+        collapsingToolbarLayout.setExpandedTitleTypeface(Typeface.createFromAsset(getAssets(), "font/source_sans_pro_semibold.ttf"));
 
         LinearLayout clear_cache_btn = (LinearLayout) findViewById(R.id.clear_cache_btn);
         LinearLayout sign_out_btn = (LinearLayout) findViewById(R.id.sign_out_btn);
@@ -154,19 +156,48 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         change_pass_btn.setOnClickListener(v -> {
+            final Snackbar loading = Snackbar.make((CoordinatorLayout) findViewById(R.id.settings_main), getString(R.string.sending), Snackbar.LENGTH_INDEFINITE);
+            loading.show();
+            //Make the forgot Password Api call
+            Callback<Login> callback = new Callback<Login>() {
+                @Override
+                public void onResponse(Call<Login> call, Response<Login> response) {
+                    loading.dismiss();
+                    if (response.isSuccessful()) {
+                        Login login = response.body();
+                        String code = login.getCode();
+
+                        if (code.contentEquals("0")) {
+                            Snackbar.make((CoordinatorLayout) findViewById(R.id.settings_main), getString(R.string.fui_error_email_does_not_exist), Snackbar.LENGTH_LONG).show();
+                        } else if (code.contentEquals("1")) {
+                            showEmailSentDialog();
+                        } else {
+                            Snackbar.make((CoordinatorLayout) findViewById(R.id.settings_main), getString(R.string.fui_error_unknown), Snackbar.LENGTH_LONG).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Login> call, Throwable t) {
+                    loading.dismiss();
+                    Snackbar.make((CoordinatorLayout) findViewById(R.id.settings_main), getString(R.string.error_occurred), Snackbar.LENGTH_LONG).show();
+                }
+            };
+
+            LoginUtils loginUtils = new LoginUtils();
+            loginUtils.forgot_password(PreferenceUtils.readEmail(),callback);
 
         });
 
         js_btn.setOnCheckedChangeListener((buttonView, isChecked) -> {
             mPrefsEdit = mPrefs.edit();
 
-            if (isChecked){
+            if (isChecked) {
                 //Turn on all javaScript
-                mPrefsEdit.putBoolean("JavaScript",true);
+                mPrefsEdit.putBoolean("JavaScript", true);
                 Snackbar.make((CoordinatorLayout) findViewById(R.id.settings_main), getString(R.string.javascript_true), Snackbar.LENGTH_LONG).show();
-            }
-            else {
-                mPrefsEdit.putBoolean("JavaScript",false);
+            } else {
+                mPrefsEdit.putBoolean("JavaScript", false);
                 Snackbar.make((CoordinatorLayout) findViewById(R.id.settings_main), getString(R.string.javascript_false), Snackbar.LENGTH_LONG).show();
             }
             mPrefsEdit.apply();
@@ -174,9 +205,9 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         //check if developer
-        if (PreferenceUtils.getRole().equalsIgnoreCase("developer")){
+        if (PreferenceUtils.getRole().equalsIgnoreCase("developer")) {
             card_dev.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             card_dev.setVisibility(View.INVISIBLE);
         }
 
@@ -188,7 +219,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void showDialogBaseUrl() {
 
-        try{
+        try {
             AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
             View view = getLayoutInflater().inflate(R.layout.dialog_base_url, null);
 
@@ -209,14 +240,13 @@ public class SettingsActivity extends AppCompatActivity {
                 base_url_layout.setErrorEnabled(true);
                 base_url_layout.setError(null);
 
-                if (base_url.getText().toString().length()!=0){
+                if (base_url.getText().toString().length() != 0) {
                     //Set the new Base Url
                     PreferenceUtils.setBaseUrl(base_url.getText().toString());
                     if (alertDialog.isShowing()) {
                         alertDialog.cancel();
                     }
-                }
-                else {
+                } else {
                     base_url_layout.setError("Enter Base Url");
                 }
             });
@@ -224,9 +254,17 @@ public class SettingsActivity extends AppCompatActivity {
             alertDialog.setCanceledOnTouchOutside(true);
             alertDialog.show();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void showEmailSentDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle(com.firebase.ui.auth.R.string.fui_title_confirm_recover_password)
+                .setMessage(getString(R.string.change_pass_dialog, PreferenceUtils.readEmail()))
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
     }
 
 }

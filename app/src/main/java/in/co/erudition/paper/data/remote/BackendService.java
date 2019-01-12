@@ -45,6 +45,17 @@ public interface BackendService {
                            @Field("Email") String email,
                            @Field("Password") String password);
 
+    @POST("login")
+    @FormUrlEncoded
+    Call<com.firebase.ui.auth.ui.email.Login> check_email(@Field("Social") String social,
+                                                          @Field("Email") String email);
+
+    @POST("login")
+    @FormUrlEncoded
+    Call<com.firebase.ui.auth.ui.email.Login> check_email(@Field("Social") String social,
+                                                          @Field("Email") String email,
+                                                          @Field("Password") String password);
+
     //SignUp via Email
     @POST("register")
     @FormUrlEncoded
@@ -62,7 +73,7 @@ public interface BackendService {
     //Forgot Password
     @POST("forgotpassword")
     @FormUrlEncoded
-    Call<Login> forgot_password(@Field("Email") String email);
+    Call<com.firebase.ui.auth.ui.email.Login> forgot_password(@Field("Email") String email);
 
 
     //Get User Detail By EId or Email

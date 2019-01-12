@@ -7,8 +7,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import com.google.android.material.textfield.TextInputLayout;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -139,20 +144,49 @@ public class CheckEmailFragment extends FragmentBase implements
                 this, R.string.fui_progress_dialog_checking_accounts) {
             @Override
             protected void onSuccess(@NonNull User user) {
-                String email = user.getEmail();
+                final String email = user.getEmail();
+                final User reuser = user;
                 String provider = user.getProviderId();
 
+                Log.d("Inside Fragment","On Success");
                 mEmailEditText.setText(email);
                 //noinspection ConstantConditions new user
                 if (provider == null) {
-                    mListener.onNewUser(new User.Builder(EmailAuthProvider.PROVIDER_ID, email)
-                            .setName(user.getName())
-                            .setPhotoUri(user.getPhotoUri())
-                            .build());
+                    //Here we wanna check with our own api before calling on new user
+                    Callback<Login> callback = new Callback<Login>() {
+                        @Override
+                        public void onResponse(Call<Login> call, Response<Login> response) {
+                            Login login = response.body();
+                            String code = login.getCode();
+
+                            if (code.contentEquals("8")){
+                                //User exists on Api
+                                Log.d("provider null","USer exits on Api");
+                                //Ask for password
+                                mListener.onExistingEmailUser(reuser);
+                            }else {
+                                Log.d("provider null","Calling On new user");
+                                mListener.onNewUser(new User.Builder(EmailAuthProvider.PROVIDER_ID, email)
+                                        .setName(reuser.getName())
+                                        .setPhotoUri(reuser.getPhotoUri())
+                                        .build());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Login> call, Throwable t) {
+                            Log.d("Inside Fragment","check email callback failed");
+                        }
+                    };
+
+                    mHandler.checkUserEmail(email,callback);
+                    Log.d("Inside Fragment","On Success New User");
                 } else if (provider.equals(EmailAuthProvider.PROVIDER_ID)) {
                     mListener.onExistingEmailUser(user);
+                    Log.d("Inside Fragment","On Success onExistingEmailUser");
                 } else {
                     mListener.onExistingIdpUser(user);
+                    Log.d("Inside Fragment","On Success onExistingIdpUser");
                 }
             }
 
@@ -165,6 +199,9 @@ public class CheckEmailFragment extends FragmentBase implements
         if (savedInstanceState != null) { return; }
 
         // Check for email
+        /*
+         *  Applying my own Api
+         */
         String email = getArguments().getString(ExtraConstants.EMAIL);
         if (!TextUtils.isEmpty(email)) {
             mEmailEditText.setText(email);

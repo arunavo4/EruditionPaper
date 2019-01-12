@@ -178,7 +178,10 @@
     <string name="dev_title">Developer Options</string>
     <string name="base_url">Base Url</string>
     <string name="save_url">Save</string>
-    
+    <string name="sending">Sending…</string>
+    <string name="change_pass_dialog" translation_description="Alert dialog displayed after password recovery email is sent">Follow the instructions sent to %1$s to change your password.</string>
+
+
     <!--Update Password-->
     <string name="change_pass_title">New \nPassword</string>
     <string name="change_pass_desc">Enter the code received in </string>

@@ -1,1 +1,1 @@
-include ':app', ':pageindicatorview', ':fabulousfilter', ':customfab', ':scalinglib', ':internal:lint', ':internal:lintchecks', ':auth', ':avatar', ':polygonprogressbar', ':morphingbutton'
+include ':app', ':pageindicatorview', ':fabulousfilter', ':customfab', ':scalinglib', ':internal:lint', ':internal:lintchecks', ':auth', ':avatar', ':polygonprogressbar', ':morphingbutton', ':spinner'

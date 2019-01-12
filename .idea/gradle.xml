@@ -21,6 +21,7 @@
             <option value="$PROJECT_DIR$/pageindicatorview" />
             <option value="$PROJECT_DIR$/polygonprogressbar" />
             <option value="$PROJECT_DIR$/scalinglib" />
+            <option value="$PROJECT_DIR$/spinner" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -48,6 +48,15 @@ public final class Resource<T> {
         return new Resource<>(State.LOADING, null, null);
     }
 
+    /**
+     * Creates a resource in the Done state, without a value or an exception.
+     */
+    @NonNull
+    public static <T> Resource<T> forDone() {
+        return new Resource<>(State.DONE, null, null);
+    }
+
+
     @NonNull
     public State getState() {
         return mState;

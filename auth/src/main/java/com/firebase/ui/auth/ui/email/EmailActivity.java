@@ -17,6 +17,8 @@ package com.firebase.ui.auth.ui.email;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import com.google.android.material.textfield.TextInputLayout;
@@ -104,7 +106,7 @@ public class EmailActivity extends AppCompatBase implements CheckEmailFragment.C
     public void onNewUser(User user) {
         // New user, direct them to create an account with email/password
         // if account creation is enabled in SignInIntentBuilder
-
+        Log.d("Email Activity", "On new User");
         TextInputLayout emailLayout = findViewById(R.id.email_layout);
 
         AuthUI.IdpConfig emailConfig = ProviderUtils.getConfigFromIdpsOrThrow(
