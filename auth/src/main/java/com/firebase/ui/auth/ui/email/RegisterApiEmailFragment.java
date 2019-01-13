@@ -1,22 +1,12 @@
 package com.firebase.ui.auth.ui.email;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.lifecycle.ViewModelProviders;
-
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputLayout;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,17 +33,29 @@ import com.firebase.ui.auth.util.ui.fieldvalidators.PasswordFieldValidator;
 import com.firebase.ui.auth.util.ui.fieldvalidators.RequiredFieldValidator;
 import com.firebase.ui.auth.viewmodel.ResourceObserver;
 import com.firebase.ui.auth.viewmodel.idp.EmailProviderResponseHandler;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import androidx.appcompat.app.AlertDialog;
+import androidx.lifecycle.ViewModelProviders;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 /**
- * Fragment to display an email/name/password sign up form for new users.
+ * Fragment to display an email/name/password sign up form for new users but old Api.
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
-public class RegisterEmailFragment extends FragmentBase implements
-        View.OnClickListener, View.OnFocusChangeListener, ImeHelper.DonePressedListener {
-    public static final String TAG = "RegisterEmailFragment";
+public class RegisterApiEmailFragment extends FragmentBase implements
+        View.OnClickListener, View.OnFocusChangeListener, ImeHelper.DonePressedListener{
+
+    public static final String TAG = "RegisterApiEmailFragment";
 
     private EmailProviderResponseHandler mHandler;
     private FrameLayout layout;
@@ -62,25 +64,17 @@ public class RegisterEmailFragment extends FragmentBase implements
     private Button mNextButton;
     private ProgressBar mProgressBar;
 
-    private EditText mEmailEditText;
     private EditText mNameEditText;
-    private EditText mLastNameEditText;
-    private EditText mSecretCodeEditText;
     private EditText mPasswordEditText;
-    private TextInputLayout mEmailInput;
-    private TextInputLayout mSecretInput;
     private TextInputLayout mPasswordInput;
 
-    private EmailFieldValidator mEmailFieldValidator;
     private PasswordFieldValidator mPasswordFieldValidator;
     private BaseValidator mNameValidator;
-    private BaseValidator mLastNameValidator;
-    private BaseValidator mSecretValidator;
 
     private User mUser;
 
-    public static RegisterEmailFragment newInstance(User user) {
-        RegisterEmailFragment fragment = new RegisterEmailFragment();
+    public static RegisterApiEmailFragment newInstance(User user) {
+        RegisterApiEmailFragment fragment = new RegisterApiEmailFragment();
         Bundle args = new Bundle();
         args.putParcelable(ExtraConstants.USER, user);
         fragment.setArguments(args);
@@ -118,17 +112,19 @@ public class RegisterEmailFragment extends FragmentBase implements
                             R.plurals.fui_error_weak_password,
                             R.integer.fui_min_password_length));
                 } else if (e instanceof FirebaseAuthInvalidCredentialsException) {
-                    mEmailInput.setError(getString(R.string.fui_invalid_email_address));
+                    Snackbar.make(layout, getString(R.string.fui_invalid_email_address),Snackbar.LENGTH_LONG)
+                            .show();
                 } else {
                     // General error message, this branch should not be invoked but
                     // covers future API changes
-                    mEmailInput.setError(getString(R.string.fui_email_account_creation_error));
+                    Snackbar.make(layout, getString(R.string.fui_email_account_creation_error),Snackbar.LENGTH_LONG)
+                            .show();
                 }
             }
         });
 
         layout = (FrameLayout)  getActivity().findViewById(R.id.fragment_register_email);
-        loading = Snackbar.make(layout, getString(R.string.fui_progress_dialog_sending),Snackbar.LENGTH_LONG);
+        loading = Snackbar.make(layout, getString(R.string.fui_progress_dialog_checking),Snackbar.LENGTH_LONG);
 
         //here call the register email api endpoint
         callback = new Callback<Login>() {
@@ -139,19 +135,16 @@ public class RegisterEmailFragment extends FragmentBase implements
                     loading.dismiss();
                     Login login = response.body();
                     String code = login.getCode();
+                    String msg = login.getMsg();
                     if (code.contentEquals("1")){
-                        showEmailSentDialog();
-                    }else if (code.contentEquals("0")){
-                        Snackbar.make(layout, getString(R.string.fui_error_email_already_exists),Snackbar.LENGTH_LONG)
-                                .show();
+//                        //Successful login call firebase
+                        mHandler.loginUser(getEmail(),mPasswordEditText.getText().toString());
+                        validateAndRegisterUser();
+                    }else if (code.contentEquals("7")){
+                        //Wrong password
+                        mPasswordInput.setError(msg);
                     }else {
-                        Snackbar.make(layout, getString(R.string.fui_error_unknown),Snackbar.LENGTH_INDEFINITE)
-                                .setAction(getString(R.string.fui_error_retry), new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        retryConfirmation();
-                                    }
-                                }).show();
+                        Snackbar.make(layout, msg,Snackbar.LENGTH_LONG).show();
                     }
                 }
             }
@@ -160,33 +153,15 @@ public class RegisterEmailFragment extends FragmentBase implements
             public void onFailure(Call<Login> call, Throwable t) {
 //                    hideProgress();
                 loading.dismiss();
-                Snackbar.make(layout, getString(R.string.fui_error_unknown),Snackbar.LENGTH_INDEFINITE)
-                            .setAction(getString(R.string.fui_error_retry), new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    retryConfirmation();
-                                }
-                            }).show();
+                Snackbar.make(layout, getString(R.string.fui_error_unknown),Snackbar.LENGTH_LONG)
+                        .show();
             }
         };
 
-        //showProgress(R.string.fui_progress_dialog_sending);
-        loading.show();
-        mHandler.sendConfirmation(getEmail(),callback);
     }
 
     private String getEmail(){
-        if (mEmailEditText!=null && !TextUtils.isEmpty(mEmailEditText.getText())){
-            return mEmailEditText.getText().toString();
-        }else {
-            return mUser.getEmail();
-        }
-    }
-
-    private void retryConfirmation() {
-        //showProgress(R.string.fui_progress_dialog_sending);
-        loading.show();
-        mHandler.sendConfirmation(getEmail(),callback);
+        return mUser.getEmail();
     }
 
     @Nullable
@@ -194,7 +169,7 @@ public class RegisterEmailFragment extends FragmentBase implements
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fui_register_email_layout, container, false);
+        return inflater.inflate(R.layout.fui_register_email_api_layout, container, false);
     }
 
     @Override
@@ -202,16 +177,25 @@ public class RegisterEmailFragment extends FragmentBase implements
         mNextButton = view.findViewById(R.id.button_create);
         mProgressBar = view.findViewById(R.id.top_progress_bar);
 
-        mEmailEditText = view.findViewById(R.id.email);
         mNameEditText = view.findViewById(R.id.name);
-        mLastNameEditText = view.findViewById(R.id.last_name);
-        mSecretCodeEditText = view.findViewById(R.id.secret_code);
         mPasswordEditText = view.findViewById(R.id.password);
-        mEmailInput = view.findViewById(R.id.email_layout);
-        mSecretInput = view.findViewById(R.id.secret_code_layout);
         mPasswordInput = view.findViewById(R.id.password_layout);
         TextInputLayout nameInput = view.findViewById(R.id.name_layout);
-        TextInputLayout lastNameInput = view.findViewById(R.id.last_name_layout);
+
+
+        // Create welcome back text with email bolded.
+        String bodyText =
+                getString(R.string.fui_welcome_back_password_api_prompt_body, getEmail());
+
+        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(bodyText);
+        int emailStart = bodyText.indexOf(getEmail());
+        spannableStringBuilder.setSpan(new StyleSpan(Typeface.BOLD),
+                emailStart,
+                emailStart + getEmail().length(),
+                Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+        TextView bodyTextView = view.findViewById(R.id.welcome_back_password_body);
+        bodyTextView.setText(spannableStringBuilder);
 
         // Get configuration
         AuthUI.IdpConfig emailConfig = ProviderUtils.getConfigFromIdpsOrThrow(
@@ -224,17 +208,9 @@ public class RegisterEmailFragment extends FragmentBase implements
         mNameValidator = requireName
                 ? new RequiredFieldValidator(nameInput)
                 : new NoOpValidator(nameInput);
-        mLastNameValidator = requireName
-                ? new RequiredFieldValidator(lastNameInput)
-                : new NoOpValidator(lastNameInput);
-        mSecretValidator = requireName
-                ? new RequiredFieldValidator(mSecretInput)
-                : new NoOpValidator(mSecretInput);
-        mEmailFieldValidator = new EmailFieldValidator(mEmailInput);
 
         ImeHelper.setImeOnDoneListener(mPasswordEditText, this);
 
-        mEmailEditText.setOnFocusChangeListener(this);
         mNameEditText.setOnFocusChangeListener(this);
         mPasswordEditText.setOnFocusChangeListener(this);
         mNextButton.setOnClickListener(this);
@@ -242,9 +218,9 @@ public class RegisterEmailFragment extends FragmentBase implements
         // Only show the name field if required
         nameInput.setVisibility(requireName ? View.VISIBLE : View.GONE);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && getFlowParams().enableCredentials) {
-            mEmailEditText.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_NO);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && getFlowParams().enableCredentials) {
+//            mEmailEditText.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_NO);
+//        }
 
         TextView footerText = view.findViewById(R.id.email_footer_tos_and_pp_text);
         PrivacyDisclosureUtils.setupTermsOfServiceFooter(getContext(), getFlowParams(), footerText);
@@ -255,10 +231,10 @@ public class RegisterEmailFragment extends FragmentBase implements
         }
 
         // If email is passed in, fill in the field and move down to the name field.
-        String email = mUser.getEmail();
-        if (!TextUtils.isEmpty(email)) {
-            mEmailEditText.setText(email);
-        }
+//        String email = mUser.getEmail();
+//        if (!TextUtils.isEmpty(email)) {
+//            mEmailEditText.setText(email);
+//        }
 
         // If name is passed in, fill in the field and move down to the password field.
         String name = mUser.getName();
@@ -269,11 +245,12 @@ public class RegisterEmailFragment extends FragmentBase implements
         // See http://stackoverflow.com/questions/11082341/android-requestfocus-ineffective#comment51774752_11082523
         if (!requireName || !TextUtils.isEmpty(mNameEditText.getText())) {
             safeRequestFocus(mPasswordEditText);
-        } else if (!TextUtils.isEmpty(mEmailEditText.getText())) {
+        } else {//if (!TextUtils.isEmpty(mEmailEditText.getText())) {
             safeRequestFocus(mNameEditText);
-        } else {
-            safeRequestFocus(mEmailEditText);
         }
+//        } else {
+//            safeRequestFocus(mEmailEditText);
+//        }
     }
 
     private void safeRequestFocus(final View v) {
@@ -294,7 +271,7 @@ public class RegisterEmailFragment extends FragmentBase implements
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putParcelable(ExtraConstants.USER,
-                new User.Builder(EmailAuthProvider.PROVIDER_ID, mEmailEditText.getText().toString())
+                new User.Builder(EmailAuthProvider.PROVIDER_ID, getEmail())
                         .setName(mNameEditText.getText().toString())
                         .setPhotoUri(mUser.getPhotoUri())
                         .build());
@@ -305,14 +282,11 @@ public class RegisterEmailFragment extends FragmentBase implements
         if (hasFocus) return; // Only consider fields losing focus
 
         int id = view.getId();
-        if (id == R.id.email) {
-            mEmailFieldValidator.validate(mEmailEditText.getText());
-        } else if (id == R.id.name) {
+//        if (id == R.id.email) {
+//            mEmailFieldValidator.validate(mEmailEditText.getText());
+//        } else
+            if (id == R.id.name) {
             mNameValidator.validate(mNameEditText.getText());
-        }else if (id == R.id.last_name) {
-            mLastNameValidator.validate(mLastNameEditText.getText());
-        }else if (id == R.id.secret_code) {
-            mSecretValidator.validate(mSecretCodeEditText.getText());
         } else if (id == R.id.password) {
             mPasswordFieldValidator.validate(mPasswordEditText.getText());
         }
@@ -323,16 +297,31 @@ public class RegisterEmailFragment extends FragmentBase implements
         if (view.getId() == R.id.button_create) {
             //Here call Erudition api to register user
             Log.d("OnCliCk","Register user Firebase");
-            registerUserApi();
+            loginUserApi();
 //            validateAndRegisterUser();
         }
     }
 
     @Override
     public void onDonePressed() {
-        registerUserApi();
+        loginUserApi();
         Log.d("onDonePressed","Register user Firebase");
 //        validateAndRegisterUser();
+    }
+
+    private void loginUserApi(){
+        String email = getEmail();
+        String password = mPasswordEditText.getText().toString();
+        String name = mNameEditText.getText().toString();
+
+//        boolean emailValid = mEmailFieldValidator.validate(email);
+        boolean passwordValid = mPasswordFieldValidator.validate(password);
+        boolean nameValid = mNameValidator.validate(name);
+        if (passwordValid && nameValid) {
+            loading.show();
+            mHandler.loginWithCallback(email,password,callback);
+        }
+
     }
 
     @Override
@@ -347,77 +336,16 @@ public class RegisterEmailFragment extends FragmentBase implements
         mProgressBar.setVisibility(View.INVISIBLE);
     }
 
-    private void registerUserApi(){
-        //Validate all the input before calling Api
-        final String email = mEmailEditText.getText().toString();
-        final String password = mPasswordEditText.getText().toString();
-        String fname = mNameEditText.getText().toString();
-        String lname = mLastNameEditText.getText().toString();
-        String sCode = mSecretCodeEditText.getText().toString();
-
-        boolean emailValid = mEmailFieldValidator.validate(email);
-        boolean passwordValid = mPasswordFieldValidator.validate(password);
-        boolean fnameValid = mNameValidator.validate(fname);
-        boolean lnameValid = mLastNameValidator.validate(lname);
-        boolean codeValid = mSecretValidator.validate(sCode);
-
-        if (emailValid && passwordValid && fnameValid && lnameValid && codeValid){
-            //CAll the Api to register user
-            Callback<Login> registerUser = new Callback<Login>() {
-                @Override
-                public void onResponse(Call<Login> call, Response<Login> response) {
-                    if (response.isSuccessful()){
-                        Login login = response.body();
-                        String code = login.getCode();
-                        String msg = login.getMsg();
-                        if (code.contentEquals("8")){
-                            //Password created successfully
-                            //Call login_via_idp
-                            mHandler.loginUser(email,password);
-                            //Now call firebase signup
-                              validateAndRegisterUser();
-                        }else {
-                            Snackbar.make(layout,msg,Snackbar.LENGTH_INDEFINITE)
-                                    .setAction(getString(R.string.fui_error_retry), new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            retryRegister();
-                                        }
-                                    }).show();
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Login> call, Throwable t) {
-                    Snackbar.make(layout, getString(R.string.fui_error_unknown),Snackbar.LENGTH_INDEFINITE)
-                            .setAction(getString(R.string.fui_error_retry), new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    retryRegister();
-                                }
-                            }).show();
-                }
-            };
-            mHandler.registerUser(email,fname,lname,sCode,password,registerUser);
-        }
-
-    }
-
-    private void retryRegister() {
-        //showProgress(R.string.fui_progress_dialog_sending);
-        registerUserApi();
-    }
-
     private void validateAndRegisterUser() {
-        String email = mEmailEditText.getText().toString();
+//        String email = mEmailEditText.getText().toString();
+        String email = getEmail();
         String password = mPasswordEditText.getText().toString();
         String name = mNameEditText.getText().toString();
 
-        boolean emailValid = mEmailFieldValidator.validate(email);
+//        boolean emailValid = mEmailFieldValidator.validate(email);
         boolean passwordValid = mPasswordFieldValidator.validate(password);
         boolean nameValid = mNameValidator.validate(name);
-        if (emailValid && passwordValid && nameValid) {
+        if (passwordValid && nameValid) {
             mHandler.startSignIn(new IdpResponse.Builder(
                             new User.Builder(EmailAuthProvider.PROVIDER_ID, email)
                                     .setName(name)
@@ -426,13 +354,5 @@ public class RegisterEmailFragment extends FragmentBase implements
                             .build(),
                     password);
         }
-    }
-
-    private void showEmailSentDialog() {
-        new AlertDialog.Builder(getActivity())
-                .setTitle(R.string.fui_title_confirm_email)
-                .setMessage(getString(R.string.fui_confirm_email_body, mEmailEditText.getText().toString()))
-                .setPositiveButton(android.R.string.ok, null)
-                .show();
     }
 }

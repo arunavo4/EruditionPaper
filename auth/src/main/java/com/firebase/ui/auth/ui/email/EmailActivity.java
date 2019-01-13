@@ -107,12 +107,42 @@ public class EmailActivity extends AppCompatBase implements CheckEmailFragment.C
         // New user, direct them to create an account with email/password
         // if account creation is enabled in SignInIntentBuilder
         Log.d("Email Activity", "On new User");
+
+        //
         TextInputLayout emailLayout = findViewById(R.id.email_layout);
 
         AuthUI.IdpConfig emailConfig = ProviderUtils.getConfigFromIdpsOrThrow(
                 getFlowParams().providerInfo, EmailAuthProvider.PROVIDER_ID);
         if (emailConfig.getParams().getBoolean(ExtraConstants.ALLOW_NEW_EMAILS, true)) {
             RegisterEmailFragment fragment = RegisterEmailFragment.newInstance(user);
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_register_email, fragment, RegisterEmailFragment.TAG);
+
+            if (emailLayout != null) {
+                String emailFieldName = getString(R.string.fui_email_field_name);
+                ViewCompat.setTransitionName(emailLayout, emailFieldName);
+                ft.addSharedElement(emailLayout, emailFieldName);
+            }
+
+            ft.disallowAddToBackStack().commit();
+        } else {
+            emailLayout.setError(getString(R.string.fui_error_email_does_not_exist));
+        }
+    }
+
+    @Override
+    public void onNewUserApi(User user) {
+        // New user, direct them to create an account with email/password
+        // if account creation is enabled in SignInIntentBuilder
+        Log.d("Email Activity", "On new User Api");
+
+        //
+        TextInputLayout emailLayout = findViewById(R.id.email_layout);
+
+        AuthUI.IdpConfig emailConfig = ProviderUtils.getConfigFromIdpsOrThrow(
+                getFlowParams().providerInfo, EmailAuthProvider.PROVIDER_ID);
+        if (emailConfig.getParams().getBoolean(ExtraConstants.ALLOW_NEW_EMAILS, true)) {
+            RegisterApiEmailFragment fragment = RegisterApiEmailFragment.newInstance(user);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_register_email, fragment, RegisterEmailFragment.TAG);
 

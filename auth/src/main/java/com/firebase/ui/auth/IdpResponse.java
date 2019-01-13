@@ -120,6 +120,12 @@ public class IdpResponse implements Parcelable {
         return new Intent().putExtra(ExtraConstants.IDP_RESPONSE, this);
     }
 
+    @NonNull
+    @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+    public Intent toIntentApp() {
+        return new Intent().putExtra(ExtraConstants.IDP_RESPONSE, this);
+    }
+
     @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
     public boolean isSuccessful() {
         return mException == null;

@@ -6,6 +6,7 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -41,6 +42,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.TwitterAuthProvider;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,8 +51,10 @@ public class SignInKickstarter extends AuthViewModelBase<IdpResponse> {
     public SignInKickstarter(Application application) {
         super(application);
     }
+    private static final String TAG = "SignInKickstarter";
 
     public void start() {
+        Log.d(TAG,"start()");
         // Only support password credentials if email auth is enabled
         boolean supportPasswords = ProviderUtils.getConfigFromIdps(
                 getArguments().providerInfo, EmailAuthProvider.PROVIDER_ID) != null;
@@ -91,6 +96,7 @@ public class SignInKickstarter extends AuthViewModelBase<IdpResponse> {
     }
 
     private void startAuthMethodChoice() {
+        Log.d(TAG,"startAuthMethodChoice()");
         // If there is only one provider selected, launch the flow directly
         if (getArguments().isSingleProviderFlow()) {
             AuthUI.IdpConfig firstIdpConfig = getArguments().providerInfo.get(0);
@@ -119,6 +125,8 @@ public class SignInKickstarter extends AuthViewModelBase<IdpResponse> {
     }
 
     private void redirectSignIn(String provider, String email) {
+        Log.d(TAG,"redirectSignIn()");
+
         switch (provider) {
             case EmailAuthProvider.PROVIDER_ID:
                 setResult(Resource.<IdpResponse>forFailure(new IntentRequiredException(
@@ -141,6 +149,8 @@ public class SignInKickstarter extends AuthViewModelBase<IdpResponse> {
     }
 
     private List<String> getCredentialAccountTypes() {
+        Log.d(TAG,"getCredentialAccountTypes()");
+
         List<String> accounts = new ArrayList<>();
         for (AuthUI.IdpConfig idpConfig : getArguments().providerInfo) {
             @AuthUI.SupportedProvider String providerId = idpConfig.getProviderId();
@@ -152,6 +162,8 @@ public class SignInKickstarter extends AuthViewModelBase<IdpResponse> {
     }
 
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.d(TAG,"onActivityResult()");
+
         switch (requestCode) {
             case RequestCodes.CRED_HINT:
                 if (resultCode == Activity.RESULT_OK) {
@@ -176,13 +188,17 @@ public class SignInKickstarter extends AuthViewModelBase<IdpResponse> {
     }
 
     private void handleCredential(final Credential credential) {
+        Log.d(TAG,"handleCredential()");
+
         String id = credential.getId();
         String password = credential.getPassword();
         if (TextUtils.isEmpty(password)) {
             String identity = credential.getAccountType();
             if (identity == null) {
+                Log.d(TAG,"handleCredential() -> startAuthMethodChoice()");
                 startAuthMethodChoice();
             } else {
+                Log.d(TAG,"handleCredential() -> redirectSignIn()");
                 redirectSignIn(
                         ProviderUtils.accountTypeToProviderId(credential.getAccountType()), id);
             }
@@ -191,6 +207,9 @@ public class SignInKickstarter extends AuthViewModelBase<IdpResponse> {
                     new User.Builder(EmailAuthProvider.PROVIDER_ID, id).build()).build();
 
             setResult(Resource.<IdpResponse>forLoading());
+            //Here We are signing with email and password
+            Log.d(TAG,"handleCredential() -> signInWithEmailAndPassword()");
+            loginUser(id,password);
             getAuth().signInWithEmailAndPassword(id, password)
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
@@ -212,6 +231,28 @@ public class SignInKickstarter extends AuthViewModelBase<IdpResponse> {
                             startAuthMethodChoice();
                         }
                     });
+        }
+    }
+
+    /*
+        Login_via_idp to sign in
+     */
+    public void loginUser(String email,String password){
+        Log.d("SignupResponseHandler","loginUser");
+        String provider = "Email";
+        try{
+            Class<?> loginUtilClass = Class.forName("in.co.erudition.paper.util.LoginUtils");
+            final Object loginUtil = loginUtilClass.newInstance();
+
+            final Method confirmEmail = loginUtil.getClass().getMethod("login_via_idp",String.class,String.class,String.class);
+            try{
+                confirmEmail.invoke(loginUtil,provider,email,password);
+            }catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

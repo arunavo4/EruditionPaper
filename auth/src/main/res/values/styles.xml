@@ -175,6 +175,10 @@
         <item name="android:inputType">textPassword</item>
     </style>
 
+    <style name="FirebaseUI.TextInputEditText.SecretField">
+        <item name="android:inputType">textCapCharacters</item>
+    </style>
+
     <style name="FirebaseUI.TextInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/fui_colorMaterialBlack</item>
         <item name="android:textColor">@color/fui_colorMaterialBlack</item>
@@ -190,6 +194,18 @@
 
     <style name="FirebaseUI.TextInputLayout.NameField">
         <item name="android:hint">@string/fui_name_hint</item>
+    </style>
+
+    <style name="FirebaseUI.TextInputLayout.FirstNameField">
+        <item name="android:hint">@string/fui_first_name_hint</item>
+    </style>
+
+    <style name="FirebaseUI.TextInputLayout.LastNameField">
+        <item name="android:hint">@string/fui_last_name_hint</item>
+    </style>
+
+    <style name="FirebaseUI.TextInputLayout.SecretField">
+        <item name="android:hint">@string/fui_secret_hint</item>
     </style>
 
     <style name="FirebaseUI.TextInputLayout.PasswordField">

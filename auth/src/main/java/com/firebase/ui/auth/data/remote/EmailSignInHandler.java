@@ -2,6 +2,8 @@ package com.firebase.ui.auth.data.remote;
 
 import android.app.Application;
 import android.content.Intent;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
@@ -22,6 +24,7 @@ public class EmailSignInHandler extends ProviderSignInBase<Void> {
 
     @Override
     public void startSignIn(@NonNull HelperActivityBase activity) {
+        Log.d("EmailSignInHandler","EmailSignIN");
         activity.startActivityForResult(
                 EmailActivity.createIntent(activity, activity.getFlowParams()),
                 RequestCodes.EMAIL_FLOW);

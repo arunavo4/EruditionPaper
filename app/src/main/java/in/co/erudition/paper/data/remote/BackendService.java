@@ -59,16 +59,16 @@ public interface BackendService {
     //SignUp via Email
     @POST("register")
     @FormUrlEncoded
-    Call<Login> signUp_email(@Field("FirstName") String first_name,
-                             @Field("LastName") String last_name,
-                             @Field("Email") String email);
+    Call<com.firebase.ui.auth.ui.email.Login> signUp_email(@Field("Email") String email);
 
     //Confirm Email/ Password Update
     @POST("password")
     @FormUrlEncoded
-    Call<Login> password_update_email(@Field("Email") String email,
-                                      @Field("SecretCode") String code,
-                                      @Field("Password") String password);
+    Call<com.firebase.ui.auth.ui.email.Login> password_update_email(@Field("Email") String email,
+                                                                    @Field("FirstName") String first_name,
+                                                                    @Field("LastName") String last_name,
+                                                                    @Field("SecretCode") String code,
+                                                                    @Field("Password") String password);
 
     //Forgot Password
     @POST("forgotpassword")

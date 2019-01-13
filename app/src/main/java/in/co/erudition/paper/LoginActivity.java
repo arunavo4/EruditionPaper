@@ -101,12 +101,9 @@ public class LoginActivity extends AppCompatActivity {
                 if (!mNetworkUtils.isOnline(this)) {
                     LinearLayoutCompat mlinearLayoutCompat = (LinearLayoutCompat) findViewById(R.id.login_splash);
                     Snackbar.make(mlinearLayoutCompat, "No Network Connection", Snackbar.LENGTH_INDEFINITE)
-                            .setAction("Retry", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    FirebaseUser currentUser = mAuth.getCurrentUser();
-                                    updateUI(currentUser);
-                                }
+                            .setAction("Retry", v -> {
+                                FirebaseUser currentUser = mAuth.getCurrentUser();
+                                updateUI(currentUser);
                             }).show();
                     return;
                 }

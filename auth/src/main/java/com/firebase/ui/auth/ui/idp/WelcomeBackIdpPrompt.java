@@ -23,6 +23,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 import androidx.annotation.StringRes;
+
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -49,6 +51,9 @@ import com.firebase.ui.auth.viewmodel.idp.ProviderSignInBase;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.TwitterAuthProvider;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
 public class WelcomeBackIdpPrompt extends AppCompatBase {
@@ -158,6 +163,27 @@ public class WelcomeBackIdpPrompt extends AppCompatBase {
         handler.getOperation().observe(this, new ResourceObserver<IdpResponse>(this) {
             @Override
             protected void onSuccess(@NonNull IdpResponse response) {
+                //On successful Idp sign in
+                Log.d("auth:SingleSignIn","handler onSuccess");
+                Log.d("auth:SingleSignIn","handler onSuccess");
+                Log.d("Provider Idp Token",response.getUser().getProviderId() + " : " + response.getIdpToken());
+                Log.d("User Email:",response.getEmail());
+
+                try{
+                    Class<?> loginUtilClass = Class.forName("in.co.erudition.paper.util.LoginUtils");
+                    final Object loginUtil = loginUtilClass.newInstance();
+
+                    final Method login_idp = loginUtil.getClass().getMethod("login_via_idp",String.class,String.class,String.class);
+                    try{
+                        String message = (String) login_idp.invoke(loginUtil,response.getUser().getProviderId(),response.getEmail(),response.getIdpToken());
+                        Log.d("login_idp_method: ",message);
+                    }catch (IllegalAccessException | InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 finish(RESULT_OK, response.toIntent());
             }
 

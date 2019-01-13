@@ -37,6 +37,8 @@ public class LoginUtils {
             provider = "Google";
         } else if (provider_name.contentEquals("facebook.com")) {
             provider = "Facebook";
+        }else {
+            provider = "Email";
         }
         Log.d("Login Params: ", provider + "," + userEmail + "," + jwt_token);
         Call<Login> loginCall = mService.signIn_idp(provider, userEmail, jwt_token);
@@ -63,7 +65,6 @@ public class LoginUtils {
     }
 
     public void login_via_email(String email,@Nullable String password,Callback<com.firebase.ui.auth.ui.email.Login> callback){
-        code = "-1";
         final String provider = "Email";
         Call<com.firebase.ui.auth.ui.email.Login> loginCall;
         Log.d("Login Params: ", provider + "," + email + "," + password);
@@ -76,32 +77,19 @@ public class LoginUtils {
     }
 
     //SignUp via Email
-    public int signUp_via_Email(String first_name, String last_name, String userEmail) {
-        int message = 0;
+    public void signUp_via_Email(String userEmail, Callback<com.firebase.ui.auth.ui.email.Login> callback) {
 
-        try {
-            Call<Login> loginCallEmail = mService.signUp_email(first_name, last_name, userEmail);
-            Response<Login> loginResponseEmail = loginCallEmail.execute();
+        Call<com.firebase.ui.auth.ui.email.Login> loginCallEmail = mService.signUp_email(userEmail);
+        loginCallEmail.enqueue(callback);
 
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return message;
     }
 
     //Confirm Email/ Password Update
-    public int confirm_email_pass_update(String userEmail, String code, String password) {
+    public void confirm_email(String userEmail, String first_name, String last_name, String code, String password, Callback<com.firebase.ui.auth.ui.email.Login> callback) {
 
-        try {
-            Call<Login> call = mService.password_update_email(userEmail, code, password);
-            Response<Login> response = call.execute();
+        Call<com.firebase.ui.auth.ui.email.Login> call = mService.password_update_email(userEmail, first_name, last_name, code, password);
+        call.enqueue(callback);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return 0;
     }
 
     //Forgot Password

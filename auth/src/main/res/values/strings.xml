@@ -25,6 +25,7 @@
     <string name="fui_email_hint" translation_description="Hint in email input field">Email</string>
     <string name="fui_phone_hint" translation_description="Hint for phone input field">Phone Number</string>
     <string name="fui_password_hint" translation_description="Hint for password input field">Password</string>
+    <string name="fui_secret_hint" translatable="false" translation_description="Hint for password input field">Secret Code</string>
     <string name="fui_required_field" translation_description="Inline error for required field">You can\'t leave this empty.</string>
     <string name="fui_invalid_email_address" translation_description="Inline error for invalid email address">That email address isn\'t correct</string>
     <string name="fui_missing_email_address" translation_description="Inline error for empty email address in input field">Enter your email address to continue</string>
@@ -32,7 +33,9 @@
 
     <!-- Email sign up -->
     <string name="fui_title_register_email" translation_description="Title for signup form">Sign up</string>
-    <string name="fui_name_hint" translation_description="Hint for last name input field">First &amp; last name</string>
+    <string name="fui_name_hint" translatable="false" translation_description="Hint for last name input field">Name</string>
+    <string name="fui_first_name_hint" translatable="false" translation_description="Hint for last name input field">First Name</string>
+    <string name="fui_last_name_hint" translatable="false" translation_description="Hint for last name input field">Last Name</string>
     <string name="fui_button_text_save" translation_description="Button text to save input form">Save</string>
     <string name="fui_progress_dialog_signing_up" translation_description="Dialog text while waiting for server's signup response">Signing up…</string>
     <plurals name="fui_error_weak_password" translation_description="Inline error for weak password">
@@ -57,6 +60,10 @@
         You\'ve already used <xliff:g example="jane.doe@example.com" id="email_addr" translation_description="">%1$s</xliff:g>
         to sign in. Enter your password for that account.
     </string>
+    <string name="fui_welcome_back_password_api_prompt_body" translatable="false" translation_description="Message to users that need to signin using existing email accounts">
+         You\'ve already used <xliff:g example="jane.doe@example.com" id="email_addr" translation_description="">%1$s</xliff:g>
+        to sign in to our website. Enter your name to save credential and password for that account.
+    </string>
     <string name="fui_progress_dialog_signing_in" translation_description="Progress dialog text">Signing in…</string>
     <string name="fui_trouble_signing_in" translation_description="Link leading to forgot password flow">Forgot Password?</string>
 
@@ -68,11 +75,17 @@
     <string name="fui_button_text_send" translation_description="Button text to send recovery email">Send</string>
     <string name="fui_confirm_recovery_body" translation_description="Alert dialog displayed after password recovery email is sent">Follow the instructions sent to %1$s to recover your password.</string>
     <string name="fui_progress_dialog_sending" translation_description="Progress dialog while password recovery email is being sent">Sending…</string>
+    <string name="fui_progress_dialog_checking" translatable="false" translation_description="Progress dialog while password recovery email is being sent">Checking…</string>
     <string name="fui_error_email_does_not_exist" translation_description="Inline error when user attempt signin with invalid account">That email address doesn\'t match an existing account</string>
+
+    <string name="fui_title_confirm_email" translatable="false" translation_description="Password recovery confirmation message">Verify Account</string>
+    <string name="fui_confirm_email_body" translatable="false" translation_description="Alert dialog displayed after password recovery email is sent">Insert the Code sent to %1$s to verify your Email.</string>
 
     <!-- Other error messages -->
     <string name="fui_error_unknown" translation_description="General error messages for an unknown failure.">An unknown error occurred.</string>
+    <string name="fui_error_email_already_exists" translatable="false" translation_description="General error messages for an unknown failure.">Email already registered.</string>
     <string name="fui_error_invalid_password" translation_description="Error message for when the user enters an invalid or wrong password.">Incorrect password.</string>
+    <string name="fui_error_retry" translatable="false" translation_description="Error message for when the user enters an invalid or wrong password.">Retry</string>
 
     <!-- Accessibility -->
     <string name="fui_accessibility_logo" translation_description="Content description for app logo">App logo</string>

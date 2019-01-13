@@ -63,6 +63,12 @@ public class CheckEmailFragment extends FragmentBase implements
          */
         void onNewUser(User user);
 
+        /**
+         * Email entered does not belong to an existing user.
+         * But Exists on the Api
+         */
+        void onNewUserApi(User user);
+
     }
 
     public static final String TAG = "CheckEmailFragment";
@@ -163,7 +169,10 @@ public class CheckEmailFragment extends FragmentBase implements
                                 //User exists on Api
                                 Log.d("provider null","USer exits on Api");
                                 //Ask for password
-                                mListener.onExistingEmailUser(reuser);
+                                mListener.onNewUserApi(new User.Builder(EmailAuthProvider.PROVIDER_ID, email)
+                                        .setName(reuser.getName())
+                                        .setPhotoUri(reuser.getPhotoUri())
+                                        .build());
                             }else {
                                 Log.d("provider null","Calling On new user");
                                 mListener.onNewUser(new User.Builder(EmailAuthProvider.PROVIDER_ID, email)
