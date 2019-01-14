@@ -76,6 +76,16 @@ public class LoginUtils {
         loginCall.enqueue(callback);
     }
 
+    public void update_firebase(String email,String password,Callback<com.firebase.ui.auth.ui.email.Login> callback){
+        final String provider = "firebase";
+        Call<com.firebase.ui.auth.ui.email.Login> firebaseCall;
+        Log.d("firebase Params: ", provider + "," + email + "," + password);
+
+        firebaseCall = mService.check_email(provider, email, password);
+
+        firebaseCall.enqueue(callback);
+    }
+
     //SignUp via Email
     public void signUp_via_Email(String userEmail, Callback<com.firebase.ui.auth.ui.email.Login> callback) {
 

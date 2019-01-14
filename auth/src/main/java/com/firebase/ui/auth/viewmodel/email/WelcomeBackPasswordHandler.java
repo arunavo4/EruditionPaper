@@ -163,7 +163,7 @@ public class WelcomeBackPasswordHandler extends AuthViewModelBase<IdpResponse> {
     }
 
     public void loginWithCallback(String email, String password, Callback<Login> callback){
-        Log.d("SignupResponseHandler","loginWithCallback");
+        Log.d(TAG,"loginWithCallback");
         String provider = "Email";
         try{
             Class<?> loginUtilClass = Class.forName("in.co.erudition.paper.util.LoginUtils");
@@ -182,11 +182,32 @@ public class WelcomeBackPasswordHandler extends AuthViewModelBase<IdpResponse> {
         }
     }
 
+    //Update Firebase
+    public void firebaseUpdate(String email, String password, Callback<Login> callback){
+        Log.d(TAG,"firebaseUpdate");
+        String provider = "Email";
+        try{
+            Class<?> loginUtilClass = Class.forName("in.co.erudition.paper.util.LoginUtils");
+            final Object loginUtil = loginUtilClass.newInstance();
+
+            final Method firebase = loginUtil.getClass().getMethod("update_firebase",String.class,String.class,Callback.class);
+            try{
+                setResult(Resource.<IdpResponse>forLoading());
+                firebase.invoke(loginUtil,email,password,callback);
+            }catch (IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     /*
         Login_via_idp to sign in
      */
     public void loginUser(String email,String password){
-        Log.d("SignupResponseHandler","loginUser");
+        Log.d(TAG,"loginUser");
         String provider = "Email";
         try{
             Class<?> loginUtilClass = Class.forName("in.co.erudition.paper.util.LoginUtils");

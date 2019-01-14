@@ -68,7 +68,7 @@ public class WelcomeBackPasswordPrompt extends AppCompatBase
     private IdpResponse mIdpResponse;
     private WelcomeBackPasswordHandler mHandler;
     private Callback<Login> callback;
-
+    private Callback<Login> firebaseCallback;
     private Button mDoneButton;
     private ProgressBar mProgressBar;
     private TextInputLayout mPasswordLayout;
@@ -89,7 +89,7 @@ public class WelcomeBackPasswordPrompt extends AppCompatBase
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
         mIdpResponse = IdpResponse.fromResultIntent(getIntent());
-        String email = mIdpResponse.getEmail();
+        final String email = mIdpResponse.getEmail();
 
         mDoneButton = findViewById(R.id.button_done);
         mProgressBar = findViewById(R.id.top_progress_bar);
@@ -135,8 +135,8 @@ public class WelcomeBackPasswordPrompt extends AppCompatBase
                 //Here there could be a case if Firebase password needs to be updated.
                 //And retry
                 if (getString(getErrorMessage(e)).equalsIgnoreCase("Incorrect password.")){
-                    //Jabardasti
-                    finish(RESULT_OK,null);
+                    //MAke the Api call to change the password in firebase
+                    mHandler.firebaseUpdate(mIdpResponse.getEmail(),mPasswordField.getText().toString(),firebaseCallback);
                 }else {
                     mPasswordLayout.setError(getString(getErrorMessage(e)));
                 }
@@ -169,6 +169,40 @@ public class WelcomeBackPasswordPrompt extends AppCompatBase
 
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
+                mHandler.done();
+                Toast.makeText(WelcomeBackPasswordPrompt.this,getString(R.string.fui_error_unknown),Toast.LENGTH_LONG).show();
+            }
+        };
+
+        //This callback is basically trying to update the password
+        firebaseCallback = new Callback<Login>() {
+            @Override
+            public void onResponse(Call<Login> call, Response<Login> response) {
+                if (response.isSuccessful()){
+                    mHandler.done();
+
+                    Login login = response.body();
+                    String code = login.getCode();
+                    String msg = login.getMsg();
+
+                    if (code.equalsIgnoreCase("11")){
+                        //Password updated retry login
+                        Toast.makeText(WelcomeBackPasswordPrompt.this,msg,Toast.LENGTH_LONG).show();
+                        validateAndSignIn();
+                    }else if (code.equalsIgnoreCase("12")){
+                        //try again later
+                        Toast.makeText(WelcomeBackPasswordPrompt.this,msg,Toast.LENGTH_LONG).show();
+                        finish(RESULT_OK,null);
+                    }
+                    else {
+                        Toast.makeText(WelcomeBackPasswordPrompt.this,msg,Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Login> call, Throwable t) {
+                mHandler.done();
                 Toast.makeText(WelcomeBackPasswordPrompt.this,getString(R.string.fui_error_unknown),Toast.LENGTH_LONG).show();
             }
         };
