@@ -14,7 +14,7 @@
     <string name="notify_me">NOTIFY ME</string>
     <string name="referal_sample">ER007R</string>
     <string name="referal_code">Referral Code</string>
-    <string name="dialog_setSemester_title">Tell us more about you</string>
+    <string name="dialog_setSemester_title">Tell us about you</string>
     <string name="dialog_setSemester_info">The Sole Purpose of this form is to personalise your app experience with relevant contents Only</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

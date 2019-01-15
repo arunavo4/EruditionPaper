@@ -9,7 +9,7 @@
     <dimen name="fui_offset_top">100dp</dimen>
     
     <!--Login button specs-->
-    <dimen name="fui_auth_method_button_width_new">146dp</dimen>
+    <dimen name="fui_auth_method_button_width_new">150dp</dimen>
     <dimen name="fui_btn_holder_area_padding_top">20dp</dimen>
     <dimen name="fui_btn_holder_area_padding_bottom">10dp</dimen>
 
