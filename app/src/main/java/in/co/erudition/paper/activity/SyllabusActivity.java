@@ -63,6 +63,7 @@ public class SyllabusActivity extends AppCompatActivity {
         TextView title = (TextView) findViewById(R.id.university_name_tv);
 
         title.setText(getIntent().getStringExtra("CourseActivity.EXTRA_Subject_FULL_NAME"));
+        title.setTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
 
         /*
             Adjusting the Status bar margin for Different notches

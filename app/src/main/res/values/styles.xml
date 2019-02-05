@@ -417,7 +417,7 @@
         <item name="android:layout_marginStart">16dp</item>
     </style>
 
-    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+    <style name="OrderTitleText">
         <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textSize">30sp</item>
         <item name="android:textAlignment">textStart</item>
@@ -429,27 +429,27 @@
         <item name="android:textAlignment">textStart</item>
     </style>
 
-    <style name="Toolbar.TitleTextCourse" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+    <style name="TitleTextCourse" >
     <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
     <item name="android:textSize">20sp</item>
     <item name="android:textColor">@color/colorWhite</item>
     <item name="android:textAlignment">textStart</item>
     </style>
 
-    <style name="Toolbar.TitleTextCourse.Collapsed" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+    <style name="TitleTextCourseCollapsed">
         <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textAlignment">textStart</item>
     </style>
 
-    <style name="Toolbar.TitleTextCourse.dark" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+    <style name="TitleTextCourseDark" >
         <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/colorMaterialBlack_no_alpha</item>
         <item name="android:textAlignment">textStart</item>
     </style>
 
-    <style name="Toolbar.TitleTextPaper" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+    <style name="TitleTextPaper" >
         <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
         <item name="android:textSize">25sp</item>
         <item name="android:textAlignment">textStart</item>

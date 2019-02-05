@@ -91,6 +91,7 @@ public class SelectionActivity extends AppCompatActivity {
         TextView title = (TextView) findViewById(R.id.university_name_tv);
 
         title.setText(getIntent().getStringExtra("CourseActivity.EXTRA_Subject_FULL_NAME"));
+        title.setTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
 
         // To set the background of the activity go below the StatusBar
         getWindow().getDecorView().setSystemUiVisibility(

@@ -69,9 +69,10 @@ public class SingleAnswerActivity extends AppCompatActivity {
 
         str = new StringBuilder("<html>");
 
-        str.append("<head>\n <link rel=\"stylesheet\" href=\"font.css\"><style>body{font-size:14px;font-family:'Source Sans Pro',sans-serif}p{margin-top:0;");
-        str.append("    margin-bottom:.4rem}img{height:auto!important;overflow-x:auto!important;overflow-y:hidden!important;border:none!important;");
-        str.append("   max-width:fit-content;vertical-align:middle}table{width:100%!important;background-color:transparent;border-spacing:0;border-collapse:collapse}</style>");
+        str.append("<head>\n <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, height=device-height\">");
+        str.append("<link rel=\"stylesheet\" href=\"font.css\"><style>body{font-size:14px;font-family:'Source Sans Pro',sans-serif}p{margin-top:0;margin-");
+        str.append("bottom:.4rem}img{height:auto!important;overflow-x:auto!important;overflow-y:hidden!important;border:none!important;max-width:100%;vertical-");
+        str.append("align:middle}table{width:100%!important;height:auto!important;background-color:transparent;border-spacing:0;border-collapse:collapse}</style>\n");
 
         css_js = str;
         css_js.append("<link rel=\"stylesheet\" href=\"prism.css\"><script src=\"prism.js\"></script>");

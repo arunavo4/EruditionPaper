@@ -151,8 +151,25 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         delete_acc_btn.setOnClickListener(v -> {
-            Snackbar.make((CoordinatorLayout) findViewById(R.id.settings_main), getString(R.string.delete_message), Snackbar.LENGTH_LONG).show();
-
+            AuthUI.getInstance()
+                    .delete(this)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                // Deletion succeeded
+                                // user is now signed out
+                                Log.d("SettingsActivity", "Account Deleted!");
+                                //Delete Shared Pref
+                                mPrefs.edit().clear().apply();
+                                startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
+                                finish();
+                            } else {
+                                // Deletion failed
+                                Snackbar.make((CoordinatorLayout) findViewById(R.id.settings_main), getString(R.string.delete_message), Snackbar.LENGTH_LONG).show();
+                            }
+                        }
+                    });
         });
 
         change_pass_btn.setOnClickListener(v -> {

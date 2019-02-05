@@ -165,7 +165,7 @@
     <string name="sign_out">Sign Out</string>
     <string name="change_password">Change Password</string>
     <string name="delete_account">Delete Account</string>
-    <string name="delete_message">Contact Administrator</string>
+    <string name="delete_message">Failed Contact Administrator</string>
     <string name="app_account">Application</string>
     <string name="clear_cache">Clear Cache</string>
     <string name="dismiss">Dismiss</string>

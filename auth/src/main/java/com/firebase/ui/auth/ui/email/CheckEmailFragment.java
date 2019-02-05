@@ -195,7 +195,7 @@ public class CheckEmailFragment extends FragmentBase implements
                     Log.d("Inside Fragment","On Success onExistingEmailUser");
                 } else {
                     mListener.onExistingIdpUser(user);
-                    Log.d("Inside Fragment","On Success onExistingIdpUser");
+                    Log.d("Inside Fragment","On Success onExistingIdpUser Forced Email");
                 }
             }
 

@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/profile_text_margin"
-                    style="@style/Toolbar.TitleText"
+                    style="@style/TitleText"
                     android:text="@string/rewards"/>
 
             </LinearLayout>

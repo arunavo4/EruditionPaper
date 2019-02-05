@@ -103,6 +103,8 @@ public class CourseActivity extends AppCompatActivity {
         mProgressBar = (NSidedProgressBar) findViewById(R.id.progressBar_course);
         TextView mChooseTV = (TextView) findViewById(R.id.choose_tv);
         title = (TextView) findViewById(R.id.university_name_tv);
+        title.setTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
+
 //        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeToRefresh2);
         mCourseList = (LinearLayout) findViewById(R.id.course_list);
 

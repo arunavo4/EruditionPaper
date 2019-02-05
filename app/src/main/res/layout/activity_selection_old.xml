@@ -41,7 +41,7 @@
                 android:text="@string/university_name"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.85"
-                android:textAppearance="@style/Toolbar.TitleTextCourse"/>
+                android:textAppearance="@style/TitleTextCourse"/>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
