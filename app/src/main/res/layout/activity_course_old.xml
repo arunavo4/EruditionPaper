@@ -29,7 +29,7 @@
 
             <!--To fix it enterAlways-->
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/university_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

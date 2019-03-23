@@ -22,7 +22,7 @@
                 android:layout_height="@dimen/group_height"
                 app:srcCompat="@drawable/ic_group_view"/>
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/group_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

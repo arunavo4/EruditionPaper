@@ -54,7 +54,7 @@
         app:srcCompat="@drawable/ic_bookmark_black_24dp"
         android:visibility="gone"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_num"
         style="@style/YearTextViewBigBold"
         android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
         app:layout_constraintTop_toTopOf="@+id/paper_stack_bg"
         app:layout_constraintVertical_bias="0.18" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_name"
         style="@style/SolvedTextView"
         android:layout_width="wrap_content"
@@ -105,7 +105,7 @@
         app:layout_constraintVertical_bias="0.050000012"
         app:srcCompat="@drawable/ic_book_reader_solid" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/counter_tv"
         style="@style/ChapterViewCounterTextView"
         android:layout_width="wrap_content"

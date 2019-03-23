@@ -34,7 +34,7 @@
                 android:layout_marginStart="@dimen/spacer_16dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     style="@style/CommentHeaderTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                 android:layout_marginStart="@dimen/spacer_16dp"
                 android:layout_weight="1">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/TimeMarksTextView"

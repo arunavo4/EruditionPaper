@@ -42,7 +42,7 @@
             android:layout_marginBottom="7dp"
             app:srcCompat="@drawable/ic_baseline_timeline_24px" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_year_or_chap"
             style="@style/YearTextViewBold"
             android:layout_width="wrap_content"

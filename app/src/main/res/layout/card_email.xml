@@ -42,13 +42,13 @@
                 android:layout_weight="0"
                 android:orientation="vertical">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/ProfileCardTextViewBold"
                     android:text="+91 90388-10174"/>
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/ProfileCardTextView"
@@ -100,7 +100,7 @@
                 android:layout_weight="0"
                 android:orientation="vertical">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/email_tv_p"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
                     android:singleLine="true"
                     android:text="@string/email"/>
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/ProfileCardTextView"

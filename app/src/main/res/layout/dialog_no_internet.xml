@@ -13,7 +13,7 @@
         android:orientation="vertical"
         android:layout_gravity="center">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -29,7 +29,7 @@
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_no_internet" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="@dimen/bottom_tv_width_max"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

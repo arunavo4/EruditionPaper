@@ -18,7 +18,7 @@
         android:orientation="vertical"
         android:layout_margin="@dimen/linear_layout_margin">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/offer_des_tv_margin"
@@ -63,7 +63,7 @@
                     android:layout_weight="0"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/first_name_tv_p"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
                         android:singleLine="true"
                         android:text="@string/not_set"/>
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/ProfileCardTextView"
@@ -111,7 +111,7 @@
                     android:layout_weight="0"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/last_name_tv_p"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
                         android:singleLine="true"
                         android:text="@string/not_set"/>
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/ProfileCardTextView"
@@ -159,7 +159,7 @@
                     android:layout_weight="0"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/phone_tv_p"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -168,7 +168,7 @@
                         android:singleLine="true"
                         android:text="@string/not_set"/>
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/ProfileCardTextView"
@@ -207,7 +207,7 @@
                     android:layout_weight="0"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/gender_tv_p"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -216,7 +216,7 @@
                         android:singleLine="true"
                         android:text="@string/not_set"/>
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/ProfileCardTextView"
@@ -255,7 +255,7 @@
                     android:layout_weight="0"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/date_of_birth_tv_p"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -264,7 +264,7 @@
                         android:singleLine="true"
                         android:text="@string/not_set"/>
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/ProfileCardTextView"

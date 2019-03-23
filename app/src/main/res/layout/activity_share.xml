@@ -67,14 +67,14 @@
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_friends" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             style="@style/TopTextView.share"
             android:text="@string/share_top"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="@dimen/bottom_tv_width_max"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

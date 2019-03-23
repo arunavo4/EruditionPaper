@@ -44,7 +44,7 @@
                 android:orientation="horizontal"
                 app:layout_collapseMode="parallax">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/app_name_tv_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

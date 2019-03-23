@@ -29,7 +29,7 @@
             android:layout_gravity="center"
             android:src="@drawable/google_play_brands"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/HeadingH1TextView"

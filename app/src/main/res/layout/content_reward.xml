@@ -84,7 +84,7 @@
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_bg_referal" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/referal_tv"
             style="@style/ReferalTextView"
             android:layout_width="wrap_content"

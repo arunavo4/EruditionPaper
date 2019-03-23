@@ -46,7 +46,7 @@
                 app:srcCompat="@drawable/ic_pencil"
                 android:layout_gravity="center"/>
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_university_name"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"

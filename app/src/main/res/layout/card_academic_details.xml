@@ -18,7 +18,7 @@
         android:orientation="vertical"
         android:layout_margin="@dimen/linear_layout_margin">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/offer_des_tv_margin"
@@ -62,7 +62,7 @@
                     android:layout_weight="0"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/uni_tv_p"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
                         android:singleLine="true"
                         android:text="@string/university"/>
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/ProfileCardTextView"
@@ -110,7 +110,7 @@
                     android:layout_weight="0"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/coll_tv_p"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
                         android:singleLine="true"
                         android:text="@string/college"/>
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/ProfileCardTextView"
@@ -158,7 +158,7 @@
                     android:layout_weight="0"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/dept_tv_p"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -167,7 +167,7 @@
                         android:singleLine="true"
                         android:text="@string/department"/>
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/ProfileCardTextView"
@@ -206,7 +206,7 @@
                     android:layout_weight="0"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/sem_tv_p"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -215,7 +215,7 @@
                         android:singleLine="true"
                         android:text="@string/semester_p"/>
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/ProfileCardTextView"

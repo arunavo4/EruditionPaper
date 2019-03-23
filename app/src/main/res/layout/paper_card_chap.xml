@@ -22,7 +22,7 @@
         android:layout_gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_name"
             style="@style/ChapNameTextView"
             android:layout_width="@dimen/chap_name_text_view_width"
@@ -52,7 +52,7 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_num"
                     style="@style/ChapNumTextViewBold"
                     android:layout_width="wrap_content"

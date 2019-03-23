@@ -57,7 +57,7 @@
             app:title="@string/blank"
             android:visibility="gone"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/paper_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

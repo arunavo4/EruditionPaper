@@ -12,7 +12,7 @@
     android:layout_marginBottom="@dimen/spacer_10dp"
     android:orientation="vertical">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/subject_name_tv"
         style="@style/SubjectTextViewBold"
         android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
         android:layout_marginStart="8dp"
         android:layout_gravity="center_horizontal"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/chap_num_tv"
         style="@style/ChapterNumTextView"
         android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
         android:layout_marginTop="8dp"
         android:layout_gravity="center_horizontal" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/chap_name_tv"
         style="@style/ChapterNameTextView"
         android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_book_reader_solid"/>
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/counter_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

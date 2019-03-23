@@ -13,7 +13,7 @@
         android:background="@color/colorMaterialBlack_no_alpha"
         android:orientation="horizontal">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -46,7 +46,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/linear_layout_margin">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/offer_des_tv_margin"
@@ -205,7 +205,7 @@
         android:layout_height="@dimen/app_bar_height"
         android:orientation="horizontal">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/info_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -245,7 +245,7 @@
             android:layout_gravity="center_vertical"
             app:srcCompat="@drawable/ic_info_black_24dp"/>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

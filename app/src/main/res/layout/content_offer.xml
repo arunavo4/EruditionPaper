@@ -27,7 +27,7 @@
             android:orientation="vertical"
             android:layout_margin="@dimen/linear_layout_margin">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/offer_des_tv_margin"
@@ -39,7 +39,7 @@
                 android:layout_height="@dimen/spacer_1dp"
                 android:background="@color/colorBlack34alpha"/>
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/offer_des_tv_margin"

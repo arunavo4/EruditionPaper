@@ -8,7 +8,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/latest_offers_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -15,7 +15,7 @@
         android:background="@color/colorBlack25alpha"
         />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/notification_header_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

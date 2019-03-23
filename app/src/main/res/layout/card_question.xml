@@ -37,14 +37,14 @@
                 android:layout_marginStart="@dimen/spacer_8dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     style="@style/RepeatedTextViewBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/repeated" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/ques_repeat"
                     style="@style/RepeatedTextView"
                     android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
                 android:layout_marginEnd="@dimen/spacer_8dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/marks"
                     style="@style/TimeMarksTextView"
                     android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
                     android:layout_gravity="center_vertical"
                     android:text="@string/marks"/>
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/marks_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/ques_num"
                 style="@style/UniversityTextViewBold"
                 android:layout_width="wrap_content"

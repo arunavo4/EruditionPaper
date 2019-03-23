@@ -22,7 +22,7 @@
 
             <!--<include layout="@layout/question_header_new" />-->
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/result_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
                 android:padding="@dimen/spacer_0dp"
                 android:background="@color/colorTransparent"/>
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/empty_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

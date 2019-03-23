@@ -16,7 +16,7 @@
         android:orientation="vertical"
         android:layout_margin="@dimen/linear_layout_margin">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/offer_des_tv_margin"
@@ -52,7 +52,7 @@
                     app:tint="@color/colorPrimary"
                     app:srcCompat="@drawable/ic_exit_to_app_24px"/>
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacer_32dp"
@@ -85,7 +85,7 @@
                     app:tint="@color/colorPrimary"
                     app:srcCompat="@drawable/ic_lock_black_24dp"/>
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacer_32dp"
@@ -118,7 +118,7 @@
                     app:tint="@color/colorPrimary"
                     app:srcCompat="@drawable/ic_close_black_56alpha"/>
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacer_32dp"
