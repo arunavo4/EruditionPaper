@@ -68,11 +68,9 @@ public class LoginActivity extends AppCompatActivity {
                                             new AuthUI.IdpConfig.EmailBuilder().build()))
                             .setTheme(R.style.AuthUI_Theme)
                             .setIsSmartLockEnabled(true, true)
+                            .setTosAndPrivacyPolicyUrls(getString(R.string.tos_url), getString(R.string.pp_url))
                             .build(),
                     RC_SIGN_IN);
-            // Can also add the Privacy Policy and Terms of Service
-//                    .setTosAndPrivacyPolicyUrls("https://superapp.example.com/terms-of-service.html",
-//                                    "https://superapp.example.com/privacy-policy.html")
         }
     }
 

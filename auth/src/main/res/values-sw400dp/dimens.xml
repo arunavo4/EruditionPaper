@@ -3,8 +3,16 @@
 
     <dimen name="fui_auth_method_button_width_new">150dp</dimen>
 
-    <dimen name="fui_pager_img_margin_bottom">24dp</dimen>
+    <dimen name="fui_pager_img_margin_bottom">15dp</dimen>
     <!--Image height and width-->
     <dimen name="fui_pager_height">460dp</dimen>
+
+    <dimen name="fui_pager_tv_desc_width">215dp</dimen>
+
+    <dimen name="fui_tos_pp_bottom_padding">10dp</dimen>
+    <dimen name="fui_tos_pp_padding">30dp</dimen>
+
+    <dimen name="fui_tos_text_size">15sp</dimen>
+
 
 </resources>

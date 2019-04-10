@@ -11,7 +11,11 @@
     <!--Login button specs-->
     <dimen name="fui_auth_method_button_width_new">150dp</dimen>
     <dimen name="fui_btn_holder_area_padding_top">20dp</dimen>
-    <dimen name="fui_btn_holder_area_padding_bottom">10dp</dimen>
+    <dimen name="fui_btn_holder_area_padding_bottom">50dp</dimen>
+
+    <dimen name="fui_tos_pp_bottom_padding">10dp</dimen>
+    <dimen name="fui_tos_pp_padding">20dp</dimen>
+    <dimen name="fui_tos_text_size">14sp</dimen>
 
     <dimen name="fui_body_padding_bottom">12dp</dimen>
     <dimen name="fui_heading_padding_bottom">12dp</dimen>
@@ -26,6 +30,7 @@
 
     <!--Image height and width-->
     <dimen name="fui_pager_height">320dp</dimen>
-    <dimen name="fui_pager_img_margin_bottom">8dp</dimen>
-    <dimen name="fui_pager_tv_desc_width">215dp</dimen>
+    <dimen name="fui_pager_img_margin_bottom">2dp</dimen>
+    <dimen name="fui_pager_tv_desc_width">340dp</dimen>
+
 </resources>

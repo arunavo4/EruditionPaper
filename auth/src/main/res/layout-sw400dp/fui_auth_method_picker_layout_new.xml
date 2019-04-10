@@ -33,7 +33,7 @@
         app:piv_strokeWidth="2dp"
         app:piv_selectedColor="@color/fui_colorMaterialBlack"
         app:piv_unselectedColor="@color/fui_colorBlack34alpha"
-        android:visibility="invisible"/>
+        android:visibility="visible"/>
 
     <ImageView
         android:id="@+id/logo"

@@ -41,4 +41,5 @@
     Your Twitter Consumer Secret
     -->
     <string name="twitter_consumer_secret" translatable="false">CHANGE-ME</string>
+
 </resources>
