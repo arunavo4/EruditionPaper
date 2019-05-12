@@ -309,5 +309,53 @@ public class PreferenceUtils {
 
         return mPrefs.getString("Role","Guest");
     }
+
+    //======== Css and Js Head text ===============
+    public static String getDefaultCssHead(){
+        StringBuilder str = new StringBuilder("<head>");
+
+        str.append("\n <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, height=device-height\">");
+        str.append("<link rel=\"stylesheet\" href=\"font.css\"><style>body{font-size:14px;font-family:'Source Sans Pro',sans-serif}p{margin-top:0;margin-");
+        str.append("bottom:.4rem}img{height:auto!important;overflow-x:auto!important;overflow-y:hidden!important;border:none!important;max-width:100%;vertical-");
+        str.append("align:middle}table{width:100%!important;height:auto!important;background-color:transparent;border-spacing:0;border-collapse:collapse}</style>\n");
+
+        return str.toString();
+    }
+
+    public static String getDefaultJsHead(){
+        StringBuilder str = new StringBuilder("<link rel=\"stylesheet\" href=\"prism.css\"><script src=\"prism.js\"></script>");
+
+        return str.toString();
+    }
+
+    public static String getCssHead(){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+
+        return mPrefs.getString("CSS_HEAD",getDefaultCssHead());
+    }
+
+    public static String getJsHead(){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+
+        return mPrefs.getString("JS_HEAD",getDefaultJsHead());
+    }
+
+    public static void setCssHead(String cssHead){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+        mPrefsEdit = mPrefs.edit();
+        mPrefsEdit.putString("CSS_HEAD",cssHead);
+        mPrefsEdit.apply();
+    }
+
+    public static void setJsHead(String jsHead){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+        mPrefsEdit = mPrefs.edit();
+        mPrefsEdit.putString("JS_HEAD",jsHead);
+        mPrefsEdit.apply();
+    }
 }
 

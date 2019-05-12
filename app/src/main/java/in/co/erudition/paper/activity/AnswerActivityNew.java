@@ -76,14 +76,10 @@ public class AnswerActivityNew extends AppCompatActivity {
         ViewUtils.changeToolbarFont(toolbar,this);
 
         str = new StringBuilder("<html>");
-
-        str.append("<head>\n <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, height=device-height\">");
-        str.append("<link rel=\"stylesheet\" href=\"font.css\"><style>body{font-size:14px;font-family:'Source Sans Pro',sans-serif}p{margin-top:0;margin-bottom:.4rem}");
-        str.append("img{height:auto!important;overflow-x:auto!important;overflow-y:hidden!important;border:none!important;max-width:100%;vertical-align:middle}");
-        str.append("table{width:100%!important;height:auto!important;background-color:transparent;border-spacing:0;border-collapse:collapse}</style>\n");
+        str.append(PreferenceUtils.getCssHead());
 
         css_js = str;
-        css_js.append("<link rel=\"stylesheet\" href=\"prism.css\"><script src=\"prism.js\"></script><script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script><style>span.MJXc-display{display:contents!important}</style>");
+        css_js.append(PreferenceUtils.getJsHead());
         css_js.append("</head><body>\n");
 
         str.append("</head><body>\n");
