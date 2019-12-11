@@ -16,6 +16,7 @@ import java.util.Set;
 
 import androidx.annotation.Keep;
 import in.co.erudition.paper.Erudition;
+import in.co.erudition.paper.R;
 import in.co.erudition.paper.data.model.Login;
 import in.co.erudition.paper.data.model.Person;
 import in.co.erudition.paper.data.model.University;
@@ -308,6 +309,46 @@ public class PreferenceUtils {
                 Context.MODE_PRIVATE);
 
         return mPrefs.getString("Role","Guest");
+    }
+
+    //=========== Announcements ==============
+    public static void setAnnouncement(String title, String image_url, String link_url, boolean status){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+        mPrefsEdit = mPrefs.edit();
+        mPrefsEdit.putString("Title",title);
+        mPrefsEdit.putString("ImageURL",image_url);
+        mPrefsEdit.putString("LinkURL",link_url);
+        mPrefsEdit.putBoolean("AnnouncementStatus",status);
+        mPrefsEdit.apply();
+    }
+
+    public static String getAnnouncementImageUrl(){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+
+        return mPrefs.getString("ImageURL","https://s3.ap-south-1.amazonaws.com/in.co.erudition/cdn/image/Circle-e-LOGO-small.png");
+    }
+
+    public static String getAnnouncementLinkUrl(){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+
+        return mPrefs.getString("LinkURL","https://paper.erudition.co.in/");
+    }
+
+    public static String getAnnouncementTitle(){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+
+        return mPrefs.getString("Title","Announcements");
+    }
+
+    public static boolean getAnnouncementStatus(){
+        mPrefs = Erudition.getContextOfApplication().getSharedPreferences("Erudition",
+                Context.MODE_PRIVATE);
+
+        return mPrefs.getBoolean("AnnouncementStatus",false);
     }
 }
 

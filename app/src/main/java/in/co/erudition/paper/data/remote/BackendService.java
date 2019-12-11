@@ -2,6 +2,7 @@ package in.co.erudition.paper.data.remote;
 
 import java.util.List;
 
+import in.co.erudition.paper.data.model.Announcement;
 import in.co.erudition.paper.data.model.BoardCollege;
 import in.co.erudition.paper.data.model.Chapter;
 import in.co.erudition.paper.data.model.JwtToken;
@@ -233,6 +234,10 @@ public interface BackendService {
     Call<PresetResponseCode> submitFeedback(@Field("Subject") String subject,
                                             @Field("MsgBody") String msgBody);
 
+
+    @POST("announcement")
+    @FormUrlEncoded
+    Call<Announcement> getAnnouncement(@Field("EId") String eid);
 
 
 //    @GET("/database/university/{id}")

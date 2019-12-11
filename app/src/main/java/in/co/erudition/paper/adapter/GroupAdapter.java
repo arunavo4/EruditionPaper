@@ -204,13 +204,10 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder> 
         alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
 
-        btn_contd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //cancel the dialogue
-                if (alertDialog.isShowing()) {
-                    alertDialog.cancel();
-                }
+        btn_contd.setOnClickListener(v -> {
+            //cancel the dialogue
+            if (alertDialog.isShowing()) {
+                alertDialog.cancel();
             }
         });
     }

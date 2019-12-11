@@ -8,4 +8,6 @@
 
     <dimen name="carousel_item_sem_width">170dp</dimen>
     <dimen name="carousel_item_sem_height">100dp</dimen>
+
+    <dimen name="banner_img_height">300dp</dimen>
 </resources>

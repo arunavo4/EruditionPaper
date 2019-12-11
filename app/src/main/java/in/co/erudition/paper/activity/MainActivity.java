@@ -22,6 +22,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.TextAppearanceSpan;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +37,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.request.RequestOptions;
 import com.erudition.polygonprogressbar.NSidedProgressBar;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -59,6 +61,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -90,6 +93,7 @@ import in.co.erudition.paper.R;
 import in.co.erudition.paper.adapter.SemesterAdapter;
 import in.co.erudition.paper.adapter.UniversityAdapter;
 import in.co.erudition.paper.carousel.CarouselPicker;
+import in.co.erudition.paper.data.model.Announcement;
 import in.co.erudition.paper.data.model.BoardCollege;
 import in.co.erudition.paper.data.model.BoardCourse;
 import in.co.erudition.paper.data.model.BoardSession;
@@ -103,6 +107,7 @@ import in.co.erudition.paper.network.NetworkUtils;
 import in.co.erudition.paper.util.ApiUtils;
 import in.co.erudition.paper.util.AvatarGlideLoader;
 import in.co.erudition.paper.util.ConverterUtils;
+import in.co.erudition.paper.util.GlideApp;
 import in.co.erudition.paper.util.LimitArrayAdapter;
 import in.co.erudition.paper.util.PreferenceUtils;
 import retrofit2.Call;
@@ -201,6 +206,10 @@ public class MainActivity extends AppCompatActivity
         collapsingToolbarLayout.setExpandedTitleTypeface(Typeface.createFromAsset(getAssets(),"font/source_sans_pro_semibold.ttf"));
 
         final View space = (View) findViewById(R.id.spacer_top);
+
+        // Call the Announcement
+        announcementCall();
+
 
 //        Setup Interstitial Ads --> only once at startup
 //        Interstitial video ads
@@ -416,6 +425,19 @@ public class MainActivity extends AppCompatActivity
 
         }
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        // get menu from navigationView
+        Menu menu = navigationView.getMenu();
+
+        // find MenuItem you want to change
+        MenuItem nav_camara = menu.findItem(R.id.nav_announcement);
+
+        // set new title to the MenuItem
+        nav_camara.setTitle(PreferenceUtils.getAnnouncementTitle());
+
+        navigationView.setNavigationItemSelectedListener(this);
+
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -493,6 +515,9 @@ public class MainActivity extends AppCompatActivity
                     }
                 }
 
+                // Change the Nav Item Text
+                // set new title to the MenuItem
+                nav_camara.setTitle(PreferenceUtils.getAnnouncementTitle());
             }
 
             @Override
@@ -505,9 +530,6 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
         //Loading Starts
         mProgressBar.setVisibility(View.VISIBLE);
@@ -773,6 +795,8 @@ public class MainActivity extends AppCompatActivity
 //        } else if (id == R.id.nav_rewards) {
 //            Intent intent = new Intent(this, RewardActivity.class);
 //            startActivity(intent);
+        } else if (id == R.id.nav_announcement) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(PreferenceUtils.getAnnouncementLinkUrl())));
         } else if (id == R.id.nav_share) {
             Intent intent = new Intent(this, RewardHistoryActivity.class);
             startActivity(intent);
@@ -1332,6 +1356,66 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+
+    private void announcementCall(){
+        Log.d(TAG, "announcementMethod");
+
+        Call<Announcement> announceCall;
+        String eid = PreferenceUtils.getEid();
+
+        announceCall = mService.getAnnouncement(eid);
+
+        Log.d("Call", announceCall.request().toString());
+        announceCall.enqueue(new Callback<Announcement>() {
+            @Override
+            public void onResponse(Call<Announcement> call, Response<Announcement> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "isSuccess");
+                    assert response.body() != null;
+                    Log.d("Response Body", response.body().toString());
+                    Log.d(TAG, "API success");
+
+                    // Check if active
+                    if(Objects.equals(response.body().getStatus(), "Active")){
+                        // Store all the details in common place
+                        PreferenceUtils.setAnnouncement(response.body().getTitle(),response.body().getImageURL(),response.body().getLinkURL(),true);
+
+                        // Call the Banner dialog
+                        showDialogBanner();
+                    }else {
+                        // Store all the details in common place
+                        PreferenceUtils.setAnnouncement(response.body().getTitle(),response.body().getImageURL(),response.body().getLinkURL(),false);
+                    }
+
+                } else {
+                    int statusCode = response.code();
+                    if (statusCode == 401) {
+                        Log.d("StatusCode", "Unauthorized");
+                    }
+                    if (statusCode == 200) {
+                        Log.d("StatusCode", "OK");
+                    } else {
+                        Log.d("StatusCode", String.valueOf(statusCode));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Announcement> call, Throwable t) {
+                if (call.isCanceled()) {
+                    Log.d(TAG, "call is cancelled");
+
+                } else if (mNetworkUtils.isOnline(getApplicationContext())) {
+                    Log.d(TAG, "error loading from API");
+                    showDialogError();
+                } else {
+                    Log.d(TAG, "Check your network connection");
+                    showDialogNoNet();
+                }
+            }
+        });
+    }
+
     private void showDialogNoNet() {
         View view = getLayoutInflater().inflate(R.layout.dialog_no_internet, null);
 
@@ -1369,6 +1453,46 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
+
+    private void showDialogBanner() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_banner, null);
+
+        Animation view_anim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.zoom_in);
+        view.startAnimation(view_anim);
+
+        ImageView banner_close = (ImageView) view.findViewById(R.id.btn_banner_close);
+        ImageView banner_image = (ImageView) view.findViewById(R.id.banner_image);
+
+        // Set Image on Banner
+        try {
+            GlideApp
+                    .with(MainActivity.this)
+                    .load(PreferenceUtils.getAnnouncementImageUrl())
+                    .thumbnail(0.1f)
+                    .into(banner_image);
+        }catch (NullPointerException | IllegalArgumentException | IndexOutOfBoundsException e){
+            Log.e("Exception", e.toString());
+        }
+
+        builder.setView(view);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(true);
+        alertDialog.show();
+
+        banner_image.setOnClickListener(v -> {
+            // Open the link on a Webview.
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(PreferenceUtils.getAnnouncementLinkUrl())));
+        });
+
+        banner_close.setOnClickListener(v -> {
+            //cancel the dialogue
+            if (alertDialog.isShowing()) {
+                alertDialog.cancel();
+            }
+        });
+    }
+
 
 
     private void showDialogSoon(String BoardCode) {

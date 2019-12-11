@@ -15,11 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "544167852915-babs5ambj3of7ln8i0rfrk7kefk0pbnk.apps.googleusercontent.com",
+          "client_id": "544167852915-bq5u8icjum5rfs1ffn7obtqn2ajnklnv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "in.co.erudition.paper",
-            "certificate_hash": "14d99187c710efaeccd8c64a7d7004e4891f0da1"
+            "certificate_hash": "34d627064775bc4dda8adab718b341699a657584"
+          }
+        },
+        {
+          "client_id": "544167852915-bsse0v3gnr5aprgu644fgdj22e4c0506.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.co.erudition.paper",
+            "certificate_hash": "74a1f9f68fc8c546cd8eab22c64cb9c1f71c9d6c"
           }
         },
         {
@@ -29,24 +37,17 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAlxUqfARk-eX_E9DeRtUmsqM99etdSaEc"
+          "current_key": "AIzaSyBsLyCEXWGzGDR05GrRali-xR37twZeNb0"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "544167852915-400c5fdc6ng7jkielcq0felnmr2ne45u.apps.googleusercontent.com",
+              "client_id": "544167852915-gv8dk75ad4d29jdd9em33tonvrvs54ht.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       },
       "admob_app_id": "ca-app-pub-5088140684773836~3500871325"

@@ -2,4 +2,6 @@
 <resources>
     <dimen name="floating_search_width">500dp</dimen>
     <dimen name="card_width_chap_year">274dp</dimen>
+
+    <dimen name="banner_img_height">600dp</dimen>
 </resources>
