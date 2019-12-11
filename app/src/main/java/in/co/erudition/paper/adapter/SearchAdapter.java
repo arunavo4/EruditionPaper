@@ -47,19 +47,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
          * https://www.erudition.co.in/resources/public/js/prism.js
          */
         str = new StringBuilder("<html>");
-
-        str.append("<head>\n <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, height=device-height\">");
-        str.append("<link rel=\"stylesheet\" href=\"font.css\"><style>body{font-size:14px;font-family:'Source Sans Pro',sans-serif}p{margin-top:0;margin-");
-        str.append("bottom:.4rem}img{height:auto!important;overflow-x:auto!important;overflow-y:hidden!important;border:none!important;max-width:100%;vertical-");
-        str.append("align:middle}table{width:100%!important;height:auto!important;background-color:transparent;border-spacing:0;border-collapse:collapse}</style>\n");
+        str.append(PreferenceUtils.getCssHead());
 
         css_js = str;
-        css_js.append("<link rel=\"stylesheet\" href=\"prism.css\"><script src=\"prism.js\"></script>");
+        css_js.append(PreferenceUtils.getJsHead());
         css_js.append("</head><body>\n");
 
         str.append("</head><body>\n");
 
-        Log.d("QuestionAdapter", "Total Ques:" + String.valueOf(searchResults.size()));
+        Log.d("SearchAdapter", "Total Ques:" + String.valueOf(searchResults.size()));
     }
 
     @NonNull

@@ -167,6 +167,8 @@ public class MainActivity extends AppCompatActivity
         firebaseDefaultMap = new HashMap<>();
         firebaseDefaultMap.put(getResources().getString(R.string.LATEST_VERSION_KEY), getCurrentVersionCode());
         firebaseDefaultMap.put(getResources().getString(R.string.AD_TIME),getResources().getInteger(R.integer.ad_time));
+        firebaseDefaultMap.put(getResources().getString(R.string.COMMON_HEAD), PreferenceUtils.getDefaultCssHead());
+        firebaseDefaultMap.put(getResources().getString(R.string.JS_ADDITION), PreferenceUtils.getDefaultJsHead());
         firebaseRemoteConfig.setDefaults(firebaseDefaultMap);
 
         //Setting that default Map to Firebase Remote Config
@@ -182,9 +184,12 @@ public class MainActivity extends AppCompatActivity
                 firebaseRemoteConfig.activateFetched();
                 Log.d("Update Version", "Fetched value: " + firebaseRemoteConfig.getString(getResources().getString(R.string.LATEST_VERSION_KEY)));
                 Log.d("AdTime", "Fetched value: " + firebaseRemoteConfig.getString(getResources().getString(R.string.AD_TIME)));
+                Log.d("Common head","Fetched value: " + firebaseRemoteConfig.getString(getResources().getString(R.string.COMMON_HEAD)));
+                Log.d("Js head","Fetched value: " + firebaseRemoteConfig.getString(getResources().getString(R.string.JS_ADDITION)));
                 //calling function to check if new version is available or not
                 checkForUpdate();
                 updateAdTime();
+                updateHead();
             } else {
                 Toast.makeText(MainActivity.this, getResources().getString(R.string.error_occurred),
                         Toast.LENGTH_SHORT).show();
@@ -608,6 +613,21 @@ public class MainActivity extends AppCompatActivity
             PreferenceUtils.setAdTime(AdTime);
         }
 
+    }
+
+    private void updateHead(){
+        String cssHead = (String) firebaseRemoteConfig.getString(getResources().getString(R.string.COMMON_HEAD));
+        String jsAddition = (String) firebaseRemoteConfig.getString(getResources().getString(R.string.JS_ADDITION));
+
+        if (cssHead != PreferenceUtils.getCssHead()){
+            //Set new cssHead
+            PreferenceUtils.setCssHead(cssHead);
+        }
+
+        if (jsAddition != PreferenceUtils.getJsHead()){
+            //Set new jsHead
+            PreferenceUtils.setJsHead(jsAddition);
+        }
     }
 
     /*

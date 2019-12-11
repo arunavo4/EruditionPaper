@@ -61,6 +61,8 @@
     <!--Firebase Remote Config-->
     <string name="LATEST_VERSION_KEY" translatable="false">latest_version_android</string>
     <string name="AD_TIME" translatable="false">interstitial_ad_time</string>
+    <string name="COMMON_HEAD" translatable="false">common_head</string>
+    <string name="JS_ADDITION" translatable="false">js_addition</string>
 
     <!--Update App-->
     <string name="update_title">Update Available</string>
