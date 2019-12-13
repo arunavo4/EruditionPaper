@@ -1,2 +1,0 @@
-G:\Programming\E-commerce\Android\EruditionPaper2\internal\lint\src\main\java\com\firebaseui\lint\LintIssueRegistry.kt
-G:\Programming\E-commerce\Android\EruditionPaper2\internal\lint\src\main\java\com\firebaseui\lint\NonGlobalIdDetector.kt
