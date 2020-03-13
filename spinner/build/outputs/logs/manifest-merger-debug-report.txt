@@ -1,25 +1,25 @@
 -- Merging decision tree log ---
 manifest
-ADDED from G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml:1:1-41
-INJECTED from G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml:1:1-41
-INJECTED from G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml:1:1-41
+ADDED from E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml:1:1-41
+INJECTED from E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml:1:1-41
+INJECTED from E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml:1:1-41
 	package
-		ADDED from G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml:1:11-39
-		INJECTED from G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
-		INJECTED from G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
+		ADDED from E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml:1:11-39
+		INJECTED from E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
+		INJECTED from E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml:1:1-41
+		ADDED from E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml:1:1-41
 uses-sdk
-INJECTED from G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
-INJECTED from G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
-INJECTED from G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
-INJECTED from G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
+INJECTED from E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
+INJECTED from E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
+INJECTED from E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
+INJECTED from E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
-		ADDED from G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
-		INJECTED from G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
+		INJECTED from E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
+		ADDED from E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
+		INJECTED from E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
-		ADDED from G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
-		INJECTED from G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
+		INJECTED from E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
+		ADDED from E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
+		INJECTED from E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml

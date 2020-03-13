@@ -4,8 +4,8 @@
 4
 5    <uses-sdk
 6        android:minSdkVersion="16"
-6-->G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
+6-->E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
 7        android:targetSdkVersion="29" />
-7-->G:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
+7-->E:\Programming\E-commerce\Android\EruditionPaper2\spinner\src\main\AndroidManifest.xml
 8
 9</manifest>
